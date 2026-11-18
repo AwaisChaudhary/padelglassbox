@@ -9,3 +9,4 @@
 ## 2026-11-18 (launch)
 - Site renamed Padel Glass Box, domain https://padelglassbox.com. Design v2: live 3D court hero (canvas rally with glass hits), glass-box design system (Unbounded + Onest), tool bento, three-rules band, stadium score keeper.
 - Pages: home, racket-finder, score, rules, shots, beginners, glossary, about, privacy, 404.
+- GA4 property "Padel Glass Box (padelglassbox.com)" created, measurement ID G-J1RHDGXZP0 on every page. Cloudflare Pages project "padelglassbox" (auto-deploys main), domains padelglassbox.com + www, nameservers moved to Cloudflare.
