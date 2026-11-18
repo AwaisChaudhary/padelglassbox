@@ -355,4 +355,205 @@
     }
     window.addEventListener("resize", function () { size(); if (reduce) draw(); });
   })();
+  /* ---------- americano / mexicano draw maker ---------- */
+  var mx = $("#mx-setup");
+  if (mx) {
+    var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+    var shuffle = function (a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x; } return a; };
+    var M = store.get("pp-mx", null);
+    var cfg = { fmt: (M && M.fmt) || "americano", pts: (M && M.pts) || 24 };
+    var namesEl = $("#mx-names"), courtsEl = $("#mx-courts"), roundsEl = $("#mx-rounds"), err = $("#mx-err");
+    var NOTE = { americano: "Partners change every round, planned so everyone mixes as much as possible.", mexicano: "Round one is random. Each next round is made from the leaderboard: 1st and 4th play 2nd and 3rd." };
+    var parseNames = function () {
+      var seen = {}, out = [];
+      namesEl.value.split(/[\n,]+/).forEach(function (n) { n = n.trim().slice(0, 24); if (n && !seen[n.toLowerCase()]) { seen[n.toLowerCase()] = 1; out.push(n); } });
+      return out;
+    };
+    var syncSetup = function (touchCourts) {
+      var n = parseNames().length, maxC = Math.max(1, Math.floor(n / 4));
+      $("#mx-count").textContent = n ? n + " player" + (n === 1 ? "" : "s") + (n >= 4 ? ", up to " + maxC + " court" + (maxC === 1 ? "" : "s") : ", add at least 4") : "";
+      courtsEl.max = Math.min(6, maxC);
+      if (touchCourts || +courtsEl.value > maxC) courtsEl.value = Math.min(6, maxC);
+      if (touchCourts && cfg.fmt === "americano") roundsEl.value = Math.max(3, Math.min(12, n > 4 ? n - 1 : 3));
+      $("#mx-fmt-note").textContent = NOTE[cfg.fmt];
+      $("#mx-rounds-q").querySelector("label").textContent = cfg.fmt === "mexicano" ? "Rounds (planned, add more any time)" : "Rounds";
+    };
+    $$("[data-mx]", mx).forEach(function (g) {
+      $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.v === String(cfg[g.dataset.mx]))); });
+      choose(g, function (v) { cfg[g.dataset.mx] = g.dataset.mx === "pts" ? +v : v; syncSetup(false); });
+    });
+    namesEl.addEventListener("input", function () { syncSetup(true); });
+    $("#mx-demo").addEventListener("click", function () { namesEl.value = ["Sam", "Priya", "Omar", "Lucia", "Ben", "Aisha", "Marco", "Hana"].join("\n"); syncSetup(true); });
+
+    var pairCount = function (c, a, b) { return (c[a + "|" + b] || 0); };
+    var bump = function (c, a, b) { c[a + "|" + b] = (c[a + "|" + b] || 0) + 1; c[b + "|" + a] = (c[b + "|" + a] || 0) + 1; };
+    var history = function () {
+      var part = {}, opp = {}, rests = M.names.map(function () { return 0; });
+      M.rounds.forEach(function (r) {
+        r.rest.forEach(function (i) { rests[i]++; });
+        r.matches.forEach(function (m) { bump(part, m.a[0], m.a[1]); bump(part, m.b[0], m.b[1]); m.a.forEach(function (x) { m.b.forEach(function (y) { bump(opp, x, y); }); }); });
+      });
+      return { part: part, opp: opp, rests: rests };
+    };
+    var pickRest = function (h, order) {
+      var n = M.names.length, k = n - M.courts * 4;
+      var last = M.rounds.length ? M.rounds[M.rounds.length - 1].rest : [];
+      var ids = shuffle(M.names.map(function (_, i) { return i; }));
+      if (order) ids = order.slice().reverse();
+      ids.sort(function (x, y) { return (h.rests[x] - h.rests[y]) || ((last.indexOf(x) > -1) - (last.indexOf(y) > -1)); });
+      return ids.slice(0, k);
+    };
+    var standings = function () {
+      var P = M.names.map(function (n, i) { return { i: i, name: n, pts: 0, played: 0, won: 0 }; });
+      M.rounds.forEach(function (r) { r.matches.forEach(function (m) {
+        if (m.sa === null || m.sb === null) return;
+        m.a.forEach(function (x) { P[x].pts += m.sa; P[x].played++; if (m.sa > m.sb) P[x].won++; });
+        m.b.forEach(function (x) { P[x].pts += m.sb; P[x].played++; if (m.sb > m.sa) P[x].won++; });
+      }); });
+      var uneven = M.names.length > M.courts * 4 && P.some(function (p) { return p.played !== P[0].played; });
+      P.forEach(function (p) { p.avg = p.played ? p.pts / p.played : 0; });
+      P.sort(function (a, b) { return (uneven ? b.avg - a.avg : 0) || (b.pts - a.pts) || (b.won - a.won) || a.name.localeCompare(b.name); });
+      P.uneven = uneven; return P;
+    };
+    var makeRound = function () {
+      var h = history(), r = { matches: [], rest: [] };
+      if (M.fmt === "mexicano" && M.rounds.length) {
+        var order = standings().map(function (p) { return p.i; });
+        r.rest = pickRest(h, order);
+        var act = order.filter(function (i) { return r.rest.indexOf(i) < 0; });
+        for (var c = 0; c < M.courts; c++) { var g = act.slice(c * 4, c * 4 + 4); r.matches.push({ a: [g[0], g[3]], b: [g[1], g[2]], sa: null, sb: null }); }
+        M.rounds.push(r); return;
+      }
+      r.rest = pickRest(h);
+      var active = M.names.map(function (_, i) { return i; }).filter(function (i) { return r.rest.indexOf(i) < 0; });
+      var best = null, bestCost = Infinity;
+      for (var t = 0; t < 300 && bestCost > 0; t++) {
+        var pool = shuffle(active), pairs = [], cost = 0;
+        while (pool.length) {
+          var p = pool.shift(), bi = 0, bc = Infinity;
+          pool.forEach(function (q, qi) { var cc = pairCount(h.part, p, q); if (cc < bc) { bc = cc; bi = qi; } });
+          cost += bc * 100; pairs.push([p, pool.splice(bi, 1)[0]]);
+        }
+        var ms = [];
+        while (pairs.length) {
+          var A = pairs.shift(), bj = 0, oc = Infinity;
+          pairs.forEach(function (B, k) { var s = 0; A.forEach(function (x) { B.forEach(function (y) { s += pairCount(h.opp, x, y); }); }); if (s < oc) { oc = s; bj = k; } });
+          cost += oc * 10; ms.push({ a: A, b: pairs.splice(bj, 1)[0], sa: null, sb: null });
+        }
+        if (cost < bestCost) { bestCost = cost; best = ms; }
+      }
+      r.matches = best; M.rounds.push(r);
+    };
+    var save2 = function () { store.set("pp-mx", M); };
+    var nm = function (i) { return esc(M.names[i]); };
+    var roundDone = function (r) { return r.matches.every(function (m) { return m.sa !== null && m.sb !== null; }); };
+    var drawBoard = function () {
+      var P = standings(), any = P.some(function (p) { return p.played; });
+      $("#mx-board").innerHTML = "<h2>Leaderboard</h2>" + (any ? "" : "<p>Enter the points after each match. The table updates as you type.</p>") +
+        '<table><thead><tr><th>#</th><th>Player</th><th class="num">Points</th><th class="num">Played</th><th class="num">' + (P.uneven ? "Per match" : "Won") + "</th></tr></thead><tbody>" +
+        P.map(function (p, k) { return '<tr class="' + (k === 0 && any ? "top" : "") + '"><td>' + (k + 1) + "</td><td>" + esc(p.name) + '</td><td class="num"><b>' + p.pts + '</b></td><td class="num">' + p.played + '</td><td class="num">' + (P.uneven ? p.avg.toFixed(1) : p.won) + "</td></tr>"; }).join("") + "</tbody></table>" +
+        (P.uneven ? '<p style="margin:12px 0 0;font-size:.88rem">Players have played different numbers of matches, so the table is sorted by points per match.</p>' : "");
+    };
+    var drawRounds = function () {
+      var html = "";
+      M.rounds.forEach(function (r, ri) {
+        html += '<div class="card round"><h3>Round ' + (ri + 1) + "<small>" + (roundDone(r) ? "Done" : M.pts + " points per match") + "</small></h3>";
+        r.matches.forEach(function (m, mi) {
+          var cls = m.sa !== null && m.sb !== null ? (m.sa > m.sb ? " won-a" : m.sb > m.sa ? " won-b" : "") : "";
+          html += '<div class="match' + cls + '"><span class="ct">Court ' + (mi + 1) + '</span>' +
+            '<div class="pair a"><input type="number" min="0" max="' + M.pts + '" inputmode="numeric" aria-label="Points for ' + nm(m.a[0]) + " and " + nm(m.a[1]) + '" data-r="' + ri + '" data-m="' + mi + '" data-s="a" value="' + (m.sa === null ? "" : m.sa) + '"><span>' + nm(m.a[0]) + " &amp; " + nm(m.a[1]) + "</span></div>" +
+            '<span class="vs">vs</span><div class="pair b"><span>' + nm(m.b[0]) + " &amp; " + nm(m.b[1]) + '</span><input type="number" min="0" max="' + M.pts + '" inputmode="numeric" aria-label="Points for ' + nm(m.b[0]) + " and " + nm(m.b[1]) + '" data-r="' + ri + '" data-m="' + mi + '" data-s="b" value="' + (m.sb === null ? "" : m.sb) + '"></div></div>';
+        });
+        if (r.rest.length) html += '<p class="rest">Resting: ' + r.rest.map(nm).join(", ") + "</p>";
+        html += "</div>";
+      });
+      $("#mx-rounds-list").innerHTML = html;
+      var nx = $("#mx-next");
+      nx.textContent = M.fmt === "mexicano" ? "Make the next round" : "Add another round";
+      nx.disabled = M.fmt === "mexicano" && !roundDone(M.rounds[M.rounds.length - 1]);
+      nx.style.opacity = nx.disabled ? ".5" : "1";
+      $("#mx-sum").textContent = (M.fmt === "mexicano" ? "Mexicano" : "Americano") + " · " + M.names.length + " players · " + M.courts + " court" + (M.courts === 1 ? "" : "s") + " · " + M.pts + " points";
+      drawBoard();
+    };
+    var show = function (live) { mx.hidden = live; $("#mx-live").hidden = !live; $(".gen").classList.toggle("live", live); };
+    $("#mx-rounds-list").addEventListener("input", function (ev) {
+      var t = ev.target; if (!t.dataset || t.dataset.s === undefined) return;
+      var m = M.rounds[+t.dataset.r].matches[+t.dataset.m], v = t.value === "" ? null : Math.max(0, Math.min(M.pts, Math.round(+t.value)));
+      var other = t.dataset.s === "a" ? "b" : "a", oEl = t.parentNode.parentNode.querySelector('input[data-s="' + other + '"]');
+      m["s" + t.dataset.s] = v; m["s" + other] = v === null ? null : M.pts - v; oEl.value = v === null ? "" : M.pts - v;
+      var row = t.parentNode.parentNode; row.classList.remove("won-a", "won-b");
+      if (v !== null) { if (m.sa > m.sb) row.classList.add("won-a"); else if (m.sb > m.sa) row.classList.add("won-b"); }
+      save2(); drawBoard();
+      var r = M.rounds[+t.dataset.r], sm = row.parentNode.querySelector("h3 small"); if (sm) sm.textContent = roundDone(r) ? "Done" : M.pts + " points per match";
+      var nx = $("#mx-next"); nx.disabled = M.fmt === "mexicano" && !roundDone(M.rounds[M.rounds.length - 1]); nx.style.opacity = nx.disabled ? ".5" : "1";
+    });
+    $("#mx-start").addEventListener("click", function () {
+      var names = parseNames(), courts = Math.round(+courtsEl.value) || 1, rounds = Math.round(+roundsEl.value) || 1;
+      err.textContent = "";
+      if (names.length < 4) { err.textContent = "Add at least 4 players."; return; }
+      if (names.length > 24) { err.textContent = "This tool handles up to 24 players."; return; }
+      courts = Math.max(1, Math.min(courts, Math.floor(names.length / 4), 6)); rounds = Math.max(1, Math.min(rounds, 30));
+      M = { fmt: cfg.fmt, pts: cfg.pts, names: names, courts: courts, rounds: [] };
+      var k = M.fmt === "mexicano" ? 1 : rounds;
+      for (var i = 0; i < k; i++) makeRound();
+      save2(); show(true); drawRounds();
+      $("#mx-live").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    $("#mx-next").addEventListener("click", function () { if (this.disabled) return; makeRound(); save2(); drawRounds(); var c = $$(".round"); if (c.length) c[c.length - 1].scrollIntoView({ behavior: "smooth", block: "center" }); });
+    $("#mx-new").addEventListener("click", function () {
+      if (!confirm("Start a new session? The current scores will be cleared.")) return;
+      namesEl.value = M.names.join("\n"); cfg.fmt = M.fmt; cfg.pts = M.pts; M = null; store.set("pp-mx", null); show(false); syncSetup(true);
+    });
+    $("#mx-copy").addEventListener("click", function () {
+      var P = standings(), txt = (M.fmt === "mexicano" ? "Mexicano" : "Americano") + " results\n" + P.map(function (p, k) { return (k + 1) + ". " + p.name + ": " + p.pts + " points (" + p.played + " played)"; }).join("\n");
+      navigator.clipboard.writeText(txt).then(function () { toast("Results copied"); }, function () { toast("Copy blocked here"); });
+    });
+    if (M && M.rounds && M.rounds.length) { show(true); drawRounds(); namesEl.value = M.names.join("\n"); }
+    else { M = null; syncSetup(false); }
+  }
+
+  /* ---------- court dimensions ---------- */
+  var dims = $("#dims");
+  if (dims) {
+    var unit = "m";
+    var fmt = function (m) {
+      if (unit === "m") return m < 1 ? Math.round(m * 100) + " cm" : (+m.toFixed(2)) + " m";
+      var inch = m / 0.0254;
+      if (m < 0.95) return (Math.round(inch * 10) / 10) + " in";
+      var ft = Math.floor(inch / 12), r = Math.round(inch - ft * 12);
+      if (r === 12) { ft++; r = 0; }
+      return ft + " ft" + (r ? " " + r + " in" : "");
+    };
+    var paint = function () { $$("[data-m]").forEach(function (el) { el.textContent = fmt(+el.dataset.m); }); };
+    var INFO = {
+      len: ["Length", [20], "The court is 20 m long from back wall to back wall, measured inside the walls. The net splits it into two halves of 10 m."],
+      wid: ["Width", [10], "A doubles court is 10 m wide. Each team covers 10 m by 10 m, so each player looks after about 5 m of width."],
+      svc: ["Net to service line", [6.95], "The service line is 6.95 m from the net on both sides. The server stands behind it, and the serve must land between the net and this line in the diagonal box."],
+      back: ["Service line to back wall", [3.05], "Only 3.05 m sits behind the service line. That short space is why the ball reaches the back glass so often."],
+      box: ["Service box width", [5], "The centre line splits each half into two service boxes, each 5 m wide and 6.95 m deep."],
+      ext: ["Centre line extension", [0.2], "The centre service line runs from the net to the service line and sticks out 0.2 m past it, so players can see where to stand to serve."],
+      glassl: ["Side glass length", [4, 2, 2], "Along each side, glass runs for 4 m from each back wall: 2 m at full height, then 2 m at a lower height. The middle of the side is metal mesh."],
+      glass3: ["Glass height", [3], "The back glass is 3 m high, and so is the first 2 m of side glass next to it."],
+      step2: ["Side step height", [2], "After the first 2 m, the side glass steps down to 2 m high for another 2 m. Some courts use a variant with taller side glass instead."],
+      back4: ["Back wall total", [4, 3, 1], "The back wall is 4 m high in total: 3 m of glass with 1 m of metal mesh on top. A ball that hits the mesh above the glass is treated differently, so check the rules."],
+      neth: ["Net height", [0.88, 0.92], "The net is 0.88 m high in the middle and 0.92 m at the posts. It sags a little, so the centre is the lowest place to hit over."],
+      netl: ["Net length", [10], "The net crosses the full 10 m width of the court, between posts at each side."]
+    };
+    var info = $("#dim-info"), cur = null;
+    var showInfo = function () {
+      if (!cur) { info.innerHTML = '<p class="muted">Pick a measurement above. It lights up on the drawings.</p>'; return; }
+      var d = INFO[cur];
+      info.innerHTML = '<span class="pill i">' + d[1].map(function (m) { return '<span data-m="' + m + '">' + fmt(m) + "</span>"; }).join(" · ") + "</span><h3 style=\"margin-top:10px;font-size:1.4rem\">" + d[0] + "</h3><p>" + d[2] + "</p>";
+    };
+    var pick = function (k) {
+      cur = cur === k ? null : k;
+      $$("#dim-btns button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.k === cur)); });
+      $$(".dim", dims).forEach(function (g) { g.classList.toggle("on", g.dataset.k === cur); });
+      dims.classList.toggle("focus", !!cur); showInfo();
+    };
+    $$("#dim-btns button").forEach(function (b) { b.addEventListener("click", function () { pick(b.dataset.k); }); });
+    $$(".dim", dims).forEach(function (g) { g.addEventListener("click", function () { pick(g.dataset.k); }); });
+    choose($("#unit"), function (u) { unit = u; paint(); });
+    showInfo(); paint();
+  }
 })();

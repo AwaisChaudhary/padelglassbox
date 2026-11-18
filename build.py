@@ -73,7 +73,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -235,6 +235,8 @@ rules = f'''<header class="hero"><div class="wrap"><h1>Padel rules, tap by tap.<
 <div class="card"><h3>Using the walls</h3><p>On your side, the ball can bounce once and then hit the walls; you can still play it. You may also hit the ball into your own walls to get it back over the net.</p></div>
 <div class="card"><h3>Lost points</h3><p>You lose the point if the ball bounces twice, if your shot hits the opponents' wall or fence before the ground, or if the ball touches your body.</p></div>
 <div class="card"><h3>Scoring</h3><p>15, 30, 40, game, sets to six with a tie-break at 6-6. At deuce, the organiser chooses advantage, golden point or Star Point.</p></div>
+<div class="card"><h3>Court size</h3><p>The court is 20 m by 10 m, with the service lines 6.95 m from the net. See every measurement, in metres or feet, on our <a href="{href("court-dimensions.html")}">measured court diagram</a>.</p></div>
+<div class="card"><h3>Social formats</h3><p>At club nights you often play points, not sets: an Americano or Mexicano. Our <a href="{href("americano.html")}">draw maker</a> sets the partners, courts and leaderboard for you.</p></div>
 </div></div></section>'''
 rules_faq = [
     ("Can you serve overarm in padel?", "No. The padel serve is always underhand: you bounce the ball and hit it at or below waist height."),
@@ -287,6 +289,7 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <section><div class="wrap"><div class="sh"><h2>Where to play</h2></div><div class="grid">
 <div class="card"><h3>Booking apps</h3><p>Many clubs list their courts on booking apps such as Playtomic, where you can also find open matches at your level.</p></div>
 <div class="card"><h3>National federations</h3><p>Your country's padel or tennis federation usually lists clubs and beginner sessions. In the UK, that's LTA Padel.</p></div>
+<div class="card"><h3>Join a social night</h3><p>Many clubs run Americano evenings where you change partner each round. They are a friendly way to meet players at your level. Running one yourself? Use our <a href="{href("americano.html")}">Americano generator</a>.</p></div>
 <div class="card"><h3>Start with a lesson</h3><p>One group lesson teaches the serve and the walls much faster than working it out alone.</p></div>
 </div></div></section>'''
 beg_faq = [
@@ -305,6 +308,141 @@ glos = f'''<header class="hero"><div class="wrap"><h1>Padel words, decoded.</h1>
 page("glossary.html", "Padel Glossary: Every Term Explained | Padel Glass Box",
      "Padel terms explained in plain English: bandeja, víbora, chiquita, bajada, golden point, drive, revés and more. Searchable and free.", glos, None, "Glossary")
 
+# ---------------- AMERICANO / MEXICANO GENERATOR ----------------
+def pts_opts():
+    return "".join(f'<button class="opt" type="button" data-v="{p}" aria-pressed="{"true" if p == 24 else "false"}">{p} points</button>' for p in (16, 21, 24, 32))
+amer = f'''<header class="hero"><div class="wrap"><h1>Americano and Mexicano draw maker.</h1>
+<p class="lead">Type in your players, pick a format and get every round with partners and courts. Enter the points after each match and the leaderboard updates live. Free, no sign-up, saved on this device.</p></div></header>
+<section style="padding-top:10px"><div class="wrap gen">
+<div class="gen-main">
+<div class="card" id="mx-setup">
+<h2 style="font-size:1.6rem">Set up your session</h2>
+<div class="q"><h3>Format</h3><div class="opts" data-mx="fmt" role="group" aria-label="Format"><button class="opt" type="button" data-v="americano" aria-pressed="true">Americano</button><button class="opt" type="button" data-v="mexicano" aria-pressed="false">Mexicano</button></div><p class="muted" id="mx-fmt-note" style="margin:10px 0 0"></p></div>
+<div class="q"><h3>Points per match</h3><div class="opts" data-mx="pts" role="group" aria-label="Points per match">{pts_opts()}</div></div>
+<div class="q"><h3><label for="mx-names">Players, one name per line (4 to 24)</label></h3><textarea class="search" id="mx-names" rows="8" placeholder="Sam&#10;Priya&#10;Omar&#10;Lucia&#10;..."></textarea><p class="muted" id="mx-count" style="margin:-6px 0 0"></p></div>
+<div class="gen-nums"><div class="q"><h3><label for="mx-courts">Courts</label></h3><input class="search" id="mx-courts" type="number" min="1" max="6" value="1" inputmode="numeric"></div>
+<div class="q" id="mx-rounds-q"><h3><label for="mx-rounds">Rounds</label></h3><input class="search" id="mx-rounds" type="number" min="1" max="30" value="7" inputmode="numeric"></div></div>
+<p class="msg" id="mx-err" role="alert" style="color:#a43c13;min-height:0"></p>
+<div class="btns" style="margin-top:4px"><button class="btn lime" type="button" id="mx-start">Make the draw</button><button class="btn ghost" type="button" id="mx-demo">Fill 8 sample names</button></div>
+</div>
+<div id="mx-live" hidden>
+<div class="card gen-bar"><div><span class="pill b" id="mx-sum"></span></div><div class="btns" style="margin:0"><button class="btn ghost sm" type="button" id="mx-copy">Copy results</button><button class="btn ghost sm" type="button" id="mx-new">New session</button></div></div>
+<div id="mx-rounds-list"></div>
+<div class="btns"><button class="btn" type="button" id="mx-next">Add next round</button></div>
+</div>
+</div>
+<aside class="gen-side"><div class="lb" id="mx-board"><h2>Leaderboard</h2><p>Make the draw and enter scores to see who leads.</p></div></aside>
+</div></section>
+{AD.format("americano-mid")}
+<section><div class="wrap"><div class="sh"><h2>How the two formats work</h2></div><div class="grid">
+<div class="card"><h3>Americano</h3><p>You change partner every round. The aim is that you play with, and against, as many different people as possible. Nobody is knocked out.</p></div>
+<div class="card"><h3>Mexicano</h3><p>Round one is random. After that, each round is made from the leaderboard, so players with similar scores meet. A common way, used here, is 1st and 4th against 2nd and 3rd on the top court, then the next four, and so on.</p></div>
+<div class="card"><h3>Points, not games</h3><p>Each match is a fixed number of points, such as 24. Every point counts, even if your team loses: lose 10-14 and you still add 10 to your total. The player with the most points at the end wins.</p></div>
+<div class="card"><h3>Serving</h3><p>A simple rule many clubs use: each player serves a block of points (often four in a row for 16, 24 or 32 points), then the serve passes to the other team. Agree the rule before you start.</p></div>
+<div class="card"><h3>Odd numbers of players</h3><p>It works best with 4, 8, 12 or 16 players. With other numbers, some players sit out each round. This tool spreads the rests as evenly as it can, and the leaderboard shows points per match so it stays fair.</p></div>
+<div class="card"><h3>How long it takes</h3><p>A 24-point match often takes around 10 to 15 minutes, and 32 points a bit longer. Seven rounds of 24 points fits a typical two-hour court booking with time for changes.</p></div>
+</div></div></section>'''
+amer_faq = [
+    ("What is an Americano in padel?", "A social format where you change partner every round and play a set number of points per match. Each player keeps the points they win, and the highest total at the end wins."),
+    ("What is the difference between Americano and Mexicano?", "In Americano the partners are planned in advance so everyone mixes. In Mexicano each new round is built from the current scores, so players of a similar level end up playing together."),
+    ("How many players do you need for an Americano?", "At least four. Multiples of four (8, 12, 16) fill every court in every round. Other numbers work too, with a few players resting each round."),
+    ("How many points per match in an Americano?", "Clubs often use 16, 21, 24 or 32. Fewer points means quicker matches and more rounds in the same court time."),
+    ("Do you need an app to run an Americano?", "No. This page makes the draw, keeps the scores and shows the leaderboard in your browser. It saves on your device, so you can close it and come back."),
+]
+page("americano.html", "Padel Americano and Mexicano Generator: Free Draw and Leaderboard | Padel Glass Box",
+     "Free padel Americano and Mexicano generator. Enter player names, get every round with partners and courts, type in the points and see a live leaderboard.", amer, amer_faq, "Americano generator")
+
+# ---------------- COURT DIMENSIONS ----------------
+def dt(m, x, y, extra=""):
+    return f'<text class="dt" data-m="{m}" x="{x}" y="{y}" text-anchor="middle"{extra}>{m} m</text>'
+def arrow(x1, y1, x2, y2):
+    return f'<path class="da" d="M{x1} {y1}L{x2} {y2}" marker-start="url(#ah)" marker-end="url(#ah)"/>'
+TOP = f'''<svg viewBox="0 0 1000 600" role="img" aria-label="Padel court seen from above with its measurements: 20 metres long, 10 metres wide, service lines 6.95 metres from the net.">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1L9 5L0 9z" fill="#e8f84a"/></marker></defs>
+<rect x="100" y="110" width="800" height="400" fill="#1e46c8"/>
+<g stroke="#fff" stroke-width="3" fill="none"><rect x="100" y="110" width="800" height="400"/><path d="M222 110v400M778 110v400M214 310h572"/></g>
+<g stroke="#9cc4ea" stroke-width="10"><path d="M100 105v410M900 105v410M100 105h160M740 105h160M100 515h160M740 515h160"/></g>
+<g stroke="#7a8ba8" stroke-width="6" stroke-dasharray="4 5"><path d="M260 105h480M260 515h480"/></g>
+<path d="M500 100v420" stroke="#e4eef6" stroke-width="7"/>
+<g class="dim" data-k="len">{arrow(104, 560, 896, 560)}{dt(20, 500, 590)}</g>
+<g class="dim" data-k="wid">{arrow(55, 114, 55, 506)}{dt(10, 40, 310, ' transform="rotate(-90 40 310)"')}</g>
+<g class="dim" data-k="svc">{arrow(504, 70, 774, 70)}{dt(6.95, 639, 55)}</g>
+<g class="dim" data-k="back">{arrow(782, 70, 896, 70)}{dt(3.05, 839, 55)}</g>
+<g class="dim" data-k="box">{arrow(360, 116, 360, 304)}{dt(5, 400, 215)}</g>
+<g class="dim" data-k="glassl">{arrow(104, 30, 256, 30)}{dt(4, 180, 22)}</g>
+<g class="dim" data-k="ext">{arrow(222, 330, 214, 330)}<text class="dt" data-m="0.2" x="232" y="360">0.2 m</text></g>
+<text x="500" y="135" text-anchor="middle" class="lab">net</text>
+<text x="161" y="300" text-anchor="middle" class="lab">back area</text><text x="361" y="420" text-anchor="middle" class="lab">service box</text>
+</svg>'''
+SIDE = f'''<svg viewBox="0 0 1000 300" role="img" aria-label="Side view of the padel court walls: 3 metre glass at the back, stepping down to 2 metres, with metal mesh in the middle. The back wall is 4 metres high in total.">
+<path d="M60 250h880" stroke="#fff" stroke-width="2" opacity=".7"/>
+<g fill="#9cc4ea" fill-opacity=".45" stroke="#9cc4ea" stroke-width="2"><path d="M100 250V130H180V170H260V250Z"/><path d="M900 250V130H820V170H740V250Z"/></g>
+<g fill="url(#mesh)" stroke="#7a8ba8" stroke-width="2"><path d="M180 130H820V170H740V250H260V170H180Z"/></g>
+<defs><pattern id="mesh" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M0 0L10 10M10 0L0 10" stroke="#7a8ba8" stroke-width="1" opacity=".7"/></pattern></defs>
+<g stroke-width="8"><path d="M100 250V130M900 250V130" stroke="#9cc4ea"/><path d="M100 130V90M900 130V90" stroke="#7a8ba8" stroke-dasharray="4 4"/></g>
+<path d="M500 250V213" stroke="#e4eef6" stroke-width="6"/>
+<g class="dim" data-k="glass3">{arrow(140, 246, 140, 134)}{dt(3, 140, 120)}</g>
+<g class="dim" data-k="step2">{arrow(220, 246, 220, 174)}{dt(2, 220, 160)}</g>
+<g class="dim" data-k="back4">{arrow(60, 246, 60, 94)}{dt(4, 60, 80)}</g>
+<g class="dim" data-k="steplen">{arrow(104, 272, 176, 272)}{arrow(184, 272, 256, 272)}<text class="dt" x="270" y="280"><tspan data-m="2">2 m</tspan> + <tspan data-m="2">2 m</tspan></text></g>
+<text x="500" y="200" text-anchor="middle" class="lab">net</text><text x="500" y="150" text-anchor="middle" class="lab">metal mesh</text><text x="140" y="200" text-anchor="middle" class="lab">glass</text>
+</svg>'''
+NETSVG = f'''<svg viewBox="0 0 1000 230" role="img" aria-label="The net seen from the side of the court: 10 metres long, 88 centimetres high in the middle and 92 centimetres at the posts.">
+<path d="M60 200h880" stroke="#fff" stroke-width="2" opacity=".7"/>
+<path d="M100 62Q500 74 900 62V200H100Z" fill="url(#net)" stroke="#e4eef6" stroke-width="2"/>
+<defs><pattern id="net" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 0H14M0 0V14" stroke="#e4eef6" stroke-width="1" opacity=".55"/></pattern></defs>
+<path d="M100 62Q500 74 900 62" stroke="#fff" stroke-width="7" fill="none"/>
+<path d="M96 200V40M904 200V40" stroke="#e4eef6" stroke-width="8"/>
+<g class="dim" data-k="neth">{arrow(500, 196, 500, 72)}<text class="dt" data-m="0.88" x="560" y="140" text-anchor="middle">0.88 m</text>{arrow(140, 196, 140, 66)}<text class="dt" data-m="0.92" x="200" y="140" text-anchor="middle">0.92 m</text></g>
+<g class="dim" data-k="netl">{arrow(104, 22, 896, 22)}{dt(10, 500, 14)}</g>
+</svg>'''
+DIMS = [("len", "Length"), ("wid", "Width"), ("svc", "Net to service line"), ("back", "Service line to back wall"), ("box", "Service box width"), ("ext", "Centre line extension"),
+        ("glassl", "Side glass length"), ("glass3", "Glass height"), ("step2", "Side step height"), ("back4", "Back wall total"), ("neth", "Net height"), ("netl", "Net length")]
+dbtn = "".join(f'<button class="opt" type="button" data-k="{k}" aria-pressed="false">{n}</button>' for k, n in DIMS)
+court = f'''<header class="hero"><div class="wrap"><h1>Padel court dimensions, measured.</h1>
+<p class="lead">Every official measurement on one court you can explore: tap a measurement to light it up and read what it's for. Switch between metres and feet.</p></div></header>
+<section style="padding-top:10px"><div class="wrap">
+<div class="dim-bar"><div class="seg" id="unit" role="group" aria-label="Units"><button type="button" data-v="m" aria-pressed="true">Metres</button><button type="button" data-v="ft" aria-pressed="false">Feet</button></div></div>
+<div class="dims-layout">
+<div class="court-art dims" id="dims"><h2 class="sr-only">Court from above</h2>{TOP}<h3 class="dims-h">The walls from the side</h3>{SIDE}<h3 class="dims-h">The net from the side (height not to scale)</h3>{NETSVG}</div>
+<aside class="card zpanel"><h2 style="font-size:1.4rem">Tap a measurement</h2><div class="opts" id="dim-btns">{dbtn}</div><div id="dim-info" aria-live="polite" style="margin-top:18px"></div></aside>
+</div></div></section>
+{AD.format("court-mid")}
+<section><div class="wrap"><div class="sh"><h2>All the numbers in one place</h2><p class="muted">Inside measurements, from the official FIP rules.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt" id="dim-table"><thead><tr><th scope="col">Part of the court</th><th scope="col">Size</th></tr></thead><tbody>
+<tr><td>Playing area (doubles)</td><td><span data-m="20">20 m</span> × <span data-m="10">10 m</span></td></tr>
+<tr><td>Each half of the court</td><td><span data-m="10">10 m</span> × <span data-m="10">10 m</span></td></tr>
+<tr><td>Net to service line</td><td><span data-m="6.95">6.95 m</span></td></tr>
+<tr><td>Service line to back wall</td><td><span data-m="3.05">3.05 m</span></td></tr>
+<tr><td>Each service box</td><td><span data-m="6.95">6.95 m</span> deep × <span data-m="5">5 m</span> wide</td></tr>
+<tr><td>Centre line past the service line</td><td><span data-m="0.2">0.2 m</span></td></tr>
+<tr><td>Width of the lines</td><td><span data-m="0.05">0.05 m</span></td></tr>
+<tr><td>Net height in the middle</td><td><span data-m="0.88">0.88 m</span></td></tr>
+<tr><td>Net height at the posts</td><td><span data-m="0.92">0.92 m</span></td></tr>
+<tr><td>Back wall</td><td><span data-m="3">3 m</span> glass + <span data-m="1">1 m</span> mesh</td></tr>
+<tr><td>Side glass near each back wall</td><td><span data-m="3">3 m</span> high for <span data-m="2">2 m</span>, then <span data-m="2">2 m</span> high for <span data-m="2">2 m</span></td></tr>
+<tr><td>Free height above the court (minimum)</td><td><span data-m="6">6 m</span></td></tr>
+<tr><td>Singles court</td><td><span data-m="20">20 m</span> × <span data-m="6">6 m</span></td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">Small building tolerances are allowed. Some courts use a variant with taller side glass, and rules for new venues can ask for more height. If you are building a court, check the current rules with your national federation.</p>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What the measurements mean for your game</h2></div><div class="grid">
+<div class="card"><h3>A third of a tennis court</h3><p>At 20 m by 10 m, the court is small enough that you rarely sprint far. That is a big reason padel feels easy to start.</p></div>
+<div class="card"><h3>A short back area</h3><p>Only about 3 m sits behind the service line. Balls reach the back glass quickly, so learning to let the ball come off the wall matters early.</p></div>
+<div class="card"><h3>A low net</h3><p>The net is lower than in tennis, and dips a little in the middle. Low, flat balls over the centre are the safest way to keep the ball in play.</p></div>
+<div class="card"><h3>Where the glass steps down</h3><p>The side glass is tallest near the back walls. Balls that hit the mesh act differently from glass, which you can read about on our <a href="{href("rules.html")}">rules court</a>.</p></div>
+</div></div></section>'''
+court_faq = [
+    ("How big is a padel court?", "A doubles padel court is 20 m long and 10 m wide inside the walls. That is about 65 ft 7 in by 32 ft 10 in."),
+    ("How far is the service line from the net?", "6.95 m on each side. That leaves 3.05 m between the service line and the back wall."),
+    ("How high is a padel net?", "0.88 m in the middle and 0.92 m at the posts, which is roughly 2 ft 11 in and 3 ft."),
+    ("How high are the walls of a padel court?", "The back wall is 4 m in total: 3 m of glass with 1 m of metal mesh on top. The side glass is 3 m high near the back walls, then steps down to 2 m."),
+    ("How much ceiling height does indoor padel need?", "The official rules ask for at least 6 m of clear height above the court. Higher is better for lobs."),
+    ("How big is a singles padel court?", "Singles courts are 20 m long like doubles, but only 6 m wide."),
+]
+page("court-dimensions.html", "Padel Court Dimensions: Interactive Measured Diagram (m and ft) | Padel Glass Box",
+     "Official padel court dimensions on an interactive diagram: 20 x 10 m court, 6.95 m service line, 88 cm net, wall and glass heights. Switch metres and feet.", court, court_faq, "Court dimensions")
+
 # ---------------- ABOUT / PRIVACY / 404 ----------------
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
@@ -313,7 +451,7 @@ page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy coverin
 page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
      f'<section><div class="wrap"><h1>That one went out.</h1><p class="lead">This page doesn\'t exist.</p><a class="btn lime" href="{href("index.html")}">Back to the home page</a></div></section>')
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
