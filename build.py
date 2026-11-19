@@ -29,6 +29,32 @@ def faq_html(faqs):
     return '<section class="faq"><div class="wrap"><h2>Questions players ask</h2>' + "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in faqs) + "</div></section>"
 
 
+# ---- Email signup (Kit form 10215431). Sign-ups go to Kit; Kit redirects to /thanks, then /welcome after confirming. ----
+NL_SKIP = ("thanks.html", "welcome.html", "404.html", "privacy.html")
+NOINDEX = ("thanks.html", "welcome.html", "404.html")
+def signup(file):
+    if file in NL_SKIP:
+        return ""
+    return """<section class="nl" id="newsletter"><div class="wrap"><div class="nl-card">
+<div><h2>Free padel rules cheat sheet</h2><p>All the rules on one printable page, including golden point and the new Star Point. Plus a short email when we add new tools and guides.</p></div>
+<form class="nl-form" action="https://app.kit.com/forms/10215431/subscriptions" method="post">
+<label class="nl-sr" for="nl-email">Email address</label>
+<input id="nl-email" type="email" name="email_address" required placeholder="Your email address" autocomplete="email">
+<button type="submit">Send my cheat sheet</button>
+</form>
+<p class="nl-fine">Free. No spam, unsubscribe in one click. See our <a href="/privacy.html">privacy policy</a>.</p>
+</div></div></section>"""
+NL_THANKS = """<section><div class="wrap nl-done"><h1>Check your inbox</h1>
+<p>We've just emailed you a confirmation link. Tap the button in that email and your padel rules cheat sheet opens straight away.</p>
+<p>Can't see it after a minute? Look in your spam or promotions folder.</p>
+<div class="nl-links"><a href="/score">Score keeper</a><a href="/americano">Americano draw maker</a><a href="/racket-finder">Racket finder</a></div></div></section>"""
+NL_WELCOME = """<section><div class="wrap nl-done"><h1>You're in!</h1>
+<p>Thanks for confirming. Here's your padel rules cheat sheet:</p>
+<a class="nl-btn" href="/assets/free/padel-rules-cheat-sheet.pdf" download>Download the PDF</a>
+<p>We'll email you when there's something worth knowing, never more than once a week.</p>
+<div class="nl-links"><a href="/score">Score keeper</a><a href="/americano">Americano draw maker</a><a href="/racket-finder">Racket finder</a></div></div></section>"""
+
+
 def page(file, title, desc, body, faqs=None, crumb=None):
     url = canon(file)
     ld = [{"@context": "https://schema.org", "@type": "WebPage", "name": title, "description": desc, "url": url, "dateModified": UPDATED,
@@ -50,7 +76,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{url}">
-<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="robots" content="{"noindex, follow" if file in NOINDEX else "index, follow, max-image-preview:large"}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="{SITE}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}">
 <meta name="twitter:card" content="summary"><meta name="theme-color" content="#0e2468">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231747c9'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23d4f53c'/%3E%3C/svg%3E">
@@ -69,6 +95,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <main>
 {body}
 {faq_html(faqs)}
+{signup(file)}
 {AD.format(file)}
 </main>
 <footer><div class="wrap"><div class="fgrid">
@@ -542,9 +569,12 @@ page("golden-point-star-point.html", "Golden Point vs Star Point vs Advantage in
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
-     f'<section><div class="wrap" style="max-width:760px"><h1>Privacy policy</h1><p>Last updated: {e(UPDATED)}.</p><h2>What we collect</h2><p>No sign-ups. Your score, checklist ticks and quiz answers are saved only in your own browser.</p><h2>Analytics</h2><p>We use Google Analytics to count visits and see which pages are popular. It uses cookies and collects details like pages viewed, approximate location and device type.</p><h2>Advertising</h2><p>This site uses Google AdSense. Google and its partners use cookies to show ads based on your visits to this and other websites. You can turn off personalised ads at <a href="https://adssettings.google.com">Google Ads Settings</a>. Learn more at <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.</p><h2>Affiliate links</h2><p>Some links may be affiliate links. If you buy through them, we may earn a small fee at no extra cost to you.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
+     f'<section><div class="wrap" style="max-width:760px"><h1>Privacy policy</h1><p>Last updated: {e(UPDATED)}.</p><h2>What we collect</h2><p>Your score, checklist ticks and quiz answers are saved only in your own browser. If you join our email list, we keep your email address with our email provider, Kit (kit.com), to send you the cheat sheet and our updates. Every email has an unsubscribe link, and you can ask us to delete your address at any time.</p><h2>Analytics</h2><p>We use Google Analytics to count visits and see which pages are popular. It uses cookies and collects details like pages viewed, approximate location and device type.</p><h2>Advertising</h2><p>This site uses Google AdSense. Google and its partners use cookies to show ads based on your visits to this and other websites. You can turn off personalised ads at <a href="https://adssettings.google.com">Google Ads Settings</a>. Learn more at <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.</p><h2>Affiliate links</h2><p>Some links may be affiliate links. If you buy through them, we may earn a small fee at no extra cost to you.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
      f'<section><div class="wrap"><h1>That one went out.</h1><p class="lead">This page doesn\'t exist.</p><a class="btn lime" href="{href("index.html")}">Back to the home page</a></div></section>')
+
+page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
+page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
 urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
