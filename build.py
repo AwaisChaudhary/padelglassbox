@@ -73,7 +73,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -183,7 +183,7 @@ page("racket-finder.html", "Padel Racket Finder: Which Racket Suits You? | Padel
 score = f'''<header class="hero" style="padding-bottom:10px"><div class="wrap"><h1>Padel score keeper.</h1>
 <p class="lead">Put your phone by the net and tap the side that wins each point. It handles deuce, golden point, tie-breaks and sets, and remembers the score if you close the page.</p></div></header>
 <section style="padding-top:10px"><div class="wrap"><div class="score" id="score">
-<div class="score-top"><div class="seg" id="mode" role="group" aria-label="Deuce format"><button type="button" data-v="adv" aria-pressed="true">Advantage</button><button type="button" data-v="golden" aria-pressed="false">Golden point</button></div>
+<div class="score-top"><div class="seg" id="mode" role="group" aria-label="Deuce format"><button type="button" data-v="adv" aria-pressed="true">Advantage</button><button type="button" data-v="golden" aria-pressed="false">Golden point</button><button type="button" data-v="star" aria-pressed="false">Star Point</button></div>
 <div class="btns" style="margin:0"><button class="btn sm" type="button" id="rename">Names</button><button class="btn sm" type="button" id="swap-srv">Switch server</button></div></div>
 <form id="names" hidden style="display:grid;gap:8px;grid-template-columns:1fr 1fr auto;margin-bottom:12px"><label class="sr-only" for="n0">Team A name</label><input id="n0" class="search" style="margin:0" maxlength="20"><label class="sr-only" for="n1">Team B name</label><input id="n1" class="search" style="margin:0" maxlength="20"><button class="btn lime sm" type="submit">Save</button></form>
 <div class="teams">
@@ -196,18 +196,19 @@ score = f'''<header class="hero" style="padding-bottom:10px"><div class="wrap"><
 {AD.format("score-mid")}
 <section><div class="wrap"><div class="sh"><h2>How padel scoring works</h2></div><div class="grid">
 <div class="card"><h3>Points</h3><p>0, 15, 30, 40, then the game. Exactly like tennis.</p></div>
-<div class="card"><h3>Deuce</h3><p>At 40-40 there are three official options: classic advantage, golden point (one deciding point) or the newer Star Point. Agree on one before you start.</p></div>
+<div class="card"><h3>Deuce</h3><p>At 40-40 there are three official options: classic advantage, golden point (one deciding point) or the newer Star Point. All three are built in here. Not sure which to pick? See <a href="{href("golden-point-star-point.html")}">golden point vs Star Point</a>.</p></div>
 <div class="card"><h3>Sets and tie-breaks</h3><p>A set goes to six games with a two-game lead. At 6-6 a tie-break is played to 7 points, two clear. Most matches are best of three sets.</p></div>
 <div class="card"><h3>Golden point side</h3><p>With golden point, the receiving pair chooses which player receives the deciding serve.</p></div>
+<div class="card"><h3>Star Point</h3><p>You play advantage twice. If the game comes back to 40-40 a third time, one deciding point wins it. The score keeper counts the deuces for you.</p></div>
 </div></div></section>'''
 score_faq = [
     ("How do you keep score in padel?", "Like tennis: 0, 15, 30, 40 and game. Sets go to six games with a two-game lead, and a tie-break decides 6-6."),
     ("What is the golden point in padel?", "At 40-40, one deciding point is played. The receiving pair chooses which side receives, and whoever wins that point wins the game."),
-    ("What is Star Point in padel?", "Star Point is a deuce format added in the 2026 international rules. Play goes through advantage points before a final deciding point. Tournaments say in advance which format they use."),
+    ("What is Star Point in padel?", "Star Point is a deuce format used on the pro tours from 2026. You play advantage twice; if the game reaches 40-40 a third time, one deciding point wins it. This score keeper supports it."),
     ("Does this score keeper save my match?", "Yes. The score is saved on your phone, so you can lock the screen or close the page and carry on."),
 ]
 page("score.html", "Padel Score Keeper: Free Scoreboard for Your Phone | Padel Glass Box",
-     "Free padel score keeper for your phone. Tap to score, with advantage or golden point, tie-breaks, sets, undo and server tracking. No app needed.", score, score_faq, "Score keeper")
+     "Free padel score keeper for your phone. Tap to score with advantage, golden point or Star Point, plus tie-breaks, sets, undo and server tracking. No app needed.", score, score_faq, "Score keeper")
 
 # ---------------- RULES ----------------
 court_svg = '''<svg viewBox="0 0 360 640" role="group" aria-label="Top-down padel court. Select a part to read the rule.">
@@ -234,7 +235,7 @@ rules = f'''<header class="hero"><div class="wrap"><h1>Padel rules, tap by tap.<
 <div class="card"><h3>Receiving</h3><p>The receiver must let the serve bounce before hitting it. After that, players can volley freely.</p></div>
 <div class="card"><h3>Using the walls</h3><p>On your side, the ball can bounce once and then hit the walls; you can still play it. You may also hit the ball into your own walls to get it back over the net.</p></div>
 <div class="card"><h3>Lost points</h3><p>You lose the point if the ball bounces twice, if your shot hits the opponents' wall or fence before the ground, or if the ball touches your body.</p></div>
-<div class="card"><h3>Scoring</h3><p>15, 30, 40, game, sets to six with a tie-break at 6-6. At deuce, the organiser chooses advantage, golden point or Star Point.</p></div>
+<div class="card"><h3>Scoring</h3><p>15, 30, 40, game, sets to six with a tie-break at 6-6. At deuce, the organiser chooses advantage, golden point or Star Point: <a href="{href("golden-point-star-point.html")}">see how each one works</a>.</p></div>
 <div class="card"><h3>Court size</h3><p>The court is 20 m by 10 m, with the service lines 6.95 m from the net. See every measurement, in metres or feet, on our <a href="{href("court-dimensions.html")}">measured court diagram</a>.</p></div>
 <div class="card"><h3>Social formats</h3><p>At club nights you often play points, not sets: an Americano or Mexicano. Our <a href="{href("americano.html")}">draw maker</a> sets the partners, courts and leaderboard for you.</p></div>
 </div></div></section>'''
@@ -290,6 +291,7 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>Booking apps</h3><p>Many clubs list their courts on booking apps such as Playtomic, where you can also find open matches at your level.</p></div>
 <div class="card"><h3>National federations</h3><p>Your country's padel or tennis federation usually lists clubs and beginner sessions. In the UK, that's LTA Padel.</p></div>
 <div class="card"><h3>Join a social night</h3><p>Many clubs run Americano evenings where you change partner each round. They are a friendly way to meet players at your level. Running one yourself? Use our <a href="{href("americano.html")}">Americano generator</a>.</p></div>
+<div class="card"><h3>Know your level</h3><p>Open matches and clubs often ask for your level. Our <a href="{href("level-calculator.html")}">padel level calculator</a> gives you a quick estimate.</p></div>
 <div class="card"><h3>Start with a lesson</h3><p>One group lesson teaches the serve and the walls much faster than working it out alone.</p></div>
 </div></div></section>'''
 beg_faq = [
@@ -443,6 +445,99 @@ court_faq = [
 page("court-dimensions.html", "Padel Court Dimensions: Interactive Measured Diagram (m and ft) | Padel Glass Box",
      "Official padel court dimensions on an interactive diagram: 20 x 10 m court, 6.95 m service line, 88 cm net, wall and glass heights. Switch metres and feet.", court, court_faq, "Court dimensions")
 
+# ---------------- LEVEL CALCULATOR ----------------
+LVQ = [
+    ("rally", "1. How long are your rallies?", [(1, "A few shots, then someone misses"), (2, "5 to 10 shots at a slow pace"), (3, "Long rallies at a medium pace"), (4.5, "Long, fast rallies with few easy mistakes")]),
+    ("serve", "2. How are your serve and return?", [(1, "Still learning a legal serve"), (2, "The serve goes in; I return it softly"), (3.5, "I aim my serve and return low or with a lob"), (4.5, "I use spin and pick the target on purpose")]),
+    ("glass", "3. What happens when the ball comes off the back glass?", [(1, "I try to hit it before it reaches the glass"), (2.5, "I can return easy balls off the back glass"), (3.5, "I'm happy with back and side glass, including the corner"), (5, "I attack off the glass, even after two walls")]),
+    ("net", "4. How do you play at the net?", [(1.5, "I mostly stay at the back"), (2.5, "I can block a volley back"), (3.5, "I volley deep or at an angle on purpose"), (4.5, "I win points at the net and set the pace")]),
+    ("over", "5. What do you do with a lob over your head?", [(1.5, "Let it bounce, or miss it"), (2.5, "A basic flat overhead or smash"), (3.5, "A bandeja to keep my place at the net"), (5, "Bandeja, víbora or a smash out of the court, picked for the ball")]),
+    ("tact", "6. How do you play with your partner?", [(1, "Still learning where to stand"), (2.5, "We move up and back together most of the time"), (3.5, "We lob to win the net and target the weaker side"), (4.5, "We build points with a plan and read the other pair")]),
+    ("comp", "7. What kind of padel do you play?", [("social", "Friendly games only"), ("club", "Club leagues or Americano nights"), ("tour", "Regular tournaments"), ("nat", "Nationally ranked"), ("pro", "Professional tour")]),
+]
+def lvq(name, title, opts):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="false">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-lv="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+lvl = f'''<header class="hero"><div class="wrap"><h1>What is my padel level?</h1>
+<p class="lead">Answer seven quick questions about your game. You get an estimated level from 1 to 7, what it means, and the one thing to work on next. Free and private: your answers stay on this device.</p></div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="lvquiz">
+<div class="card">
+{"".join(lvq(*x) for x in LVQ)}
+<div class="btns" style="margin-top:0"><button class="btn ghost sm" type="button" id="lv-reset">Clear my answers</button></div>
+</div>
+<aside class="result" id="lv-result" aria-live="polite"></aside>
+</div></section>
+{AD.format("level-mid")}
+<section><div class="wrap"><div class="sh"><h2>The levels in plain English</h2><p class="muted">A general guide. Each club or app words it a little differently.</p></div><div class="grid">
+<div class="card"><span class="pill b">1 to 2.5</span><h3 style="margin-top:10px">Beginner</h3><p>You are learning the serve, the scoring and how the ball comes off the glass. Rallies are short. Most new players move up quickly here.</p></div>
+<div class="card"><span class="pill b">3 to 3.5</span><h3 style="margin-top:10px">Improver</h3><p>You can rally, use the back glass on easy balls and move with your partner. Many tennis and squash players start around here.</p></div>
+<div class="card"><span class="pill i">4 to 4.5</span><h3 style="margin-top:10px">Intermediate</h3><p>You control the court, play a bandeja, defend the corners and think about tactics. This is a strong club player.</p></div>
+<div class="card"><span class="pill a">5 to 5.5</span><h3 style="margin-top:10px">Advanced</h3><p>You play tournaments, build points on purpose and rarely give away easy errors. Ranked players often sit at 5.5 and up.</p></div>
+<div class="card"><span class="pill a">6 to 7</span><h3 style="margin-top:10px">Elite</h3><p>Semi-professional and professional players. If this is you, you already know your ranking.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Why your level matters</h2></div><div class="grid">
+<div class="card"><h3>Better matches</h3><p>Games are most fun when all four players are close in level. Booking apps use levels to suggest open matches for you.</p></div>
+<div class="card"><h3>Different scales</h3><p>Not every system is the same. Playtomic uses 0 to 7 and moves your level after each rated match. The LTA in the UK uses 1.0 to 7.0. A 3 in one place may not be a 3 in another.</p></div>
+<div class="card"><h3>Your real level comes from results</h3><p>A quiz gives you a starting point. Rated matches, or a coach watching you play, give a truer number over time.</p></div>
+<div class="card"><h3>Running a social night?</h3><p>Ask players for a rough level, then use our <a href="{href("americano.html")}">Mexicano generator</a>: it pairs people with similar scores as the night goes on.</p></div>
+</div></div></section>'''
+lvl_faq = [
+    ("What padel level am I?", "Most people who play for fun sit between 1 and 4 on a 1 to 7 scale. Beginners are 1 to 2.5, improvers 3 to 3.5, strong club players 4 to 4.5, and tournament players 5 and up. Answer the questions on this page for your estimate."),
+    ("What is a good padel level?", "There is no bad level. As a rough guide, a 3 can enjoy long rallies, a 4 is a solid club player and a 5 plays regular tournaments."),
+    ("How does the Playtomic level work?", "Playtomic uses a 0 to 7 scale. You start with a level from a short questionnaire, then it goes up or down based on your rated match results and the level of the players you face."),
+    ("Is this calculator an official rating?", "No. It's a free estimate to help you pick games and know what to practise. Clubs, apps and federations each run their own rating systems."),
+    ("What level is a tennis player starting padel?", "Many good tennis or squash players start around 3 to 3.5, because they already hit the ball well. Learning the glass and the net game usually takes a few months."),
+    ("How do I move up a level?", "Fix the weakest part of your game first, as it costs you the most points. For most players that means getting comfortable with the back glass and learning the bandeja."),
+]
+page("level-calculator.html", "Padel Level Calculator: What Is My Padel Level (1 to 7)? | Padel Glass Box",
+     "Free padel level calculator. Answer 7 quick questions and get your estimated padel level from 1 to 7, what it means, and what to practise next.", lvl, lvl_faq, "Level calculator")
+
+# ---------------- GOLDEN POINT vs STAR POINT ----------------
+deuce = f'''<header class="hero"><div class="wrap"><h1>Golden point, Star Point or advantage?</h1>
+<p class="lead">Padel has three ways to finish a game at 40-40. Play the same points through all three below and watch how each one decides the game.</p></div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="score" id="deuce">
+<div class="score-top"><p style="margin:0;font-weight:700">The score is 40-40. Who wins the next point?</p><div class="btns" style="margin:0"><button class="btn sm" type="button" id="dz-rand">Play a random game</button><button class="btn sm" type="button" id="dz-reset">Back to 40-40</button></div></div>
+<div class="teams dz-btns"><button class="btn lime" type="button" data-w="0">Team A wins the point</button><button class="btn lime" type="button" data-w="1">Team B wins the point</button></div>
+<div class="dz-log" id="dz-log" aria-live="polite"></div>
+<div class="dz-cols">
+<div class="dz" data-f="adv"><h3>Advantage</h3><b class="dz-s">40-40</b><p class="dz-m">Deuce</p></div>
+<div class="dz" data-f="golden"><h3>Golden point</h3><b class="dz-s">40-40</b><p class="dz-m">Next point wins</p></div>
+<div class="dz" data-f="star"><h3>Star Point</h3><b class="dz-s">40-40</b><p class="dz-m">First deuce</p></div>
+</div></div>
+<p class="muted" style="margin-top:14px">Want to use it in a real match? Our <a href="{href("score.html")}">score keeper</a> has all three formats.</p>
+</div></section>
+{AD.format("deuce-mid")}
+<section><div class="wrap"><div class="sh"><h2>How each format works</h2></div><div class="grid">
+<div class="card"><span class="pill i">Classic</span><h3 style="margin-top:10px">Advantage</h3><p>At 40-40 (deuce) you need to win two points in a row. Win one and you have the advantage; lose the next and it is deuce again. It can go on for a long time.</p></div>
+<div class="card"><span class="pill b">Quickest</span><h3 style="margin-top:10px">Golden point</h3><p>At 40-40 one point decides the game. The receiving pair chooses who receives: the player on the right side or the left. Very common in club games and social padel.</p></div>
+<div class="card"><span class="pill a">New in 2026</span><h3 style="margin-top:10px">Star Point</h3><p>At the first deuce you play advantage. If it comes back to 40-40, you play advantage once more. If it comes back to 40-40 a third time, one deciding point, the Star Point, wins the game. The receiving pair chooses the side for that point.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Side by side</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col"></th><th scope="col">Advantage</th><th scope="col">Golden point</th><th scope="col">Star Point</th></tr></thead><tbody>
+<tr><td>Points after 40-40 (most)</td><td>No limit</td><td>1</td><td>5</td></tr>
+<tr><td>Longest game from 0-0</td><td>No limit</td><td>7 points</td><td>11 points</td></tr>
+<tr><td>Can you win from advantage?</td><td>Yes</td><td>No advantage</td><td>Yes, twice</td></tr>
+<tr><td>Deciding point?</td><td>No</td><td>At the first deuce</td><td>At the third deuce</td></tr>
+<tr><td>Who picks the receiving side</td><td>Normal order</td><td>Receiving pair</td><td>Receiving pair</td></tr>
+<tr><td>Where you see it</td><td>Classic matches and some leagues</td><td>Many clubs and social games</td><td>Pro tours and many sanctioned events since 2026</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Who uses which</h2></div><div class="grid">
+<div class="card"><h3>Professional padel</h3><p>The International Padel Federation (FIP) approved Star Point in late 2025. From 2026 it is used on Premier Padel, the FIP Tour, FIP Promises and the FIP Beyond amateur events.</p></div>
+<div class="card"><h3>National events</h3><p>Some federations follow the pro tours. In the US, USPA-sanctioned tournaments use Star Point from January 2026. Always check the event's own rules.</p></div>
+<div class="card"><h3>Your club game</h3><p>Friendly games can use any of the three. Golden point keeps games short when court time is tight. Agree on one before the first serve, so nobody argues at 40-40.</p></div>
+<div class="card"><h3>Tie-breaks</h3><p>None of this changes the tie-break. At 6-6 you play to 7 points with a two-point lead. Read more on our <a href="{href("rules.html")}">rules page</a>.</p></div>
+</div></div></section>'''
+deuce_faq = [
+    ("What is the Star Point in padel?", "A deuce format used from 2026. You play advantage twice. If the game reaches 40-40 a third time, one deciding point, the Star Point, wins the game."),
+    ("What is the golden point in padel?", "At 40-40 one point decides the game. The receiving pair chooses which player receives it, and whoever wins the point wins the game."),
+    ("Who chooses the side on the golden point?", "The receiving pair. They pick whether the player on the right or the left receives the serve. The same applies to the Star Point."),
+    ("Is golden point still used in padel?", "Yes. Many clubs and social games still use it, as it keeps games short. Professional tours moved to Star Point in 2026."),
+    ("How many points can a game last with Star Point?", "At most 5 points after the first 40-40, so 11 points in total from 0-0. With classic advantage there is no limit."),
+    ("Which deuce format should we use in a friendly game?", "Any of the three is fine. Golden point is quickest, advantage is the most traditional, and Star Point matches the pro game. Just agree before you start."),
+]
+page("golden-point-star-point.html", "Golden Point vs Star Point vs Advantage in Padel, Explained | Padel Glass Box",
+     "How padel games end at 40-40: classic advantage, golden point and the new 2026 Star Point. Try all three on an interactive deuce simulator.", deuce, deuce_faq, "Golden point vs Star Point")
+
 # ---------------- ABOUT / PRIVACY / 404 ----------------
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
@@ -451,7 +546,7 @@ page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy coverin
 page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
      f'<section><div class="wrap"><h1>That one went out.</h1><p class="lead">This page doesn\'t exist.</p><a class="btn lime" href="{href("index.html")}">Back to the home page</a></div></section>')
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")

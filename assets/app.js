@@ -93,14 +93,14 @@
       $("#sets").innerHTML = S.sets.map(function (s, n) { return "<span>Set " + (n + 1) + ": " + s[0] + "-" + s[1] + "</span>"; }).join("") + (S.done ? "" : "<span>Now: " + S.g[0] + "-" + S.g[1] + (S.tb ? " (tie-break)" : "") + "</span>");
       var m = "";
       if (S.done) m = S.names[S.sets.filter(function (s) { return s[0] > s[1]; }).length >= 2 ? 0 : 1] + " win the match!";
-      else if (!S.tb && S.p[0] >= 3 && S.p[1] >= 3 && S.p[0] === S.p[1]) m = S.mode === "golden" ? "Golden point! The receiving pair picks the side." : "Deuce";
+      else if (!S.tb && S.p[0] >= 3 && S.p[1] >= 3 && S.p[0] === S.p[1]) m = S.mode === "golden" ? "Golden point! The receiving pair picks the side." : S.mode === "star" ? ((S.dc || 1) >= 3 ? "Star Point! Next point wins. The receiving pair picks the side." : (S.dc || 1) === 2 ? "Second deuce. Lose the next advantage and it goes to Star Point." : "Deuce (Star Point format: advantage twice, then a deciding point)") : "Deuce";
       else if (S.tb) m = "Tie-break: first to 7, two clear.";
       $("#msg").textContent = m;
       $$("#mode button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === S.mode); });
       save();
     };
     var winGame = function (i) {
-      S.g[i]++; S.p = [0, 0]; S.srv = 1 - S.srv;
+      S.g[i]++; S.p = [0, 0]; S.dc = 0; S.srv = 1 - S.srv;
       var a = S.g[i], b = S.g[1 - i];
       if (S.tb || (a >= 6 && a - b >= 2)) {
         S.sets.push(S.g.slice()); S.g = [0, 0]; S.tb = false;
@@ -111,18 +111,21 @@
     var point = function (i) {
       if (S.done) return;
       hist.push(JSON.stringify(S));
+      var gBefore = S.g.join();
       S.p[i]++;
       var me = S.p[i], them = S.p[1 - i];
       if (S.tb) { if (me >= 7 && me - them >= 2) winGame(i); }
       else if (S.mode === "golden") { if (me >= 4) winGame(i); }
+      else if (S.mode === "star" && (S.dc || 0) >= 3) winGame(i);
       else if (me >= 4 && me - them >= 2) winGame(i);
       else if (me >= 4 && them >= 4 && me === them) { S.p = [3, 3]; }
+      if (!S.tb && S.p[0] === 3 && S.p[1] === 3 && S.g.join() === gBefore) S.dc = (S.dc || 0) + 1;
       if (navigator.vibrate) try { navigator.vibrate(15); } catch (e) {}
       render();
     };
     $$(".team", sc).forEach(function (b) { b.addEventListener("click", function () { point(+b.dataset.i); }); });
     $("#undo").addEventListener("click", function () { if (hist.length) { S = JSON.parse(hist.pop()); render(); } else toast("Nothing to undo"); });
-    $("#reset").addEventListener("click", function () { hist.push(JSON.stringify(S)); S = { p: [0, 0], g: [0, 0], sets: [], srv: 0, mode: S.mode, tb: false, done: false, names: S.names }; render(); toast("New match"); });
+    $("#reset").addEventListener("click", function () { hist.push(JSON.stringify(S)); S = { p: [0, 0], g: [0, 0], dc: 0, sets: [], srv: 0, mode: S.mode, tb: false, done: false, names: S.names }; render(); toast("New match"); });
     $("#swap-srv").addEventListener("click", function () { S.srv = 1 - S.srv; render(); });
     $("#rename").addEventListener("click", function () {
       var box = $("#names"); box.hidden = !box.hidden;
@@ -555,5 +558,101 @@
     $$(".dim", dims).forEach(function (g) { g.addEventListener("click", function () { pick(g.dataset.k); }); });
     choose($("#unit"), function (u) { unit = u; paint(); });
     showInfo(); paint();
+  }
+  /* ---------- level calculator ---------- */
+  var lq = $("#lvquiz");
+  if (lq) {
+    var LA = store.get("pp-level", {}) || {};
+    var lres = $("#lv-result");
+    var groups = $$("[data-lv]", lq);
+    var CAP = { social: 3.5, club: 4.5, tour: 5.5, nat: 6, pro: 7 };
+    var AREA = {
+      rally: ["Consistency", "Rally with a friend at slow pace and count shots. Aim for 20 without a miss before you add speed."],
+      serve: ["Serve and return", "Practise the serve to the glass corner and the return low to the feet of the net player. Ten minutes before each game is enough."],
+      glass: ["Playing off the glass", "Let the ball pass you, turn sideways and wait for it to come off the back glass. Start with easy feeds and short swings."],
+      net: ["Volleys", "Keep the racket up in front of you and block the ball deep. Short, firm volleys beat big swings."],
+      over: ["Overheads", "Learn the bandeja: a controlled, sliced overhead that keeps you at the net. Our shot library shows the path."],
+      tact: ["Tactics", "Move up and back with your partner, and use the lob to take the net. Play the middle when in doubt."]
+    };
+    var BAND = function (l) {
+      if (l < 3) return ["Beginner", "You are learning the basics: the serve, the score and how the walls work. Short rallies are normal. Play often and you will move up quickly."];
+      if (l < 4) return ["Improver", "You can rally and use the glass on easy balls. Now it's about fewer mistakes and moving well with your partner."];
+      if (l < 5) return ["Intermediate", "A solid club player. You control the court and know the main shots. Small gains now come from tactics and choosing the right shot."];
+      if (l < 6) return ["Advanced", "A tournament player who builds points with a plan. Match play and coaching make the biggest difference from here."];
+      return ["Elite", "Semi-professional or professional level. Your ranking says more than any quiz."];
+    };
+    var lrender = function () {
+      groups.forEach(function (g) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", String(LA[g.dataset.lv] === b.dataset.v)); }); });
+      var keys = groups.map(function (g) { return g.dataset.lv; });
+      var done = keys.filter(function (k) { return LA[k] !== undefined; }).length;
+      if (done < keys.length) {
+        lres.innerHTML = '<span class="pill b">' + done + " of " + keys.length + ' answered</span><h2 style="margin-top:10px">Your level</h2><div class="meter" style="margin:6px 0 14px"><i style="width:' + Math.round(done / keys.length * 100) + '%"></i></div><p>Pick the answer that sounds most like you on a normal day, not your best day. Your result appears when all seven are answered.</p>';
+        return;
+      }
+      var skill = keys.filter(function (k) { return k !== "comp"; });
+      var sum = 0, low = skill[0], high = skill[0];
+      skill.forEach(function (k) { var x = +LA[k]; sum += x; if (x < +LA[low]) low = k; if (x > +LA[high]) high = k; });
+      var lv = Math.round(sum / skill.length * 2) / 2;
+      lv = Math.max(1, Math.min(lv, CAP[LA.comp]));
+      if (LA.comp === "nat") lv = Math.max(lv, 5.5);
+      if (LA.comp === "pro") lv = Math.max(lv, 6.5);
+      var bd = BAND(lv), lvTxt = lv.toFixed(1);
+      var tip = lv >= 6 ? ["Keep competing", "At this level, rated tournament results are your best guide."] : AREA[low];
+      lres.innerHTML = '<span class="pill b">Your estimated level</span><div class="lv-num">' + lvTxt + '<small> / 7</small></div><h2>' + bd[0] + '</h2>' +
+        '<div class="lv-scale" aria-hidden="true"><i style="left:' + ((lv - 1) / 6 * 100) + '%"></i><span>1</span><span>4</span><span>7</span></div>' +
+        "<p>" + bd[1] + "</p>" +
+        '<dl class="spec"><dt>Strongest area</dt><dd>' + AREA[high][0] + "</dd><dt>Work on next</dt><dd>" + tip[0] + "</dd></dl>" +
+        "<p>" + tip[1] + "</p>" +
+        "<p style=\"font-size:.92rem\">Look for games with players around " + Math.max(1, lv - 0.5).toFixed(1) + " to " + Math.min(7, lv + 0.5).toFixed(1) + ". This is an estimate, not an official rating.</p>" +
+        '<div class="btns"><button class="btn lime sm" type="button" id="lv-copy">Copy my level</button></div>';
+      $("#lv-copy").addEventListener("click", function () {
+        var txt = "My estimated padel level: " + lvTxt + " out of 7 (" + bd[0] + "). Working on: " + tip[0].toLowerCase() + ".";
+        navigator.clipboard.writeText(txt).then(function () { toast("Level copied"); }, function () { toast("Copy blocked here"); });
+      });
+    };
+    groups.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { LA[g.dataset.lv] = b.dataset.v; store.set("pp-level", LA); lrender(); }); }); });
+    $("#lv-reset").addEventListener("click", function () { LA = {}; store.set("pp-level", LA); lrender(); toast("Answers cleared"); });
+    lrender();
+  }
+
+  /* ---------- deuce simulator ---------- */
+  var dz = $("#deuce");
+  if (dz) {
+    var seq = [];
+    var TN = ["A", "B"];
+    var sim = function (f) {
+      var a = 0, b = 0, deuces = 1, i, w;
+      for (i = 0; i < seq.length; i++) {
+        w = seq[i];
+        if (f === "golden" || (f === "star" && deuces >= 3)) return { win: w, n: i + 1 };
+        if (a === b) { if (w === 0) a++; else b++; }
+        else if ((a > b) === (w === 0)) return { win: w, n: i + 1 };
+        else { a = b = 0; deuces++; }
+      }
+      return { a: a, b: b, deuces: deuces };
+    };
+    var drender = function () {
+      var all = true;
+      $$(".dz", dz).forEach(function (c) {
+        var f = c.dataset.f, r = sim(f), s = $(".dz-s", c), m = $(".dz-m", c);
+        c.classList.toggle("over", r.win !== undefined);
+        if (r.win !== undefined) { s.textContent = "Game " + TN[r.win]; m.textContent = "Decided after " + r.n + (r.n === 1 ? " point" : " points") + " from 40-40"; return; }
+        all = false;
+        if (r.a !== r.b) { s.textContent = "Ad " + TN[r.a > r.b ? 0 : 1]; m.textContent = f === "star" ? "Advantage " + Math.min(r.deuces, 2) + " of 2" : "Advantage"; }
+        else {
+          s.textContent = "40-40";
+          if (f === "golden") m.textContent = "Next point wins";
+          else if (f === "star") m.textContent = r.deuces >= 3 ? "Star Point: next point wins" : r.deuces === 2 ? "Second deuce" : "First deuce";
+          else m.textContent = r.deuces > 1 ? "Deuce number " + r.deuces : "Deuce";
+        }
+      });
+      $("#dz-log").textContent = seq.length ? "Points after 40-40: " + seq.map(function (w) { return TN[w]; }).join(" ") : "No points played yet.";
+      $$(".dz-btns button", dz).forEach(function (b) { b.disabled = all; });
+      return all;
+    };
+    $$(".dz-btns button", dz).forEach(function (b) { b.addEventListener("click", function () { seq.push(+b.dataset.w); drender(); }); });
+    $("#dz-reset").addEventListener("click", function () { seq = []; drender(); });
+    $("#dz-rand").addEventListener("click", function () { seq = []; var guard = 0; while (!drender() && guard++ < 40) seq.push(Math.random() < 0.5 ? 0 : 1); drender(); });
+    drender();
   }
 })();
