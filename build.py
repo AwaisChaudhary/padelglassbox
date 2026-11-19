@@ -55,6 +55,26 @@ NL_WELCOME = """<section><div class="wrap nl-done"><h1>You're in!</h1>
 <div class="nl-links"><a href="/score">Score keeper</a><a href="/americano">Americano draw maker</a><a href="/racket-finder">Racket finder</a></div></div></section>"""
 
 
+AFF = {
+    "padel-round-rackets": "https://padelmarket.com/en/collections/rackets-round-shape",
+    "padel-teardrop-rackets": "https://padelmarket.com/en/collections/rackets-teardrop-shape",
+    "padel-diamond-rackets": "https://padelmarket.com/en/collections/rackets-diamond-shape",
+    "padel-rackets": "https://padelmarket.com/en/collections/rackets",
+    "padel-shoes": "https://padelmarket.com/en/collections/shoes",
+    "padel-balls": "https://padelmarket.com/en/collections/padel-balls",
+    "padel-bags": "https://padelmarket.com/en/collections/padel-bags-1",
+    "padel-overgrips": "https://padelmarket.com/en/collections/accessories-overgrips",
+}
+# ---- Affiliate links. Pages link to /go/<slug>; _redirects sends it to the store.
+# Until a programme approves us these are plain store URLs; when approved, replace the URL with the tracked link and rebuild.
+AFF_ATTR = 'rel="sponsored nofollow noopener" target="_blank"'
+AFF_NOTE = '<p class="aff-note">We may earn a commission if you buy through these links, at no extra cost to you.</p>'
+def go(slug): return "/go/" + slug
+def write_redirects(root):
+    lines = "".join(f"/go/{k} {v} 302\n" for k, v in AFF.items())
+    (root / "_redirects").write_text(lines)
+
+
 def page(file, title, desc, body, faqs=None, crumb=None):
     url = canon(file)
     ld = [{"@context": "https://schema.org", "@type": "WebPage", "name": title, "description": desc, "url": url, "dateModified": UPDATED,
@@ -204,7 +224,7 @@ finder_faq = [
     ("Does a racket help with tennis elbow?", "A lighter racket with a soft core and low balance puts less strain on your arm. If pain continues, see a doctor or physio."),
 ]
 page("racket-finder.html", "Padel Racket Finder: Which Racket Suits You? | Padel Glass Box",
-     "Answer 3 questions and find the padel racket shape, weight, balance, core and face that suit your level and style. Free and instant.", finder, finder_faq, "Racket finder")
+     "Answer 3 questions and find the padel racket shape, weight, balance, core and face that suit your level and style. Free and instant.", finder + f'''<section><div class="wrap"><div class="aff-box"><h3>Shop padel gear</h3><p>Browse rackets by shape, plus the shoes, balls and grips you need for your first match.</p><ul class="aff-links"><li><a href="/go/padel-round-rackets" rel="sponsored nofollow noopener" target="_blank">Round rackets</a></li><li><a href="/go/padel-teardrop-rackets" rel="sponsored nofollow noopener" target="_blank">Teardrop rackets</a></li><li><a href="/go/padel-diamond-rackets" rel="sponsored nofollow noopener" target="_blank">Diamond rackets</a></li><li><a href="/go/padel-shoes" rel="sponsored nofollow noopener" target="_blank">Padel shoes</a></li><li><a href="/go/padel-balls" rel="sponsored nofollow noopener" target="_blank">Balls</a></li><li><a href="/go/padel-bags" rel="sponsored nofollow noopener" target="_blank">Bags</a></li><li><a href="/go/padel-overgrips" rel="sponsored nofollow noopener" target="_blank">Overgrips</a></li></ul>{AFF_NOTE}</div></div></section>''', finder_faq, "Racket finder")
 
 # ---------------- SCORE KEEPER ----------------
 score = f'''<header class="hero" style="padding-bottom:10px"><div class="wrap"><h1>Padel score keeper.</h1>
@@ -327,7 +347,7 @@ beg_faq = [
     ("Do I need special shoes for padel?", "Shoes with good grip for artificial grass courts help you move safely. Running shoes slip more easily."),
 ]
 page("beginners.html", "Padel for Beginners: First Match Checklist | Padel Glass Box",
-     "Everything you need for your first padel match: a kit checklist, the rules to know, and where to find courts and beginner sessions.", beg, beg_faq, "Beginners")
+     "Everything you need for your first padel match: a kit checklist, the rules to know, and where to find courts and beginner sessions.", beg + f'''<section><div class="wrap"><div class="aff-box"><h3>Shop padel gear</h3><p>Browse rackets by shape, plus the shoes, balls and grips you need for your first match.</p><ul class="aff-links"><li><a href="/go/padel-round-rackets" rel="sponsored nofollow noopener" target="_blank">Round rackets</a></li><li><a href="/go/padel-teardrop-rackets" rel="sponsored nofollow noopener" target="_blank">Teardrop rackets</a></li><li><a href="/go/padel-diamond-rackets" rel="sponsored nofollow noopener" target="_blank">Diamond rackets</a></li><li><a href="/go/padel-shoes" rel="sponsored nofollow noopener" target="_blank">Padel shoes</a></li><li><a href="/go/padel-balls" rel="sponsored nofollow noopener" target="_blank">Balls</a></li><li><a href="/go/padel-bags" rel="sponsored nofollow noopener" target="_blank">Bags</a></li><li><a href="/go/padel-overgrips" rel="sponsored nofollow noopener" target="_blank">Overgrips</a></li></ul>{AFF_NOTE}</div></div></section>''', beg_faq, "Beginners")
 
 # ---------------- GLOSSARY ----------------
 gl = "".join(f"<div><b>{e(t)}</b><span>{e(d)}</span></div>" for t, d in D["glossary"])
@@ -579,7 +599,8 @@ page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free pad
 urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
-(ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
+(ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
 if not (ROOT / "ads.txt").exists():
     (ROOT / "ads.txt").write_text("google.com, pub-1558743317014653, DIRECT, f08c47fec0942fa0\n")
 print("built", len(urls) + 1, "pages", "(preview)" if PREVIEW else "(live)")
+write_redirects(ROOT)
