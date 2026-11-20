@@ -753,4 +753,92 @@
     $("#sv-reset").addEventListener("click", function () { A = {}; srender(); });
     srender();
   }
+
+  /* ---------- warm-up timer ---------- */
+  var wu = $("#wu");
+  if (wu && window.WU) {
+    var W = { len: store.get("pp-wu-len", "q"), snd: store.get("pp-wu-snd", "on"), i: 0, left: 0, run: false }, tick = null, ac = null, lock = null;
+    var steps = function () { return window.WU[W.len] || window.WU.q; };
+    var fmt = function (s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); };
+    var beep = function (f, d) {
+      if (W.snd !== "on") return;
+      try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); var o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = f; o.connect(g); g.connect(ac.destination); g.gain.setValueAtTime(0.18, ac.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + d); o.start(); o.stop(ac.currentTime + d); } catch (e) {}
+    };
+    var wake = function (on) {
+      try { if (on && navigator.wakeLock && !lock) navigator.wakeLock.request("screen").then(function (l) { lock = l; l.addEventListener("release", function () { lock = null; }); }, function () {}); else if (!on && lock) { lock.release(); lock = null; } } catch (e) {}
+    };
+    var list = $("#wu-list");
+    var buildList = function () {
+      list.innerHTML = steps().map(function (s, n) { return '<li data-n="' + n + '"><b>' + (n + 1) + ". " + s.n + '</b><span class="pill">' + s.ph + '</span><span class="wu-t">' + fmt(s.t) + "</span><p>" + s.d + "</p></li>"; }).join("");
+      $$("li", list).forEach(function (li) { li.addEventListener("click", function () { go(+li.dataset.n); }); });
+    };
+    var total = function () { return steps().reduce(function (a, s) { return a + s.t; }, 0); };
+    var wrender = function () {
+      var S = steps(), s = S[W.i], done = 0;
+      for (var k = 0; k < W.i; k++) done += S[k].t;
+      done += s.t - W.left;
+      $("#wu-clock").textContent = fmt(W.left);
+      $("#wu-of").textContent = "Step " + (W.i + 1) + " of " + S.length;
+      $("#wu-ph").textContent = s.ph; $("#wu-name").textContent = s.n; $("#wu-how").textContent = s.d;
+      $("#wu-next").textContent = W.i + 1 < S.length ? "Next: " + S[W.i + 1].n : "Last step. Then play!";
+      $("#wu-arc").setAttribute("stroke-dashoffset", (326.7 * (1 - W.left / s.t)).toFixed(1));
+      $("#wu-prog").style.width = (done / total() * 100) + "%";
+      $("#wu-left").textContent = fmt(total() - done) + " left in total";
+      $("#wu-go").textContent = W.run ? "Pause" : (W.left < s.t || W.i ? "Resume" : "Start");
+      $$("li", list).forEach(function (li, n) { li.classList.toggle("on", n === W.i); li.classList.toggle("done", n < W.i); });
+      $$("#wu-len button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === W.len ? "true" : "false"); });
+      $$("#wu-snd button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === W.snd ? "true" : "false"); });
+    };
+    var stop = function () { W.run = false; clearInterval(tick); tick = null; wake(false); };
+    var finish = function () {
+      stop(); beep(880, 0.6);
+      $("#wu-clock").textContent = "0:00"; $("#wu-name").textContent = "Warm-up done. Enjoy the match!"; $("#wu-how").textContent = "Remember your three goals, and save the long, held stretches for after you play.";
+      $("#wu-next").textContent = ""; $("#wu-prog").style.width = "100%"; $("#wu-left").textContent = ""; $("#wu-go").textContent = "Start again";
+      $$("li", list).forEach(function (li) { li.classList.remove("on"); li.classList.add("done"); });
+      W.i = 0; W.left = steps()[0].t; W.end = true;
+    };
+    var go = function (n) { var S = steps(); W.end = false; W.i = Math.max(0, Math.min(S.length - 1, n)); W.left = S[W.i].t; W.last = Date.now(); wrender(); };
+    var step = function () {
+      var now = Date.now(); W.left -= (now - W.last) / 1000; W.last = now;
+      var c = Math.ceil(W.left);
+      if (c !== W.shown && c <= 3 && c > 0) beep(660, 0.12);
+      W.shown = c;
+      if (W.left <= 0) { if (W.i + 1 >= steps().length) return finish(); beep(990, 0.35); go(W.i + 1); return; }
+      wrender();
+    };
+    $("#wu-go").addEventListener("click", function () {
+      if (W.run) { stop(); wrender(); return; }
+      if (W.end) go(0);
+      W.run = true; W.last = Date.now(); beep(990, 0.2); wake(true); tick = setInterval(step, 250); wrender();
+    });
+    $("#wu-skip").addEventListener("click", function () { if (W.i + 1 >= steps().length) finish(); else go(W.i + 1); });
+    $("#wu-back").addEventListener("click", function () { go(W.left < steps()[W.i].t - 2 ? W.i : W.i - 1); });
+    $$("#wu-len button").forEach(function (b) { b.addEventListener("click", function () { if (b.dataset.v === W.len) return; stop(); W.len = b.dataset.v; store.set("pp-wu-len", W.len); buildList(); go(0); }); });
+    $$("#wu-snd button").forEach(function (b) { b.addEventListener("click", function () { W.snd = b.dataset.v; store.set("pp-wu-snd", W.snd); wrender(); }); });
+    document.addEventListener("visibilitychange", function () { if (!document.hidden && W.run) wake(true); });
+    buildList(); go(0);
+  }
+
+  /* ---------- dead ball checker ---------- */
+  var bchk = $("#bchk");
+  if (bchk) {
+    var B = {}, bout = $("#b-out"), BQ = ["use", "squeeze", "drop", "glass", "felt", "sound"];
+    var WHY = { use: ["", "It has been used once or twice.", "The can has had several sessions.", "The can has had a lot of use."], squeeze: ["", "It feels a little soft.", "", "It squashes easily: the air is going."], drop: ["", "It bounces a bit lower than a new ball.", "", "It bounces much lower than a new ball."], glass: ["", "It comes back short off the glass.", "", "It dies in the corner off the glass."], felt: ["", "The felt is flat in places.", "The felt is bald, dirty or heavy."], sound: ["", "It sounds duller than a new ball."] };
+    var brender = function () {
+      $$(".bq", bchk).forEach(function (q) { $$(".opt", q).forEach(function (o) { o.setAttribute("aria-pressed", B[q.dataset.q] === o.dataset.v ? "true" : "false"); }); });
+      var n = BQ.filter(function (k) { return B[k] !== undefined; }).length;
+      if (n < BQ.length) { bout.className = "result"; bout.innerHTML = "<h2>Check your ball</h2><p>" + (n ? (BQ.length - n) + " more to go." : "Answer the questions and the verdict appears here.") + "</p>"; return; }
+      var sc = 0, max = 0, why = [];
+      BQ.forEach(function (k) { var v = B[k]; if (v === "x") return; v = +v; sc += v; if (WHY[k][v]) why.push(WHY[k][v]); if (v > max) max = v; });
+      var r;
+      if (sc <= 2 && max <= 1) r = { c: "good", h: "Good for a match", p: "This ball still has its bounce. Use it for your next game." };
+      else if (sc <= 6 && max < 3) r = { c: "mid", h: "Fine for practice", p: "It's losing pressure. Keep it for drills, warm-ups and practice serves, and open a new can for matches." };
+      else r = { c: "fault", h: "Time for new balls", p: "This ball is dead or close to it. It will make rallies off the glass short and frustrating." };
+      bout.className = "result " + r.c;
+      bout.innerHTML = "<h2>" + r.h + "</h2><p>" + r.p + "</p>" + (why.length ? '<ul class="b-why">' + why.map(function (w) { return "<li>" + w + "</li>"; }).join("") + "</ul>" : "");
+    };
+    $$(".bq", bchk).forEach(function (q) { $$(".opt", q).forEach(function (o) { o.addEventListener("click", function () { B[q.dataset.q] = o.dataset.v; brender(); }); }); });
+    $("#b-reset").addEventListener("click", function () { B = {}; brender(); });
+    brender();
+  }
 })();

@@ -121,7 +121,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -327,7 +327,7 @@ page("shots.html", "Padel Shots Explained: Bandeja, Víbora, Chiquita and More |
      "Every key padel shot explained simply, with animated ball paths: bandeja, víbora, rulo, chiquita, bajada, contrapared, lob, volley and smash.", shots, shots_faq, "Shots")
 
 # ---------------- BEGINNERS ----------------
-kit = ["A padel racket (a round one is easiest to start with)", "Padel balls, not tennis balls (they're slightly softer)", "Court shoes with good grip for artificial grass", "A wrist strap on your racket, and wear it", "Comfortable sports clothes and water", "A booked court and three other players"]
+kit = ["A padel racket (a round one is easiest to start with)", "Padel balls, not tennis balls (they have less pressure)", "Court shoes with good grip for artificial grass", "A wrist strap on your racket, and wear it", "Comfortable sports clothes and water", "A booked court and three other players"]
 know = ["Serve underhand, below the waist, diagonally", "Let the ball bounce once, then it can hit your walls", "Never let your shot hit their wall before the ground", "Agree on advantage or golden point before you start", "Stay with your partner: move up and back together", "When in doubt, lob and go to the net"]
 def checklist(name, items):
     return f'<div class="prog"><i id="{name}-bar"></i></div><p class="muted" id="{name}-count" style="margin:-8px 0 12px"></p><ul class="check" data-check="{name}">' + "".join(f'<li><label><input type="checkbox"><span>{e(x)}</span></label></li>' for x in items) + "</ul>"
@@ -344,11 +344,13 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>Join a social night</h3><p>Many clubs run Americano evenings where you change partner each round. They are a friendly way to meet players at your level. Running one yourself? Use our <a href="{href("americano.html")}">Americano generator</a>.</p></div>
 <div class="card"><h3>Know your level</h3><p>Open matches and clubs often ask for your level. Our <a href="{href("level-calculator.html")}">padel level calculator</a> gives you a quick estimate.</p></div>
 <div class="card"><h3>Know where to stand</h3><p>Move up and back with your partner, and stay about 1 metre off the back glass. Our <a href="{href("positioning.html")}">positioning guide</a> shows every situation on a court.</p></div>
+<div class="card"><h3>Warm up first</h3><p>Ten minutes of jogging, moving stretches and soft rallies makes the first games easier on your body. Our <a href="{href("warm-up.html")}">warm-up timer</a> talks you through it step by step.</p></div>
 <div class="card"><h3>Start with a lesson</h3><p>One group lesson teaches the serve and the walls much faster than working it out alone.</p></div>
 </div></div></section>'''
 beg_faq = [
     ("What do I need for my first padel game?", "A racket, padel balls, court shoes with grip, comfy sports clothes and water. Many clubs rent rackets if you don't have one yet."),
-    ("Can I use tennis balls for padel?", "It's better not to. Padel balls are made for the sport and are slightly softer, so the game plays the way it should."),
+    ("Can I use tennis balls for padel?", "It's better not to. Padel balls have less pressure inside (about 11 psi against 14 psi for tennis, according to LTA Padel), so they bounce lower and play the way padel should."),
+    ("How should I warm up for padel?", "Spend 10 to 15 minutes on an easy jog, moving stretches, a few squats and lunges, then soft rallies, volleys, lobs and serves. Save long, held stretches for after you play."),
     ("Do I need special shoes for padel?", "Shoes with good grip for artificial grass courts help you move safely. Running shoes slip more easily."),
 ]
 page("beginners.html", "Padel for Beginners: First Match Checklist | Padel Glass Box",
@@ -709,6 +711,123 @@ serve_faq = [
 page("serve-rules.html", "Padel Serve Rules: Is My Serve Legal? Free Serve Checker | Padel Glass Box",
      "Padel serve rules in plain English: where to stand, the bounce, waist height, faults and lets. Use the free serve checker to make the call on any serve.", serve, serve_faq, "Serve rules")
 
+# ---------------- WARM-UP TIMER ----------------
+# Each step: (seconds quick, seconds full, phase, name, how). 0 seconds = step left out of that routine.
+WU = [
+    (120, 150, "Get warm", "Easy jog and side steps", "Jog slowly round the court, then side-step along the net and back. Breathe easily: you should still be able to talk."),
+    (30, 45, "Move", "Arm and wrist circles", "Ten big arm circles forwards, ten backwards. Then roll and shake out both wrists."),
+    (40, 60, "Move", "Leg swings", "Hold the fence. Swing one leg front to back, then side to side, about ten each way. Change legs."),
+    (40, 45, "Move", "Walking lunges with a twist", "Step forward into a lunge and turn your chest over the front knee. About ten steps in total."),
+    (30, 45, "Activate", "Squats", "Feet shoulder-width apart, sit back as if onto a chair, stand up tall. About ten, slow and controlled."),
+    (30, 45, "Activate", "Side lunges", "Step wide to one side, bend that knee, push back to the middle. Five each side."),
+    (0, 30, "Activate", "Wall press-ups", "Hands on the glass at chest height, body straight. Ten slow press-ups to wake up your shoulders."),
+    (40, 60, "Activate", "Short sprints", "From the service line, sprint a few metres to the net, then walk back. Three or four sprints, changing the leg you start with."),
+    (90, 120, "Racket", "Mini rally in the service boxes", "Both pairs stand near the service line and hit soft balls after the bounce. No volleys yet. Try to keep each rally going for ten shots."),
+    (60, 120, "Racket", "Volleys at the net", "One pair at the net, one at the back. Calm volleys to the players at the back. Swap roles halfway."),
+    (60, 90, "Racket", "Lobs and easy overheads", "The back pair lobs, the net pair plays half-speed bandejas. Build up the pace slowly. No full smashes yet."),
+    (30, 45, "Racket", "Practice serves", "Two or three serves each to each side, plus a few returns."),
+    (30, 45, "Mind", "Pick three goals", "Agree with your partner on three simple aims, for example: lob more, stay together, get first serves in."),
+]
+def wu_steps(k):
+    return [{"t": s[k], "ph": s[2], "n": s[3], "d": s[4]} for s in WU if s[k]]
+WU_JSON = json.dumps({"q": wu_steps(0), "f": wu_steps(1)}, ensure_ascii=False)
+def mmss(s): return f"{s // 60}:{s % 60:02d}"
+warm = f'''<header class="hero"><div class="wrap"><h1>Padel warm-up timer.</h1>
+<p class="lead">Press start and follow the steps. A 10 or 15 minute warm-up that gets your legs, arms and eye ready before the first point. Works on your phone at the court.</p></div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="wu" id="wu">
+<div class="wu-stage">
+<div class="wu-bar"><div class="seg" id="wu-len" role="group" aria-label="Warm-up length"><button type="button" data-v="q" aria-pressed="true">10 minutes</button><button type="button" data-v="f" aria-pressed="false">15 minutes</button></div>
+<div class="seg" id="wu-snd" role="group" aria-label="Sound"><button type="button" data-v="on" aria-pressed="true">Beeps on</button><button type="button" data-v="off" aria-pressed="false">Off</button></div></div>
+<div class="wu-main">
+<svg class="wu-ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="10"/><circle id="wu-arc" cx="60" cy="60" r="52" fill="none" stroke="#e8f84a" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="0" transform="rotate(-90 60 60)"/></svg>
+<div class="wu-time"><b id="wu-clock">2:00</b><span id="wu-of">Step 1 of 12</span></div>
+</div>
+<div class="wu-now" aria-live="polite"><span class="pill" id="wu-ph">Get warm</span><h2 id="wu-name">Easy jog and side steps</h2><p id="wu-how"></p><p class="wu-next" id="wu-next"></p></div>
+<div class="prog"><i id="wu-prog"></i></div>
+<div class="wu-ctl"><button class="btn ghost sm" type="button" id="wu-back">Back</button><button class="btn lime" type="button" id="wu-go">Start</button><button class="btn ghost sm" type="button" id="wu-skip">Skip</button></div>
+<p class="wu-left" id="wu-left"></p>
+</div>
+<ol class="wu-list" id="wu-list"></ol>
+</div></div></section>
+<script>window.WU={WU_JSON};</script>
+{AD.format("warm-mid")}
+<section><div class="wrap"><div class="sh"><h2>How this warm-up works</h2></div><div class="grid">
+<div class="card"><h3>1. Get warm</h3><p>A couple of minutes of easy jogging raises your heart rate and sends blood to your muscles. Start slow.</p></div>
+<div class="card"><h3>2. Move</h3><p>Moving stretches, like leg swings and lunges with a twist, loosen your hips, back and shoulders. Keep them moving: save long, held stretches for after the match.</p></div>
+<div class="card"><h3>3. Activate</h3><p>Squats, lunges and short sprints wake up the legs you use for every split step and change of direction. LTA Padel's warm-up advice is built around exercises like these to help avoid hamstring, calf and thigh strains.</p></div>
+<div class="card"><h3>4. Racket</h3><p>Start soft and close to the net, then add volleys, lobs and overheads. Build up the pace: your first smash should not be your hardest.</p></div>
+<div class="card"><h3>5. Mind</h3><p>Agree three simple goals with your partner. It takes 30 seconds and helps you start the match switched on.</p></div>
+<div class="card"><h3>After you play</h3><p>Walk for a couple of minutes, then gently hold stretches for your calves, thighs, hips, forearms and shoulders, about 20 to 30 seconds each.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Short on court time?</h2></div><div class="grid">
+<div class="card"><h3>Do the first half before you go on</h3><p>The jog, moving stretches and squats need no court. Do them by the court while the last game finishes, then use your court time for the racket steps.</p></div>
+<div class="card"><h3>Playing early or in the cold?</h3><p>Choose the 15 minute version. Cold muscles need longer, and the balls feel flatter too. Read <a href="{href("padel-balls.html")}">when to change padel balls</a>.</p></div>
+<div class="card"><h3>Something hurts?</h3><p>A warm-up is not a fix for an injury. If you feel sharp pain, stop and get advice from a doctor or physiotherapist.</p></div>
+</div></div></section>'''
+warm_faq = [
+    ("How long should a padel warm-up be?", "About 10 to 15 minutes is enough for most players. LTA Padel suggests 10 to 15 minutes, starting with a short jog, then exercises, then a few minutes of rallying."),
+    ("Should I stretch before padel?", "Use moving stretches before you play, such as leg swings, arm circles and lunges with a twist. Keep long, held stretches for after the match."),
+    ("What should a padel warm-up include?", "A short jog, moving stretches, a few leg exercises such as squats and lunges, short sprints, and then racket work: soft rallies, volleys, lobs, easy overheads and a few serves."),
+    ("Can I warm up without a court?", "Yes. The jog, moving stretches, squats, lunges and sprints can all be done next to the court before your booking starts."),
+    ("Does the timer work without internet?", "Once the page has loaded, the timer runs in your browser. Keep the screen on, because some phones pause timers when the screen locks."),
+]
+page("warm-up.html", "Padel Warm-Up Routine With Free Timer (10 or 15 Minutes) | Padel Glass Box",
+     "A free padel warm-up timer: follow a 10 or 15 minute routine step by step, from jogging and moving stretches to volleys, lobs and serves. Works on your phone.", warm, warm_faq, "Warm-up timer")
+
+# ---------------- PADEL BALLS ----------------
+def _bq(qid, label, opts):
+    return f'<div class="q bq" data-q="{qid}"><h3>{label}</h3><div class="opts">' + "".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="false">{t}</button>' for v, t in opts) + '</div></div>'
+balls = f'''<header class="hero"><div class="wrap"><h1>Are your padel balls dead?</h1>
+<p class="lead">Six quick checks tell you if a ball is still good for a match, fine for practice, or ready for the bin. Then learn how long padel balls last and how to keep them lively.</p></div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="bchk">
+<div>
+{_bq("use", "How many times have you played with this can?", [("0", "Just opened"), ("1", "Once or twice"), ("2", "3 to 5 times"), ("3", "More than 5")])}
+{_bq("squeeze", "Squeeze the ball hard with one hand. How does it feel?", [("0", "Firm"), ("1", "A little soft"), ("3", "Squashes easily")])}
+{_bq("drop", "Drop it from shoulder height next to a new ball. How does it bounce?", [("0", "About the same"), ("1", "A bit lower"), ("3", "Much lower"), ("x", "No new ball to compare")])}
+{_bq("glass", "In play, what happens when it hits the back glass?", [("0", "Comes back well"), ("1", "Comes back a little short"), ("3", "Dies in the corner")])}
+{_bq("felt", "How does the felt look?", [("0", "Fluffy and bright"), ("1", "Flat in places"), ("2", "Bald, dirty or wet and heavy")])}
+{_bq("sound", "What does it sound like off the racket?", [("0", "A clear pop"), ("1", "Duller than a new ball")])}
+<button class="btn sm" type="button" id="b-reset">Start again</button>
+</div>
+<aside class="result" id="b-out" aria-live="polite"><h2>Check your ball</h2><p>Answer the questions and the verdict appears here.</p></aside>
+</div></div></section>
+{AD.format("balls-mid")}
+<section><div class="wrap"><div class="sh"><h2>How long do padel balls last?</h2></div><div class="grid">
+<div class="card"><h3>Social play: a few sessions</h3><p>For relaxed games, a can usually stays playable for about three to five sessions. After that the bounce gets lower and rallies off the glass get harder.</p></div>
+<div class="card"><h3>Serious matches: open a new can</h3><p>Balls lose their best bounce quickly when you hit hard. For a match that matters, most players open a fresh can and keep the older balls for practice.</p></div>
+<div class="card"><h3>Pressure leaks from day one</h3><p>Padel balls are filled with air under pressure. Once the can is open, the pressure slowly leaks out, even if you don't play.</p></div>
+<div class="card"><h3>Courts wear the felt</h3><p>Sand on artificial grass courts rubs the felt and makes it heavy. Wet or dirty balls slow down a lot.</p></div>
+<div class="card"><h3>Heat and cold change the feel</h3><p>On a cold day even new balls feel flat. Keep opened cans away from hot cars and cold garages; a cool, dry cupboard is best.</p></div>
+<div class="card"><h3>Pressurisers help a little</h3><p>A ball saver tube keeps air in for longer, but it can't fix worn felt or bring a dead ball back to life.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Padel ball vs tennis ball</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col"></th><th scope="col">Padel ball</th><th scope="col">Tennis ball</th></tr></thead><tbody>
+<tr><td>Diameter</td><td>6.35 to 6.77 cm</td><td>6.54 to 6.86 cm</td></tr>
+<tr><td>Weight</td><td>56.0 to 59.4 g</td><td>56.0 to 59.4 g</td></tr>
+<tr><td>Pressure inside (new)</td><td>About 11 psi</td><td>About 14 psi</td></tr>
+<tr><td>Rule bounce test</td><td>135 to 145 cm when dropped from 2.54 m</td><td>Bounces higher</td></tr>
+<tr><td>How it plays</td><td>Slower, softer, made to come off the glass</td><td>Faster and bouncier</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">The two balls look almost the same, but the lower pressure is what makes padel feel like padel. Tennis balls bounce too high off the floor and walls, so use real padel balls. Sizes and pressure from LTA Padel; bounce test as given in the padel rules.</p>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Make your balls last longer</h2></div><div class="grid">
+<div class="card"><h3>Close the can</h3><p>Put the lid back on tightly after every game, or use a ball saver.</p></div>
+<div class="card"><h3>Keep them dry</h3><p>Don't play with wet balls if you can avoid it, and let them dry at room temperature, not on a heater.</p></div>
+<div class="card"><h3>Mark your cans</h3><p>Write the date or a tally on the lid each time you play. Then you know which can is fresh and which is for drills.</p></div>
+<div class="card"><h3>Use old balls well</h3><p>Old balls are fine for <a href="{href("warm-up.html")}">warming up</a>, drills and practice serves. Just not for your next match. Check if a <a href="{href("serve-rules.html")}">serve is legal</a> while you practise.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Need fresh balls?</h3><p>Browse padel balls, plus overgrips and bags to keep your kit match-ready.</p><ul class="aff-links"><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-bags")}" {AFF_ATTR}>Bags</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>Rackets</a></li></ul>{AFF_NOTE}</div></div></section>'''
+balls_faq = [
+    ("How long do padel balls last?", "For social games, a can usually lasts about three to five sessions. Players who hit hard or play important matches often open a new can each match, because the best bounce goes after one or two uses."),
+    ("How do I know if a padel ball is dead?", "Squeeze it, drop it next to a new ball and watch it off the back glass. A dead ball feels soft, bounces lower, sounds dull and dies in the corner instead of coming back."),
+    ("Can you use tennis balls for padel?", "It's better not to. Tennis balls have more pressure inside, so they bounce higher and faster. Padel balls are made to play off the glass at the right speed."),
+    ("What is the pressure of a padel ball?", "LTA Padel gives about 11 psi for a new padel ball, compared with about 14 psi for a new tennis ball."),
+    ("Are padel balls smaller than tennis balls?", "Only very slightly. A padel ball is 6.35 to 6.77 cm across and a tennis ball 6.54 to 6.86 cm, and both weigh 56.0 to 59.4 g."),
+    ("Do ball pressurisers work?", "They can slow down the loss of pressure, but they can't repair worn felt or make a dead ball lively again."),
+]
+page("padel-balls.html", "When to Change Padel Balls: Free Dead Ball Checker | Padel Glass Box",
+     "Are your padel balls dead? Use the free 6-step checker, learn how long padel balls last, padel vs tennis ball pressure and size, and how to store them.", balls, balls_faq, "Padel balls")
+
 # ---------------- ABOUT / PRIVACY / 404 ----------------
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
@@ -720,7 +839,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
