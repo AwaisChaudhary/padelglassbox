@@ -120,7 +120,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -277,13 +277,15 @@ rules = f'''<header class="hero"><div class="wrap"><h1>Padel rules, tap by tap.<
 </div></section>
 {AD.format("rules-mid")}
 <section><div class="wrap"><div class="sh"><h2>The key rules</h2></div><div class="grid">
-<div class="card"><h3>The serve</h3><p>Stand behind the service line, bounce the ball, and hit it underhand at or below waist height. It must land in the box diagonally opposite. You get two attempts per point.</p></div>
-<div class="card"><h3>A serve is a fault if</h3><p>it lands outside the diagonal box, it's hit above the waist, you miss the ball, or after bouncing in the box it hits the metal mesh.</p></div>
+<div class="card"><h3>The serve</h3><p>Stand behind the service line with your feet off the lines, bounce the ball, and hit it underhand at or below waist height with one foot on the ground. It must land in the box diagonally opposite. You get two attempts per point.</p></div>
+<div class="card"><h3>A serve is a fault if</h3><p>it lands outside the diagonal box, it's hit above the waist, you miss the ball, your foot touches the line, or after bouncing in the box it hits the metal mesh. Not sure? Use our <a href="{href("serve-rules.html")}">serve checker</a>.</p></div>
+<div class="card"><h3>Lets</h3><p>If the serve touches the net and still lands in the right box, without touching the metal fence, it is a let and you replay that serve.</p></div>
 <div class="card"><h3>Receiving</h3><p>The receiver must let the serve bounce before hitting it. After that, players can volley freely.</p></div>
 <div class="card"><h3>Using the walls</h3><p>On your side, the ball can bounce once and then hit the walls; you can still play it. You may also hit the ball into your own walls to get it back over the net.</p></div>
 <div class="card"><h3>Lost points</h3><p>You lose the point if the ball bounces twice, if your shot hits the opponents' wall or fence before the ground, or if the ball touches your body.</p></div>
 <div class="card"><h3>Scoring</h3><p>15, 30, 40, game, sets to six with a tie-break at 6-6. At deuce, the organiser chooses advantage, golden point or Star Point: <a href="{href("golden-point-star-point.html")}">see how each one works</a>.</p></div>
 <div class="card"><h3>Court size</h3><p>The court is 20 m by 10 m, with the service lines 6.95 m from the net. See every measurement, in metres or feet, on our <a href="{href("court-dimensions.html")}">measured court diagram</a>.</p></div>
+<div class="card"><h3>Where to stand</h3><p>Rules tell you what is allowed; position wins points. See where all four players stand at the serve, at the net and at the back on our <a href="{href("positioning.html")}">positioning guide</a>.</p></div>
 <div class="card"><h3>Social formats</h3><p>At club nights you often play points, not sets: an Americano or Mexicano. Our <a href="{href("americano.html")}">draw maker</a> sets the partners, courts and leaderboard for you.</p></div>
 </div></div></section>'''
 rules_faq = [
@@ -291,7 +293,8 @@ rules_faq = [
     ("Can the ball hit the wall in padel?", "Yes, after it bounces on the ground on your side. If your shot hits the opponents' wall before bouncing on their ground, you lose the point."),
     ("What happens if the ball hits a player?", "The player's team usually loses the point, with only a few exceptions in the official rules."),
     ("How high is a padel net?", "88 cm in the middle and 92 cm at the posts."),
-    ("Where must the server stand?", "Behind the service line, which is 6.95 m from the net, serving diagonally into the opposite service box."),
+    ("Where must the server stand?", "Behind the service line, which is 6.95 m from the net, between the centre line and the side wall, serving diagonally into the opposite service box."),
+    ("What is a let in padel?", "A serve that touches the net and then lands in the correct box without touching the metal fence. The serve is replayed. A let on the second serve replays only the second serve."),
 ]
 page("rules.html", "Padel Rules Explained Simply, With an Interactive Court | Padel Glass Box",
      "Padel rules in plain English: the underhand serve, walls, faults and scoring, plus an interactive court you can tap to learn each part.", rules, rules_faq, "Rules")
@@ -339,6 +342,7 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>National federations</h3><p>Your country's padel or tennis federation usually lists clubs and beginner sessions. In the UK, that's LTA Padel.</p></div>
 <div class="card"><h3>Join a social night</h3><p>Many clubs run Americano evenings where you change partner each round. They are a friendly way to meet players at your level. Running one yourself? Use our <a href="{href("americano.html")}">Americano generator</a>.</p></div>
 <div class="card"><h3>Know your level</h3><p>Open matches and clubs often ask for your level. Our <a href="{href("level-calculator.html")}">padel level calculator</a> gives you a quick estimate.</p></div>
+<div class="card"><h3>Know where to stand</h3><p>Move up and back with your partner, and stay about 1 metre off the back glass. Our <a href="{href("positioning.html")}">positioning guide</a> shows every situation on a court.</p></div>
 <div class="card"><h3>Start with a lesson</h3><p>One group lesson teaches the serve and the walls much faster than working it out alone.</p></div>
 </div></div></section>'''
 beg_faq = [
@@ -585,6 +589,125 @@ deuce_faq = [
 page("golden-point-star-point.html", "Golden Point vs Star Point vs Advantage in Padel, Explained | Padel Glass Box",
      "How padel games end at 40-40: classic advantage, golden point and the new 2026 Star Point. Try all three on an interactive deuce simulator.", deuce, deuce_faq, "Golden point vs Star Point")
 
+# ---------------- POSITIONING ----------------
+# Court drawn top-down, 30 px per metre, 20 px padding. Your team at the bottom.
+def _m(x, y): return 20 + x * 30, 20 + y * 30
+POS_SVG = '''<svg viewBox="0 0 340 640" id="pos-court" role="img" aria-label="Top view of a padel court showing where the four players stand">
+<defs><marker id="pos-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e8f84a"/></marker></defs>
+<rect x="20" y="20" width="300" height="600" fill="#1e46c8"/>
+<rect x="20" y="20" width="300" height="600" fill="none" stroke="#9cc4ea" stroke-width="8" opacity=".55"/>
+<path d="M20 111.5h300M20 528.5h300M170 111.5v417" stroke="#fff" stroke-width="2"/>
+<path d="M14 320h312" stroke="#e4eef6" stroke-width="5"/>
+<g id="pos-zones"></g><g id="pos-arrows"></g><g id="pos-players"></g>
+</svg>'''
+pos = f'''<header class="hero"><div class="wrap"><h1>Where to stand in padel.</h1>
+<p class="lead">Pick a moment in the point and see where all four players should be. Your team is at the bottom: you on the left, your partner on the right.</p></div></header>
+<section style="padding-top:10px"><div class="wrap">
+<div class="opts" id="pos-pick" role="group" aria-label="Choose a situation" style="margin-bottom:12px">
+<button class="opt" type="button" data-s="serve" aria-pressed="true">Your team serves</button>
+<button class="opt" type="button" data-s="receive" aria-pressed="false">You receive</button>
+<button class="opt" type="button" data-s="net" aria-pressed="false">Both at the net</button>
+<button class="opt" type="button" data-s="back" aria-pressed="false">Both at the back</button>
+<button class="opt" type="button" data-s="lob" aria-pressed="false">Lobbed at the net</button>
+<button class="opt" type="button" data-s="split" aria-pressed="false">One up, one back</button>
+</div>
+<div class="dim-bar" id="pos-side-bar"><span class="muted" style="font-weight:600">The ball is on</span><div class="seg" id="pos-side" role="group" aria-label="Which side the ball is on"><button type="button" data-v="L" aria-pressed="true">Your side</button><button type="button" data-v="R" aria-pressed="false">Your partner's side</button></div></div>
+<div class="rules-layout" style="margin-top:14px">
+<div class="court-art" style="max-width:400px;margin-inline:auto;width:100%">{POS_SVG}
+<p class="pos-key"><span><i style="background:#e8f84a"></i>You</span><span><i style="background:#fff"></i>Partner</span><span><i style="background:#ff8a5c"></i>Opponents</span><span><i class="ball"></i>Ball</span></p></div>
+<aside class="card zpanel" id="pos-panel" aria-live="polite"></aside>
+</div></div></section>
+{AD.format("pos-mid")}
+<section><div class="wrap"><div class="sh"><h2>Five habits of good positioning</h2></div><div class="grid">
+<div class="card"><h3>Move as a pair</h3><p>Imagine a rope of about 3 metres between you and your partner. When one moves up, back or across, the other follows. Gaps open when you move on your own.</p></div>
+<div class="card"><h3>Win the net</h3><p>Most points are won at the net. Stand about 2 to 2.5 metres from it, close enough to volley and far enough back to reach a lob.</p></div>
+<div class="card"><h3>Give the glass room</h3><p>When you defend, stand about 1 metre in front of the back glass. Too close and the ball comes off the glass into your body. Too far forward and lobs beat you.</p></div>
+<div class="card"><h3>Shade with the ball</h3><p>Both players slide towards the side the ball is on. The player nearer the ball covers the line, the other covers the middle.</p></div>
+<div class="card"><h3>Agree on the middle</h3><p>Balls down the middle cause the most mix-ups. By default the player with the forehand in the middle takes them. Call "mine" or "yours" early.</p></div>
+<div class="card"><h3>Reset after a lob</h3><p>If a lob goes over you, both players go back together, play a safe shot, then look for the next chance to move forward again.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Left side or right side?</h2></div><div class="grid">
+<div class="card"><span class="pill i">Right side</span><h3 style="margin-top:10px">The drive side</h3><p>For a right-handed player the forehand is on the outside, near the side wall. This player plays more steady, controlled balls and builds the point.</p></div>
+<div class="card"><span class="pill a">Left side</span><h3 style="margin-top:10px">The revés side</h3><p>For a right-handed player the forehand is in the middle. This player takes many middle balls and more of the high balls and smashes, so it is often the more attacking role.</p></div>
+<div class="card"><span class="pill b">Mixed hands</span><h3 style="margin-top:10px">One right-hander, one left-hander</h3><p>Many pairs put both forehands in the middle: the left-hander on the right side and the right-hander on the left. Try both ways and see what feels natural.</p></div>
+</div>
+<p class="muted" style="margin-top:14px">New to the shots named here? See the <a href="{href("shots.html")}">shot library</a>. For court measurements, see the <a href="{href("court-dimensions.html")}">court dimensions</a> page.</p>
+</div></section>'''
+pos_faq = [
+    ("Where should I stand at the net in padel?", "About 2 to 2.5 metres from the net, slightly towards your side of the centre line. The player nearer the ball can be a little closer, with the partner half a step back to cover the middle and the lob."),
+    ("How far from the back glass should I stand?", "About 1 metre in front of it when you defend or receive. That gives the ball room to come off the glass so you can play it comfortably."),
+    ("Why is one up and one back bad in padel?", "It leaves a big diagonal gap between the two players, and opponents can hit through it or at the feet of the net player. Move up and back together instead."),
+    ("Who takes the ball down the middle?", "As a default, the player with the forehand in the middle. For two right-handers that is the player on the left. Whoever calls it first should take it."),
+    ("Where does the server's partner stand?", "Usually at the net, about 2 metres from it, on the other half of the court. The rules let the server's partner stand anywhere on their side, but a serve that hits them is a fault."),
+    ("Should I play on the left or the right side?", "For right-handers, the left side suits players who like to attack and smash, and the right side suits steady players who like control. Both are important."),
+]
+page("positioning.html", "Padel Positioning: Where to Stand on Court (Interactive) | Padel Glass Box",
+     "Where to stand in padel for every moment of the point: serving, receiving, at the net, at the back and after a lob. Tap an interactive court to see all four players.", pos, pos_faq, "Positioning")
+
+# ---------------- SERVE RULES + CHECKER ----------------
+def _q(qid, label, opts):
+    return f'<div class="q sv-q" data-q="{qid}"><h3>{label}</h3><div class="opts">' + "".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="false">{t}</button>' for v, t in opts) + '</div></div>'
+YN = [("y", "Yes"), ("n", "No")]
+serve = f'''<header class="hero"><div class="wrap"><h1>Was that serve legal?</h1>
+<p class="lead">Answer a few quick questions about the serve and get the call: good serve, fault or let. Then read every padel serve rule in plain English below.</p></div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="svc">
+<div>
+{_q("try", "Which serve was it?", [("1", "First serve"), ("2", "Second serve")])}
+{_q("bounce", "Did the server bounce the ball behind the service line, on their own side of the centre line, before hitting it?", YN)}
+{_q("feet", "Were the server's feet clear of the service line and the centre line?", YN)}
+{_q("ground", "Was at least one foot on the ground at the moment of contact?", YN)}
+{_q("waist", "Was the ball hit at or below waist height?", YN)}
+{_q("own", "Did the ball touch the server, their partner or anything on their side before crossing the net?", [("n", "No"), ("y", "Yes")])}
+{_q("land", "What happened next?", [("in", "Landed in the diagonal box (lines count)"), ("netin", "Touched the net, then landed in the box"), ("out", "Landed outside the box"), ("netout", "Touched the net, then landed out"), ("miss", "The server missed the ball"), ("body", "Hit the receiver before bouncing")])}
+<div class="q sv-q" data-q="after" id="sv-after"><h3>After bouncing in the box, what did the ball hit first?</h3><div class="opts"><button class="opt" type="button" data-v="none" aria-pressed="false">Nothing, it was returned</button><button class="opt" type="button" data-v="glass" aria-pressed="false">The glass</button><button class="opt" type="button" data-v="fence" aria-pressed="false">The metal fence</button></div></div>
+<button class="btn sm" type="button" id="sv-reset">Start again</button>
+</div>
+<aside class="result" id="sv-out" aria-live="polite"><h2>Make the call</h2><p>Answer the questions and the verdict appears here.</p></aside>
+</div></div></section>
+{AD.format("serve-mid")}
+<section><div class="wrap"><div class="sh"><h2>The padel serve, step by step</h2></div><div class="grid">
+<div class="card"><h3>1. Stand in the right place</h3><p>Stand behind the service line, between the centre line and the side wall. Your feet must not touch the service line or the imaginary line that extends the centre line.</p></div>
+<div class="card"><h3>2. Bounce the ball</h3><p>Drop the ball and let it bounce once on your side, behind the service line, before you hit it. You may not hit it straight from your hand.</p></div>
+<div class="card"><h3>3. Hit at or below the waist</h3><p>Contact must be at or below waist height, so the padel serve is always an underhand serve. Keep at least one foot on the ground: no jump serves.</p></div>
+<div class="card"><h3>4. Land it diagonally</h3><p>The ball must cross the net and bounce in the service box diagonally opposite you. A ball that lands on the line is good.</p></div>
+<div class="card"><h3>5. The receiver waits for the bounce</h3><p>The receiver must let the serve bounce before playing it. After the bounce the ball may hit the glass and stay in play.</p></div>
+<div class="card"><h3>6. Two tries</h3><p>A fault on the first serve gives you a second serve. Two faults in a row is a double fault, and the receivers win the point.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Faults and lets at a glance</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">What happened</th><th scope="col">The call</th></tr></thead><tbody>
+<tr><td>Ball hit above the waist</td><td>Fault</td></tr>
+<tr><td>Ball not bounced first, or bounced in the wrong place</td><td>Fault</td></tr>
+<tr><td>Foot on the service line or centre line</td><td>Fault</td></tr>
+<tr><td>Both feet off the ground (jump serve)</td><td>Fault</td></tr>
+<tr><td>Server swings and misses</td><td>Fault</td></tr>
+<tr><td>Lands outside the diagonal box</td><td>Fault</td></tr>
+<tr><td>Lands in the box, then hits the metal fence before a second bounce</td><td>Fault</td></tr>
+<tr><td>Hits the server's partner before crossing the net</td><td>Fault</td></tr>
+<tr><td>Lands in the box, then hits the glass</td><td>Good, play on</td></tr>
+<tr><td>Touches the net, lands in the box, does not touch the fence</td><td>Let: replay that serve</td></tr>
+<tr><td>Touches the net, then lands out</td><td>Fault</td></tr>
+<tr><td>Served before the receiver was ready (and they did not try to return it)</td><td>Let: replay that serve</td></tr>
+<tr><td>Hits the receiver before it bounces</td><td>Point to the serving pair</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">A let replays only that serve. A let on the second serve means you take the second serve again, not two new serves. More rules on our <a href="{href("rules.html")}">interactive rules court</a>, and serve tactics on the <a href="{href("positioning.html")}">positioning guide</a>.</p>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Who serves and when</h2></div><div class="grid">
+<div class="card"><h3>A whole game each</h3><p>One player serves for the whole game. Then the other pair serves the next game, and so on.</p></div>
+<div class="card"><h3>Swap sides every point</h3><p>The server changes side after every point, so each point is served diagonally to the other receiver.</p></div>
+<div class="card"><h3>Golden point and Star Point</h3><p>On a deciding point the receiving pair chooses which player receives. See <a href="{href("golden-point-star-point.html")}">how deciding points work</a>.</p></div>
+</div></div></section>'''
+serve_faq = [
+    ("Can you serve overarm in padel?", "No. You must hit the ball at or below waist height after it bounces, so every padel serve is underhand."),
+    ("Is it a let if the serve hits the net in padel?", "Yes, if it then lands in the correct box and does not touch the metal fence before bouncing again. If it touches the net and lands out, it is a fault."),
+    ("What if the serve hits the fence in padel?", "If the ball bounces in the box and then hits the metal fence before a second bounce, it is a fault. If it hits the glass instead, the ball is in play."),
+    ("Does the serve have to bounce in padel?", "Yes. The server must bounce the ball behind the service line before hitting it, and the receiver must let the serve bounce before returning it."),
+    ("Can you stand on the line when serving in padel?", "No. Touching the service line or the imaginary extension of the centre line with your foot when you serve is a fault."),
+    ("Can you jump when you serve in padel?", "No. At least one foot must be on the ground when you hit the ball."),
+    ("How many serves do you get in padel?", "Two. If the first is a fault, you have a second serve. Two faults is a double fault and loses the point."),
+]
+page("serve-rules.html", "Padel Serve Rules: Is My Serve Legal? Free Serve Checker | Padel Glass Box",
+     "Padel serve rules in plain English: where to stand, the bounce, waist height, faults and lets. Use the free serve checker to make the call on any serve.", serve, serve_faq, "Serve rules")
+
 # ---------------- ABOUT / PRIVACY / 404 ----------------
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
@@ -596,7 +719,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

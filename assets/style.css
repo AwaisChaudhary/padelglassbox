@@ -363,3 +363,20 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .aff-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; padding: 0; list-style: none; }
 .aff-links a { display: inline-block; padding: 8px 14px; border-radius: 999px; border: 1px solid currentColor; text-decoration: none; color: inherit; font-weight: 600; }
 .aff-note { font-size: .8rem; opacity: .75; margin: 8px 0 0; }
+
+/* ---------- positioning court ---------- */
+.pos-key { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 12px 0 0; color: #d6e0fb; font-size: 0.86rem; font-weight: 600; }
+.pos-key span { display: inline-flex; align-items: center; gap: 6px; }
+.pos-key i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 2px solid #0b1530; }
+.pos-key i.ball { background: #e8f84a; width: 8px; height: 8px; border: 0; box-shadow: 0 0 0 2px #fff; }
+#pos-court .pl { transition: transform .45s cubic-bezier(.3,.7,.3,1); }
+#pos-side-bar[hidden] { display: none; }
+.pos-tips { padding-left: 1.1em; margin: 0 0 1em; }
+.pos-tips li { margin-bottom: 6px; }
+.pos-warn { background: #ffe1d6; color: #a43c13; border-radius: 12px; padding: 10px 14px; font-weight: 600; font-size: 0.95rem; }
+
+/* ---------- serve checker ---------- */
+.sv-q.off { opacity: 0.4; pointer-events: none; }
+.result.good h2 { color: var(--ball); }
+.result.fault h2 { color: #ff9b78; }
+.result.let h2 { color: #9fd8ff; }

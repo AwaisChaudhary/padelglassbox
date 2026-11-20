@@ -655,4 +655,102 @@
     $("#dz-rand").addEventListener("click", function () { seq = []; var guard = 0; while (!drender() && guard++ < 40) seq.push(Math.random() < 0.5 ? 0 : 1); drender(); });
     drender();
   }
+
+  /* ---------- positioning court ---------- */
+  var pc = $("#pos-court");
+  if (pc) {
+    var NS = "http://www.w3.org/2000/svg";
+    var px = function (x) { return 20 + x * 30; }, py = function (y) { return 20 + y * 30; };
+    var el = function (tag, a) { var n = document.createElementNS(NS, tag); for (var k in a) n.setAttribute(k, a[k]); return n; };
+    // Positions in metres: x 0-10 (left to right), y 0-20 (opponents' glass to yours). Net at y 10.
+    // p: [you, partner, opponent left, opponent right]; ball: [x, y]; ar: arrows [x1,y1,x2,y2]
+    var SC = {
+      serve: { t: "Your team serves", p: [[3, 12.4], [7, 18.1], [2.6, 1.2], [7.2, 4.2]], ball: [3, 2.2], ar: [[7, 18.1, 7.2, 13.2]],
+        d: "Your partner serves from the right, behind the service line, aimed diagonally at the opponent on the left. You wait at the net on the other half.",
+        tips: ["The server bounces the ball, serves, then moves forward to join the partner at the net.", "The partner at the net stands about 2 metres from it, ready to volley the return.", "Aim the serve deep, so the ball comes off the back glass and the return is harder."], warn: "" },
+      receive: { t: "You receive", p: [[2.8, 19], [7.2, 16.2], [7.2, 1.9], [2.6, 7.6]], ball: [2.8, 18.2], ar: [],
+        d: "The server on the far side serves diagonally to you, and their partner waits at the net. You stand about 1 metre in front of your back glass. Your partner waits further forward on the other half.",
+        tips: ["Stand about 1 metre off the glass so a deep serve can come off the glass and you still have room.", "Let the serve bounce. You may not volley it.", "A good return is a low ball at the feet of the player coming to the net, or a lob over the net player."], warn: "" },
+      net: { t: "Both at the net", p: [[2.8, 12.2], [7.2, 12.6], [2.8, 1.2], [7.2, 1.1]], ball: [2.6, 1.6], ar: [], side: true,
+        d: "You and your partner both stand about 2 to 2.5 metres from the net. This is the strongest place to be: most points are won from here.",
+        tips: ["The player on the ball's side stays a little closer and covers the line.", "The other player is half a step back and closer to the middle, watching for the lob.", "Keep your racket up and in front of you, ready for a volley."], warn: "" },
+      back: { t: "Both at the back", p: [[2.8, 18.9], [7.2, 18.6], [2.9, 7.7], [7.1, 7.9]], ball: [3.3, 8.2], ar: [], side: true,
+        d: "The opponents hold the net, so you both defend about 1 metre in front of your back glass, side by side.",
+        tips: ["Give the ball room to come off the glass rather than rushing it.", "The player on the ball's side covers the line, the other covers the middle.", "Look for a good lob or a low chiquita, then move up together."], warn: "" },
+      lob: { t: "Lobbed at the net", p: [[2.8, 12.3], [7.2, 12.5], [2.8, 1.2], [7.2, 1.3]], ball: [3.3, 17.6], ar: [[2.8, 12.3, 3.1, 17.4], [7.2, 12.5, 6.8, 17.6]],
+        d: "A lob has gone over you. Both of you turn and go back together, so you can defend side by side.",
+        tips: ["Turn side-on and run back, don't back-pedal facing the net.", "Let the ball come off the glass if you can't reach it before it bounces.", "Play a safe ball, then move back up to the net as a pair."], warn: "" },
+      split: { t: "One up, one back", p: [[2.8, 12.3], [7.2, 18.9], [2.8, 1.2], [7.2, 7.7]], ball: [7, 8.1], ar: [], gap: true,
+        d: "One player at the net and one at the back leaves a big diagonal gap between you. Good opponents hit the ball straight through it or at the net player's feet.",
+        tips: ["If your partner goes up, go up with them.", "If one of you is pushed back, both go back.", "Think of an invisible rope of about 3 metres joining you."], warn: "Avoid this formation." }
+    };
+    var cur = "serve", side = "L", gZ = $("#pos-zones"), gA = $("#pos-arrows"), gP = $("#pos-players"), panel = $("#pos-panel"), sideBar = $("#pos-side-bar");
+    var COL = ["#e8f84a", "#ffffff", "#ff8a5c", "#ff8a5c"], LAB = ["You", "Partner", "", ""], nodes = [];
+    for (var i = 0; i < 4; i++) {
+      var g = el("g", { "class": "pl" });
+      g.appendChild(el("circle", { r: 13, fill: COL[i], stroke: "#0b1530", "stroke-width": 2.5 }));
+      if (LAB[i]) { var tx = el("text", { y: 30, "text-anchor": "middle", fill: "#fff", "font-family": "sans-serif", "font-size": 12, "font-weight": 700 }); tx.textContent = LAB[i]; g.appendChild(tx); }
+      gP.appendChild(g); nodes.push(g);
+    }
+    var ballN = el("circle", { r: 6, fill: "#e8f84a", stroke: "#fff", "stroke-width": 2, "class": "pl" }); gP.appendChild(ballN);
+    var prender = function () {
+      var s = SC[cur], pts = s.p.map(function (q) { return q.slice(); }), b = s.ball.slice();
+      if (s.side && side === "R") {
+        // mirror the scene left-right so the ball is on your partner's side
+        pts = [[10 - pts[1][0], pts[1][1]], [10 - pts[0][0], pts[0][1]], [10 - pts[3][0], pts[3][1]], [10 - pts[2][0], pts[2][1]]];
+        b[0] = 10 - b[0];
+      }
+      pts.forEach(function (q, i) { nodes[i].setAttribute("transform", "translate(" + px(q[0]) + " " + py(q[1]) + ")"); });
+      ballN.setAttribute("transform", "translate(" + px(b[0]) + " " + py(b[1]) + ")");
+      gA.textContent = ""; gZ.textContent = "";
+      (s.ar || []).forEach(function (a) { gA.appendChild(el("line", { x1: px(a[0]), y1: py(a[1]), x2: px(a[2]), y2: py(a[3]), stroke: "#e8f84a", "stroke-width": 3, "stroke-dasharray": "6 6", "marker-end": "url(#pos-ar)" })); });
+      if (s.gap) [[4.6, 11.6, 5.1, 5.4], [0.3, 15.2, 4.4, 4.5]].forEach(function (r) { gZ.appendChild(el("rect", { x: px(r[0]), y: py(r[1]), width: r[2] * 30, height: r[3] * 30, rx: 10, fill: "rgba(255,138,92,0.28)", stroke: "#ff8a5c", "stroke-width": 2, "stroke-dasharray": "5 5" })); });
+      else if (cur !== "serve" && cur !== "receive") {
+        var near = pts[0][1] > 15;
+        gZ.appendChild(el("rect", { x: px(0.3), y: py(near ? 17.6 : 11.3), width: 9.4 * 30, height: (near ? 2.1 : 2.2) * 30, rx: 10, fill: "rgba(232,248,74,0.12)", stroke: "rgba(232,248,74,0.5)", "stroke-dasharray": "4 6" }));
+      }
+      sideBar.hidden = !s.side;
+      panel.innerHTML = "<h3>" + s.t + "</h3><p>" + s.d + "</p><ul class=\"pos-tips\">" + s.tips.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" + (s.warn ? "<p class=\"pos-warn\">" + s.warn + "</p>" : "");
+      $$("#pos-pick .opt").forEach(function (o) { o.setAttribute("aria-pressed", o.dataset.s === cur ? "true" : "false"); });
+      $$("#pos-side button").forEach(function (o) { o.setAttribute("aria-pressed", o.dataset.v === side ? "true" : "false"); });
+    };
+    $$("#pos-pick .opt").forEach(function (o) { o.addEventListener("click", function () { cur = o.dataset.s; prender(); }); });
+    $$("#pos-side button").forEach(function (o) { o.addEventListener("click", function () { side = o.dataset.v; prender(); }); });
+    prender();
+  }
+
+  /* ---------- serve checker ---------- */
+  var svc = $("#svc");
+  if (svc) {
+    var A = {}, out = $("#sv-out"), aft = $("#sv-after");
+    var ORDER = ["try", "bounce", "feet", "ground", "waist", "own", "land", "after"];
+    var verdict = function () {
+      var second = A["try"] === "2", F = function (why) { return { c: "fault", h: second ? "Double fault" : "Fault", p: why + (second ? " That was the second serve, so the receiving pair wins the point." : " The server has one more try: the second serve.") }; };
+      if (A.land === "miss") return F("Swinging and missing counts as a serve.");
+      if (A.bounce === "n") return F("The ball must bounce behind the service line, in the server's own half, before it is hit.");
+      if (A.feet === "n") return F("The server's feet may not touch the service line or the centre line extension.");
+      if (A.ground === "n") return F("At least one foot must be on the ground when the ball is hit. No jump serves.");
+      if (A.waist === "n") return F("Contact must be at or below waist height.");
+      if (A.own === "y") return F("The serve may not touch the server, their partner or anything on their side before crossing the net.");
+      if (!A.land) return null;
+      if (A.land === "out") return F("The ball must land in the service box diagonally opposite. Lines count as in.");
+      if (A.land === "netout") return F("A net touch is only a let if the ball still lands in the correct box.");
+      if (A.land === "body") return { c: "good", h: "Point to the server", p: "The serve hit the receiver before it bounced, so the serving pair wins the point." };
+      if (!A.after) return null;
+      if (A.after === "fence") return F("After bouncing in the box, the serve hit the metal fence before a second bounce.");
+      if (A.land === "netin") return { c: "let", h: "Let: replay the serve", p: "The ball touched the net and landed in the right box without touching the fence. Replay " + (second ? "the second serve only." : "the first serve.") };
+      return { c: "good", h: "Good serve", p: A.after === "glass" ? "It bounced in the box and then hit the glass, which is fine. Play on: the receiver can play it off the glass." : "A legal serve. Play on." };
+    };
+    var srender = function () {
+      var needAfter = A.land === "in" || A.land === "netin";
+      aft.classList.toggle("off", !needAfter);
+      $$(".sv-q", svc).forEach(function (q) { $$(".opt", q).forEach(function (o) { o.setAttribute("aria-pressed", A[q.dataset.q] === o.dataset.v ? "true" : "false"); }); });
+      var r = verdict();
+      out.className = "result" + (r ? " " + r.c : "");
+      out.innerHTML = r ? "<h2>" + r.h + "</h2><p>" + r.p + "</p>" : "<h2>Make the call</h2><p>" + (A.land && needAfter && !A.after ? "One more: what did the ball hit after bouncing in the box?" : "Answer the questions and the verdict appears here.") + "</p>";
+    };
+    $$(".sv-q", svc).forEach(function (q) { $$(".opt", q).forEach(function (o) { o.addEventListener("click", function () { A[q.dataset.q] = o.dataset.v; if (q.dataset.q === "land" && o.dataset.v !== "in" && o.dataset.v !== "netin") delete A.after; srender(); }); }); });
+    $("#sv-reset").addEventListener("click", function () { A = {}; srender(); });
+    srender();
+  }
 })();
