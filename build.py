@@ -121,7 +121,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -282,8 +282,8 @@ rules = f'''<header class="hero"><div class="wrap"><h1>Padel rules, tap by tap.<
 <div class="card"><h3>A serve is a fault if</h3><p>it lands outside the diagonal box, it's hit above the waist, you miss the ball, your foot touches the line, or after bouncing in the box it hits the metal mesh. Not sure? Use our <a href="{href("serve-rules.html")}">serve checker</a>.</p></div>
 <div class="card"><h3>Lets</h3><p>If the serve touches the net and still lands in the right box, without touching the metal fence, it is a let and you replay that serve.</p></div>
 <div class="card"><h3>Receiving</h3><p>The receiver must let the serve bounce before hitting it. After that, players can volley freely.</p></div>
-<div class="card"><h3>Using the walls</h3><p>On your side, the ball can bounce once and then hit the walls; you can still play it. You may also hit the ball into your own walls to get it back over the net.</p></div>
-<div class="card"><h3>Lost points</h3><p>You lose the point if the ball bounces twice, if your shot hits the opponents' wall or fence before the ground, or if the ball touches your body.</p></div>
+<div class="card"><h3>Using the walls</h3><p>On your side, the ball can bounce once and then hit the glass or fence; you can still play it. You may also hit the ball into your own glass to get it back over the net, but not into your own metal fence. Not sure about a call? Try the <a href="{href("wall-rules.html")}">wall and fence checker</a>.</p></div>
+<div class="card"><h3>Lost points</h3><p>You lose the point if the ball bounces twice on your side, if your shot hits the opponents' wall or fence before their ground, if it hits your own fence, if the ball touches you or your partner, or if you touch the net or posts during the rally.</p></div>
 <div class="card"><h3>Scoring</h3><p>15, 30, 40, game, sets to six with a tie-break at 6-6. At deuce, the organiser chooses advantage, golden point or Star Point: <a href="{href("golden-point-star-point.html")}">see how each one works</a>.</p></div>
 <div class="card"><h3>Court size</h3><p>The court is 20 m by 10 m, with the service lines 6.95 m from the net. See every measurement, in metres or feet, on our <a href="{href("court-dimensions.html")}">measured court diagram</a>.</p></div>
 <div class="card"><h3>Where to stand</h3><p>Rules tell you what is allowed; position wins points. See where all four players stand at the serve, at the net and at the back on our <a href="{href("positioning.html")}">positioning guide</a>.</p></div>
@@ -296,6 +296,8 @@ rules_faq = [
     ("How high is a padel net?", "88 cm in the middle and 92 cm at the posts."),
     ("Where must the server stand?", "Behind the service line, which is 6.95 m from the net, between the centre line and the side wall, serving diagonally into the opposite service box."),
     ("What is a let in padel?", "A serve that touches the net and then lands in the correct box without touching the metal fence. The serve is replayed. A let on the second serve replays only the second serve."),
+    ("Can you play the ball off your own fence in padel?", "No. You may hit the ball into your own glass to send it back over the net, but if your shot hits the metal fence on your side you lose the point."),
+    ("Is a net cord in play during a padel rally?", "Yes. In a rally a ball that touches the net and lands on the other side is in play. Only on the serve does a net touch mean a let."),
 ]
 page("rules.html", "Padel Rules Explained Simply, With an Interactive Court | Padel Glass Box",
      "Padel rules in plain English: the underhand serve, walls, faults and scoring, plus an interactive court you can tap to learn each part.", rules, rules_faq, "Rules")
@@ -692,7 +694,7 @@ serve = f'''<header class="hero"><div class="wrap"><h1>Was that serve legal?</h1
 <tr><td>Served before the receiver was ready (and they did not try to return it)</td><td>Let: replay that serve</td></tr>
 <tr><td>Hits the receiver before it bounces</td><td>Point to the serving pair</td></tr>
 </tbody></table></div>
-<p class="muted" style="margin-top:14px">A let replays only that serve. A let on the second serve means you take the second serve again, not two new serves. More rules on our <a href="{href("rules.html")}">interactive rules court</a>, and serve tactics on the <a href="{href("positioning.html")}">positioning guide</a>.</p>
+<p class="muted" style="margin-top:14px">A let replays only that serve. A let on the second serve means you take the second serve again, not two new serves. Calls in the rally are on the <a href="{href("wall-rules.html")}">wall and fence checker</a>, more rules on our <a href="{href("rules.html")}">interactive rules court</a>, and serve tactics on the <a href="{href("positioning.html")}">positioning guide</a>.</p>
 </div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Who serves and when</h2></div><div class="grid">
 <div class="card"><h3>A whole game each</h3><p>One player serves for the whole game. Then the other pair serves the next game, and so on.</p></div>
@@ -829,6 +831,99 @@ page("padel-balls.html", "When to Change Padel Balls: Free Dead Ball Checker | P
      "Are your padel balls dead? Use the free 6-step checker, learn how long padel balls last, padel vs tennis ball pressure and size, and how to store them.", balls, balls_faq, "Padel balls")
 
 # ---------------- ABOUT / PRIVACY / 404 ----------------
+# ---------------- WALL AND FENCE RULES ----------------
+# Outcome keys: verdict class (good = your shot is good / play on, win = you win the point, lose = you lose the point), heading, why, FIP rule, ball path (side view).
+WR = {
+    "a_ret": ("good", "Good shot, play on", "Your ball bounced on their side first, so it was a good shot. They returned it before a second bounce, so the rally carries on.", "FIP rule 12.3", [[70,110],[210,30],[300,140],[345,96],[250,60],[120,140]]),
+    "a_two": ("win", "You win the point", "Your shot bounced on their side and then bounced again before they hit it. A second bounce ends the rally in your favour.", "FIP rules 12.3 and 13.1", [[70,110],[210,30],[290,140],[325,112],[355,140]]),
+    "a_wall": ("good", "Good shot, play on", "After a bounce on their ground the ball may hit their glass or their metal fence. It stays in play, and they can return it off the wall before it bounces again.", "FIP rules 12.3 and 14.1", [[70,110],[220,30],[315,140],[380,100],[320,84],[240,40],[120,140]]),
+    "a_out": ("win", "Your shot was good", "The ball bounced on their side first, so it was a good shot. If the club allows out-of-court play, they may run out through the door and return it before it bounces twice. If they can't, or out-of-court play isn't allowed there, you win the point.", "FIP rules 13.1 and 16", [[70,110],[200,40],[300,140],[372,56],[396,30]]),
+    "a_stuck": ("win", "You win the point", "If your ball bounces on their side and then gets stuck in the fence, goes out through a hole in it, or stays on the flat top of a wall, you win the point.", "FIP rule 15.1", [[70,110],[230,36],[312,140],[378,78]]),
+    "b": ("lose", "You lose the point", "Your shot hit their glass or fence before touching their ground. In padel the ball must bounce on the other side before it touches any wall there.", "FIP rule 13.1", [[70,110],[240,52],[380,98],[330,140]]),
+    "c_good": ("good", "Good shot, play on", "You may hit the ball into your own glass so that it bounces back over the net. As long as it then lands on their ground first, it is a good shot.", "FIP rule 14.1", [[70,110],[20,96],[200,26],[300,140],[350,110]]),
+    "c_wall": ("lose", "You lose the point", "Playing off your own glass is fine, but the ball must still bounce on their ground before touching their walls. It went straight into their glass or fence.", "FIP rule 13.1", [[70,110],[20,96],[230,36],[380,102]]),
+    "c_short": ("lose", "You lose the point", "After hitting your own glass, the ball must still cross the net. It fell back on your side, so the point goes to them.", "FIP rule 13.1", [[70,110],[20,96],[110,90],[160,140]]),
+    "d": ("lose", "You lose the point", "You may play off your own glass, but not off your own metal fence. If your shot hits the mesh on your side, you lose the point.", "FIP rule 13.1", [[70,110],[20,78],[95,140]]),
+    "e_good": ("good", "Good shot, play on", "During a rally a ball that clips the net and then lands on their side is a good shot. It is only on the serve that a net touch means a let.", "FIP rule 14.1", [[70,118],[200,123],[236,140],[262,124]]),
+    "e_short": ("lose", "You lose the point", "The ball hit the net and dropped back on your side, so it never crossed. The point goes to them.", "FIP rule 13.1", [[70,118],[199,124],[186,140]]),
+    "e_wall": ("lose", "You lose the point", "The ball touched the net and then flew straight into their glass or fence without bouncing on their ground first.", "FIP rule 13.1", [[70,118],[199,123],[290,70],[380,98]]),
+    "f": ("lose", "You lose the point", "On indoor courts, a shot that hits the ceiling, a light or anything above the court before bouncing on their side loses the point.", "FIP rule 13.1", [[70,110],[170,12],[240,70],[290,140]]),
+    "h": ("win", "You win the point", "If your shot hits an opponent's body or clothes before it bounces, their team loses the point, even if they were standing outside the court.", "FIP rule 13.1", [[70,110],[180,60],[296,92]]),
+    "g": ("lose", "You lose the point", "If the ball you hit touches you or your partner, your team loses the point.", "FIP rule 13.1", [[70,110],[100,70],[118,100]]),
+}
+def _wq(qid, label, opts, off=False):
+    return f'<div class="q sv-q wr-q{" off" if off else ""}" data-q="{qid}"><h3>{label}</h3><div class="opts">' + "".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="false">{t}</button>' for v, t in opts) + '</div></div>'
+WR_SVG = '''<svg viewBox="0 0 400 160" class="wr-court" role="img" aria-label="Side view of a padel court. The ball path for the chosen situation is drawn on it.">
+<rect x="0" y="0" width="400" height="160" rx="14" fill="#0e2468"/>
+<path d="M14 12h372" stroke="#7a8ba8" stroke-width="2" stroke-dasharray="4 6" opacity=".7"/><text x="24" y="26" font-size="9" fill="#9fb0e0" font-family="Onest, sans-serif">Ceiling or lights (indoor)</text>
+<rect x="20" y="140" width="360" height="6" fill="#1e46c8"/>
+<rect x="14" y="86" width="6" height="54" fill="#9cc4ea" opacity=".75"/><rect x="380" y="86" width="6" height="54" fill="#9cc4ea" opacity=".75"/>
+<path d="M17 68v18M383 68v18" stroke="#7a8ba8" stroke-width="6" stroke-dasharray="2 2"/>
+<rect x="198" y="124" width="4" height="16" fill="#e4eef6"/>
+<text x="110" y="156" text-anchor="middle" font-size="9" fill="#9fb0e0" font-family="Onest, sans-serif">Your side</text><text x="290" y="156" text-anchor="middle" font-size="9" fill="#9fb0e0" font-family="Onest, sans-serif">Their side</text>
+<text x="26" y="82" font-size="8" fill="#9fb0e0" font-family="Onest, sans-serif">fence</text><text x="26" y="100" font-size="8" fill="#9fb0e0" font-family="Onest, sans-serif">glass</text>
+<g fill="#e8f84a"><circle cx="70" cy="104" r="5"/><path d="M70 110v22M70 132l-6 8M70 132l6 8" stroke="#e8f84a" stroke-width="3"/></g>
+<g fill="#ffffff"><circle cx="300" cy="84" r="5"/><path d="M300 90v22M300 112l-6 28M300 112l6 28" stroke="#fff" stroke-width="3" opacity=".9"/></g>
+<polyline id="wr-path" points="" fill="none" stroke="#e8f84a" stroke-width="2.5" stroke-dasharray="5 5"/>
+<g id="wr-marks"></g>
+<circle id="wr-ball" cx="70" cy="110" r="6" fill="#e8f84a" stroke="#0b1530" stroke-width="1.5"/>
+</svg>'''
+wall = f'''<header class="hero"><div class="wrap"><h1>Padel wall rules: was that ball in?</h1>
+<p class="lead">Glass, fence, net, ceiling: tap what your shot touched and see the call, with the ball path drawn on a side view of the court. Then read the wall and fence rules in plain English.</p></div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="wr">
+<div>
+{_wq("first", "1. After you hit it, what did the ball touch first?", [("a", "Their ground (it bounced on their side)"), ("b", "Their glass or fence"), ("c", "My own glass"), ("d", "My own metal fence"), ("e", "The net"), ("f", "The ceiling or a light"), ("h", "An opponent"), ("g", "Me or my partner")])}
+{_wq("a", "2. Then what happened?", [("ret", "They hit it back before a second bounce"), ("wall", "It hit their glass or fence"), ("two", "It bounced a second time"), ("out", "It left the court over a wall or through a door"), ("stuck", "It got stuck in the fence or on top of a wall")], True)}
+{_wq("c", "2. Then what happened?", [("good", "It crossed the net and bounced on their side"), ("wall", "It crossed the net and hit their glass or fence first"), ("short", "It didn't make it over the net")], True)}
+{_wq("e", "2. Then what happened?", [("good", "It went over and bounced on their side"), ("short", "It dropped back on my side"), ("wall", "It went over and hit their glass or fence first")], True)}
+<button class="btn sm" type="button" id="wr-reset">Start again</button>
+</div>
+<aside class="result" id="wr-out" aria-live="polite"><div class="wr-svg">{WR_SVG}</div><div id="wr-txt"><h2>Make the call</h2><p>Tap what the ball touched and the verdict appears here. These are rally rules; for the serve, use the <a href="{href("serve-rules.html")}" style="color:#e8f84a">serve checker</a>.</p></div></aside>
+</div></div></section>
+{AD.format("wall-mid")}
+<section><div class="wrap"><div class="sh"><h2>The wall rules in one minute</h2></div><div class="grid">
+<div class="card"><span class="pill b">The golden rule</span><h3 style="margin-top:10px">Ground first, then walls</h3><p>Your shot must cross the net and bounce on their ground before it touches anything else on their side. After that bounce, the glass and the fence are both part of the game.</p></div>
+<div class="card"><span class="pill b">Your side</span><h3 style="margin-top:10px">Your glass is a tool</h3><p>You can hit the ball into your own glass to send it back over the net. This is a normal shot in padel, often used when the ball gets past you into the corner.</p></div>
+<div class="card"><span class="pill b">Your side</span><h3 style="margin-top:10px">Your fence is not</h3><p>Hitting the ball into the metal mesh on your own side loses the point. Only the glass may be used to play the ball back.</p></div>
+<div class="card"><span class="pill b">Their side</span><h3 style="margin-top:10px">One bounce, then anything</h3><p>After one bounce on their side, the ball may hit their glass, their fence or both, as many times as it likes. They must hit it before it touches the ground a second time.</p></div>
+<div class="card"><span class="pill b">Net</span><h3 style="margin-top:10px">Net cord is fine in a rally</h3><p>In a rally, a ball that clips the net and lands on their side is good. On the serve it is a let. Touching the net or the posts with your body or racket loses the point.</p></div>
+<div class="card"><span class="pill b">Outside</span><h3 style="margin-top:10px">Out of the court</h3><p>A ball that bounces on their side and then flies out of the court was a good shot. At clubs that allow it, they may run out and play it back. If not, you win the point.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Every wall and fence call</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Your shot</th><th scope="col">The call</th></tr></thead><tbody>
+<tr><td>Bounces on their side, then hits their glass</td><td>In play</td></tr>
+<tr><td>Bounces on their side, then hits their fence</td><td>In play</td></tr>
+<tr><td>Hits their glass or fence before bouncing</td><td>You lose the point</td></tr>
+<tr><td>Hits your own glass, then bounces on their side</td><td>In play</td></tr>
+<tr><td>Hits your own glass, then goes straight into their glass</td><td>You lose the point</td></tr>
+<tr><td>Hits your own metal fence</td><td>You lose the point</td></tr>
+<tr><td>Clips the net, then bounces on their side (rally)</td><td>In play</td></tr>
+<tr><td>Hits the ceiling or a light before bouncing on their side</td><td>You lose the point</td></tr>
+<tr><td>Bounces on their side, then sticks in the fence or on top of a wall</td><td>You win the point</td></tr>
+<tr><td>Bounces on their side, then leaves the court</td><td>Good shot: they must play it outside (if allowed) or lose the point</td></tr>
+<tr><td>Hits an opponent before bouncing</td><td>You win the point</td></tr>
+<tr><td>You touch the net or a post during the rally</td><td>You lose the point</td></tr>
+<tr><td>You hit the ball before it crosses to your side</td><td>You lose the point</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">These calls follow the International Padel Federation (FIP) rules in force from January 2026. Club and league formats can add local rules, for example about out-of-court play. See the rest of the game on our <a href="{href("rules.html")}">interactive rules court</a>.</p>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Out-of-court play, explained</h2></div><div class="grid">
+<div class="card"><h3>What it is</h3><p>Sometimes a strong smash bounces on your side and flies out over the wall or through the door. At some courts you are allowed to run out of the court and hit the ball back before it bounces a second time. In Spanish this is called a salida de pista.</p></div>
+<div class="card"><h3>When it is allowed</h3><p>Only where the court is built for it: open door gaps and enough clear space outside. If the space isn't there, the club does not allow it, and a ball that bounces and leaves the court simply wins the point for the hitter.</p></div>
+<div class="card"><h3>How to play it</h3><p>Run out through the door, let the ball drop, and hit it back over the wall into the opponents' court. Your feet can be outside the court only when out-of-court play is allowed. Agree on the local rule before you start.</p></div>
+</div></div></section>'''
+wall_faq = [
+    ("Can you hit the ball off your own wall in padel?", "Yes, off your own glass. You can hit the ball into your glass so it rebounds over the net, as long as it then bounces on the other side before touching their walls. Hitting your own metal fence loses the point."),
+    ("Is it in if the ball hits the fence in padel?", "If the ball bounced on the ground first, yes: it stays in play. If it hit the fence before bouncing on the other side, the player who hit it loses the point."),
+    ("What happens if the ball goes out of the court in padel?", "If it bounced on the opponents' side first, the shot was good. Where out-of-court play is allowed, the opponents may run out and return it before a second bounce. Otherwise the hitter wins the point."),
+    ("Is a net cord a let in padel?", "Only on the serve. During a rally, a ball that touches the net and lands on the other side is in play, and players carry on."),
+    ("What if the ball gets stuck in the fence in padel?", "If it bounced on the opponents' side and then gets stuck in the mesh, goes out through a hole, or stays on top of the wall, the player who hit it wins the point."),
+    ("Can you touch the net in padel?", "No. Touching the net, the posts or the opponents' court with your body, clothes or racket while the ball is in play loses the point."),
+    ("What if the ball hits the ceiling in padel?", "If your shot hits the ceiling or a light before bouncing on the opponents' side, you lose the point."),
+]
+page("wall-rules.html", "Padel Wall and Fence Rules: Was That Ball In? Free Checker | Padel Glass Box",
+     "Padel wall rules in plain English: glass, metal fence, net cord, ceiling and out-of-court play. Tap what the ball touched and get the call on a side-view court.", wall + f'<script>window.WR={json.dumps(WR)};</script>', wall_faq, "Wall and fence rules")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -839,7 +934,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

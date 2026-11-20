@@ -841,4 +841,61 @@
     $("#b-reset").addEventListener("click", function () { B = {}; brender(); });
     brender();
   }
+
+  /* ---------- wall and fence checker ---------- */
+  var wr = $("#wr");
+  if (wr && window.WR) {
+    var WA = {}, wtxt = $("#wr-txt"), wout = $("#wr-out"), wpath = $("#wr-path"), wball = $("#wr-ball"), wmarks = $("#wr-marks"), wraf = null;
+    var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var NEED2 = { a: 1, c: 1, e: 1 };
+    var draw = function (pts) {
+      if (wraf) cancelAnimationFrame(wraf);
+      wmarks.innerHTML = "";
+      if (!pts) { wpath.setAttribute("points", ""); wball.setAttribute("cx", 70); wball.setAttribute("cy", 110); return; }
+      pts.slice(1, -1).forEach(function (p) { var c = document.createElementNS("http://www.w3.org/2000/svg", "circle"); c.setAttribute("cx", p[0]); c.setAttribute("cy", p[1]); c.setAttribute("r", 3.5); c.setAttribute("fill", "none"); c.setAttribute("stroke", "#fff"); c.setAttribute("stroke-width", 1.5); wmarks.appendChild(c); });
+      var lens = [], tot = 0;
+      for (var i = 1; i < pts.length; i++) { var l = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); lens.push(l); tot += l; }
+      var at = function (d) {
+        var shown = [pts[0]];
+        for (var j = 0; j < lens.length; j++) {
+          if (d >= lens[j]) { d -= lens[j]; shown.push(pts[j + 1]); continue; }
+          var f = d / lens[j]; shown.push([pts[j][0] + (pts[j + 1][0] - pts[j][0]) * f, pts[j][1] + (pts[j + 1][1] - pts[j][1]) * f]); break;
+        }
+        var last = shown[shown.length - 1];
+        wpath.setAttribute("points", shown.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" "));
+        wball.setAttribute("cx", last[0]); wball.setAttribute("cy", last[1]);
+      };
+      if (still) { at(tot); return; }
+      var t0 = null, dur = Math.min(2200, 500 + tot * 2.6);
+      var step = function (t) { if (t0 === null) t0 = t; var k = Math.min(1, (t - t0) / dur); at(tot * k); if (k < 1) wraf = requestAnimationFrame(step); };
+      wraf = requestAnimationFrame(step);
+    };
+    var wrender = function (animate) {
+      $$(".wr-q", wr).forEach(function (q) {
+        var id = q.dataset.q;
+        if (id !== "first") q.classList.toggle("off", WA.first !== id);
+        q.hidden = id !== "first" && NEED2[WA.first] && WA.first !== id;
+        $$(".opt", q).forEach(function (o) { o.setAttribute("aria-pressed", WA[id] === o.dataset.v ? "true" : "false"); });
+      });
+      var key = null;
+      if (WA.first) key = NEED2[WA.first] ? (WA[WA.first] ? WA.first + "_" + WA[WA.first] : null) : WA.first;
+      var r = key && window.WR[key];
+      var cls = r ? (r[0] === "lose" ? "fault" : r[0] === "win" ? "good" : "let") : "";
+      wout.className = "result" + (cls ? " " + cls : "");
+      if (r) {
+        wtxt.innerHTML = "<h2>" + r[1] + "</h2><p>" + r[2] + "</p><p class=\"wr-src\">Based on " + r[3] + ".</p>";
+        if (animate) draw(r[4]);
+      } else {
+        if (animate) draw(null);
+        if (WA.first) wtxt.innerHTML = "<h2>One more</h2><p>What happened next? Pick an answer in step 2.</p>";
+      }
+    };
+    $$(".wr-q", wr).forEach(function (q) { $$(".opt", q).forEach(function (o) { o.addEventListener("click", function () {
+      var id = q.dataset.q;
+      if (id === "first") { WA = { first: o.dataset.v }; } else { WA[id] = o.dataset.v; }
+      wrender(true);
+    }); }); });
+    $("#wr-reset").addEventListener("click", function () { WA = {}; wrender(true); wtxt.innerHTML = "<h2>Make the call</h2><p>Tap what the ball touched and the verdict appears here.</p>"; });
+    wrender(false);
+  }
 })();
