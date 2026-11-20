@@ -93,6 +93,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <meta charset="utf-8">
 {ga}
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="msvalidate.01" content="215145BE38DEE30C2985F40FB4D4041F">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{url}">
