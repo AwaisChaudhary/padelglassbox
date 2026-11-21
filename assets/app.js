@@ -939,4 +939,101 @@
     $$(".vsq", vsq).forEach(function (q) { $$(".opt", q).forEach(function (o) { o.addEventListener("click", function () { VA[q.dataset.q] = o.dataset.v; vqrender(); }); }); });
     $("#vsq-reset").addEventListener("click", function () { VA = {}; vqrender(); });
   }
+  /* ---------- racket weight and balance decoder ---------- */
+  var rbEl = $("#rb");
+  if (rbEl && window.RB) {
+    var RBP = window.RB, rbSvg = $("#rb-svg"), rbTxt = $("#rb-txt");
+    var RBS = store.get("pp-rb", { A: { w: 355, b: 255, s: "round" }, B: { w: 368, b: 275, s: "diamond" } });
+    var rbClamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+    var rbHead = {
+      round: function (c) { return "M" + c + " 20 C" + (c + 70) + " 20 " + (c + 126) + " 70 " + (c + 126) + " 160 C" + (c + 126) + " 240 " + (c + 80) + " 300 " + c + " 305 C" + (c - 80) + " 300 " + (c - 126) + " 240 " + (c - 126) + " 160 C" + (c - 126) + " 70 " + (c - 70) + " 20 " + c + " 20Z"; },
+      teardrop: function (c) { return "M" + c + " 20 C" + (c + 112) + " 20 " + (c + 130) + " 90 " + (c + 124) + " 160 C" + (c + 114) + " 245 " + (c + 54) + " 298 " + c + " 305 C" + (c - 54) + " 298 " + (c - 114) + " 245 " + (c - 124) + " 160 C" + (c - 130) + " 90 " + (c - 112) + " 20 " + c + " 20Z"; },
+      diamond: function (c) { return "M" + c + " 20 C" + (c + 84) + " 20 " + (c + 130) + " 44 " + (c + 130) + " 96 L" + (c + 114) + " 178 C" + (c + 96) + " 250 " + (c + 50) + " 298 " + c + " 305 C" + (c - 50) + " 298 " + (c - 96) + " 250 " + (c - 114) + " 178 L" + (c - 130) + " 96 C" + (c - 130) + " 44 " + (c - 84) + " 20 " + c + " 20Z"; }
+    };
+    var RBSS = { round: [165, 70, 74], teardrop: [140, 62, 62], diamond: [108, 50, 48] };
+    var bBand = function (b) { return b < 260 ? ["Low balance", "head-light"] : b <= 270 ? ["Medium balance", "even"] : ["High balance", "head-heavy"]; };
+    var wBand = function (w) { return w < 355 ? "light" : w < 370 ? "medium weight" : "heavy"; };
+    function rbFeel(r) {
+      var wx = (r.w - 330) / 60, bx = (r.b - 248) / 34;
+      return { power: Math.round(rbClamp(10 + wx * 45 + bx * 45, 5, 98)), speed: Math.round(rbClamp(95 - wx * 50 - bx * 40, 5, 98)), arm: Math.round(rbClamp(8 + wx * 40 + bx * 52, 5, 98)) };
+    }
+    function rbSuits(r) {
+      var lo = r.b < 260, hi = r.b > 270, lt = r.w < 355, hv = r.w >= 370;
+      if (lo && !hv) return "Beginners, players with sore elbows or shoulders, and anyone who wants control and fast hands at the net.";
+      if (hi && !lt) return "Experienced attackers who hit hard and want power on smashes, and have the technique and fitness to handle it.";
+      if (hi && lt) return "Players who want some extra head weight for power but still want a light racket overall.";
+      if (lo && hv) return "Strong players who want a solid, stable feel but still like the weight close to the hand.";
+      return "Improving players who want a mix of control and power: an all-round set-up.";
+    }
+    function rbRacket(c, r, col, key) {
+      var y = 475 - r.b, ss = RBSS[r.s], o = "";
+      o += '<rect x="' + (c - 18) + '" y="300" width="36" height="175" rx="12" fill="' + col + '"/>';
+      o += '<path d="' + rbHead[r.s](c) + '" fill="' + col + '"/>';
+      o += '<ellipse cx="' + c + '" cy="' + ss[0] + '" rx="' + ss[1] + '" ry="' + ss[2] + '" fill="#1e46c8" fill-opacity=".28" stroke="#0e2468" stroke-width="2" stroke-dasharray="6 5"/>';
+      o += '<text x="' + c + '" y="' + (ss[0] + 6) + '" text-anchor="middle" font-size="17" font-weight="700" fill="#0e2468" font-family="Onest, sans-serif">Sweet spot</text>';
+      o += '<path d="M' + (c - 140) + ' ' + y + 'h280" stroke="#ff6b4a" stroke-width="4"/>';
+      o += '<circle cx="' + c + '" cy="' + y + '" r="11" fill="#ff6b4a" stroke="#fff" stroke-width="3"/>';
+      o += '<text x="' + c + '" y="' + (y - 20) + '" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" stroke="#0b1530" stroke-width="5" paint-order="stroke" font-family="Unbounded, sans-serif">' + key + " " + r.b + " mm</text>";
+      return o;
+    }
+    function rbDraw() {
+      var o = '<rect width="600" height="520" rx="16" fill="#0b1c55"/>';
+      var my = 475 - 227.5;
+      o += rbRacket(150, RBS.A, "#e8f84a", "A") + rbRacket(450, RBS.B, "#f4f6f1", "B");
+      o += '<path d="M8 ' + my + 'h584" stroke="#9cc4ea" stroke-width="2" stroke-dasharray="8 7"/>';
+      for (var m = 0; m <= 450; m += 50) {
+        var ty = 475 - m;
+        o += '<path d="M292 ' + ty + 'h16" stroke="#9fb0e0" stroke-width="2"/><text x="300" y="' + (ty - 5) + '" text-anchor="middle" font-size="13" fill="#9fb0e0" font-family="Onest, sans-serif">' + m + "</text>";
+      }
+      o += '<path d="M300 25V475" stroke="#9fb0e0" stroke-width="1.5" opacity=".5"/><text x="300" y="505" text-anchor="middle" font-size="14" fill="#c9d6fb" font-family="Onest, sans-serif">mm from the bottom of the handle</text>';
+      rbSvg.innerHTML = o;
+    }
+    function rbBars(f) {
+      return '<ul class="vs-bars">' + [["Power", f.power], ["Speed at the net", f.speed], ["Load on the arm", f.arm]].map(function (x) {
+        return "<li><span>" + x[0] + '</span><i><b style="width:' + x[1] + '%"></b></i><em>' + x[1] + "</em></li>";
+      }).join("") + "</ul>";
+    }
+    function rbCmp() {
+      var A = RBS.A, B = RBS.B, dw = B.w - A.w, db = B.b - A.b, parts = [];
+      if (dw === 0 && db === 0) return "Both rackets have the same weight and balance, so any difference you feel comes from the shape, core, face and stiffness.";
+      if (dw) parts.push(Math.abs(dw) + " g " + (dw > 0 ? "heavier" : "lighter"));
+      if (db) parts.push(Math.abs(db) + " mm " + (db > 0 ? "more head-heavy" : "more head-light"));
+      var p = dw * 1 + db * 1.4, s = "Racket B is " + parts.join(" and ") + " than racket A. ";
+      if (Math.abs(p) < 4) s += "That is a small change: they should feel quite similar to swing.";
+      else if (p > 0) s += "Expect B to hit a little harder on smashes and feel more solid, but slower in fast exchanges at the net and harder on the arm.";
+      else s += "Expect B to feel quicker and easier to control at the net, with a little less free power on smashes.";
+      return s;
+    }
+    function rbRender() {
+      ["A", "B"].forEach(function (k) {
+        var r = RBS[k], box = $('.rb-r[data-r="' + k + '"]', rbEl);
+        $$("input", box).forEach(function (i) { if (document.activeElement !== i) i.value = r[i.dataset.f]; });
+        $("#rb-wo-" + k).textContent = r.w + " g"; $("#rb-bo-" + k).textContent = r.b + " mm";
+        $$(".rb-shape .opt", box).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === r.s ? "true" : "false"); });
+      });
+      rbDraw();
+      rbTxt.innerHTML = ["A", "B"].map(function (k) {
+        var r = RBS[k], bb = bBand(r.b);
+        return '<div class="rb-res"><h3><i class="rb-dot rb-' + k.toLowerCase() + '"></i>Racket ' + k + ": " + bb[0] + ", " + wBand(r.w) + "</h3><p>" + r.w + " g, balance " + r.b + " mm (" + bb[1] + "), " + r.s + " shape. Suits: " + rbSuits(r) + "</p>" + rbBars(rbFeel(r)) + "</div>";
+      }).join("") + '<p class="rb-cmp">' + rbCmp() + "</p>";
+      store.set("pp-rb", RBS);
+    }
+    $$(".rb-r", rbEl).forEach(function (box) {
+      var k = box.dataset.r;
+      $$("input", box).forEach(function (i) {
+        i.addEventListener("input", function () {
+          var v = parseInt(i.value, 10); if (isNaN(v)) return;
+          RBS[k][i.dataset.f] = rbClamp(v, parseInt(i.min, 10), parseInt(i.max, 10)); rbRender();
+        });
+        i.addEventListener("change", function () { rbRender(); i.value = RBS[k][i.dataset.f]; });
+      });
+      $$(".rb-shape .opt", box).forEach(function (b) { b.addEventListener("click", function () { RBS[k].s = b.dataset.v; rbRender(); }); });
+      $$("[data-p]", box).forEach(function (b) { b.addEventListener("click", function () { var p = RBP[b.dataset.p]; RBS[k] = { w: p[0], b: p[1], s: p[2] }; rbRender(); }); });
+    });
+    $("#rb-copy").addEventListener("click", function () {
+      var t = ["A", "B"].map(function (k) { var r = RBS[k]; return "Racket " + k + ": " + r.w + " g, " + r.b + " mm (" + bBand(r.b)[1] + "), " + r.s; }).join("\n") + "\n" + rbCmp() + "\nhttps://padelglassbox.com/racket-balance";
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { toast("Copied"); }, function () { toast("Couldn't copy"); }); else toast("Couldn't copy");
+    });
+    rbRender();
+  }
 })();
