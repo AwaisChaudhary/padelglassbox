@@ -1193,4 +1193,139 @@
       wv.textContent = !n ? "Tick anything that sounds like your shoes." : sc >= 3 ? "Time for new shoes. Worn soles and flat cushioning make slips and sore legs more likely." : "Not yet, but keep an eye on them. Check again in a few weeks.";
     });
   })();
+  /* ---------- padel calories calculator ---------- */
+  var cal = $("#cal");
+  if (cal) (function () {
+    var C = window.CAL || {}, S = store.get("pp-cal", { w: 75, unit: "kg", t: 90, lv: "club", s: 2 });
+    var wEl = $("#cal-w"), tEl = $("#cal-t"), sEl = $("#cal-s"), out = $("#cal-out");
+    wEl.value = S.w; tEl.value = S.t; sEl.value = S.s;
+    var kcal = function (met, kg, min) { return met * 3.5 * kg / 200 * min; };
+    var r10 = function (x) { return Math.round(x / 5) * 5; };
+    var render = function () {
+      $$("[data-cal] button", cal).forEach(function (b) { b.setAttribute("aria-pressed", String(S[b.parentNode.dataset.cal] === b.dataset.v)); });
+      $("#cal-tv").textContent = S.t + " min"; $("#cal-sv").textContent = S.s;
+      $("#cal-lv-note").textContent = "Uses " + C[S.lv][1] + " METs. " + C[S.lv][2] + ".";
+      var w = +S.w, kg = S.unit === "lb" ? w / 2.20462 : w;
+      if (!(kg >= 25 && kg <= 200)) { out.innerHTML = "<h2>Your estimate</h2><p>Enter a body weight between " + (S.unit === "lb" ? "55 and 440 lb" : "25 and 200 kg") + ".</p>"; return; }
+      var met = C[S.lv][1], one = kcal(met, kg, S.t), hr = kcal(met, kg, 60), wk = one * S.s;
+      var vig = met >= 6, mins = S.t * S.s, eq = vig ? mins * 2 : mins, pct = Math.round(eq / 150 * 100);
+      var bars = ["easy", "club", "hard"].map(function (k) { var v = kcal(C[k][1], kg, S.t), mx = kcal(C.hard[1], kg, S.t); return "<dt>" + C[k][0] + "</dt><dd>" + r10(v) + ' kcal<div class="meter"><i style="width:' + Math.round(v / mx * 100) + '%"></i></div></dd>'; }).join("");
+      out.innerHTML = '<span class="pill b">' + C[S.lv][0] + " · " + S.t + " min</span>" +
+        '<p class="cal-big"><b>' + r10(one) + "</b> kcal</p><p>About " + r10(hr * 0.85) + " to " + r10(hr * 1.15) + " kcal per hour for you at this effort, give or take.</p>" +
+        '<dl class="spec">' + bars + "</dl>" +
+        "<p><b>Each week:</b> about " + (Math.round(wk / 50) * 50).toLocaleString("en-GB") + " kcal from " + S.s + " session" + (S.s > 1 ? "s" : "") + " (" + mins + " min, " + (vig ? "vigorous" : "moderate") + ").</p>" +
+        "<p><b>Weekly activity target:</b> " + pct + "% of the NHS and WHO minimum" + (vig ? " (vigorous minutes count double)" : "") + ".</p>" +
+        '<div class="meter"><i style="width:' + Math.min(100, pct) + '%"></i></div>' +
+        '<div class="btns" style="margin-top:16px"><button class="btn lime sm" type="button" id="cal-copy">Copy result</button></div>' +
+        '<p class="wr-src">Estimate based on tennis METs from the Compendium of Physical Activities. Not medical advice.</p>';
+      $("#cal-copy").addEventListener("click", function () {
+        var txt = "Padel calories: about " + r10(one) + " kcal for " + S.t + " min (" + C[S.lv][0].toLowerCase() + "), about " + (Math.round(wk / 50) * 50) + " kcal a week. padelglassbox.com/padel-calories";
+        if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { toast("Copied"); }, function () { toast("Couldn't copy"); }); else toast("Couldn't copy");
+      });
+    };
+    var save = function () { store.set("pp-cal", S); render(); };
+    $$("[data-cal]", cal).forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () {
+      var k = g.dataset.cal, v = b.dataset.v;
+      if (k === "unit" && v !== S.unit && +S.w) { S.w = Math.round(v === "lb" ? S.w * 2.20462 : S.w / 2.20462); wEl.value = S.w; }
+      S[k] = v; save(); }); }); });
+    wEl.addEventListener("input", function () { S.w = wEl.value; save(); });
+    tEl.addEventListener("input", function () { S.t = +tEl.value; save(); });
+    sEl.addEventListener("input", function () { S.s = +sEl.value; save(); });
+    render();
+  })();
+
+  /* ---------- padel ladder tracker ---------- */
+  var ld = $("#ld-setup");
+  if (ld) (function () {
+    var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var cfg = store.get("pp-ld-cfg", { who: "pairs", range: "3", move: "swap" }), L = store.get("pp-ld", null), win = null;
+    var namesEl = $("#ld-names"), err = $("#ld-err"), chEl = $("#ld-ch"), dfEl = $("#ld-df");
+    var MOVE = { swap: "The winner and the loser swap places. Nobody else moves.", jump: "The winner takes the loser's place. The loser and everyone in between move down one." };
+    var parse = function () { var seen = {}; return namesEl.value.split("\n").map(function (x) { return x.trim().slice(0, 60); }).filter(function (x) { if (!x || seen[x.toLowerCase()]) return false; seen[x.toLowerCase()] = 1; return true; }); };
+    var sync = function () {
+      $$("[data-ld] button", ld).forEach(function (b) { b.setAttribute("aria-pressed", String(cfg[b.parentNode.dataset.ld] === b.dataset.v)); });
+      $("#ld-move-note").textContent = MOVE[cfg.move];
+      var n = parse().length, w = cfg.who === "pairs" ? "pair" : "player";
+      $("#ld-count").textContent = n ? n + " " + w + (n === 1 ? "" : "s") + (n < 4 ? ", add at least 4" : "") : "";
+      namesEl.placeholder = cfg.who === "pairs" ? "Sam & Priya\nOmar & Lucia\nBen & Aisha\n..." : "Sam\nPriya\nOmar\n...";
+    };
+    $$("[data-ld]", ld).forEach(function (g) { choose(g, function (v) { cfg[g.dataset.ld] = v; store.set("pp-ld-cfg", cfg); sync(); }); });
+    namesEl.addEventListener("input", sync);
+    $("#ld-demo").addEventListener("click", function () { namesEl.value = (cfg.who === "pairs" ? ["Sam & Priya", "Omar & Lucia", "Ben & Aisha", "Marta & Jon", "Leo & Fatima", "Chris & Noor", "Ana & Raj", "Tom & Mei"] : ["Sam", "Priya", "Omar", "Lucia", "Ben", "Aisha", "Marta", "Jon"]).join("\n"); sync(); });
+    var byId = function (id) { for (var i = 0; i < L.p.length; i++) if (L.p[i].id === id) return L.p[i]; };
+    var pos = function (id) { return L.order.indexOf(id); };
+    var fillSel = function () {
+      var keep = chEl.value;
+      chEl.innerHTML = L.order.slice(1).map(function (id) { return '<option value="' + id + '">' + (pos(id) + 1) + ". " + esc(byId(id).n) + "</option>"; }).join("");
+      if (keep && pos(+keep) > 0) chEl.value = keep;
+      fillDf();
+    };
+    var fillDf = function () {
+      var c = pos(+chEl.value), rg = +L.range, keep = dfEl.value, opts = [];
+      for (var i = Math.max(0, c - rg); i < c; i++) opts.push('<option value="' + L.order[i] + '">' + (i + 1) + ". " + esc(byId(L.order[i]).n) + "</option>");
+      dfEl.innerHTML = opts.reverse().join("");
+      if (keep && opts.join("").indexOf('value="' + keep + '"') > -1) dfEl.value = keep;
+    };
+    chEl.addEventListener("change", fillDf);
+    var draw = function () {
+      var w = L.who === "pairs" ? "pairs" : "players";
+      $("#ld-sum").textContent = L.order.length + " " + w + " · challenge up to " + (L.range === "99" ? "anyone above" : L.range + " places") + " · " + L.h.length + " match" + (L.h.length === 1 ? "" : "es");
+      $("#ld-board").innerHTML = "<h2>The ladder</h2><table><thead><tr><th>#</th><th>" + (L.who === "pairs" ? "Pair" : "Player") + '</th><th class="num">W-L</th><th class="num">Last move</th></tr></thead><tbody>' +
+        L.order.map(function (id, i) { var x = byId(id), mv = x.mv || 0; return "<tr" + (i === 0 ? ' class="top"' : "") + "><td>" + (i + 1) + "</td><td>" + esc(x.n) + '</td><td class="num">' + x.w + "-" + x.l + '</td><td class="num ld-mv' + (mv > 0 ? " up" : mv < 0 ? " dn" : "") + '">' + (mv > 0 ? "▲" + mv : mv < 0 ? "▼" + (-mv) : "–") + "</td></tr>"; }).join("") + "</tbody></table>" +
+        (L.h.length ? "" : "<p style=\"margin-top:12px\">Record the first challenge to start moving the ladder.</p>");
+      $("#ld-hist").innerHTML = L.h.length ? L.h.slice().reverse().map(function (m) { return "<li><b>" + esc(m.wn) + "</b> beat " + esc(m.ln) + (m.sc ? " (" + esc(m.sc) + ")" : "") + '<span class="muted"> · ' + (m.up ? "moved up to #" + (m.to + 1) : "no change") + " · " + m.d + "</span></li>"; }).join("") : '<li class="muted">No matches yet.</li>';
+      fillSel();
+    };
+    var show = function (live) { ld.hidden = live; $("#ld-live").hidden = !live; $(".gen").classList.toggle("live", live); };
+    var save = function () { store.set("pp-ld", L); draw(); };
+    $("#ld-start").addEventListener("click", function () {
+      var names = parse(); err.textContent = "";
+      if (names.length < 4) { err.textContent = "Add at least 4 names, one per line."; return; }
+      if (names.length > 40) { err.textContent = "This tool handles up to 40 names."; return; }
+      L = { who: cfg.who, range: cfg.range, move: cfg.move, p: names.map(function (n, i) { return { id: i + 1, n: n, w: 0, l: 0, mv: 0 }; }), h: [], snap: [] };
+      L.order = L.p.map(function (x) { return x.id; }); L.next = names.length + 1;
+      show(true); save();
+      $("#ld-live").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    choose($("#ld-win"), function (v) { win = v; });
+    $("#ld-save").addEventListener("click", function () {
+      var re = $("#ld-rerr"), c = +chEl.value, d = +dfEl.value; re.textContent = "";
+      if (!c || !d) { re.textContent = "Pick the challenger and who they challenged."; return; }
+      if (!win) { re.textContent = "Pick who won."; return; }
+      L.snap.push(JSON.stringify({ order: L.order, p: L.p })); if (L.snap.length > 30) L.snap.shift();
+      var pc = pos(c), pd = pos(d), C = byId(c), Dd = byId(d), up = win === "c";
+      var before = L.order.slice();
+      if (up) {
+        if (L.move === "swap") { L.order[pd] = c; L.order[pc] = d; }
+        else { L.order.splice(pc, 1); L.order.splice(pd, 0, c); }
+        C.w++; Dd.l++;
+      } else { Dd.w++; C.l++; }
+      L.p.forEach(function (x) { var b0 = before.indexOf(x.id), a0 = pos(x.id); if (b0 !== a0) x.mv = b0 - a0; });
+      var dt = new Date();
+      L.h.push({ wn: up ? C.n : Dd.n, ln: up ? Dd.n : C.n, sc: $("#ld-sc").value.trim().slice(0, 40), up: up, to: up ? pd : pd, d: dt.getDate() + " " + ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][dt.getMonth()] });
+      $("#ld-sc").value = ""; win = null; $$("#ld-win button").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+      save(); toast(up ? C.n + " move up to #" + (pd + 1) : Dd.n + " hold their place");
+    });
+    $("#ld-undo").addEventListener("click", function () {
+      if (!L.h.length || !L.snap.length) { toast("Nothing to undo"); return; }
+      var s = JSON.parse(L.snap.pop()); L.order = s.order; L.p = s.p; L.h.pop(); save(); toast("Last result undone");
+    });
+    $("#ld-addb").addEventListener("click", function () {
+      var a = $("#ld-add"), n = a.value.trim().slice(0, 60);
+      if (!n) return;
+      if (L.p.some(function (x) { return x.n.toLowerCase() === n.toLowerCase(); })) { toast("That name is already on the ladder"); return; }
+      if (L.order.length >= 40) { toast("The ladder is full (40)"); return; }
+      L.p.push({ id: L.next, n: n, w: 0, l: 0, mv: 0 }); L.order.push(L.next); L.next++; a.value = ""; save(); toast("Added at #" + L.order.length);
+    });
+    $("#ld-new").addEventListener("click", function () {
+      if (!confirm("Start a new ladder? The current one will be cleared from this device.")) return;
+      namesEl.value = L.order.map(function (id) { return byId(id).n; }).join("\n"); L = null; store.set("pp-ld", null); show(false); sync();
+    });
+    $("#ld-copy").addEventListener("click", function () {
+      var txt = "Padel ladder\n" + L.order.map(function (id, i) { var x = byId(id); return (i + 1) + ". " + x.n + "  (" + x.w + "-" + x.l + ")"; }).join("\n") + "\n\nMade with padelglassbox.com/ladder";
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { toast("Ladder copied"); }, function () { toast("Couldn't copy"); }); else toast("Couldn't copy");
+    });
+    sync();
+    if (L && L.order) { show(true); draw(); }
+  })();
 })();

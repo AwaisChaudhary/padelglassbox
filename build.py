@@ -125,7 +125,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -328,18 +328,39 @@ for s in D["shots"]:
     shot_cards += f'''<article class="card shot" data-level="{s["level"]}"><svg viewBox="0 0 240 110" aria-hidden="true"><rect width="240" height="110" fill="#1d55e6"/><path d="M120 60v50" stroke="#f4f6f1" stroke-width="5"/><path d="M0 100h240" stroke="#fff" stroke-width="2"/><rect x="232" y="20" width="8" height="90" fill="#8fd3ff"/><rect x="0" y="20" width="8" height="90" fill="#8fd3ff"/><path class="path" d="{pth}"/><circle class="sball" r="6"><animateMotion dur="2.4s" repeatCount="indefinite" path="{pth}"/></circle></svg>
 <span class="pill {LV[s["level"]]}" style="margin-top:12px">{s["level"]} · {s["where"]}</span><h3>{e(s["name"])}</h3><p>{e(s["text"])}</p><div class="tip"><strong>Tip:</strong> {e(s["tip"])}</div></article>'''
 shots = f'''<header class="hero"><div class="wrap"><h1>Every padel shot, explained.</h1>
-<p class="lead">What each shot is for, when to play it, and one tip to get it right. Each card shows the ball's path, with the net in the middle and the glass at the ends.</p></div></header>
+<p class="lead">What each shot is for, when to play it, and one tip to get it right. Each card shows the ball's path, with the net in the middle and the glass at the ends.</p>
+{quick("There are 10 key padel shots. Learn them in this order: volley and lob first, then the bandeja, chiquita, contrapared and drop shot, and finally the víbora, bajada, rulo and smash. Most points are won with safe volleys, lobs and bandejas, not big smashes.")}</div></header>
 <section style="padding-top:10px"><div class="wrap">
 <div class="filters seg" id="shot-filter" role="group" aria-label="Filter shots by level" style="background:#fff;border:1px solid var(--line)"><button type="button" data-v="all" aria-pressed="true" style="color:var(--ink)">All</button><button type="button" data-v="Beginner" aria-pressed="false" style="color:var(--ink)">Beginner</button><button type="button" data-v="Intermediate" aria-pressed="false" style="color:var(--ink)">Intermediate</button><button type="button" data-v="Advanced" aria-pressed="false" style="color:var(--ink)">Advanced</button></div>
-<div class="grid">{shot_cards}</div></div></section>'''
+<div class="grid">{shot_cards}</div></div></section>
+{AD.format("shots-mid")}
+<section><div class="wrap"><div class="sh"><h2>Which padel shots should I learn first?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Stage</th><th scope="col">Shots</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><td>1. First weeks</td><td>Volley, lob (globo)</td><td>The lob gets you to the net; the volley keeps you there.</td></tr>
+<tr><td>2. Playing regular matches</td><td>Bandeja, chiquita, contrapared, drop shot</td><td>Safe ways to keep the net and to escape when you are pushed back.</td></tr>
+<tr><td>3. Strong club level</td><td>Víbora, bajada, rulo, smash</td><td>Attacking shots. Play them when the ball is right, not every time.</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What makes padel shots different from tennis?</h2></div><div class="grid">
+<div class="card"><h3>Shorter swings</h3><p>The court is small and the ball comes back off the glass, so compact swings and control beat raw power.</p></div>
+<div class="card"><h3>Let it come off the glass</h3><p>Many balls are easier after the back glass. Wait for the rebound instead of rushing. The <a href="{href("wall-rules.html")}">wall rules checker</a> shows what is in and out.</p></div>
+<div class="card"><h3>Overheads that keep the net</h3><p>The bandeja and víbora are not smashes. Their job is to keep your team at the net, so placement matters more than pace.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Stand in the right place</h3><p>Good shots start with good positions. See the <a href="{href("positioning.html")}">positioning guide</a>.</p></div>
+<div class="card"><h3>Learn the words</h3><p>Bandeja, víbora, chiquita and more, with pronunciation, in the <a href="{href("glossary.html")}">padel glossary</a>.</p></div>
+<div class="card"><h3>Match your racket</h3><p>Control or power? The <a href="{href("racket-finder.html")}">racket finder</a> picks a shape for your game.</p></div>
+</div></div></section>'''
 shots_faq = [
     ("What is a bandeja in padel?", "A controlled overhead with slice, played after a lob. Its job is to keep your team at the net, not to win the point outright."),
     ("What's the difference between a bandeja and a víbora?", "Both are overheads, but the víbora adds sidespin and pace to attack, while the bandeja is safer and about placement. Learn the bandeja first."),
     ("What is a chiquita?", "A soft, low ball from the back of the court that drops at the net players' feet, so your team can move forward."),
     ("What is a rulo?", "A topspin smash aimed across the court at the side fence, where the ball bounces unpredictably."),
+    ("Which padel shot should a beginner learn first?", "The volley and the lob. The lob moves the other team back so you can take the net, and the volley is how you win points once you are there."),
+    ("What is a contrapared in padel?", "A shot where you hit the ball into your own back or side glass so it travels over the net. It is an escape shot when the ball has got past you."),
+    ("Is the smash or the bandeja better in padel?", "Most of the time the bandeja. A smash that is not a clear winner often comes back off the glass, while a bandeja keeps your team at the net."),
 ]
 page("shots.html", "Padel Shots Explained: Bandeja, Víbora, Chiquita and More | Padel Glass Box",
-     "Every key padel shot explained simply, with animated ball paths: bandeja, víbora, rulo, chiquita, bajada, contrapared, lob, volley and smash.", shots, shots_faq, "Shots")
+     "Every key padel shot explained simply, with animated ball paths and the order to learn them: volley, lob, bandeja, chiquita, contrapared, víbora, rulo, bajada and smash.", shots, shots_faq, "Shots")
 
 # ---------------- BEGINNERS ----------------
 kit = ["A padel racket (a round one is easiest to start with)", "Padel balls, not tennis balls (they have less pressure)", "Court shoes with good grip for artificial grass", "A wrist strap on your racket, and wear it", "Comfortable sports clothes and water", "A booked court and three other players"]
@@ -362,6 +383,7 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>Warm up first</h3><p>Ten minutes of jogging, moving stretches and soft rallies makes the first games easier on your body. Our <a href="{href("warm-up.html")}">warm-up timer</a> talks you through it step by step.</p></div>
 <div class="card"><h3>Coming from tennis or pickleball?</h3><p>Your hands will help, but the walls, the underhand serve and the scoring work a little differently. See <a href="{href("padel-vs-tennis-vs-pickleball.html")}">padel vs tennis vs pickleball</a> for the key changes.</p></div>
 <div class="card"><h3>Pick the right shoes</h3><p>Grip matters more than looks. A herringbone sole suits most sandy courts, and running shoes slip. Our <a href="{href("padel-shoes.html")}">padel shoe finder</a> tells you which sole to look for.</p></div>
+<div class="card"><h3>Is it a good workout?</h3><p>An hour of padel burns roughly 400 to 600 kcal for an average adult. Work out your own number with the <a href="{href("padel-calories.html")}">padel calories calculator</a>.</p></div>
 <div class="card"><h3>Start with a lesson</h3><p>One group lesson teaches the serve and the walls much faster than working it out alone.</p></div>
 </div></div></section>'''
 beg_faq = [
@@ -1199,7 +1221,7 @@ rr = f'''<header class="hero"><div class="wrap"><h1>Padel round robin generator 
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
 <div class="card"><h3>Mixing partners instead?</h3><p>Use the <a href="{href("americano.html")}">Americano and Mexicano draw maker</a>.</p></div>
 <div class="card"><h3>Pairs of similar level</h3><p>Ask everyone to run the <a href="{href("level-calculator.html")}">level calculator</a> so the teams are fair.</p></div>
-<div class="card"><h3>Warm up together</h3><p>Start the session with the 10-minute <a href="{href("warm-up.html")}">warm-up timer</a>.</p></div>
+<div class="card"><h3>Running it all season?</h3><p>Use the <a href="{href("ladder.html")}">padel ladder tracker</a> and let pairs challenge each other.</p></div>
 </div></div></section>'''
 rr_faq = [
     ("How many matches are in a round robin with 4 teams?", "Six matches over three rounds. Each pair plays three matches, one against each other pair. With two courts, each round fits on court at the same time."),
@@ -1285,6 +1307,143 @@ page("padel-shoes.html", "Padel Shoes Guide: Which Sole Do You Need? Free Shoe F
      "Which padel shoes do you need? Answer four questions to get your sole type (herringbone, omni or hybrid), then compare padel vs tennis vs running shoes, check fit and see when to replace them.",
      shoes + '<script>window.SOLES=' + json.dumps({k: v.replace('id="sc', 'id="sm').replace('url(#sc', 'url(#sm') for k, v in SOLE_SVG.items()}) + ';</script>', shoes_faq, "Padel shoes")
 
+# ---------------- PADEL CALORIES CALCULATOR ----------------
+# Padel has no entry in the 2024 Adult Compendium of Physical Activities; we use its tennis values as stand-ins (labelled on the page).
+CAL_LV = [("easy", "Relaxed social game", 5.0, "Between the Compendium's two tennis doubles values (4.5 and 6.0)"),
+          ("club", "Normal club match", 6.8, "Compendium: tennis, general, moderate effort"),
+          ("hard", "Hard, competitive match", 8.0, "Compendium: tennis, general, competitive")]
+def _kcal(met, kg, mins): return round(met * 3.5 * kg / 200 * mins)
+def _cal_row(kg):
+    return f"<tr><td>{kg} kg ({round(kg * 2.20462)} lb)</td>" + "".join(f"<td>{_kcal(m, kg, 60)}</td>" for _, _, m, _ in CAL_LV) + f"<td>{_kcal(6.8, kg, 90)}</td></tr>"
+cal = f'''<header class="hero"><div class="wrap"><h1>Padel calories calculator.</h1>
+<p class="lead">How many calories does your padel game burn? Enter your weight, how long you play and how hard, and get an estimate per session, per hour and per week, plus how much of the weekly activity target it covers.</p>
+{quick("An hour of padel burns roughly 390 to 630 kcal for a 75 kg (165 lb) adult: about 390 kcal for a relaxed social game, 535 kcal for a normal club match and 630 kcal for a hard, competitive match. Heavier players burn more, lighter players less. These are estimates, not measurements.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="cal">
+<div class="card">
+<h2 style="font-size:1.6rem">Your game</h2>
+<div class="q"><h3><label for="cal-w">Your body weight</label></h3><div class="gen-nums"><input class="search" id="cal-w" type="number" min="25" max="400" step="1" value="75" inputmode="decimal"><div class="opts" data-cal="unit" role="group" aria-label="Weight unit"><button class="opt" type="button" data-v="kg" aria-pressed="true">kg</button><button class="opt" type="button" data-v="lb" aria-pressed="false">lb</button></div></div></div>
+<div class="q"><h3><label for="cal-t">How long you play: <b id="cal-tv">90 min</b></label></h3><input id="cal-t" class="cal-range" type="range" min="15" max="180" step="15" value="90"><p class="muted" style="margin:6px 0 0">Count the time you are actually playing or warming up, not the drive to the club.</p></div>
+<div class="q"><h3>How hard do you play?</h3><div class="opts" data-cal="lv" role="group" aria-label="How hard you play">{"".join(f'<button class="opt" type="button" data-v="{k}" aria-pressed="{"true" if k == "club" else "false"}">{t}</button>' for k, t, _, _ in CAL_LV)}</div><p class="muted" id="cal-lv-note" style="margin:10px 0 0"></p></div>
+<div class="q"><h3><label for="cal-s">Sessions a week: <b id="cal-sv">2</b></label></h3><input id="cal-s" class="cal-range" type="range" min="1" max="7" step="1" value="2"></div>
+</div>
+<div class="result" id="cal-out" aria-live="polite"><h2>Your estimate</h2><p>Enter your weight to see your numbers.</p></div>
+</div></div></section>
+<script>window.CAL={json.dumps({k: [t, m, s] for k, t, m, s in CAL_LV})};</script>
+{AD.format("cal-mid")}
+<section><div class="wrap"><div class="sh"><h2>How many calories does padel burn per hour?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Body weight</th><th scope="col">Relaxed, 60 min</th><th scope="col">Club match, 60 min</th><th scope="col">Competitive, 60 min</th><th scope="col">Club match, 90 min</th></tr></thead><tbody>
+{"".join(_cal_row(kg) for kg in (55, 65, 75, 85, 95, 105))}
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">All figures in kcal (the "calories" on food labels), rounded. Worked out as METs × 3.5 × body weight in kg ÷ 200 × minutes, the formula given by the Compendium of Physical Activities.</p>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Where do these numbers come from?</h2></div><div class="grid">
+<div class="card"><h3>METs, in one line</h3><p>A MET compares an activity with sitting still. 1 MET is about 1 kcal per kg of body weight per hour, so a 6 MET activity burns about six times more than resting.</p></div>
+<div class="card"><h3>Padel has no official value yet</h3><p>The 2024 Adult Compendium of Physical Activities, the standard research list of METs, has no padel entry. We use its tennis values as the closest match: doubles for relaxed games, general tennis for club and hard matches.</p></div>
+<div class="card"><h3>Why it is only an estimate</h3><p>Fitness, age, sex, level and how long the rallies last all change the real number. Treat the result as a fair guide, accurate to maybe ± 20 to 30%, not a lab test.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What changes how many calories you burn?</h2></div><div class="grid">
+<div class="card"><h3>Your body weight</h3><p>Moving a heavier body costs more energy. At the same effort, a 90 kg player burns about 20% more than a 75 kg player.</p></div>
+<div class="card"><h3>Rallies and rests</h3><p>Padel is stop-start. A 2025 study of national-level players (Frontiers in Sports and Active Living) measured rallies of about 6.5 seconds on average, with about 17 seconds between them. More waiting means fewer calories.</p></div>
+<div class="card"><h3>How hard you move</h3><p>Getting your feet to the ball, moving up and back with your partner and chasing lobs all add up. Standing still and hitting does not.</p></div>
+<div class="card"><h3>Your level</h3><p>Long rallies between good players keep everyone moving. In beginner games the ball is out of play more often, so the burn per hour is lower. See your level with the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div>
+<div class="card"><h3>Warm-up time</h3><p>A 10-minute warm-up counts too, at a lower rate. The <a href="{href("warm-up.html")}">warm-up timer</a> walks you through one.</p></div>
+<div class="card"><h3>Watches and apps</h3><p>A fitness watch uses your heart rate, so its number can be closer for you, or quite different. Wrist sensors can struggle with fast racket movements.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Does padel count as exercise?</h2></div><div class="grid">
+<div class="card"><h3>The weekly target</h3><p>The NHS and the World Health Organization advise adults to do at least 150 minutes of moderate activity a week, or 75 minutes of vigorous activity, or a mix of both, plus strength work on 2 days.</p></div>
+<div class="card"><h3>Moderate or vigorous?</h3><p>The US CDC counts 3 to 5.9 METs as moderate and 6 METs or more as vigorous. A relaxed padel game sits in the moderate band; a normal or hard match is usually vigorous, so each minute counts double.</p></div>
+<div class="card"><h3>Two games a week</h3><p>Two 90-minute club matches a week is 180 minutes of vigorous play. That is more than twice the 75-minute vigorous target on its own.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Warm up first</h3><p>Use the 10 or 15 minute <a href="{href("warm-up.html")}">warm-up timer</a> before every game.</p></div>
+<div class="card"><h3>Play more often</h3><p>Run a social night with the <a href="{href("americano.html")}">Americano generator</a>, or start a <a href="{href("ladder.html")}">padel ladder</a> at your club.</p></div>
+<div class="card"><h3>Shoes that grip</h3><p>More running around means more slips in the wrong shoes. Check the <a href="{href("padel-shoes.html")}">padel shoe finder</a>.</p></div>
+</div></div></section>'''
+cal_faq = [
+    ("How many calories does 1 hour of padel burn?", "Roughly 390 to 630 kcal for a 75 kg adult: about 390 for a relaxed game, 535 for a normal club match and 630 for a hard match. Lighter players burn less, heavier players more."),
+    ("How many calories does 90 minutes of padel burn?", "A normal 90-minute club match burns about 800 kcal for a 75 kg player, and about 640 kcal for a 60 kg player. A relaxed game burns about a quarter less."),
+    ("Does padel burn more calories than tennis?", "There is no official calorie value for padel yet, so nobody can say for sure. Padel is almost always doubles with short rallies, so it is likely close to tennis doubles for relaxed games and close to general tennis for hard matches."),
+    ("Is padel good for weight loss?", "Padel can help as part of regular activity, because it burns a fair amount of energy and is fun enough to keep doing. Weight loss also depends on diet and sleep; for personal advice, talk to your doctor."),
+    ("Is padel moderate or vigorous exercise?", "A relaxed game is about 5 METs, which is moderate. A normal or hard match is about 7 to 8 METs, which counts as vigorous under the CDC definition (6 METs or more)."),
+    ("How accurate is this padel calorie calculator?", "It gives a fair estimate, not a measurement. It uses published METs for tennis because padel has no entry in the Compendium of Physical Activities. Your real number can be 20 to 30% higher or lower."),
+]
+page("padel-calories.html", "Padel Calories Calculator: How Many Calories Does Padel Burn? | Padel Glass Box",
+     "Free padel calories calculator. Enter your weight, time and effort to see how many calories padel burns per session, per hour and per week, and how it counts toward the weekly activity target.",
+     cal, cal_faq, "Padel calories calculator")
+
+# ---------------- PADEL LADDER TRACKER ----------------
+lad = f'''<header class="hero"><div class="wrap"><h1>Padel ladder tracker.</h1>
+<p class="lead">Run a challenge ladder for your club or group. Add your pairs or players, record each challenge and the ladder reorders itself, with win and loss records, movement arrows and a full match history. Free, no sign-up, saved on this device.</p>
+{quick("In a padel ladder, everyone is ranked in a list. You challenge someone a few places above you (often up to 2 or 3). If you win, you take their place; if you lose, nothing changes. Agree the challenge range, the match format and how long people have to accept a challenge before you start.")}</div></header>
+<section style="padding-top:10px"><div class="wrap gen">
+<div class="gen-main">
+<div class="card" id="ld-setup">
+<h2 style="font-size:1.6rem">Set up your ladder</h2>
+<div class="q"><h3>Who is on the ladder?</h3><div class="opts" data-ld="who" role="group" aria-label="Ladder type"><button class="opt" type="button" data-v="pairs" aria-pressed="true">Fixed pairs</button><button class="opt" type="button" data-v="players" aria-pressed="false">Single players</button></div></div>
+<div class="q"><h3><label for="ld-names">Names in starting order, top first (4 to 40)</label></h3><textarea class="search" id="ld-names" rows="7" placeholder="Sam &amp; Priya&#10;Omar &amp; Lucia&#10;Ben &amp; Aisha&#10;..."></textarea><p class="muted" id="ld-count" style="margin:-6px 0 0"></p></div>
+<div class="q"><h3>How far up can you challenge?</h3><div class="opts" data-ld="range" role="group" aria-label="Challenge range"><button class="opt" type="button" data-v="2" aria-pressed="false">Up to 2 places</button><button class="opt" type="button" data-v="3" aria-pressed="true">Up to 3 places</button><button class="opt" type="button" data-v="5" aria-pressed="false">Up to 5 places</button><button class="opt" type="button" data-v="99" aria-pressed="false">Anyone above</button></div></div>
+<div class="q"><h3>When the challenger wins</h3><div class="opts" data-ld="move" role="group" aria-label="Movement rule"><button class="opt" type="button" data-v="swap" aria-pressed="true">Swap places</button><button class="opt" type="button" data-v="jump" aria-pressed="false">Take the spot, others move down one</button></div><p class="muted" id="ld-move-note" style="margin:10px 0 0"></p></div>
+<p class="msg" id="ld-err" role="alert" style="color:#a43c13;min-height:0"></p>
+<div class="btns" style="margin-top:4px"><button class="btn lime" type="button" id="ld-start">Start the ladder</button><button class="btn ghost" type="button" id="ld-demo">Fill 8 sample pairs</button></div>
+</div>
+<div id="ld-live" hidden>
+<div class="card gen-bar"><div><span class="pill b" id="ld-sum"></span></div><div class="btns" style="margin:0"><button class="btn ghost sm" type="button" id="ld-copy">Copy ladder</button><button class="btn ghost sm" type="button" id="ld-new">New ladder</button></div></div>
+<div class="card" id="ld-rec">
+<h2 style="font-size:1.4rem">Record a challenge</h2>
+<div class="gen-nums"><div class="q"><h3><label for="ld-ch">Challenger</label></h3><select class="search" id="ld-ch"></select></div>
+<div class="q"><h3><label for="ld-df">Challenged</label></h3><select class="search" id="ld-df"></select></div></div>
+<div class="q"><h3>Who won?</h3><div class="opts" id="ld-win" role="group" aria-label="Winner"><button class="opt" type="button" data-v="c" aria-pressed="false">Challenger won</button><button class="opt" type="button" data-v="d" aria-pressed="false">Challenged won</button></div></div>
+<div class="q"><h3><label for="ld-sc">Score (optional)</label></h3><input class="search" id="ld-sc" type="text" maxlength="40" placeholder="6-4 3-6 7-5"></div>
+<p class="msg" id="ld-rerr" role="alert" style="color:#a43c13;min-height:0"></p>
+<div class="btns" style="margin-top:0"><button class="btn lime" type="button" id="ld-save">Save result</button><button class="btn ghost sm" type="button" id="ld-undo">Undo last result</button></div>
+</div>
+<div class="card"><h2 style="font-size:1.4rem">Add a late entry</h2><div class="gen-nums"><input class="search" id="ld-add" type="text" maxlength="60" placeholder="New pair or player"><button class="btn ghost" type="button" id="ld-addb">Add to the bottom</button></div></div>
+<div class="card"><h2 style="font-size:1.4rem">Match history</h2><ol class="ld-hist" id="ld-hist"></ol></div>
+</div>
+</div>
+<aside class="gen-side"><div class="lb" id="ld-board"><h2>The ladder</h2><p>Start the ladder to see the rankings here.</p></div></aside>
+</div></section>
+{AD.format("ld-mid")}
+<section><div class="wrap"><div class="sh"><h2>How does a padel ladder work?</h2></div><div class="grid">
+<div class="card"><h3>A ranked list</h3><p>Every pair (or player) has a place on the ladder. The starting order can be by level, by last season, or simply random. Use the <a href="{href("level-calculator.html")}">level calculator</a> if you want a fair first order.</p></div>
+<div class="card"><h3>Challenge upwards</h3><p>You can only challenge someone above you, and usually only a few places above. That keeps matches close and stops the bottom team taking on the top team every week.</p></div>
+<div class="card"><h3>Win and climb</h3><p>Beat a higher team and you move up. The two common ways: swap places with them, or take their spot and push everyone in between down one. Lose and the ladder stays the same.</p></div>
+<div class="card"><h3>No fixed end</h3><p>A ladder runs all season. Players arrange their own matches when it suits them, which makes it a good fit for busy clubs.</p></div>
+<div class="card"><h3>Pairs or singles</h3><p>Padel is a doubles game, so most ladders are for fixed pairs. A single-player ladder works if each match is two ladder players against two others, or if you mix partners.</p></div>
+<div class="card"><h3>Keep score properly</h3><p>Agree <a href="{href("golden-point-star-point.html")}">golden point or advantage</a> first, and keep score on a phone with the <a href="{href("score.html")}">score keeper</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Ladder rules to agree before you start</h2></div><div class="grid">
+<div class="card"><h3>Challenge range</h3><p>How many places up can you challenge? 2 or 3 is common. A bigger range lets new strong pairs climb faster.</p></div>
+<div class="card"><h3>Time to accept</h3><p>Set a limit, for example 7 to 14 days to play a challenge. If the challenged pair won't play in time, the challenger can be given the match.</p></div>
+<div class="card"><h3>Match format</h3><p>Best of three sets, one long set, or a timed match on one court booking. Keep it the same for everyone.</p></div>
+<div class="card"><h3>Rematches</h3><p>Many ladders say you can't challenge the same pair again straight away. You must play someone else first.</p></div>
+<div class="card"><h3>Staying active</h3><p>Some ladders move a pair down if they don't play for a few weeks, so the ladder stays live.</p></div>
+<div class="card"><h3>Who books and pays</h3><p>Usually the challenger books the court and the cost is shared. Write it down so there are no arguments.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Ladder, box league, round robin or Americano?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Format</th><th scope="col">Partners</th><th scope="col">How long</th><th scope="col">Best for</th></tr></thead><tbody>
+<tr><td>Ladder</td><td>Fixed pairs or players</td><td>All season, open-ended</td><td>Clubs where people book their own matches</td></tr>
+<tr><td>Box league</td><td>Fixed pairs</td><td>Rounds of a few weeks, then promotion and relegation</td><td>Larger clubs with many levels</td></tr>
+<tr><td><a href="{href("round-robin.html")}">Round robin</a></td><td>Fixed pairs</td><td>One event or a short league</td><td>Everyone plays everyone once</td></tr>
+<tr><td><a href="{href("americano.html")}">Americano</a></td><td>Change every round</td><td>One evening</td><td>Social nights and meeting new players</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>One-night event?</h3><p>Use the <a href="{href("round-robin.html")}">round robin generator</a> for fixed pairs, or the <a href="{href("americano.html")}">Americano draw maker</a> to mix partners.</p></div>
+<div class="card"><h3>Score the match</h3><p>Keep score at the net with the free <a href="{href("score.html")}">score keeper</a>.</p></div>
+<div class="card"><h3>Know the rules</h3><p>Settle arguments fast with the <a href="{href("wall-rules.html")}">wall rules checker</a> and the <a href="{href("serve-rules.html")}">serve checker</a>.</p></div>
+</div></div></section>'''
+lad_faq = [
+    ("What is a padel ladder?", "A ranked list of pairs or players. You challenge someone above you, and if you win you move up. It runs all season and players arrange their own matches."),
+    ("How many places can you challenge in a ladder?", "Each ladder sets its own rule. Up to 2 or 3 places above you is common. This tracker lets you pick 2, 3, 5 or anyone above."),
+    ("What happens when a challenger wins?", "Either the two swap places, or the winner takes the higher spot and everyone in between moves down one place. Agree which rule you use before you start."),
+    ("What happens if the challenger loses?", "In most ladders nothing changes: the challenged pair keeps its place. Some ladders stop the loser challenging the same pair again straight away."),
+    ("What is the difference between a ladder and a box league?", "In a ladder you challenge people above you whenever you like. In a box league you play everyone in a small group over a few weeks, then the top moves up a box and the bottom moves down."),
+    ("Where is the ladder saved?", "On this device, in your browser. Use 'Copy ladder' to share the rankings in a group chat, and keep updating it on the same phone or computer."),
+]
+page("ladder.html", "Padel Ladder Tracker: Free Challenge Ladder for Pairs or Players | Padel Glass Box",
+     "Free padel ladder tracker. Add your pairs or players, record challenges and the ladder updates itself, with records, movement and history. Plus ladder rules to agree.",
+     lad, lad_faq, "Padel ladder tracker")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -1295,7 +1454,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

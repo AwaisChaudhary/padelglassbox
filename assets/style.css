@@ -490,3 +490,13 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .shoe-wv { margin: 14px 0 0; font-weight: 700; padding: 12px 14px; border-radius: 12px; background: var(--glass-2); }
 .shoe-wv.mid { background: #eef9b8; color: #4a5600; }
 .shoe-wv.bad { background: #ffe1d6; color: #a43c13; }
+/* padel calories calculator */
+.cal-range { width: 100%; accent-color: var(--turf); }
+.cal-big { margin: 10px 0 4px; color: #fff; }
+.cal-big b { font-family: var(--display); font-size: 3rem; color: var(--ball); line-height: 1; }
+/* padel ladder tracker */
+.ld-hist { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
+.ld-hist li { overflow-wrap: anywhere; }
+.lb td.ld-mv { font-size: .85rem; color: #9fb0e0; white-space: nowrap; }
+.lb td.ld-mv.up { color: var(--ball); }
+.lb td.ld-mv.dn { color: #ffb4a0; }
