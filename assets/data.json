@@ -1,46 +1,344 @@
 {
  "updated": "2026-11-21",
  "zones": [
-  {"id": "net", "name": "The net", "text": "The net crosses the full 10 m width. It is 88 cm high in the middle and 92 cm at the posts, a little lower than a tennis net, so volleys and net play matter a lot."},
-  {"id": "service", "name": "Service line", "text": "Each side has a service line 6.95 m from the net. The server stands behind it, and the serve must land in the service box diagonally opposite."},
-  {"id": "centre", "name": "Centre line", "text": "The centre line splits each service area into a left box and a right box. Serves always cross diagonally, like in tennis."},
-  {"id": "back", "name": "Back wall", "text": "The back wall is glass, usually 3 m tall with metal mesh above it to about 4 m. After the ball bounces on the ground, it can hit this wall and you can still play it."},
-  {"id": "side", "name": "Side walls", "text": "Side walls are glass near the back and metal mesh towards the net. Glass gives a clean rebound; mesh can make the ball bounce in odd ways."},
-  {"id": "box", "name": "Service box", "text": "The serve must bounce inside this box. It may then hit the glass, but if it hits the mesh after bouncing it is a fault."},
-  {"id": "court", "name": "Playing area", "text": "The whole court is 20 m long and 10 m wide, so each side is a 10 x 10 m square. That's about a third of a tennis court."}
+  {
+   "id": "net",
+   "name": "The net",
+   "text": "The net crosses the full 10 m width. It is 88 cm high in the middle and 92 cm at the posts, a little lower than a tennis net, so volleys and net play matter a lot."
+  },
+  {
+   "id": "service",
+   "name": "Service line",
+   "text": "Each side has a service line 6.95 m from the net. The server stands behind it, and the serve must land in the service box diagonally opposite."
+  },
+  {
+   "id": "centre",
+   "name": "Centre line",
+   "text": "The centre line splits each service area into a left box and a right box. Serves always cross diagonally, like in tennis."
+  },
+  {
+   "id": "back",
+   "name": "Back wall",
+   "text": "The back wall is glass, usually 3 m tall with metal mesh above it to about 4 m. After the ball bounces on the ground, it can hit this wall and you can still play it."
+  },
+  {
+   "id": "side",
+   "name": "Side walls",
+   "text": "Side walls are glass near the back and metal mesh towards the net. Glass gives a clean rebound; mesh can make the ball bounce in odd ways."
+  },
+  {
+   "id": "box",
+   "name": "Service box",
+   "text": "The serve must bounce inside this box. It may then hit the glass, but if it hits the mesh after bouncing it is a fault."
+  },
+  {
+   "id": "court",
+   "name": "Playing area",
+   "text": "The whole court is 20 m long and 10 m wide, so each side is a 10 x 10 m square. That's about a third of a tennis court."
+  }
  ],
  "shots": [
-  {"id": "volley", "name": "Volley", "level": "Beginner", "where": "Net", "path": "flat", "text": "Hitting the ball before it bounces, usually near the net. Short, firm punches beat big swings.", "tip": "Keep the racket up in front of your chest."},
-  {"id": "lob", "name": "Lob (globo)", "level": "Beginner", "where": "Back", "path": "high", "text": "A high, deep ball over the net players. It's the shot that wins back the net when you're defending.", "tip": "Aim deep, close to the back glass, so it's hard to smash."},
-  {"id": "contrapared", "name": "Contrapared", "level": "Intermediate", "where": "Back", "path": "wall-back", "text": "Hitting the ball into your own back wall so it rebounds over the net. A rescue shot when a lob has gone past you.", "tip": "Hit up and into the glass; let the wall do the work."},
-  {"id": "bandeja", "name": "Bandeja", "level": "Intermediate", "where": "Net", "path": "slice", "text": "A controlled overhead with slice, played when the opponents lob you. It isn't meant to win the point. It keeps you at the net.", "tip": "Think 'placement, not power'. Stay at the net afterwards."},
-  {"id": "chiquita", "name": "Chiquita", "level": "Intermediate", "where": "Back", "path": "dip", "text": "A soft, low ball from the back of the court that drops at the feet of the net players. It's a transition shot that lets your team move forward.", "tip": "Don't try it from deep in the court; you need control."},
-  {"id": "vibora", "name": "Víbora", "level": "Advanced", "where": "Net", "path": "spin", "text": "An attacking overhead with sidespin and more pace than the bandeja. The name means 'viper', because it skids away at an awkward angle.", "tip": "Learn a solid bandeja first."},
-  {"id": "rulo", "name": "Rulo", "level": "Advanced", "where": "Net", "path": "kick", "text": "A topspin smash aimed across the court towards the side fence, where the ball takes an unpredictable bounce. A lower-risk way to attack a short lob.", "tip": "Aim cross-court at the mesh, not the glass."},
-  {"id": "bajada", "name": "Bajada", "level": "Advanced", "where": "Back", "path": "wall-attack", "text": "An attacking shot taken high after the ball comes off the back wall. It turns a defensive ball into an attack.", "tip": "Let the ball come off the glass and meet it on the way down."},
-  {"id": "smash", "name": "Smash (remate)", "level": "Advanced", "where": "Net", "path": "down", "text": "The full-power overhead. It can bounce out of the court to win the point, but a weak smash gives the ball back.", "tip": "Only smash the short, high lobs."},
-  {"id": "dejada", "name": "Dejada (drop shot)", "level": "Intermediate", "where": "Net", "path": "drop", "text": "A soft shot with backspin that dies just over the net. Best when the opponents are stuck at the back.", "tip": "Disguise it like a normal volley."}
+  {
+   "id": "volley",
+   "name": "Volley",
+   "level": "Beginner",
+   "where": "Net",
+   "path": "flat",
+   "text": "Hitting the ball before it bounces, usually near the net. Short, firm punches beat big swings.",
+   "tip": "Keep the racket up in front of your chest."
+  },
+  {
+   "id": "lob",
+   "name": "Lob (globo)",
+   "level": "Beginner",
+   "where": "Back",
+   "path": "high",
+   "text": "A high, deep ball over the net players. It's the shot that wins back the net when you're defending.",
+   "tip": "Aim deep, close to the back glass, so it's hard to smash."
+  },
+  {
+   "id": "contrapared",
+   "name": "Contrapared",
+   "level": "Intermediate",
+   "where": "Back",
+   "path": "wall-back",
+   "text": "Hitting the ball into your own back wall so it rebounds over the net. A rescue shot when a lob has gone past you.",
+   "tip": "Hit up and into the glass; let the wall do the work."
+  },
+  {
+   "id": "bandeja",
+   "name": "Bandeja",
+   "level": "Intermediate",
+   "where": "Net",
+   "path": "slice",
+   "text": "A controlled overhead with slice, played when the opponents lob you. It isn't meant to win the point. It keeps you at the net.",
+   "tip": "Think 'placement, not power'. Stay at the net afterwards."
+  },
+  {
+   "id": "chiquita",
+   "name": "Chiquita",
+   "level": "Intermediate",
+   "where": "Back",
+   "path": "dip",
+   "text": "A soft, low ball from the back of the court that drops at the feet of the net players. It's a transition shot that lets your team move forward.",
+   "tip": "Don't try it from deep in the court; you need control."
+  },
+  {
+   "id": "vibora",
+   "name": "Víbora",
+   "level": "Advanced",
+   "where": "Net",
+   "path": "spin",
+   "text": "An attacking overhead with sidespin and more pace than the bandeja. The name means 'viper', because it skids away at an awkward angle.",
+   "tip": "Learn a solid bandeja first."
+  },
+  {
+   "id": "rulo",
+   "name": "Rulo",
+   "level": "Advanced",
+   "where": "Net",
+   "path": "kick",
+   "text": "A topspin smash aimed across the court towards the side fence, where the ball takes an unpredictable bounce. A lower-risk way to attack a short lob.",
+   "tip": "Aim cross-court at the mesh, not the glass."
+  },
+  {
+   "id": "bajada",
+   "name": "Bajada",
+   "level": "Advanced",
+   "where": "Back",
+   "path": "wall-attack",
+   "text": "An attacking shot taken high after the ball comes off the back wall. It turns a defensive ball into an attack.",
+   "tip": "Let the ball come off the glass and meet it on the way down."
+  },
+  {
+   "id": "smash",
+   "name": "Smash (remate)",
+   "level": "Advanced",
+   "where": "Net",
+   "path": "down",
+   "text": "The full-power overhead. It can bounce out of the court to win the point, but a weak smash gives the ball back.",
+   "tip": "Only smash the short, high lobs."
+  },
+  {
+   "id": "dejada",
+   "name": "Dejada (drop shot)",
+   "level": "Intermediate",
+   "where": "Net",
+   "path": "drop",
+   "text": "A soft shot with backspin that dies just over the net. Best when the opponents are stuck at the back.",
+   "tip": "Disguise it like a normal volley."
+  }
  ],
  "glossary": [
-  ["Bajada", "Attacking shot taken after the ball rebounds high off the back wall."],
-  ["Bandeja", "Controlled sliced overhead that keeps your team at the net."],
-  ["Chiquita", "Soft, low ball aimed at the net players' feet."],
-  ["Contrapared", "Hitting the ball into your own back wall so it goes over the net."],
-  ["Cuchilla", "A flat, fast overhead between a bajada and a víbora, often called the knife."],
-  ["Dejada", "Drop shot that lands just over the net with backspin."],
-  ["Drive", "The player on the right side of the court (deuce side)."],
-  ["Revés", "The player on the left side of the court, often the more attacking player."],
-  ["Globo", "Lob: a high, deep ball over the net players."],
-  ["Golden point", "At 40-40, one deciding point wins the game. The receiving pair chooses the side."],
-  ["Star Point", "A newer deuce format in the 2026 rules where play goes through advantages before a final deciding point."],
-  ["Malla", "The metal mesh fence around the court."],
-  ["Pared", "Wall. Any shot played off the glass."],
-  ["Por 3", "Smash hit hard enough to bounce out over the back wall."],
-  ["Remate", "Smash: the full-power overhead."],
-  ["Rulo", "Topspin smash aimed cross-court at the side fence."],
-  ["Salida de pared", "Playing the ball after it has come off the wall."],
-  ["Víbora", "Attacking overhead with sidespin; 'viper' in Spanish."],
-  ["Volea", "Volley: hitting the ball before it bounces."],
-  ["Willy", "Hitting the ball backwards between your legs."]
+  [
+   "Americano",
+   "Social format where you change partner every round and keep the points you win.",
+   "",
+   "",
+   "Formats"
+  ],
+  [
+   "Bajada",
+   "Attacking shot taken after the ball rebounds high off the back wall.",
+   "ba-HA-da",
+   "coming down",
+   "Shots"
+  ],
+  [
+   "Bandeja",
+   "Controlled sliced overhead that keeps your team at the net.",
+   "ban-DEH-ha",
+   "tray",
+   "Shots"
+  ],
+  [
+   "Chiquita",
+   "Soft, low ball aimed at the net players' feet.",
+   "chee-KEE-ta",
+   "little one",
+   "Shots"
+  ],
+  [
+   "Contrapared",
+   "Hitting the ball into your own back wall so it goes over the net.",
+   "kon-tra-pa-RED",
+   "against the wall",
+   "Shots"
+  ],
+  [
+   "Cristal",
+   "The glass walls at the back and sides of the court.",
+   "kriss-TAL",
+   "glass",
+   "Court"
+  ],
+  [
+   "Cuchilla",
+   "A flat, fast overhead between a bajada and a víbora, often called the knife.",
+   "koo-CHEE-ya",
+   "blade",
+   "Shots"
+  ],
+  [
+   "Dejada",
+   "Drop shot that lands just over the net with backspin.",
+   "deh-HA-da",
+   "left (dropped)",
+   "Shots"
+  ],
+  [
+   "Drive",
+   "The player on the right side of the court (deuce side).",
+   "",
+   "",
+   "Players"
+  ],
+  [
+   "Globo",
+   "Lob: a high, deep ball over the net players.",
+   "GLOH-boh",
+   "balloon",
+   "Shots"
+  ],
+  [
+   "Golden point",
+   "At 40-40, one deciding point wins the game. The receiving pair chooses the side.",
+   "",
+   "",
+   "Scoring"
+  ],
+  [
+   "Herringbone sole",
+   "Zig-zag shoe sole that grips on sandy artificial grass courts.",
+   "",
+   "",
+   "Gear"
+  ],
+  [
+   "Let",
+   "A serve that touches the net and then lands in the right box is replayed. Also used when a point is replayed after an interruption.",
+   "",
+   "",
+   "Scoring"
+  ],
+  [
+   "Malla",
+   "The metal mesh fence around the court.",
+   "MAH-ya",
+   "mesh",
+   "Court"
+  ],
+  [
+   "Mexicano",
+   "Like an Americano, but each new round is made from the leaderboard so similar scores meet.",
+   "",
+   "",
+   "Formats"
+  ],
+  [
+   "Overgrip",
+   "Thin, soft tape wrapped over the handle for grip and to absorb sweat.",
+   "",
+   "",
+   "Gear"
+  ],
+  [
+   "Pared",
+   "Wall. Any shot played off the glass.",
+   "pa-RED",
+   "wall",
+   "Court"
+  ],
+  [
+   "Por 3",
+   "Smash hit hard enough to bounce out over the back wall.",
+   "por TRESS",
+   "by three",
+   "Shots"
+  ],
+  [
+   "Remate",
+   "Smash: the full-power overhead.",
+   "reh-MAH-teh",
+   "finishing blow",
+   "Shots"
+  ],
+  [
+   "Resto",
+   "The return of serve.",
+   "RESS-toh",
+   "rest, remainder",
+   "Shots"
+  ],
+  [
+   "Revés",
+   "The player on the left side of the court, often the more attacking player.",
+   "reh-VESS",
+   "backhand",
+   "Players"
+  ],
+  [
+   "Round robin",
+   "Format where fixed pairs each play every other pair once.",
+   "",
+   "",
+   "Formats"
+  ],
+  [
+   "Rulo",
+   "Topspin smash aimed cross-court at the side fence.",
+   "ROO-loh",
+   "curl",
+   "Shots"
+  ],
+  [
+   "Salida de pared",
+   "Playing the ball after it has come off the wall.",
+   "sa-LEE-da deh pa-RED",
+   "coming off the wall",
+   "Shots"
+  ],
+  [
+   "Salida de pista",
+   "Running out through the door to play a ball that has left the court. Only allowed where the club or event permits it.",
+   "sa-LEE-da deh PEES-ta",
+   "exit from the court",
+   "Court"
+  ],
+  [
+   "Saque",
+   "The serve. It is hit underarm, after one bounce, at or below waist height.",
+   "SAH-keh",
+   "serve",
+   "Scoring"
+  ],
+  [
+   "Star Point",
+   "A newer deuce format in the 2026 rules where play goes through advantages before a final deciding point.",
+   "",
+   "",
+   "Scoring"
+  ],
+  [
+   "Volea",
+   "Volley: hitting the ball before it bounces.",
+   "bo-LEH-a",
+   "volley",
+   "Shots"
+  ],
+  [
+   "Víbora",
+   "Attacking overhead with sidespin; 'viper' in Spanish.",
+   "VEE-bo-ra",
+   "viper",
+   "Shots"
+  ],
+  [
+   "Willy",
+   "Hitting the ball backwards between your legs.",
+   "",
+   "",
+   "Shots"
+  ]
  ]
 }

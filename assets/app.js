@@ -166,10 +166,18 @@
 
   /* ---------- glossary search ---------- */
   var gs = $("#gsearch");
-  if (gs) gs.addEventListener("input", function () {
-    var q = gs.value.toLowerCase().trim();
-    $$("#glist > div").forEach(function (d) { d.hidden = q && d.textContent.toLowerCase().indexOf(q) === -1; });
-  });
+  if (gs) (function () {
+    var cat = "", gc = $("#gcat"), cnt = $("#gcount");
+    var norm = function (x) { return x.toLowerCase().normalize ? x.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") : x.toLowerCase(); };
+    var run = function () {
+      var q = norm(gs.value.trim()), n = 0, all = $$("#glist > div");
+      all.forEach(function (d) { var h = (q && norm(d.textContent).indexOf(q) === -1) || (cat && d.dataset.cat !== cat); d.hidden = h; if (!h) n++; });
+      if (cnt) cnt.textContent = n === all.length ? all.length + " terms" : n ? "Showing " + n + " of " + all.length + " terms" : "No match. Try a shorter word, or check the spelling.";
+    };
+    gs.addEventListener("input", run);
+    if (gc) choose(gc, function (v) { cat = v; run(); });
+    run();
+  })();
 
   /* ---------- home: live 3D court (canvas). Court in metres: x -5..5, y 0..20 (near to far), z up. ---------- */
   var cv3 = document.getElementById("court3d");
@@ -1036,4 +1044,153 @@
     });
     rbRender();
   }
+
+  /* ---------- round robin (fixed pairs) ---------- */
+  var rr = $("#rr-setup");
+  if (rr) (function () {
+    var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var FMT = { set: { max: 7, note: "Enter games won, for example 6-3 or 7-6. Draws aren't possible." }, race: { max: 4, note: "First pair to 4 games wins, for example 4-2. Quick enough for big groups." }, free: { max: 99, note: "Play for a set time and enter the games or points each pair won. Draws count." } };
+    var cfg = store.get("pp-rr-cfg", { fmt: "set", pts: "w" }), R = store.get("pp-rr", null);
+    var namesEl = $("#rr-names"), courtsEl = $("#rr-courts"), legsEl = $("#rr-legs"), err = $("#rr-err");
+    var parse = function () { return namesEl.value.split(/\n/).map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 40); };
+    var sync = function () {
+      $$("[data-rr] button", rr).forEach(function (b) { var g = b.parentNode.dataset.rr; b.setAttribute("aria-pressed", String(cfg[g] === b.dataset.v)); });
+      $("#rr-fmt-note").textContent = FMT[cfg.fmt].note;
+      var n = parse().length, m = n * (n - 1) / 2;
+      $("#rr-count").textContent = n ? n + " pair" + (n === 1 ? "" : "s") + (n >= 3 ? ": " + m + " matches over " + (n % 2 ? n : n - 1) + " rounds" + (legsEl.value === "2" ? " (twice that if you play each pair twice)" : "") : ", add at least 3") : "";
+    };
+    $$("[data-rr]", rr).forEach(function (g) { choose(g, function (v) { cfg[g.dataset.rr] = v; store.set("pp-rr-cfg", cfg); sync(); }); });
+    namesEl.addEventListener("input", sync); legsEl.addEventListener("change", sync);
+    $("#rr-demo").addEventListener("click", function () { namesEl.value = ["Sam & Priya", "Omar & Lucia", "Ben & Aisha", "Marta & Jon", "Leo & Fatima", "Chris & Noor"].join("\n"); sync(); });
+    // circle method: fix team 0, rotate the rest
+    var schedule = function (n, legs) {
+      var ids = []; for (var i = 0; i < n; i++) ids.push(i);
+      if (n % 2) ids.push(-1);
+      var k = ids.length, rounds = [];
+      for (var r = 0; r < k - 1; r++) {
+        var ms = [], rest = [];
+        for (var j = 0; j < k / 2; j++) {
+          var a = ids[j], b = ids[k - 1 - j];
+          if (a < 0 || b < 0) { rest.push(a < 0 ? b : a); continue; }
+          ms.push(r % 2 && j === 0 ? { a: b, b: a, sa: null, sb: null } : { a: a, b: b, sa: null, sb: null });
+        }
+        rounds.push({ m: ms, rest: rest });
+        ids = [ids[0]].concat([ids[k - 1]], ids.slice(1, k - 1));
+      }
+      if (legs === 2) rounds = rounds.concat(rounds.map(function (x) { return { m: x.m.map(function (y) { return { a: y.b, b: y.a, sa: null, sb: null }; }), rest: x.rest.slice() }; }));
+      return rounds;
+    };
+    var done = function (m) { return m.sa !== null && m.sb !== null; };
+    var table = function () {
+      var P = R.names.map(function (n, i) { return { i: i, name: n, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 }; });
+      R.rounds.forEach(function (r) { r.m.forEach(function (m) {
+        if (!done(m)) return; var A = P[m.a], B = P[m.b]; A.p++; B.p++; A.gf += m.sa; A.ga += m.sb; B.gf += m.sb; B.ga += m.sa;
+        if (m.sa > m.sb) { A.w++; B.l++; } else if (m.sb > m.sa) { B.w++; A.l++; } else { A.d++; B.d++; }
+      }); });
+      var key = function (x) { return R.pts === "3" ? x.w * 3 + x.d : x.w + x.d * 0.5; };
+      var h2h = function (x, y) { var s = 0; R.rounds.forEach(function (r) { r.m.forEach(function (m) { if (!done(m)) return; if (m.a === x.i && m.b === y.i) s += m.sa - m.sb; if (m.a === y.i && m.b === x.i) s += m.sb - m.sa; }); }); return s; };
+      P.sort(function (x, y) { return key(y) - key(x) || (y.gf - y.ga) - (x.gf - x.ga) || y.gf - x.gf || h2h(y, x) || x.i - y.i; });
+      P.key = key; return P;
+    };
+    var draw = function () {
+      var P = table(), any = P.some(function (x) { return x.p; }), total = 0, played = 0;
+      R.rounds.forEach(function (r) { r.m.forEach(function (m) { total++; if (done(m)) played++; }); });
+      $("#rr-board").innerHTML = "<h2>Standings</h2>" + (any ? "" : "<p>Enter the games after each match. The table updates as you type.</p>") +
+        '<table><thead><tr><th>#</th><th>Pair</th><th class="num">P</th><th class="num">W</th>' + (R.fmt === "free" ? '<th class="num">D</th>' : "") + '<th class="num">L</th><th class="num">+/-</th>' + (R.pts === "3" ? '<th class="num">Pts</th>' : "") + "</tr></thead><tbody>" +
+        P.map(function (x, k) { var gd = x.gf - x.ga; return '<tr class="' + (k === 0 && any ? "top" : "") + '"><td>' + (k + 1) + "</td><td>" + esc(x.name) + '</td><td class="num">' + x.p + '</td><td class="num">' + (R.pts === "3" ? x.w : "<b>" + x.w + "</b>") + "</td>" + (R.fmt === "free" ? '<td class="num">' + x.d + "</td>" : "") + '<td class="num">' + x.l + '</td><td class="num">' + (gd > 0 ? "+" : "") + gd + "</td>" + (R.pts === "3" ? '<td class="num"><b>' + P.key(x) + "</b></td>" : "") + "</tr>"; }).join("") + "</tbody></table>" +
+        '<p style="margin:12px 0 0;font-size:.88rem">' + played + " of " + total + " matches played. " + (played === total && any ? "<b>" + esc(P[0].name) + "</b> top the table. Play a final with the <a href=\"score.html\" style=\"color:#e8f84a\">score keeper</a>?" : "Sorted by " + (R.pts === "3" ? "points" : "wins") + ", then game difference, then games won, then head-to-head.") + "</p>";
+      var a = $("#rr-board a"); if (a && location.protocol !== "file:") a.setAttribute("href", "/score");
+    };
+    var nm = function (i) { return esc(R.names[i]); };
+    var drawList = function () {
+      var html = "", mx = FMT[R.fmt].max;
+      R.rounds.forEach(function (r, ri) {
+        var all = r.m.every(done);
+        html += '<div class="card round"><h3>Round ' + (ri + 1) + "<small>" + (all ? "Done" : r.m.length + " match" + (r.m.length === 1 ? "" : "es")) + "</small></h3>";
+        r.m.forEach(function (m, mi) {
+          var slot = Math.floor(mi / R.courts), ct = (mi % R.courts) + 1;
+          var lab = R.courts < r.m.length ? "Slot " + (slot + 1) + " · Court " + ct : "Court " + ct;
+          var cls = done(m) ? (m.sa > m.sb ? " won-a" : m.sb > m.sa ? " won-b" : "") : "";
+          html += '<div class="match' + cls + '"><span class="ct">' + lab + "</span>" +
+            '<div class="pair a"><input type="number" min="0" max="' + mx + '" inputmode="numeric" aria-label="Games for ' + nm(m.a) + '" data-r="' + ri + '" data-m="' + mi + '" data-s="a" value="' + (m.sa === null ? "" : m.sa) + '"><span>' + nm(m.a) + "</span></div>" +
+            '<span class="vs">vs</span><div class="pair b"><span>' + nm(m.b) + '</span><input type="number" min="0" max="' + mx + '" inputmode="numeric" aria-label="Games for ' + nm(m.b) + '" data-r="' + ri + '" data-m="' + mi + '" data-s="b" value="' + (m.sb === null ? "" : m.sb) + '"></div></div>';
+        });
+        if (r.rest.length) html += '<p class="rest">Resting: ' + r.rest.map(nm).join(", ") + "</p>";
+        html += "</div>";
+      });
+      $("#rr-list").innerHTML = html;
+      var tm = 0; R.rounds.forEach(function (r) { tm += r.m.length; });
+      $("#rr-sum").textContent = R.names.length + " pairs · " + R.rounds.length + " rounds · " + tm + " matches · " + R.courts + " court" + (R.courts === 1 ? "" : "s");
+      draw();
+    };
+    var show = function (live) { rr.hidden = live; $("#rr-live").hidden = !live; $(".gen").classList.toggle("live", live); };
+    $("#rr-list").addEventListener("input", function (ev) {
+      var t = ev.target; if (!t.dataset || t.dataset.s === undefined) return;
+      var m = R.rounds[+t.dataset.r].m[+t.dataset.m], v = t.value === "" ? null : Math.max(0, Math.min(FMT[R.fmt].max, Math.round(+t.value)));
+      m["s" + t.dataset.s] = v;
+      var row = t.parentNode.parentNode; row.classList.remove("won-a", "won-b");
+      if (done(m)) { if (m.sa > m.sb) row.classList.add("won-a"); else if (m.sb > m.sa) row.classList.add("won-b"); }
+      var r = R.rounds[+t.dataset.r], sm = row.parentNode.querySelector("h3 small"); if (sm) sm.textContent = r.m.every(done) ? "Done" : r.m.length + " match" + (r.m.length === 1 ? "" : "es");
+      store.set("pp-rr", R); draw();
+    });
+    $("#rr-start").addEventListener("click", function () {
+      var names = parse(), courts = Math.round(+courtsEl.value) || 1; err.textContent = "";
+      if (names.length < 3) { err.textContent = "Add at least 3 pairs, one per line."; return; }
+      if (names.length > 16) { err.textContent = "This tool handles up to 16 pairs."; return; }
+      courts = Math.max(1, Math.min(courts, 8, Math.floor(names.length / 2)));
+      R = { names: names, courts: courts, fmt: cfg.fmt, pts: cfg.pts, rounds: schedule(names.length, +legsEl.value) };
+      store.set("pp-rr", R); show(true); drawList();
+      $("#rr-live").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    $("#rr-new").addEventListener("click", function () {
+      if (!confirm("Start a new round robin? The current scores will be cleared.")) return;
+      namesEl.value = R.names.join("\n"); R = null; store.set("pp-rr", null); show(false); sync();
+    });
+    $("#rr-copy").addEventListener("click", function () {
+      var P = table(), txt = "Round robin standings\n" + P.map(function (x, k) { return (k + 1) + ". " + x.name + "  W" + x.w + (R.fmt === "free" ? " D" + x.d : "") + " L" + x.l + "  games " + x.gf + "-" + x.ga + (R.pts === "3" ? "  " + P.key(x) + " pts" : ""); }).join("\n") + "\n\nResults\n";
+      R.rounds.forEach(function (r, ri) { r.m.forEach(function (m) { if (done(m)) txt += "R" + (ri + 1) + ": " + R.names[m.a] + " " + m.sa + "-" + m.sb + " " + R.names[m.b] + "\n"; }); });
+      txt += "\nMade with padelglassbox.com/round-robin";
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { toast("Copied"); }, function () { toast("Couldn't copy"); }); else toast("Couldn't copy");
+    });
+    sync();
+    if (R && R.rounds) { show(true); drawList(); }
+  })();
+
+  /* ---------- padel shoes finder ---------- */
+  var sh = $("#shoe");
+  if (sh) (function () {
+    var A = store.get("pp-shoe", {}), out = $("#shoe-out");
+    var SOLE = {
+      sand: ["Herringbone", "Your courts are sandy, so look for a full zig-zag (herringbone) sole. The grooves let the sand through, so you can stop and turn without sliding too far."],
+      low: ["Omni or hybrid", "On courts with little sand, a herringbone sole can feel too sticky or skate on the turf. An omni sole (small studs) or a hybrid grips better here."],
+      mix: ["Hybrid", "You play on different courts, so a hybrid sole (zig-zag on the outside, studs in the middle) is the safest all-round choice."],
+      dk: ["Herringbone or hybrid", "Most padel courts are artificial grass with sand, so herringbone is the usual pick. If you aren't sure, a hybrid sole copes with most courts. Look at the court surface next time you play."]
+    };
+    var render = function () {
+      $$(".sh-q", sh).forEach(function (q) { $$("button", q).forEach(function (b) { b.setAttribute("aria-pressed", String(A[q.dataset.q] === b.dataset.v)); }); });
+      var left = ["court", "often", "now", "feel"].filter(function (k) { return !A[k]; }).length;
+      if (!A.court) { out.innerHTML = "<h2>Your shoe match</h2><p>Start with your courts: the surface decides the sole.</p>"; return; }
+      var s = SOLE[A.court], tips = [];
+      if (A.now === "run") tips.push("Swap your running shoes before your next game. They are made for going forward, with little side support, so it is easy to slip or roll an ankle.");
+      if (A.now === "ten") tips.push("Tennis shoes are OK to start. If you play every week, padel shoes will grip the turf better.");
+      if (A.now === "none") tips.push("For a first try, tennis shoes are fine. Buy padel shoes once you know you'll keep playing.");
+      if (A.feel === "grip") tips.push(A.now === "pad" ? "Slipping in padel shoes often means a worn sole, or a sole that doesn't match the court. Check the wear list below." : "More grip is the main reason to buy padel shoes. Match the sole to the court.");
+      if (A.feel === "soft" || A.often === "3") tips.push("Look for more cushioning in the heel and forefoot. The more you play, the more it matters.");
+      if (A.feel === "stab") tips.push("Choose a shoe that feels stable through the middle of the foot, with a firm heel. If your ankle keeps rolling, see a physio.");
+      var life = A.often === "3" ? "about every 4 months" : A.often === "2" ? "about every 4 to 6 months" : A.often === "1" ? "after a year or more" : "about every 4 to 6 months if you play weekly";
+      out.innerHTML = '<span class="pill b">Look for</span><h2 style="margin-top:8px">' + s[0] + "</h2>" + '<div class="sole-mini">' + (A.court === "sand" ? window.SOLES.herring : A.court === "low" ? window.SOLES.omni : window.SOLES.hybrid) + "</div><p>" + s[1] + "</p>" +
+        (tips.length ? '<ul class="b-why">' + tips.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" : "") +
+        "<p><b>Replace them:</b> " + life + ", or sooner if the sole is worn smooth.</p>" +
+        (left ? '<p class="wr-src">' + left + " more question" + (left === 1 ? "" : "s") + " for better tips.</p>" : '<p class="wr-src">General guidance from padel shoe guides, not medical advice.</p>');
+    };
+    $$(".sh-q", sh).forEach(function (q) { $$("button", q).forEach(function (b) { b.addEventListener("click", function () { A[q.dataset.q] = b.dataset.v; store.set("pp-shoe", A); render(); }); }); });
+    $("#shoe-reset").addEventListener("click", function () { A = {}; store.set("pp-shoe", A); render(); });
+    render();
+    var wl = $("#shoe-wear"), wv = $("#shoe-wv");
+    if (wl) wl.addEventListener("change", function () {
+      var sc = 0, n = 0; $$("input", wl).forEach(function (c) { if (c.checked) { sc += +c.dataset.w; n++; } });
+      wv.className = "shoe-wv" + (sc >= 3 ? " bad" : sc ? " mid" : "");
+      wv.textContent = !n ? "Tick anything that sounds like your shoes." : sc >= 3 ? "Time for new shoes. Worn soles and flat cushioning make slips and sore legs more likely." : "Not yet, but keep an eye on them. Check again in a few weeks.";
+    });
+  })();
 })();

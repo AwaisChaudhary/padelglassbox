@@ -70,6 +70,10 @@ AFF = {
 AFF_ATTR = 'rel="sponsored nofollow noopener" target="_blank"'
 AFF_NOTE = '<p class="aff-note">We may earn a commission if you buy through these links, at no extra cost to you.</p>'
 def go(slug): return "/go/" + slug
+# Quick answer box (standing AI-answers rule in README)
+def quick(txt):
+    return f'<div class="qa"><b>Quick answer</b><p>{txt}</p><span>Last updated {e(UPDATED)}</span></div>'
+
 def write_redirects(root):
     lines = "".join(f"/go/{k} {v} 302\n" for k, v in AFF.items())
     (root / "_redirects").write_text(lines)
@@ -121,7 +125,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -357,24 +361,57 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>Know where to stand</h3><p>Move up and back with your partner, and stay about 1 metre off the back glass. Our <a href="{href("positioning.html")}">positioning guide</a> shows every situation on a court.</p></div>
 <div class="card"><h3>Warm up first</h3><p>Ten minutes of jogging, moving stretches and soft rallies makes the first games easier on your body. Our <a href="{href("warm-up.html")}">warm-up timer</a> talks you through it step by step.</p></div>
 <div class="card"><h3>Coming from tennis or pickleball?</h3><p>Your hands will help, but the walls, the underhand serve and the scoring work a little differently. See <a href="{href("padel-vs-tennis-vs-pickleball.html")}">padel vs tennis vs pickleball</a> for the key changes.</p></div>
+<div class="card"><h3>Pick the right shoes</h3><p>Grip matters more than looks. A herringbone sole suits most sandy courts, and running shoes slip. Our <a href="{href("padel-shoes.html")}">padel shoe finder</a> tells you which sole to look for.</p></div>
 <div class="card"><h3>Start with a lesson</h3><p>One group lesson teaches the serve and the walls much faster than working it out alone.</p></div>
 </div></div></section>'''
 beg_faq = [
     ("What do I need for my first padel game?", "A racket, padel balls, court shoes with grip, comfy sports clothes and water. Many clubs rent rackets if you don't have one yet."),
     ("Can I use tennis balls for padel?", "It's better not to. Padel balls have less pressure inside (about 11 psi against 14 psi for tennis, according to LTA Padel), so they bounce lower and play the way padel should."),
     ("How should I warm up for padel?", "Spend 10 to 15 minutes on an easy jog, moving stretches, a few squats and lunges, then soft rallies, volleys, lobs and serves. Save long, held stretches for after you play."),
-    ("Do I need special shoes for padel?", "Shoes with good grip for artificial grass courts help you move safely. Running shoes slip more easily."),
+    ("Do I need special shoes for padel?", "Tennis shoes are fine to start. Padel shoes with a herringbone sole grip sandy artificial grass best; running shoes slip and give little side support."),
 ]
 page("beginners.html", "Padel for Beginners: First Match Checklist | Padel Glass Box",
      "Everything you need for your first padel match: a kit checklist, the rules to know, and where to find courts and beginner sessions.", beg + f'''<section><div class="wrap"><div class="aff-box"><h3>Shop padel gear</h3><p>Browse rackets by shape, plus the shoes, balls and grips you need for your first match.</p><ul class="aff-links"><li><a href="/go/padel-round-rackets" rel="sponsored nofollow noopener" target="_blank">Round rackets</a></li><li><a href="/go/padel-teardrop-rackets" rel="sponsored nofollow noopener" target="_blank">Teardrop rackets</a></li><li><a href="/go/padel-diamond-rackets" rel="sponsored nofollow noopener" target="_blank">Diamond rackets</a></li><li><a href="/go/padel-shoes" rel="sponsored nofollow noopener" target="_blank">Padel shoes</a></li><li><a href="/go/padel-balls" rel="sponsored nofollow noopener" target="_blank">Balls</a></li><li><a href="/go/padel-bags" rel="sponsored nofollow noopener" target="_blank">Bags</a></li><li><a href="/go/padel-overgrips" rel="sponsored nofollow noopener" target="_blank">Overgrips</a></li></ul>{AFF_NOTE}</div></div></section>''', beg_faq, "Beginners")
 
 # ---------------- GLOSSARY ----------------
-gl = "".join(f"<div><b>{e(t)}</b><span>{e(d)}</span></div>" for t, d in D["glossary"])
+GL_LINK = {"Bandeja": "shots.html", "Víbora": "shots.html", "Chiquita": "shots.html", "Bajada": "shots.html", "Golden point": "golden-point-star-point.html", "Star Point": "golden-point-star-point.html",
+           "Saque": "serve-rules.html", "Let": "serve-rules.html", "Salida de pista": "wall-rules.html", "Contrapared": "wall-rules.html", "Malla": "wall-rules.html", "Americano": "americano.html",
+           "Mexicano": "americano.html", "Round robin": "round-robin.html", "Overgrip": "racket-finder.html", "Herringbone sole": "padel-shoes.html", "Drive": "positioning.html", "Revés": "positioning.html"}
+GL_CATS = ["Shots", "Court", "Scoring", "Players", "Formats", "Gear"]
+def _gl(r):
+    t, d, say, lit, cat = r
+    extra = (f'<i class="gl-say">Say it: {e(say)}</i>' if say else "") + (f'<i class="gl-lit">Means: “{e(lit)}”</i>' if lit else "")
+    more = f' <a href="{href(GL_LINK[t])}">More</a>' if t in GL_LINK else ""
+    return f'<div data-cat="{cat}"><b>{e(t)}</b><span class="pill">{cat}</span>{extra}<span>{e(d)}{more}</span></div>'
+gl = "".join(_gl(r) for r in D["glossary"])
+gl_spanish = sum(1 for r in D["glossary"] if r[2])
 glos = f'''<header class="hero"><div class="wrap"><h1>Padel words, decoded.</h1>
-<p class="lead">Padel borrows lots of Spanish. Search any word you've heard on court.</p></div></header>
-<section style="padding-top:10px"><div class="wrap"><label class="sr-only" for="gsearch">Search the glossary</label><input class="search" id="gsearch" type="search" placeholder="Search: bandeja, golden point, malla..."><div class="gl" id="glist">{gl}</div></div></section>'''
-page("glossary.html", "Padel Glossary: Every Term Explained | Padel Glass Box",
-     "Padel terms explained in plain English: bandeja, víbora, chiquita, bajada, golden point, drive, revés and more. Searchable and free.", glos, None, "Glossary")
+<p class="lead">Padel borrows lots of Spanish. Search any word you've heard on court, see how to say it, and what it means in English.</p>
+{quick(f"The padel words you'll hear most are bandeja (a controlled overhead, said ban-DEH-ha), víbora (a spin smash, VEE-bo-ra), chiquita (a soft low ball, chee-KEE-ta), globo (a lob), pared (wall) and malla (the metal fence, MAH-ya). This glossary has {len(D['glossary'])} terms, {gl_spanish} of them Spanish with a simple way to say each one.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><label class="sr-only" for="gsearch">Search the glossary</label><input class="search" id="gsearch" type="search" placeholder="Search: bandeja, golden point, malla...">
+<div class="seg gl-seg" id="gcat" role="group" aria-label="Filter by type"><button type="button" data-v="" aria-pressed="true">All</button>{"".join(f'<button type="button" data-v="{c}" aria-pressed="false">{c}</button>' for c in GL_CATS)}</div>
+<p class="muted" id="gcount" aria-live="polite"></p><div class="gl" id="glist">{gl}</div>
+<p class="muted" style="margin-top:16px">How to read the sounds: the part in capitals is stressed. In Spanish a "v" sounds close to a soft "b", "j" and "g" before e or i sound like the "h" in "hat", and "ll" sounds like the "y" in "yes" in most of Spain. Accents vary between countries, so you will hear small differences on court.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which Spanish padel words should beginners learn first?</h2></div><div class="grid">
+<div class="card"><h3>Calls on court</h3><p><b>Mía</b> (MEE-a, "mine") and <b>tuya</b> (TOO-ya, "yours") tell your partner who takes the ball. <b>Fuera</b> (FWEH-ra) means out. Short, clear calls stop both of you going for the same ball.</p></div>
+<div class="card"><h3>The shots you'll hear</h3><p>Bandeja, víbora, globo, chiquita and bajada. See each one move in the <a href="{href("shots.html")}">shot library</a>.</p></div>
+<div class="card"><h3>The court</h3><p>Pared and cristal for the glass, malla for the fence, and red (RED) for the net. The <a href="{href("wall-rules.html")}">wall rules checker</a> shows which ones you can use.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Learn the rules</h3><p>Tap any part of the <a href="{href("rules.html")}">interactive rules court</a>.</p></div>
+<div class="card"><h3>Find your side</h3><p>Drive or revés? Read <a href="{href("positioning.html")}">where to stand</a>.</p></div>
+<div class="card"><h3>New to padel?</h3><p>Start with the <a href="{href("beginners.html")}">first match checklist</a>.</p></div>
+</div></div></section>'''
+glos_faq = [
+    ("How do you pronounce bandeja in padel?", "Say ban-DEH-ha. The Spanish j sounds like the h in hat. Bandeja means tray, because you hold the racket face up like a waiter's tray."),
+    ("How do you pronounce víbora?", "Say VEE-bo-ra, with the stress on the first part. In Spanish the v sounds close to a soft b, so you will also hear BEE-bo-ra."),
+    ("What does mía and tuya mean in padel?", "Mía means mine and tuya means yours. Partners shout them to say who will take a ball down the middle."),
+    ("What is the difference between a bandeja and a víbora?", "Both are overheads played from near the net. A bandeja is flatter and controlled to keep your place at the net; a víbora has more sidespin and speed and is more attacking."),
+    ("What does malla mean in padel?", "Malla is the metal mesh fence around the sides of the court. Balls that hit it bounce unpredictably, and you can't play off your own fence."),
+    ("What are drive and revés in padel?", "Drive is the player on the right side of the court and revés is the player on the left. In Spanish the words also mean forehand and backhand."),
+]
+page("glossary.html", "Padel Glossary: Terms, Spanish Pronunciation and Meanings | Padel Glass Box",
+     "Padel terms explained in plain English, with how to say the Spanish words: bandeja, víbora, chiquita, bajada, malla, golden point, drive, revés and more. Searchable and free.", glos, glos_faq, "Glossary")
 
 # ---------------- AMERICANO / MEXICANO GENERATOR ----------------
 def pts_opts():
@@ -408,6 +445,7 @@ amer = f'''<header class="hero"><div class="wrap"><h1>Americano and Mexicano dra
 <div class="card"><h3>Points, not games</h3><p>Each match is a fixed number of points, such as 24. Every point counts, even if your team loses: lose 10-14 and you still add 10 to your total. The player with the most points at the end wins.</p></div>
 <div class="card"><h3>Serving</h3><p>A simple rule many clubs use: each player serves a block of points (often four in a row for 16, 24 or 32 points), then the serve passes to the other team. Agree the rule before you start.</p></div>
 <div class="card"><h3>Odd numbers of players</h3><p>It works best with 4, 8, 12 or 16 players. With other numbers, some players sit out each round. This tool spreads the rests as evenly as it can, and the leaderboard shows points per match so it stays fair.</p></div>
+<div class="card"><h3>Playing in fixed pairs?</h3><p>If teams want to keep the same partner all night, use the <a href="{href("round-robin.html")}">round robin generator</a>: every pair plays every other pair, with a standings table.</p></div>
 <div class="card"><h3>How long it takes</h3><p>A 24-point match often takes around 10 to 15 minutes, and 32 points a bit longer. Seven rounds of 24 points fits a typical two-hour court booking with time for changes.</p></div>
 </div></div></section>'''
 amer_faq = [
@@ -1116,6 +1154,137 @@ page("racket-balance.html", "Padel Racket Weight and Balance Explained: Free Spe
      "What padel racket weight and balance really mean. Enter grams and balance in mm to see the balance point on a to-scale racket, compare two rackets, and learn to measure balance at home.",
      rb + f'<script>window.RB={json.dumps(RB_PRE)};</script>', rb_faq, "Racket weight and balance")
 
+# ---------------- ROUND ROBIN (FIXED PAIRS) ----------------
+def _rr_row(n):
+    rounds = n - 1 if n % 2 == 0 else n
+    per = n // 2
+    return f"<tr><td>{n} pairs</td><td>{n * (n - 1) // 2}</td><td>{rounds}</td><td>{per}</td><td>{'None' if n % 2 == 0 else 'One pair each round'}</td></tr>"
+rr = f'''<header class="hero"><div class="wrap"><h1>Padel round robin generator for fixed pairs.</h1>
+<p class="lead">Every pair plays every other pair once. Type in your teams, pick your courts and get the full schedule, with a standings table that updates as you enter the games. Free, no sign-up, saved on this device.</p>
+{quick("A round robin with 4 pairs is 6 matches over 3 rounds; 6 pairs is 15 matches over 5 rounds; 8 pairs is 28 matches over 7 rounds. With an even number of pairs you need one less round than pairs. With an odd number, every pair sits out one round.")}</div></header>
+<section style="padding-top:10px"><div class="wrap gen">
+<div class="gen-main">
+<div class="card" id="rr-setup">
+<h2 style="font-size:1.6rem">Set up your round robin</h2>
+<div class="q"><h3><label for="rr-names">Pairs, one team per line (3 to 16)</label></h3><textarea class="search" id="rr-names" rows="7" placeholder="Sam &amp; Priya&#10;Omar &amp; Lucia&#10;Ben &amp; Aisha&#10;..."></textarea><p class="muted" id="rr-count" style="margin:-6px 0 0"></p></div>
+<div class="q"><h3>How do you score each match?</h3><div class="opts" data-rr="fmt" role="group" aria-label="Match format"><button class="opt" type="button" data-v="set" aria-pressed="true">One set (games)</button><button class="opt" type="button" data-v="race" aria-pressed="false">Race to 4 games</button><button class="opt" type="button" data-v="free" aria-pressed="false">Timed or any score</button></div><p class="muted" id="rr-fmt-note" style="margin:10px 0 0"></p></div>
+<div class="q"><h3>Points in the table</h3><div class="opts" data-rr="pts" role="group" aria-label="Table points"><button class="opt" type="button" data-v="w" aria-pressed="true">Rank by wins</button><button class="opt" type="button" data-v="3" aria-pressed="false">3 for a win, 1 for a draw</button></div></div>
+<div class="gen-nums"><div class="q"><h3><label for="rr-courts">Courts</label></h3><input class="search" id="rr-courts" type="number" min="1" max="8" value="2" inputmode="numeric"></div>
+<div class="q"><h3><label for="rr-legs">Play each pair</label></h3><select class="search" id="rr-legs"><option value="1">Once</option><option value="2">Twice</option></select></div></div>
+<p class="msg" id="rr-err" role="alert" style="color:#a43c13;min-height:0"></p>
+<div class="btns" style="margin-top:4px"><button class="btn lime" type="button" id="rr-start">Make the schedule</button><button class="btn ghost" type="button" id="rr-demo">Fill 6 sample pairs</button></div>
+</div>
+<div id="rr-live" hidden>
+<div class="card gen-bar"><div><span class="pill b" id="rr-sum"></span></div><div class="btns" style="margin:0"><button class="btn ghost sm" type="button" id="rr-copy">Copy table</button><button class="btn ghost sm" type="button" id="rr-new">New round robin</button></div></div>
+<div id="rr-list"></div>
+</div>
+</div>
+<aside class="gen-side"><div class="lb" id="rr-board"><h2>Standings</h2><p>Make the schedule and enter the games to see the table.</p></div></aside>
+</div></section>
+{AD.format("rr-mid")}
+<section><div class="wrap"><div class="sh"><h2>How many matches is a round robin?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Teams</th><th scope="col">Matches</th><th scope="col">Rounds</th><th scope="col">Matches per round</th><th scope="col">Who sits out</th></tr></thead><tbody>
+{"".join(_rr_row(n) for n in (3, 4, 5, 6, 7, 8, 10, 12))}
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">The maths: with N pairs there are N × (N − 1) ÷ 2 matches. With fewer courts than matches in a round, the tool splits each round into slots (slot 1, slot 2 and so on) that you play one after the other.</p>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How does a padel round robin work?</h2></div><div class="grid">
+<div class="card"><h3>Fixed pairs, everyone meets</h3><p>You keep the same partner all event. Each pair plays each other pair once (or twice). There are no knock-outs, so every team gets the same number of matches.</p></div>
+<div class="card"><h3>Round robin vs Americano</h3><p>In an <a href="{href("americano.html")}">Americano</a> you change partner every round and score as a single player. A round robin is for teams that want to stay together, like a club league or a box league.</p></div>
+<div class="card"><h3>Odd number of pairs</h3><p>With 5, 7 or 9 pairs, one team rests each round. The tool shows who is resting, and every pair rests exactly once in each cycle.</p></div>
+<div class="card"><h3>Pick a match length</h3><p>A full set gives a proper match. A race to 4 games (or a timed match) keeps a big group moving on one court booking. Agree on <a href="{href("golden-point-star-point.html")}">golden point or advantage</a> before you start.</p></div>
+<div class="card"><h3>How the table is sorted</h3><p>By default: wins (or points), then game difference, then games won, then the result between the tied pairs. Your league can use other rules, so check them first.</p></div>
+<div class="card"><h3>Turn it into a final</h3><p>Many groups finish with a final between the top two pairs. Use the <a href="{href("score.html")}">score keeper</a> on a phone at the net for that match.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Mixing partners instead?</h3><p>Use the <a href="{href("americano.html")}">Americano and Mexicano draw maker</a>.</p></div>
+<div class="card"><h3>Pairs of similar level</h3><p>Ask everyone to run the <a href="{href("level-calculator.html")}">level calculator</a> so the teams are fair.</p></div>
+<div class="card"><h3>Warm up together</h3><p>Start the session with the 10-minute <a href="{href("warm-up.html")}">warm-up timer</a>.</p></div>
+</div></div></section>'''
+rr_faq = [
+    ("How many matches are in a round robin with 4 teams?", "Six matches over three rounds. Each pair plays three matches, one against each other pair. With two courts, each round fits on court at the same time."),
+    ("How many rounds does a round robin need?", "With an even number of pairs, one less than the number of pairs (6 pairs = 5 rounds). With an odd number, the same number as pairs (5 pairs = 5 rounds), because one pair rests each round."),
+    ("What is the difference between a round robin and an Americano in padel?", "In a round robin you keep the same partner and play every other pair. In an Americano you change partner every round and collect points as a single player."),
+    ("How is a padel round robin table sorted?", "Most leagues rank by matches won or league points first. Common tie-breaks are game difference, games won and then the head-to-head result. This tool uses that order; your league may use its own."),
+    ("What if we have an odd number of pairs?", "One pair sits out each round. Every pair rests once, so everyone still plays the same number of matches."),
+    ("Can we play everyone twice?", "Yes. Choose 'Twice' and the tool repeats the schedule, so each pair meets every other pair two times, like a home and away league."),
+]
+page("round-robin.html", "Padel Round Robin Generator for Fixed Pairs: Free Schedule and Table | Padel Glass Box",
+     "Free padel round robin generator for fixed pairs. Enter 3 to 16 teams and your courts to get every round, then enter the games for a live standings table.",
+     rr, rr_faq, "Round robin generator")
+
+# ---------------- PADEL SHOES ----------------
+SOLE_SVG = {
+    "herring": '<svg viewBox="0 0 120 220" class="sole-svg" role="img" aria-label="Herringbone sole: a zig-zag pattern from toe to heel"><defs><clipPath id="sc1"><path d="M60 6C92 6 108 40 108 80C108 120 98 140 96 170C94 200 80 214 60 214C40 214 26 200 24 170C22 140 12 120 12 80C12 40 28 6 60 6Z"/></clipPath></defs><path d="M60 6C92 6 108 40 108 80C108 120 98 140 96 170C94 200 80 214 60 214C40 214 26 200 24 170C22 140 12 120 12 80C12 40 28 6 60 6Z" fill="#0e2468"/><g clip-path="url(#sc1)" stroke="#d4f53c" stroke-width="5" fill="none">' + "".join(f'<path d="M0 {y}L30 {y-12}L60 {y}L90 {y-12}L120 {y}"/>' for y in range(20, 232, 14)) + '</g></svg>',
+    "omni": '<svg viewBox="0 0 120 220" class="sole-svg" role="img" aria-label="Omni sole: many small rubber studs"><defs><clipPath id="sc2"><path d="M60 6C92 6 108 40 108 80C108 120 98 140 96 170C94 200 80 214 60 214C40 214 26 200 24 170C22 140 12 120 12 80C12 40 28 6 60 6Z"/></clipPath></defs><path d="M60 6C92 6 108 40 108 80C108 120 98 140 96 170C94 200 80 214 60 214C40 214 26 200 24 170C22 140 12 120 12 80C12 40 28 6 60 6Z" fill="#0e2468"/><g clip-path="url(#sc2)" fill="#d4f53c">' + "".join(f'<circle cx="{x + (7 if (y // 14) % 2 else 0)}" cy="{y}" r="3.6"/>' for y in range(14, 220, 14) for x in range(10, 120, 14)) + '</g></svg>',
+    "hybrid": '<svg viewBox="0 0 120 220" class="sole-svg" role="img" aria-label="Hybrid sole: zig-zag on the outer edge, small studs in the middle"><defs><clipPath id="sc3"><path d="M60 6C92 6 108 40 108 80C108 120 98 140 96 170C94 200 80 214 60 214C40 214 26 200 24 170C22 140 12 120 12 80C12 40 28 6 60 6Z"/></clipPath><clipPath id="sc3i"><ellipse cx="60" cy="110" rx="26" ry="88"/></clipPath></defs><path d="M60 6C92 6 108 40 108 80C108 120 98 140 96 170C94 200 80 214 60 214C40 214 26 200 24 170C22 140 12 120 12 80C12 40 28 6 60 6Z" fill="#0e2468"/><g clip-path="url(#sc3)" stroke="#d4f53c" stroke-width="5" fill="none">' + "".join(f'<path d="M0 {y}L30 {y-12}L60 {y}L90 {y-12}L120 {y}"/>' for y in range(20, 232, 14)) + '</g><ellipse cx="60" cy="110" rx="28" ry="90" fill="#0e2468"/><g clip-path="url(#sc3i)" fill="#9cc4ea">' + "".join(f'<circle cx="{x + (6 if (y // 12) % 2 else 0)}" cy="{y}" r="3"/>' for y in range(24, 200, 12) for x in range(34, 90, 12)) + '</g></svg>',
+}
+def _sq(qid, label, opts):
+    return f'<div class="q sh-q" data-q="{qid}"><h3>{label}</h3><div class="opts">' + "".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="false">{t}</button>' for v, t in opts) + '</div></div>'
+shoes = f'''<header class="hero"><div class="wrap"><h1>Padel shoes: which sole do you need?</h1>
+<p class="lead">Grip is the first thing to get right. Answer four questions about your courts and your game and see which sole pattern to look for, how much cushioning, and when to replace your shoes.</p>
+{quick("For most padel courts (artificial grass with sand), look for a herringbone (zig-zag) sole. On low-sand or carpet-style courts, an omni or hybrid sole grips better. Don't play in running shoes. If you play every week, plan on new shoes about every 4 to 6 months.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="shoe">
+<div>
+{_sq("court", "What are your usual courts like?", [("sand", "Grass with lots of loose sand"), ("low", "Little or no sand, or carpet-like"), ("mix", "It changes between clubs"), ("dk", "Not sure")])}
+{_sq("often", "How often do you play?", [("1", "A few times a month"), ("2", "Once a week"), ("3", "Two or more times a week")])}
+{_sq("now", "What do you wear now?", [("run", "Running or gym shoes"), ("ten", "Tennis shoes"), ("pad", "Padel shoes"), ("none", "Nothing yet")])}
+{_sq("feel", "Anything you want more of?", [("grip", "More grip, I slip"), ("soft", "More cushioning, my legs ache"), ("stab", "More support, I roll my ankle"), ("ok", "Nothing in particular")])}
+<button class="btn sm" type="button" id="shoe-reset">Start again</button>
+</div>
+<aside class="result" id="shoe-out" aria-live="polite"><h2>Your shoe match</h2><p>Answer the questions and your sole type and tips appear here.</p></aside>
+</div></div></section>
+{AD.format("shoes-mid")}
+<section><div class="wrap"><div class="sh"><h2>What are the types of padel shoe sole?</h2></div><div class="grid sole-grid">
+<div class="card">{SOLE_SVG["herring"]}<h3>Herringbone</h3><p>A zig-zag pattern from toe to heel. It is the classic padel sole: the grooves let sand pass through, so you can slide and stop on sandy artificial grass. It has the most grip of the three.</p><span class="pill b">Best for sandy courts</span></div>
+<div class="card">{SOLE_SVG["omni"]}<h3>Omni</h3><p>Lots of small rubber studs. It grips well on courts with little sand, but on a very sandy court it can feel like you are on ice skates.</p><span class="pill i">Best for low-sand courts</span></div>
+<div class="card">{SOLE_SVG["hybrid"]}<h3>Hybrid</h3><p>Zig-zag on the outside, where you push off when you change direction, and studs or a softer pattern in the middle. A good choice if you play at different clubs.</p><span class="pill">Good on most courts</span></div>
+</div>
+<p class="muted" style="margin-top:14px">Our own drawings. Real soles vary a lot; brands use their own names and patterns.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Padel shoes vs tennis shoes vs running shoes</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col"></th><th scope="col">Padel shoes</th><th scope="col">Tennis shoes</th><th scope="col">Running shoes</th></tr></thead><tbody>
+<tr><td>Made for</td><td>Quick stops, turns and short sprints on grass with sand</td><td>Long side-to-side slides on hard or clay courts</td><td>Running forward</td></tr>
+<tr><td>Sole</td><td>Herringbone, omni or hybrid</td><td>Flatter on hard-court models; herringbone on clay models</td><td>Soft, smooth tread</td></tr>
+<tr><td>Grip on padel turf</td><td>Best</td><td>Usually OK, but can be too much or too little</td><td>Poor, you can slip</td></tr>
+<tr><td>Support</td><td>Stable through the middle of the foot</td><td>Strong side support, firm heel</td><td>Little side support</td></tr>
+<tr><td>Good for padel?</td><td>Yes</td><td>OK to start</td><td>No</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">Guides disagree about clay-court tennis shoes: some say their herringbone sole works well for padel, others say they wear out fast on padel turf. They are fine to try padel in; if you play every week, padel shoes are worth it.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Is it time for new padel shoes?</h2></div>
+<div class="card"><ul class="check" id="shoe-wear">
+<li><label><input type="checkbox" data-w="2"><span>The zig-zag or studs are worn smooth under the ball of your foot</span></label></li>
+<li><label><input type="checkbox" data-w="2"><span>You slip on turns where you used to stop easily</span></label></li>
+<li><label><input type="checkbox" data-w="1"><span>The cushioning feels hard and your knees or feet ache more after games</span></label></li>
+<li><label><input type="checkbox" data-w="1"><span>The upper is torn or your foot slides around inside</span></label></li>
+<li><label><input type="checkbox" data-w="1"><span>You have played in them weekly for more than about 6 months</span></label></li>
+</ul><p class="shoe-wv" id="shoe-wv" aria-live="polite">Tick anything that sounds like your shoes.</p></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How should padel shoes fit?</h2></div><div class="grid">
+<div class="card"><h3>Snug, not tight</h3><p>Your heel should not lift and your foot should not slide when you stop. Tight shoes give blisters.</p></div>
+<div class="card"><h3>Room for your toes</h3><p>Your foot moves forward when you stop hard. Leave a little space, about a thumb's width, in front of your longest toe.</p></div>
+<div class="card"><h3>Check the width too</h3><p>Some models are narrow. If the sides press on your foot, try a wider model, not just a bigger size.</p></div>
+<div class="card"><h3>Try them with your padel socks</h3><p>Shop later in the day, when feet are a little bigger, and wear the socks you play in.</p></div>
+<div class="card"><h3>Comfortable from day one</h3><p>Padel shoes should feel good the first time. Wear new shoes for a short session before a long match.</p></div>
+<div class="card"><h3>Pain that stays</h3><p>Shoes help, but they don't fix injuries. If pain in your feet, knees or ankles doesn't go away, see a doctor or physio.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Rest of your kit</h3><p>Find a racket that suits you with the <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
+<div class="card"><h3>Before you play</h3><p>Look after your legs with the <a href="{href("warm-up.html")}">10-minute warm-up timer</a>.</p></div>
+<div class="card"><h3>Check your balls</h3><p>Flat balls make you lunge more. Run the <a href="{href("padel-balls.html")}">dead ball checker</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Shop padel shoes</h3><p>Check the sole type in the product details: herringbone for sandy courts, omni or hybrid for low-sand courts.</p><ul class="aff-links"><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li><li><a href="{go("padel-bags")}" {AFF_ATTR}>Bags</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>Rackets</a></li></ul>{AFF_NOTE}</div></div></section>'''
+shoes_faq = [
+    ("Do you need special shoes for padel?", "You can try padel in tennis shoes, but padel shoes grip the sandy artificial grass better and support quick stops and turns. Don't play in running shoes: they slip and give little side support."),
+    ("What sole is best for padel shoes?", "Herringbone (a zig-zag pattern) for courts with lots of sand. Omni (small studs) or a hybrid sole for courts with little or no sand."),
+    ("Can I use tennis shoes for padel?", "Yes, to start. They grip less well on padel turf and are made for different movement, so if you play every week, padel shoes are a good buy."),
+    ("Can I play padel in running shoes?", "It's best not to. Running shoes are made for moving forward, so they have a smooth sole and little side support. That makes it easier to slip or roll an ankle on court."),
+    ("How long do padel shoes last?", "If you play every week, about 4 to 6 months. If you play now and then, often a year or more. Replace them when the sole is worn smooth or the cushioning feels hard."),
+    ("Should padel shoes be tight?", "Snug but not tight. Your heel shouldn't lift and your foot shouldn't slide, but leave a little room in front of your toes because your foot moves forward when you stop."),
+    ("What is the difference between omni and herringbone soles?", "Herringbone has zig-zag grooves that let sand pass, so it grips on sandy courts. Omni has many small studs and grips better on courts with little sand."),
+]
+page("padel-shoes.html", "Padel Shoes Guide: Which Sole Do You Need? Free Shoe Finder | Padel Glass Box",
+     "Which padel shoes do you need? Answer four questions to get your sole type (herringbone, omni or hybrid), then compare padel vs tennis vs running shoes, check fit and see when to replace them.",
+     shoes + '<script>window.SOLES=' + json.dumps({k: v.replace('id="sc', 'id="sm').replace('url(#sc', 'url(#sm') for k, v in SOLE_SVG.items()}) + ';</script>', shoes_faq, "Padel shoes")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -1126,7 +1295,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

@@ -468,3 +468,25 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .rb-res .vs-bars li { grid-template-columns: 130px 1fr 28px; font-size: .9rem; }
 .rb-cmp { background: rgba(255,255,255,0.08); border-radius: 12px; padding: 12px 14px; color: #fff; font-weight: 600; }
 .rb-out { position: static; }
+/* ---------- quick answer box ---------- */
+.qa { margin-top: 22px; max-width: 760px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); border-left: 4px solid var(--ball); border-radius: 16px; padding: 16px 20px; backdrop-filter: blur(8px); }
+.qa b { font-family: var(--display); font-size: .95rem; color: var(--ball); }
+.qa p { margin: 6px 0 8px; color: #fff; }
+.qa span { font-size: .82rem; color: #b8c6ef; }
+/* ---------- glossary ---------- */
+.gl-seg { background: var(--deep); margin: 0 0 10px; }
+.gl div { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.gl div b { margin: 0; }
+.gl div .pill { font-size: .72rem; padding: 2px 8px; }
+.gl div > span:last-child { flex-basis: 100%; }
+.gl i { font-style: normal; font-size: .85rem; color: var(--muted); flex-basis: 100%; }
+.gl i.gl-say { color: var(--turf); font-weight: 600; }
+/* ---------- padel shoes ---------- */
+.sole-grid .card { text-align: left; }
+.sole-svg { display: block; width: 90px; height: auto; margin: 0 0 12px; }
+.sole-mini .sole-svg { width: 64px; margin: 6px 0 4px; }
+.mt-plain td:last-child { font-weight: 400; }
+.mt-plain td:first-child { font-weight: 700; }
+.shoe-wv { margin: 14px 0 0; font-weight: 700; padding: 12px 14px; border-radius: 12px; background: var(--glass-2); }
+.shoe-wv.mid { background: #eef9b8; color: #4a5600; }
+.shoe-wv.bad { background: #ffe1d6; color: #a43c13; }
