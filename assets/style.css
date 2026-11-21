@@ -417,3 +417,29 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .wr-court { display: block; width: 100%; height: auto; border-radius: 14px; }
 .wr-q[hidden] { display: none; }
 .result .wr-src { color: #9fb0e0; font-size: .88rem; margin-bottom: 0; }
+
+/* ---------- padel vs tennis vs pickleball ---------- */
+.vs-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 900px) { .vs-layout { grid-template-columns: 1fr; } }
+.vs-bar { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; margin-bottom: 14px; }
+.vs-court { display: block; width: 100%; height: auto; border-radius: 12px; }
+.vs-g { transition: opacity .25s; }
+.vs-g.dim { opacity: .12; }
+.vs-g.on rect:first-child { stroke-width: 1.6; }
+.vs-key { list-style: none; display: flex; flex-wrap: wrap; gap: 16px; padding: 0; margin: 12px 0 0; color: #c9d6fb; font-size: .9rem; font-weight: 600; }
+.vs-key i { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-right: 6px; vertical-align: -2px; }
+.vs-key .k-t { background: rgba(46,138,90,.6); border: 1.5px solid #fff; }
+.vs-key .k-p { background: #1d55e6; border: 1.5px solid #9cc4ea; }
+.vs-key .k-k { background: rgba(232,248,74,.3); border: 1.5px solid #e8f84a; }
+.vs-dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 16px; margin: 14px 0 16px; }
+.vs-dl dt { color: var(--muted); font-weight: 600; font-size: .9rem; }
+.vs-dl dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.vs-dl dd span { display: block; font-weight: 400; color: var(--muted); font-size: .88rem; }
+.vs-t th[scope="row"] { text-align: left; font-size: .9rem; color: var(--muted); padding: 12px 8px; border-top: 1px solid var(--line); white-space: nowrap; }
+.vs-t td:last-child { font-weight: 400; }
+.vs-t { min-width: 640px; }
+.vs-bars { list-style: none; padding: 0; margin: 16px 0; display: grid; gap: 10px; }
+.vs-bars li { display: grid; grid-template-columns: 92px 1fr 28px; gap: 10px; align-items: center; font-weight: 600; }
+.vs-bars i { height: 10px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
+.vs-bars b { display: block; height: 100%; background: var(--ball); border-radius: 99px; transition: width .35s; }
+.vs-bars em { font-style: normal; color: #9fb0e0; text-align: right; font-variant-numeric: tabular-nums; }

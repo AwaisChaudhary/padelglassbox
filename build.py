@@ -121,7 +121,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -217,11 +217,19 @@ finder = f'''<header class="hero"><div class="wrap"><h1>Find your padel racket.<
 <div class="card"><h3>Balance</h3><p>Low balance (towards the handle) means control and quick hands. High balance (towards the head) means power but more strain.</p></div>
 <div class="card"><h3>Core foam</h3><p>Soft foam gives easy power and comfort at slow speeds. Hard foam gives control when you swing fast.</p></div>
 <div class="card"><h3>Face material</h3><p>Fiberglass is softer and forgiving. Carbon is stiffer and more precise, and usually costs more.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Grip and overgrip</h2><p class="muted">The cheapest upgrade you can make to any racket.</p></div><div class="grid">
+<div class="card"><h3>Grip vs overgrip</h3><p>The base grip is the thick, cushioned layer that comes on the handle. An overgrip is a thin, light tape you wrap over it. It protects the base grip, which is harder to replace, and soaks up sweat.</p></div>
+<div class="card"><h3>When to change it</h3><p>Change it when it looks dirty or worn, or when it feels slippery, wet or less sticky. Social players often get a few sessions from one. Players who sweat a lot, or play in heat, change it far more often.</p></div>
+<div class="card"><h3>How to put one on</h3><p>Take off the old overgrip. Start at the bottom of the handle, by the butt cap, and wrap up towards the head, keeping each turn parallel and slightly overlapping. Cut the end straight and fix it with the finishing tape.</p></div>
+<div class="card"><h3>Handle feels too thin?</h3><p>Padel handles often feel small in bigger hands. Overlap the overgrip more as you wrap, or add a second overgrip, to make the handle thicker. Overlap less for a thinner feel.</p></div>
 </div></div></section>'''
 finder_faq = [
     ("What padel racket should a beginner buy?", "Most beginners do best with a round racket: low balance, a lighter weight, soft foam and a fiberglass face. It's forgiving and easy to control."),
     ("Round, teardrop or diamond: which is best?", "Round gives the most control, diamond the most power, and teardrop sits in between. Many players start round, move to teardrop, then try diamond."),
     ("How heavy should a padel racket be?", "Most adult rackets weigh around 350 to 385 g. Pick the lighter end if you're new or have sore elbows, and the heavier end if you hit hard."),
+    ("How often should I change my padel overgrip?", "When it starts to feel slippery or less sticky, or looks dirty and worn. For social players that is often every few sessions; players who sweat a lot change it much more often."),
+    ("How do I make my padel racket handle thicker?", "Overlap the overgrip more as you wrap it, or put a second overgrip on top of the first."),
     ("Does a racket help with tennis elbow?", "A lighter racket with a soft core and low balance puts less strain on your arm. If pain continues, see a doctor or physio."),
 ]
 page("racket-finder.html", "Padel Racket Finder: Which Racket Suits You? | Padel Glass Box",
@@ -347,6 +355,7 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>Know your level</h3><p>Open matches and clubs often ask for your level. Our <a href="{href("level-calculator.html")}">padel level calculator</a> gives you a quick estimate.</p></div>
 <div class="card"><h3>Know where to stand</h3><p>Move up and back with your partner, and stay about 1 metre off the back glass. Our <a href="{href("positioning.html")}">positioning guide</a> shows every situation on a court.</p></div>
 <div class="card"><h3>Warm up first</h3><p>Ten minutes of jogging, moving stretches and soft rallies makes the first games easier on your body. Our <a href="{href("warm-up.html")}">warm-up timer</a> talks you through it step by step.</p></div>
+<div class="card"><h3>Coming from tennis or pickleball?</h3><p>Your hands will help, but the walls, the underhand serve and the scoring work a little differently. See <a href="{href("padel-vs-tennis-vs-pickleball.html")}">padel vs tennis vs pickleball</a> for the key changes.</p></div>
 <div class="card"><h3>Start with a lesson</h3><p>One group lesson teaches the serve and the walls much faster than working it out alone.</p></div>
 </div></div></section>'''
 beg_faq = [
@@ -924,6 +933,102 @@ wall_faq = [
 page("wall-rules.html", "Padel Wall and Fence Rules: Was That Ball In? Free Checker | Padel Glass Box",
      "Padel wall rules in plain English: glass, metal fence, net cord, ceiling and out-of-court play. Tap what the ball touched and get the call on a side-view court.", wall + f'<script>window.WR={json.dumps(WR)};</script>', wall_faq, "Wall and fence rules")
 
+# ---------------- PADEL VS TENNIS VS PICKLEBALL ----------------
+# Courts drawn to scale, 10 px per metre, centred on the net.
+def _rc(w, h): return 130 - w * 5, 65 - h * 5
+_tx, _ty = _rc(23.77, 10.97); _sy = 65 - 8.23 * 5
+_px, _py = _rc(20, 10); _kx, _ky = _rc(13.41, 6.10)
+VS_SVG = f'''<svg viewBox="0 0 260 130" class="vs-court" role="img" aria-label="Tennis, padel and pickleball courts drawn to the same scale, one on top of the other, all centred on the net.">
+<rect width="260" height="130" rx="8" fill="#0b1c55"/>
+<g class="vs-g" data-s="t" fill="none" stroke="#ffffff" stroke-width=".8"><rect x="{_tx:.2f}" y="{_ty:.2f}" width="237.7" height="109.7" fill="#2e8a5a" fill-opacity=".28"/><path d="M{_tx:.2f} {_sy:.2f}h237.7M{_tx:.2f} {130-_sy:.2f}h237.7M66 {_sy:.2f}v82.3M194 {_sy:.2f}v82.3M66 65h128"/></g>
+<g class="vs-g" data-s="p" fill="none" stroke="#ffffff" stroke-width=".8"><rect x="{_px}" y="{_py}" width="200" height="100" fill="#1d55e6" fill-opacity=".55"/><path d="M60.5 {_py}v100M199.5 {_py}v100M60.5 65h139"/><rect x="{_px}" y="{_py}" width="200" height="100" stroke="#9cc4ea" stroke-width="2.6" opacity=".8"/></g>
+<g class="vs-g" data-s="k" fill="none" stroke="#e8f84a" stroke-width=".9"><rect x="{_kx:.2f}" y="{_ky:.2f}" width="134.1" height="61" fill="#e8f84a" fill-opacity=".14"/><rect x="108.7" y="{_ky:.2f}" width="42.6" height="61" fill="#e8f84a" fill-opacity=".22"/><path d="M{_kx:.2f} 65h45.75M151.3 65h45.75"/></g>
+<path d="M130 6v118" stroke="#e4eef6" stroke-width="1.6"/>
+</svg>'''
+VS = {
+    "t": {"name": "Tennis", "m": [23.77, 10.97], "ft": [78, 36], "note": "Doubles court. Singles uses 8.23 m (27 ft) of the width.", "net": "About 0.91 m (3 ft) in the middle, 1.07 m (3.5 ft) at the posts", "walls": "None. The lines decide in or out."},
+    "p": {"name": "Padel", "m": [20, 10], "ft": [65.6, 32.8], "note": "The same court for every game, closed in by glass and metal fence.", "net": "88 cm (34.6 in) in the middle, 92 cm (36.2 in) at the posts", "walls": "Glass and fence all round, and you play off them."},
+    "k": {"name": "Pickleball", "m": [13.41, 6.10], "ft": [44, 20], "note": "The same court for singles and doubles, with a 2.13 m (7 ft) non-volley zone, the kitchen, each side of the net.", "net": "86 cm (34 in) in the middle, 91 cm (36 in) at the sidelines", "walls": "None. The lines decide in or out."},
+}
+vs_q = lambda qid, label, opts: f'<div class="q vsq" data-q="{qid}"><h3>{label}</h3><div class="opts">' + "".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="false">{t}</button>' for v, t in opts) + '</div></div>'
+# Points per answer: tennis, padel, pickleball.
+VSQ = {
+    "who": {"one": [2, 0, 1], "group": [1, 2, 2], "any": [1, 1, 1]},
+    "fit": {"easy": [0, 1, 2], "mid": [1, 2, 1], "hard": [2, 1, 0]},
+    "past": {"none": [0, 2, 2], "some": [1, 2, 1], "lots": [2, 1, 1]},
+    "fun": {"walls": [0, 3, 0], "touch": [0, 1, 3], "power": [3, 1, 0]},
+    "time": {"quick": [0, 1, 2], "hour": [1, 2, 1], "long": [2, 1, 0]},
+}
+VSWHY = {
+    "t": "Tennis gives you the most space, the biggest serves and the most running. It is played singles or doubles, and it takes the longest to learn well, so it rewards players who enjoy practising technique.",
+    "p": "Padel is almost always played as two against two on a small court with walls. The underhand serve and the glass keep the ball in play, so new players get real rallies early, and it is very social.",
+    "k": "Pickleball has the smallest court, a light plastic ball and an underhand serve. Players often say it is the quickest of the three to pick up, and it is easy on the joints. Games are won with soft shots near the net as much as with power.",
+}
+vs = f'''<header class="hero"><div class="wrap"><h1>Padel vs tennis vs pickleball.</h1>
+<p class="lead">Three racket sports, three very different games. See the courts drawn to the same scale, compare the rules side by side, then answer five quick questions to see which one suits you best.</p></div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="vs-layout" id="vs">
+<div class="court-art vs-art"><div class="vs-bar"><div class="seg" id="vs-show" role="group" aria-label="Show court"><button type="button" data-v="all" aria-pressed="true">All three</button><button type="button" data-v="t" aria-pressed="false">Tennis</button><button type="button" data-v="p" aria-pressed="false">Padel</button><button type="button" data-v="k" aria-pressed="false">Pickleball</button></div>
+<div class="seg" id="vs-unit" role="group" aria-label="Units"><button type="button" data-v="m" aria-pressed="true">Metres</button><button type="button" data-v="ft" aria-pressed="false">Feet</button></div></div>
+{VS_SVG}
+<ul class="vs-key"><li><i class="k-t"></i>Tennis</li><li><i class="k-p"></i>Padel</li><li><i class="k-k"></i>Pickleball</li></ul></div>
+<aside class="card zpanel" id="vs-info" aria-live="polite"></aside>
+</div></div></section>
+{AD.format("vs-mid")}
+<section><div class="wrap"><div class="sh"><h2>Side by side</h2><p class="muted">The main rules of each sport, in short.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt vs-t"><thead><tr><th scope="col"></th><th scope="col">Padel</th><th scope="col">Tennis</th><th scope="col">Pickleball</th></tr></thead><tbody>
+<tr><th scope="row">Court</th><td>20 × 10 m</td><td>23.77 × 10.97 m (doubles)</td><td>13.41 × 6.10 m (44 × 20 ft)</td></tr>
+<tr><th scope="row">Walls</th><td>Yes, glass and fence, part of the game</td><td>No</td><td>No</td></tr>
+<tr><th scope="row">Net in the middle</th><td>88 cm</td><td>About 91 cm</td><td>86 cm (34 in)</td></tr>
+<tr><th scope="row">Players</th><td>Almost always doubles</td><td>Singles or doubles</td><td>Singles or doubles</td></tr>
+<tr><th scope="row">Serve</th><td>Underhand, after a bounce, hit at or below the waist, diagonally</td><td>Usually overhead, no bounce needed</td><td>Underhand, below the waist, diagonally</td></tr>
+<tr><th scope="row">Special rule</th><td>Ball may hit the walls after one bounce</td><td>None like it</td><td>No volleys in the kitchen; the ball must bounce once on each side first</td></tr>
+<tr><th scope="row">Scoring</th><td>15, 30, 40, game; sets to six; golden point or Star Point at 40-40 in many games</td><td>15, 30, 40, game; sets to six</td><td>Games to 11, win by 2; traditionally only the serving side scores</td></tr>
+<tr><th scope="row">Racket</th><td>Solid, no strings, with holes</td><td>Strung racket</td><td>Solid paddle, no holes</td></tr>
+<tr><th scope="row">Ball</th><td>Felt ball with lower pressure than tennis</td><td>Pressurised felt ball</td><td>Light plastic ball with holes</td></tr>
+<tr><th scope="row">Learning curve</th><td>Moderate: rallies come quickly</td><td>Steepest</td><td>Quickest to pick up</td></tr>
+<tr><th scope="row">Body</th><td>Quick reactions, short sprints, lots of bending</td><td>Most running and endurance</td><td>Lowest impact, balance and touch</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">Padel figures from the FIP rules (see our <a href="{href("court-dimensions.html")}">padel court dimensions</a>). Pickleball court, net, kitchen and scoring from USA Pickleball. Tennis court and net from the ITF rules of tennis. Local leagues can use other formats.</p>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which sport suits you?</h2><p class="muted">Five questions, no right answers.</p></div>
+<div class="quiz" id="vsq">
+<div>
+{vs_q("who", "1. Who will you usually play with?", [("one", "One friend"), ("group", "Three friends or a group"), ("any", "Either")])}
+{vs_q("fit", "2. How hard do you want to work?", [("easy", "Gentle on my joints"), ("mid", "A good sweat"), ("hard", "Lots of running")])}
+{vs_q("past", "3. Have you played a racket sport before?", [("none", "Never"), ("some", "A little"), ("lots", "Yes, quite a lot")])}
+{vs_q("fun", "4. What sounds most fun?", [("walls", "Long rallies off the walls"), ("touch", "Soft, clever shots at the net"), ("power", "Big serves and an open court")])}
+{vs_q("time", "5. How long until you want to enjoy real games?", [("quick", "The first session"), ("hour", "A few weeks is fine"), ("long", "Happy to learn for months")])}
+<button class="btn sm" type="button" id="vsq-reset">Start again</button>
+</div>
+<aside class="result" id="vsq-out" aria-live="polite"><h2>Your match</h2><p>Answer the questions and your best fit appears here. You can change any answer.</p></aside>
+</div></div></section>
+<section><div class="wrap"><div class="sh"><h2>The biggest differences</h2></div><div class="grid">
+<div class="card"><span class="pill b">Padel</span><h3 style="margin-top:10px">The walls change everything</h3><p>In padel the ball can bounce once and then hit the glass, and you can still play it. That gives you a second chance on many shots, so rallies last longer. Read the <a href="{href("wall-rules.html")}">wall and fence rules</a>.</p></div>
+<div class="card"><span class="pill i">Tennis</span><h3 style="margin-top:10px">Space and the serve</h3><p>A tennis court is the biggest of the three, and the overhead serve is a weapon. You need more running and more technique before rallies feel easy.</p></div>
+<div class="card"><span class="pill a">Pickleball</span><h3 style="margin-top:10px">The kitchen</h3><p>Pickleball has a 7 ft (2.13 m) zone each side of the net where you can't volley. It stops players smashing from the net, so soft drop shots, called dinks, matter a lot.</p></div>
+<div class="card"><span class="pill b">Padel</span><h3 style="margin-top:10px">Scoring like tennis</h3><p>Padel uses the tennis count, but at 40-40 many games use a golden point or the newer Star Point. Keep track with our <a href="{href("score.html")}">score keeper</a> and see <a href="{href("golden-point-star-point.html")}">golden point vs Star Point</a>.</p></div>
+<div class="card"><span class="pill a">Pickleball</span><h3 style="margin-top:10px">Only servers score</h3><p>In the traditional pickleball format, only the serving side can win points, and a game goes to 11, won by two. Some events now try rally scoring, where every rally counts.</p></div>
+<div class="card"><span class="pill i">All three</span><h3 style="margin-top:10px">Different kit</h3><p>A tennis racket has strings. A padel racket is solid foam with holes. A pickleball paddle is solid and flat. Each sport also has its own ball, so you can't swap them.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Coming to padel from another sport</h2></div><div class="grid">
+<div class="card"><h3>From tennis</h3><p>Your volleys and footwork help a lot. The hard part is letting the ball pass you and come off the glass instead of hitting it early. Shorten your swing: big tennis swings send the ball into the back glass. Start with the <a href="{href("shots.html")}">shot library</a>.</p></div>
+<div class="card"><h3>From pickleball</h3><p>You already know the underhand serve and how to win at the net. In padel the serve must bounce first, there is no kitchen, and lobs over the net players are a main weapon. Learn <a href="{href("positioning.html")}">where to stand</a> as a pair.</p></div>
+<div class="card"><h3>Brand new</h3><p>Padel is a good first racket sport: the court is small and the walls keep the ball in. Read the <a href="{href("beginners.html")}">first match checklist</a> and find a <a href="{href("racket-finder.html")}">racket that suits you</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Trying padel for the first time?</h3><p>Most clubs rent rackets. If you want your own, start with a forgiving round racket and proper court shoes.</p><ul class="aff-links"><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>All rackets</a></li><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li></ul>{AFF_NOTE}</div></div></section>'''
+vs_faq = [
+    ("What is the difference between padel and pickleball?", "Padel is played on a 20 × 10 m court with glass walls you can use, with a solid holed racket and a felt ball, almost always in doubles. Pickleball is played on a smaller 44 × 20 ft court with no walls, a solid paddle and a plastic ball, and it has a non-volley zone called the kitchen."),
+    ("Is padel easier than tennis?", "For most beginners, yes. The court is smaller, the serve is underhand and the walls keep the ball in play, so rallies come much sooner than in tennis."),
+    ("Is padel or pickleball easier to learn?", "Both are quick to learn. Pickleball is often called the easiest of the three to pick up, and padel the easiest way into a racket sport with walls. Many people play both."),
+    ("Which court is bigger, padel or pickleball?", "Padel. A padel court is 20 × 10 m (200 m²). A pickleball court is 13.41 × 6.10 m (about 82 m²), so it is less than half the size."),
+    ("Is a padel court smaller than a tennis court?", "Yes. A padel court is 20 × 10 m. A tennis doubles court is 23.77 × 10.97 m, so padel covers about three quarters of the area, and the walls make it feel even smaller."),
+    ("Is padel scored like tennis?", "Yes: 15, 30, 40 and game, with sets to six. Many padel games use a golden point at 40-40, and the pro tours use Star Point from 2026."),
+    ("Which is the best workout: padel, tennis or pickleball?", "Tennis usually means the most running. Padel is lots of short, quick movements and bending. Pickleball is the lowest impact of the three. Any of them is good exercise if you play regularly."),
+]
+page("padel-vs-tennis-vs-pickleball.html", "Padel vs Tennis vs Pickleball: Differences, Courts to Scale and Quiz | Padel Glass Box",
+     "Padel vs tennis vs pickleball: compare court size, walls, serve, scoring and kit side by side, see the three courts drawn to scale, and take a quick quiz to pick your sport.",
+     vs + f'<script>window.VS={json.dumps({"c": VS, "q": VSQ, "why": VSWHY})};</script>', vs_faq, "Padel vs tennis vs pickleball")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -934,7 +1039,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

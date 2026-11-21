@@ -898,4 +898,45 @@
     $("#wr-reset").addEventListener("click", function () { WA = {}; wrender(true); wtxt.innerHTML = "<h2>Make the call</h2><p>Tap what the ball touched and the verdict appears here.</p>"; });
     wrender(false);
   }
+
+  /* ---------- padel vs tennis vs pickleball ---------- */
+  var vsb = $("#vs");
+  if (vsb && window.VS) {
+    var VC = window.VS.c, vsShow = "all", vsUnit = "m", vinfo = $("#vs-info");
+    var fmt = function (n) { return (+n.toFixed(2)) + (vsUnit === "m" ? " m" : " ft"); };
+    var area = function (k) { var d = VC[k][vsUnit]; return Math.round(d[0] * d[1]).toLocaleString("en-GB") + (vsUnit === "m" ? " m²" : " sq ft"); };
+    var share = function (k) { var a = VC[k].m[0] * VC[k].m[1], t = VC.t.m[0] * VC.t.m[1]; return Math.round(a / t * 100); };
+    var vpaint = function () {
+      $$(".vs-g", vsb).forEach(function (g) { g.classList.toggle("dim", vsShow !== "all" && g.dataset.s !== vsShow); g.classList.toggle("on", g.dataset.s === vsShow); });
+      if (vsShow === "all") {
+        vinfo.innerHTML = "<h2 style=\"font-size:1.4rem\">Three courts, one scale</h2><dl class=\"vs-dl\">" + ["t", "p", "k"].map(function (k) {
+          var d = VC[k][vsUnit]; return "<dt>" + VC[k].name + "</dt><dd>" + fmt(d[0]) + " × " + fmt(d[1]) + "<span>" + area(k) + "</span></dd>";
+        }).join("") + "</dl><p class=\"muted\" style=\"margin:0\">A padel court covers about " + share("p") + "% of a tennis doubles court, and a pickleball court about " + share("k") + "%. Tap a sport to see its court on its own.</p>";
+        return;
+      }
+      var c = VC[vsShow], d = c[vsUnit];
+      vinfo.innerHTML = "<h2 style=\"font-size:1.4rem\">" + c.name + "</h2><dl class=\"vs-dl\"><dt>Size</dt><dd>" + fmt(d[0]) + " × " + fmt(d[1]) + "</dd><dt>Area</dt><dd>" + area(vsShow) + (vsShow !== "t" ? "<span>About " + share(vsShow) + "% of a tennis doubles court</span>" : "") + "</dd><dt>Net</dt><dd>" + c.net + "</dd><dt>Walls</dt><dd>" + c.walls + "</dd></dl><p class=\"muted\" style=\"margin:0\">" + c.note + "</p>";
+    };
+    choose($("#vs-show"), function (v) { vsShow = v; vpaint(); });
+    choose($("#vs-unit"), function (v) { vsUnit = v; vpaint(); });
+    vpaint();
+  }
+  var vsq = $("#vsq");
+  if (vsq && window.VS) {
+    var VQ = window.VS.q, VA = {}, vout = $("#vsq-out"), NAMES = { t: "Tennis", p: "Padel", k: "Pickleball" };
+    var vqrender = function () {
+      $$(".vsq", vsq).forEach(function (q) { $$(".opt", q).forEach(function (o) { o.setAttribute("aria-pressed", VA[q.dataset.q] === o.dataset.v ? "true" : "false"); }); });
+      var keys = Object.keys(VA), tot = { t: 0, p: 0, k: 0 };
+      if (!keys.length) { vout.innerHTML = "<h2>Your match</h2><p>Answer the questions and your best fit appears here. You can change any answer.</p>"; return; }
+      keys.forEach(function (q) { var s = VQ[q][VA[q]]; tot.t += s[0]; tot.p += s[1]; tot.k += s[2]; });
+      var order = ["p", "k", "t"].sort(function (a, b) { return tot[b] - tot[a]; });
+      var max = Math.max(1, tot[order[0]]), left = 5 - keys.length;
+      var tie = tot[order[0]] === tot[order[1]];
+      vout.innerHTML = "<h2>" + (tie ? NAMES[order[0]] + " or " + NAMES[order[1]] : NAMES[order[0]]) + "</h2><p>" + window.VS.why[order[0]] + "</p><ul class=\"vs-bars\">" + order.map(function (k) {
+        return "<li><span>" + NAMES[k] + "</span><i><b style=\"width:" + Math.round(tot[k] / max * 100) + "%\"></b></i><em>" + tot[k] + "</em></li>";
+      }).join("") + "</ul><p style=\"margin-bottom:0\">" + (left ? left + (left === 1 ? " question" : " questions") + " left for a better match." : (tie ? "A tie: try a session of each and see which you enjoy most." : "Just for fun, not a test. The best sport is the one you'll keep playing.")) + "</p>";
+    };
+    $$(".vsq", vsq).forEach(function (q) { $$(".opt", q).forEach(function (o) { o.addEventListener("click", function () { VA[q.dataset.q] = o.dataset.v; vqrender(); }); }); });
+    $("#vsq-reset").addEventListener("click", function () { VA = {}; vqrender(); });
+  }
 })();
