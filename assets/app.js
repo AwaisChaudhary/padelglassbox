@@ -1349,6 +1349,53 @@
     $("#nt-reset").addEventListener("click", function () { nshow(null); });
   }
 
+  /* ---------- out-of-court play checker ---------- */
+  var oc = $("#oc");
+  if (oc && window.OC) {
+    var otxt = $("#oc-txt"), oout = $("#oc-out"), oball = $("#oc-ball"), oring = $("#oc-ring");
+    var omode = store.get("pp-oc-mode", "y"), okey = null;
+    if (omode !== "y" && omode !== "n") omode = "y";
+    var orender = function () {
+      $$("#oc-mode button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === omode ? "true" : "false"); });
+      $$(".oc-q .opt", oc).forEach(function (o) { o.setAttribute("aria-pressed", o.dataset.v === okey ? "true" : "false"); });
+      var d = okey && window.OC[okey], r = d && d[omode];
+      oout.className = "result" + (r ? (r[0] === "lose" ? " fault" : r[0] === "let" ? " let" : " good") : "");
+      if (!r) {
+        oball.setAttribute("cx", 130); oball.setAttribute("cy", 130); oring.setAttribute("opacity", 0);
+        otxt.innerHTML = "<h2>Make the call</h2><p>" + (omode === "y" ? "Court with out-of-court play. " : "Court without out-of-court play. ") + "Tap a situation and the verdict appears here.</p>"; return;
+      }
+      oball.setAttribute("cx", d.p[0]); oball.setAttribute("cy", d.p[1]);
+      oring.setAttribute("cx", d.p[0]); oring.setAttribute("cy", d.p[1]); oring.setAttribute("opacity", 1);
+      otxt.innerHTML = "<h2>" + r[1] + "</h2><p>" + r[2] + "</p><p class=\"wr-src\">Based on " + r[3] + ". Court: " + (omode === "y" ? "out-of-court play allowed" : "out-of-court play not allowed") + ".</p>";
+    };
+    $$("#oc-mode button").forEach(function (b) { b.addEventListener("click", function () { omode = b.dataset.v; store.set("pp-oc-mode", omode); orender(); }); });
+    $$(".oc-q .opt", oc).forEach(function (o) { o.addEventListener("click", function () { okey = o.dataset.v; orender(); if (window.innerWidth < 860 && oout.scrollIntoView) oout.scrollIntoView({ behavior: "smooth", block: "center" }); }); });
+    $("#oc-reset").addEventListener("click", function () { okey = null; orender(); });
+    orender();
+  }
+  var occ = $("#occ");
+  if (occ) {
+    var obox = $$("#occ-list input"), oco = $("#occ-out");
+    var osaved = store.get("pp-occ", []);
+    obox.forEach(function (b) { b.checked = osaved.indexOf(b.dataset.k) > -1; });
+    var crender = function () {
+      var on = obox.filter(function (b) { return b.checked; }).map(function (b) { return b.dataset.k; });
+      store.set("pp-occ", on);
+      var build = ["door", "zone", "high", "pad", "pole"], miss = build.filter(function (k) { return on.indexOf(k) < 0; });
+      var club = on.indexOf("club") > -1, h, p, cls;
+      if (!on.length) { cls = ""; h = "Court check"; p = "Tick what you can see at your court and the answer appears here."; }
+      else if (!miss.length && club) { cls = " good"; h = "Out-of-court play is on"; p = "The court looks built for it and the club allows it. If the ball bounces in your court and goes out, chase it and hit it before the second bounce."; }
+      else if (!miss.length) { cls = " let"; h = "Built for it: ask the club"; p = "The court looks right for out-of-court play. Check with the club or your opponents that it is allowed before you start."; }
+      else if (club) { cls = " let"; h = "Allowed, but be careful"; p = "The club allows it, but " + miss.length + " of the FIP safety points " + (miss.length === 1 ? "is" : "are") + " not ticked. Only run out where the area is clear."; }
+      else { cls = " fault"; h = "Probably not allowed"; p = miss.length + " of the 5 FIP court points " + (miss.length === 1 ? "is" : "are") + " missing. Treat it as a normal court: a ball that bounces in your court and leaves it wins the point for the other team."; }
+      oco.className = "result" + cls;
+      oco.innerHTML = "<h2>" + h + "</h2><p>" + p + "</p>" + (on.length ? "<p class=\"wr-src\">Next: try the call checker above with the matching court type.</p>" : "");
+    };
+    obox.forEach(function (b) { b.addEventListener("change", crender); });
+    $("#occ-reset").addEventListener("click", function () { obox.forEach(function (b) { b.checked = false; }); crender(); });
+    crender();
+  }
+
   /* ---------- racket health check ---------- */
   var rc = $("#rc");
   if (rc) {

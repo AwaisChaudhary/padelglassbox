@@ -125,7 +125,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -334,6 +334,7 @@ rules = f'''<header class="hero"><div class="wrap"><h1>Padel rules, tap by tap.<
 <tr><td>Can I touch the net?</td><td>No, not you, your clothes or your racket, while the ball is in play</td><td><a href="{href("net-rules.html")}">Net checker</a></td></tr>
 <tr><td>What happens at 40-40?</td><td>Advantage, golden point or Star Point, as agreed</td><td><a href="{href("golden-point-star-point.html")}">Deuce formats</a></td></tr>
 <tr><td>Who serves in a tie-break?</td><td>One point, then two each; change ends every 6 points</td><td><a href="{href("tie-break.html")}">Tie-break tracker</a></td></tr>
+<tr><td>Can I run out of the court to play the ball?</td><td>Only on courts built for it, and before the ball bounces twice</td><td><a href="{href("out-of-court-play.html")}">Out-of-court checker</a></td></tr>
 </tbody></table></div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
 <div class="card"><h3>Keep score</h3><p>Put a phone by the net with the free <a href="{href("score.html")}">score keeper</a>.</p></div>
@@ -409,13 +410,14 @@ know = ["Serve underhand, below the waist, diagonally", "Let the ball bounce onc
 def checklist(name, items):
     return f'<div class="prog"><i id="{name}-bar"></i></div><p class="muted" id="{name}-count" style="margin:-8px 0 12px"></p><ul class="check" data-check="{name}">' + "".join(f'<li><label><input type="checkbox"><span>{e(x)}</span></label></li>' for x in items) + "</ul>"
 beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1>
-<p class="lead">Tick these off and you'll walk onto court ready. Your ticks are saved on this device.</p></div></header>
+<p class="lead">Tick these off and you'll walk onto court ready. Your ticks are saved on this device.</p>
+{quick("For your first padel match you need a padel racket (clubs often rent them), padel balls, court shoes with grip, sports clothes and water, plus a booked court and three other players. Know four rules: serve underhand and diagonally, let the ball bounce once on your side, never hit their wall before their ground, and agree the 40-40 rule before you start.")}</div></header>
 <section style="padding-top:10px"><div class="wrap grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
-<div class="card"><h2 style="font-size:1.6rem">What to bring</h2>{checklist("kit", kit)}</div>
-<div class="card"><h2 style="font-size:1.6rem">What to know</h2>{checklist("know", know)}</div>
+<div class="card"><h2 style="font-size:1.6rem">What do you need for your first padel match?</h2>{checklist("kit", kit)}</div>
+<div class="card"><h2 style="font-size:1.6rem">What rules do beginners need to know?</h2>{checklist("know", know)}</div>
 </div></section>
 {AD.format("beg-mid")}
-<section><div class="wrap"><div class="sh"><h2>Where to play</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>Where can beginners play padel, and what helps?</h2></div><div class="grid">
 <div class="card"><h3>Booking apps</h3><p>Many clubs list their courts on booking apps such as Playtomic, where you can also find open matches at your level.</p></div>
 <div class="card"><h3>National federations</h3><p>Your country's padel or tennis federation usually lists clubs and beginner sessions. In the UK, that's LTA Padel.</p></div>
 <div class="card"><h3>Join a social night</h3><p>Many clubs run Americano evenings where you change partner each round. They are a friendly way to meet players at your level. Running one yourself? Use our <a href="{href("americano.html")}">Americano generator</a>.</p></div>
@@ -427,19 +429,35 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>Pick the right shoes</h3><p>Grip matters more than looks. A herringbone sole suits most sandy courts, and running shoes slip. Our <a href="{href("padel-shoes.html")}">padel shoe finder</a> tells you which sole to look for.</p></div>
 <div class="card"><h3>Is it a good workout?</h3><p>An hour of padel burns roughly 400 to 600 kcal for an average adult. Work out your own number with the <a href="{href("padel-calories.html")}">padel calories calculator</a>.</p></div>
 <div class="card"><h3>Start with a lesson</h3><p>One group lesson teaches the serve and the walls much faster than working it out alone.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What mistakes do new padel players make?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Mistake</th><th scope="col">Try this instead</th><th scope="col">Read more</th></tr></thead><tbody>
+<tr><td>Hitting the ball before it reaches the back glass</td><td>Let it bounce and come off the glass, then play it</td><td><a href="{href("wall-rules.html")}">Wall rules</a></td></tr>
+<tr><td>Serving overhead like in tennis</td><td>Bounce the ball and hit it at or below waist height</td><td><a href="{href("serve-rules.html")}">Serve checker</a></td></tr>
+<tr><td>Hitting every ball hard</td><td>Keep the ball in play; a lob often wins more points than a smash</td><td><a href="{href("shots.html")}">Shot library</a></td></tr>
+<tr><td>Standing far apart from your partner</td><td>Move up and back together, like a pair joined by a rope</td><td><a href="{href("positioning.html")}">Where to stand</a></td></tr>
+<tr><td>Both going for the ball in the middle</td><td>Agree who takes it and call "mine" early</td><td><a href="{href("glossary.html")}">Court calls</a></td></tr>
+<tr><td>Running out of the court for a ball</td><td>Only where the court and club allow it</td><td><a href="{href("out-of-court-play.html")}">Out-of-court play</a></td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Keep score</h3><p>Not sure how scoring works? Use the free <a href="{href("score.html")}">score keeper</a> on your phone.</p></div>
+<div class="card"><h3>Find your racket</h3><p>Three questions and you'll know the shape and weight to look for: <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
+<div class="card"><h3>Learn the rules</h3><p>Tap any part of the <a href="{href("rules.html")}">interactive rules court</a>.</p></div>
 </div></div></section>'''
 beg_faq = [
     ("What do I need for my first padel game?", "A racket, padel balls, court shoes with grip, comfy sports clothes and water. Many clubs rent rackets if you don't have one yet."),
     ("Can I use tennis balls for padel?", "It's better not to. Padel balls have less pressure inside (about 11 psi against 14 psi for tennis, according to LTA Padel), so they bounce lower and play the way padel should."),
     ("How should I warm up for padel?", "Spend 10 to 15 minutes on an easy jog, moving stretches, a few squats and lunges, then soft rallies, volleys, lobs and serves. Save long, held stretches for after you play."),
-    ("Do I need special shoes for padel?", "Tennis shoes are fine to start. Padel shoes with a herringbone sole grip sandy artificial grass best; running shoes slip and give little side support."),
+    ("Do I need special shoes for padel?", "Tennis shoes are fine to start. Padel shoes with a herringbone sole grip sandy artificial grass best; running shoes slip and give little side support."),    ("Do I need to own a racket to start padel?", "No. Many clubs rent rackets, so you can try a few before you buy. When you do buy, a round shape with a medium weight is the easiest to start with."),
+    ("What are the most important padel rules for beginners?", "Serve underhand and diagonally, let the ball bounce once on your side before it hits your walls, make sure your shot lands on their ground before their walls, and don't touch the net."),
+    ("Can you leave the court to play the ball in padel?", "Only on courts built for out-of-court play and when the club allows it. Otherwise, a ball that bounces on your side and leaves the court is a point for the other team."),
 ]
 page("beginners.html", "Padel for Beginners: First Match Checklist | Padel Glass Box",
-     "Everything you need for your first padel match: a kit checklist, the rules to know, and where to find courts and beginner sessions.", beg + f'''<section><div class="wrap"><div class="aff-box"><h3>Shop padel gear</h3><p>Browse rackets by shape, plus the shoes, balls and grips you need for your first match.</p><ul class="aff-links"><li><a href="/go/padel-round-rackets" rel="sponsored nofollow noopener" target="_blank">Round rackets</a></li><li><a href="/go/padel-teardrop-rackets" rel="sponsored nofollow noopener" target="_blank">Teardrop rackets</a></li><li><a href="/go/padel-diamond-rackets" rel="sponsored nofollow noopener" target="_blank">Diamond rackets</a></li><li><a href="/go/padel-shoes" rel="sponsored nofollow noopener" target="_blank">Padel shoes</a></li><li><a href="/go/padel-balls" rel="sponsored nofollow noopener" target="_blank">Balls</a></li><li><a href="/go/padel-bags" rel="sponsored nofollow noopener" target="_blank">Bags</a></li><li><a href="/go/padel-overgrips" rel="sponsored nofollow noopener" target="_blank">Overgrips</a></li></ul>{AFF_NOTE}</div></div></section>''', beg_faq, "Beginners")
+     "Padel for beginners: what to bring to your first match, the four rules to know, common mistakes and where to play. Tick-off checklists saved on your phone.", beg + f'''<section><div class="wrap"><div class="aff-box"><h3>Shop padel gear</h3><p>Browse rackets by shape, plus the shoes, balls and grips you need for your first match.</p><ul class="aff-links"><li><a href="/go/padel-round-rackets" rel="sponsored nofollow noopener" target="_blank">Round rackets</a></li><li><a href="/go/padel-teardrop-rackets" rel="sponsored nofollow noopener" target="_blank">Teardrop rackets</a></li><li><a href="/go/padel-diamond-rackets" rel="sponsored nofollow noopener" target="_blank">Diamond rackets</a></li><li><a href="/go/padel-shoes" rel="sponsored nofollow noopener" target="_blank">Padel shoes</a></li><li><a href="/go/padel-balls" rel="sponsored nofollow noopener" target="_blank">Balls</a></li><li><a href="/go/padel-bags" rel="sponsored nofollow noopener" target="_blank">Bags</a></li><li><a href="/go/padel-overgrips" rel="sponsored nofollow noopener" target="_blank">Overgrips</a></li></ul>{AFF_NOTE}</div></div></section>''', beg_faq, "Beginners")
 
 # ---------------- GLOSSARY ----------------
 GL_LINK = {"Bandeja": "shots.html", "Víbora": "shots.html", "Chiquita": "shots.html", "Bajada": "shots.html", "Golden point": "golden-point-star-point.html", "Star Point": "golden-point-star-point.html",
-           "Saque": "serve-rules.html", "Let": "serve-rules.html", "Salida de pista": "wall-rules.html", "Contrapared": "wall-rules.html", "Malla": "wall-rules.html", "Americano": "americano.html",
+           "Saque": "serve-rules.html", "Let": "serve-rules.html", "Salida de pista": "out-of-court-play.html", "Contrapared": "wall-rules.html", "Malla": "wall-rules.html", "Americano": "americano.html",
            "Mexicano": "americano.html", "Round robin": "round-robin.html", "Overgrip": "racket-finder.html", "Herringbone sole": "padel-shoes.html", "Drive": "positioning.html", "Revés": "positioning.html"}
 GL_CATS = ["Shots", "Court", "Scoring", "Players", "Formats", "Gear"]
 def _gl(r):
@@ -1031,7 +1049,7 @@ wall = f'''<header class="hero"><div class="wrap"><h1>Padel wall rules: was that
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Out-of-court play, explained</h2></div><div class="grid">
 <div class="card"><h3>What it is</h3><p>Sometimes a strong smash bounces on your side and flies out over the wall or through the door. At some courts you are allowed to run out of the court and hit the ball back before it bounces a second time. In Spanish this is called a salida de pista.</p></div>
 <div class="card"><h3>When it is allowed</h3><p>Only where the court is built for it: open door gaps and enough clear space outside. If the space isn't there, the club does not allow it, and a ball that bounces and leaves the court simply wins the point for the hitter.</p></div>
-<div class="card"><h3>How to play it</h3><p>Run out through the door, let the ball drop, and hit it back over the wall into the opponents' court. Your feet can be outside the court only when out-of-court play is allowed. Agree on the local rule before you start.</p></div>
+<div class="card"><h3>How to play it</h3><p>Run out through the door, let the ball drop, and hit it back over the wall into the opponents' court. Your feet can be outside the court only when out-of-court play is allowed. Agree on the local rule before you start. Every out-of-court call is on our <a href="{href("out-of-court-play.html")}">out-of-court play checker</a>.</p></div>
 </div></div></section>'''
 wall_faq = [
     ("Can you hit the ball off your own wall in padel?", "Yes, off your own glass. You can hit the ball into your glass so it rebounds over the net, as long as it then bounces on the other side before touching their walls. Hitting your own metal fence loses the point."),
@@ -1922,6 +1940,114 @@ tb_faq = [
 page("tie-break.html", "Padel Tie-Break Rules: Who Serves and When to Change Ends (Free Tracker) | Padel Glass Box",
      "Padel tie-break rules made simple: first to 7, 2 clear, serve order 1 then 2 each, change ends every 6 points. Free tracker for set and 10-point match tie-breaks.", tb, tb_faq, "Tie-break rules")
 
+# ---------------- OUT-OF-COURT PLAY ----------------
+# Calls follow the FIP Rules of Padel PDF (in force 01.01.2026): rule 16, 12.3, 13.1(b)(d)(e)(g)(p), 14.1(a)(j), 7.1(f), 10.1, 11, plus the Court section
+# (safety area 3 m wide (4 m recommended) x 4 m long x 3 m high, 2 accesses per side, 2 cm padding, no light poles in the area). Ball x,y on the 400x260 top view.
+OC = {
+    "side": {"p": [150, 34], "y": ["good", "Play on: go and get it", "Their shot bounced in your court first, then left over the side wall. On this court you may run out through the door and hit it back before it bounces a second time outside.", "FIP rules 12.3, 13.1(e) and 16"], "n": ["lose", "You lose the point", "Their shot bounced in your court and then left over the side wall. Where out-of-court play is not allowed, that ends the point in their favour. It was a good shot.", "FIP rule 13.1(d)"]},
+    "door": {"p": [186, 30], "y": ["good", "Play on: go and get it", "A ball that bounces in your court and then goes out through the door is still in play here. Follow it out and return it before its second bounce.", "FIP rules 13.1(e) and 16"], "n": ["lose", "You lose the point", "Without out-of-court play, a ball that bounces in your court and then goes out through the door wins the point for the team that hit it.", "FIP rule 13.1(d)"]},
+    "end": {"p": [24, 130], "y": ["let", "Check your local rule", "The ball bounced in your court, then flew out over your back wall. FIP lists this case, but the 2026 text does not clearly say what happens next. On most courts there is no way to reach it anyway. Agree with your opponents or ask the umpire.", "FIP rule 13.1(e), which is unclear here"], "n": ["lose", "You lose the point", "Without out-of-court play, a ball that bounces in your court and then goes out over the back wall wins the point for the other team.", "FIP rule 13.1(d)"]},
+    "two": {"p": [140, 22], "y": ["lose", "You lose the point", "You may play the ball outside, but only before it bounces a second time. Once it bounces outside, the point is over.", "FIP rule 13.1(e)"], "n": ["lose", "You lose the point", "Here the point ended when the ball left the court. A second bounce outside doesn't change anything.", "FIP rule 13.1(d)"]},
+    "obj": {"p": [120, 26], "y": ["lose", "You lose the point", "Outside the court, the ball must not touch anything that isn't part of the court: a bench, a light pole, another court's fence or a person. If it does before you hit it, you lose the point.", "FIP rule 13.1(e)"], "n": ["lose", "You lose the point", "The point already ended when the ball left the court, so what it hit outside doesn't matter.", "FIP rule 13.1(d)"]},
+    "back": {"p": [300, 120], "y": ["good", "Good shot, play on", "A return hit from outside the court counts if it meets the normal rules: it crosses the net and bounces in their court before touching their walls or fence. It can come back over the wall or in through the door.", "FIP rule 14.1(j)"], "n": ["lose", "Not possible here", "On a court without out-of-court play you can't hit the ball from outside, so this situation can't happen. The point ended when the ball left.", "FIP rules 13.1(d) and 13.1(p)"]},
+    "vol": {"p": [228, 110], "y": ["good", "Play on: they may volley it", "There is no special rule for balls coming back from outside. The other team may volley your return before it bounces, the same as any other ball.", "FIP rule 14.1(a)"], "n": ["lose", "Not possible here", "Without out-of-court play, the point ended when the ball left the court.", "FIP rule 13.1(d)"]},
+    "glass": {"p": [342, 100], "y": ["lose", "You lose the point", "Your return from outside went straight into their glass or fence without bouncing on their ground first. As with any shot, that loses the point.", "FIP rule 13.1(g)"], "n": ["lose", "You lose the point", "Any shot that hits their walls or fence before bouncing on their ground loses the point.", "FIP rule 13.1(g)"]},
+    "feet": {"p": [176, 52], "y": ["good", "Allowed here", "On a court with out-of-court play, your feet may be outside the court when you hit the ball.", "FIP rules 13.1(p) and 16"], "n": ["lose", "You lose the point", "On a court without out-of-court play, you lose the point if a foot or any part of your body is outside the court when you hit the ball.", "FIP rule 13.1(p)"]},
+    "post": {"p": [200, 60], "y": ["good", "Allowed", "On courts with out-of-court play, the upright post in the doorway is a neutral zone above 0.92 m. Any of the four players may touch it or hold it to turn.", "FIP rule 13.1(b)"], "n": ["let", "Agree before you play", "FIP only names the door post a neutral zone on courts with out-of-court play. For other courts the rules say nothing about it, so agree with your opponents.", "FIP rule 13.1(b)"]},
+    "serve": {"p": [210, 30], "y": ["good", "In play", "Your serve bounced in the box and then went out through the door. On a court with out-of-court play, it stays in play and the receiver may run out to return it.", "FIP rules 7.1(f) and 13.1(e)"], "n": ["lose", "Fault", "On a court without out-of-court play, a serve that bounces in the box and then goes straight out through the door is a fault.", "FIP rule 7.1(f)"]},
+    "inv": {"p": [110, 150], "y": ["let", "Let: replay the point", "A ball from another court, or anything else that comes onto your court during the point, is a let. Call it straight away: if you keep playing, you lose the right to a let.", "FIP rule 10.1"], "n": ["let", "Let: replay the point", "A ball from another court, or anything else that comes onto your court during the point, is a let. Call it straight away: if you keep playing, you lose the right to a let.", "FIP rule 10.1"]},
+}
+def _oq(label, opts):
+    return f'<div class="q oc-q"><h3>{label}</h3><div class="opts">' + "".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="false">{t}</button>' for v, t in opts) + '</div></div>'
+OC_SVG = '''<svg viewBox="0 0 400 260" class="wr-court" role="img" aria-label="Top view of a padel court with the door openings and the clear area outside. The ball shows where the situation happens.">
+<rect x="0" y="0" width="400" height="260" rx="14" fill="#0e2468"/>
+<g class="oc-zone"><rect x="144" y="14" width="112" height="42" rx="4" fill="#e8f84a" opacity=".12" stroke="#e8f84a" stroke-dasharray="4 4" stroke-opacity=".6"/><rect x="144" y="204" width="112" height="42" rx="4" fill="#e8f84a" opacity=".12" stroke="#e8f84a" stroke-dasharray="4 4" stroke-opacity=".6"/>
+<text x="200" y="38" text-anchor="middle" font-size="8.5" fill="#e8f84a" font-family="Onest, sans-serif">clear area</text><text x="200" y="228" text-anchor="middle" font-size="8.5" fill="#e8f84a" font-family="Onest, sans-serif">clear area</text></g>
+<rect x="60" y="60" width="280" height="140" fill="#1e46c8"/>
+<path d="M88 60v140M312 60v140M88 130h224" stroke="#fff" stroke-width="1.5" opacity=".8"/>
+<path d="M200 56v148" stroke="#e4eef6" stroke-width="4"/>
+<g stroke="#9cc4ea" stroke-width="5" fill="none" stroke-linecap="round"><path d="M60 60v140M340 60v140"/><path d="M60 60h112M228 60h112M60 200h112M228 200h112"/><path d="M190 60h8M202 60h8M190 200h8M202 200h8"/></g>
+<text x="130" y="196" text-anchor="middle" font-size="9" fill="#cfe0ff" font-family="Onest, sans-serif">Your side</text><text x="270" y="196" text-anchor="middle" font-size="9" fill="#cfe0ff" font-family="Onest, sans-serif">Their side</text>
+<text x="200" y="252" text-anchor="middle" font-size="8" fill="#9fb0e0" font-family="Onest, sans-serif">Gaps in the side walls are the doors</text>
+<circle id="oc-ring" cx="130" cy="130" r="13" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="3 3" opacity="0"/>
+<circle id="oc-ball" cx="130" cy="130" r="6" fill="#e8f84a" stroke="#0b1530" stroke-width="1.5"/>
+</svg>'''
+OC_COURT = [
+    ("door", "There are two openings (doors) on each side of the court"),
+    ("zone", "Outside each door there is a clear area with nothing in it: at least 3 m wide and 4 m long"),
+    ("high", "There is at least 3 m of clear height above that area"),
+    ("pad", "The door frames and net posts by the openings are padded"),
+    ("pole", "No light poles, benches or fences stand inside that area"),
+    ("club", "The club or organiser says out-of-court play is allowed"),
+]
+ocp = f'''<header class="hero"><div class="wrap"><h1>Padel out-of-court play: when can you leave the court?</h1>
+<p class="lead">The ball bounced and flew out through the door. Can you chase it? Choose the type of court, tap what happened, and get the call with the FIP rule number.</p>
+{quick("Only on courts built for it. If the ball bounces in your court and then goes out over the side wall or through the door, you may run out and hit it back before it bounces a second time, if the court has door openings and a clear area outside (at least 3 m wide and 4 m long). On courts without that space, a ball that bounces and leaves the court wins the point for the team that hit it.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="oc">
+<div>
+<div class="q"><h3>What kind of court are you on?</h3><div class="seg" id="oc-mode" role="group" aria-label="Is out-of-court play allowed?"><button type="button" data-v="y" aria-pressed="true">Out-of-court play allowed</button><button type="button" data-v="n" aria-pressed="false">Not allowed</button></div>
+<p class="muted" style="margin:10px 0 0">Not sure? Use the <a href="#court-check">court check</a> below, or ask the club.</p></div>
+{_oq("The ball left the court", [("side", "It bounced on my side, then went over the side wall"), ("door", "It bounced on my side, then went out through the door"), ("end", "It bounced on my side, then went over my back wall"), ("two", "It bounced a second time outside before I hit it"), ("obj", "Outside, it hit a bench, a pole or a person")])}
+{_oq("Hitting it back from outside", [("back", "I hit it back and it bounced in their court"), ("vol", "They volleyed my return before it bounced"), ("glass", "My return hit their glass before the ground"), ("feet", "My feet were outside the court when I hit it")])}
+{_oq("Other calls by the door", [("post", "I grabbed the door post to turn"), ("serve", "My serve bounced in the box, then went out the door"), ("inv", "A ball from another court came onto ours")])}
+<button class="btn sm" type="button" id="oc-reset">Start again</button>
+</div>
+<aside class="result" id="oc-out" aria-live="polite"><div class="wr-svg">{OC_SVG}</div><div id="oc-txt"><h2>Make the call</h2><p>Pick the court type, then tap a situation. The verdict appears here.</p></div></aside>
+</div></div></section>
+{AD.format("oc-mid")}
+<section><div class="wrap"><div class="sh"><h2>What is out-of-court play in padel?</h2></div><div class="grid">
+<div class="card"><h3>The idea</h3><p>Your opponents hit a good shot: it bounces in your court and flies out over the side wall or through the door. On some courts you may follow it out and hit it back from outside. In Spanish this is called salida de pista (sa-LEE-da de PEES-ta, "leaving the court").</p></div>
+<div class="card"><h3>Who allows it</h3><p>FIP rule 16 allows it whenever the court meets the safety conditions. In practice the club or organiser tells you if it's on. Many club courts don't have the space, so ask before the match.</p></div>
+<div class="card"><h3>The one rule to remember</h3><p>You must hit the ball before it bounces a second time, and before it touches anything outside the court. Your return then follows the normal rules: over the net and onto their ground first.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Out-of-court play at a glance</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">What happened</th><th scope="col">Out-of-court play allowed</th><th scope="col">Not allowed</th></tr></thead><tbody>
+<tr><td>Bounced in your court, out over the side wall</td><td>Play on: chase it</td><td>You lose the point</td></tr>
+<tr><td>Bounced in your court, out through the door</td><td>Play on: chase it</td><td>You lose the point</td></tr>
+<tr><td>Bounced in your court, out over the back wall</td><td>Unclear in FIP text: agree locally</td><td>You lose the point</td></tr>
+<tr><td>Bounced twice, or touched something outside</td><td>You lose the point</td><td>You lose the point</td></tr>
+<tr><td>Your feet outside when you hit the ball</td><td>Allowed</td><td>You lose the point</td></tr>
+<tr><td>Serve bounces in the box, then out the door</td><td>In play</td><td>Fault</td></tr>
+<tr><td>Holding the door post above 0.92 m</td><td>Allowed (neutral zone)</td><td>Not covered: agree first</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">"You" is the team that has to return the ball. The rule numbers are in the checker above.</p></div></section>
+<section style="padding-top:0" id="court-check"><div class="wrap"><div class="sh"><h2>Is your court built for out-of-court play?</h2></div>
+<div class="quiz" id="occ"><div><div class="q"><h3>Tick what is true at your court</h3><ul class="check" id="occ-list">{"".join(f'<li><label><input type="checkbox" data-k="{k}"><span>{t}</span></label></li>' for k, t in OC_COURT)}</ul></div>
+<button class="btn sm" type="button" id="occ-reset">Clear</button></div>
+<aside class="result" id="occ-out" aria-live="polite"><h2>Court check</h2><p>Tick what you can see at your court and the answer appears here.</p></aside></div>
+<p class="muted" style="margin-top:14px">These points come from the court section of the FIP rules: two openings per side, a clear area at least 3 m wide (4 m is recommended), 4 m long and 3 m high outside, padding at least 2 cm thick around the openings, and light poles kept out of that area. Your ticks are saved on this device.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do you play a ball outside the court?</h2></div><div class="grid">
+<div class="card"><h3>1. Read it early</h3><p>A hard smash or a fast ball off the side glass near the net is the one that goes out. When you see it coming, start moving to the door.</p></div>
+<div class="card"><h3>2. Go through the nearest door</h3><p>Use the opening on the side where the ball is going. Call to your partner so they know you are going out.</p></div>
+<div class="card"><h3>3. Hit it before the second bounce</h3><p>Let it drop, then hit it before it lands again outside. A high lob back over the wall gives you time to run back in.</p></div>
+<div class="card"><h3>4. Partner covers the court</h3><p>While you are out, your partner holds the middle. Get back in as fast as you can: the other team will aim for the empty side.</p></div>
+</div>
+<p class="muted" style="margin-top:14px">Stay safe: only run out where the area is clear, and watch for people walking by. If the space isn't there, let the ball go.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>When is a point replayed in padel?</h2></div><div class="grid">
+<div class="card"><span class="pill i">Let</span><h3 style="margin-top:10px">Something comes onto the court</h3><p>A ball from the next court or any other object comes onto your court during the point (FIP 10.1).</p></div>
+<div class="card"><span class="pill i">Let</span><h3 style="margin-top:10px">The ball breaks</h3><p>The ball splits during the point, or play is stopped by something unexpected that has nothing to do with the players (FIP 10.1).</p></div>
+<div class="card"><span class="pill i">Let</span><h3 style="margin-top:10px">Someone puts you off by accident</h3><p>A player disturbs an opponent's shot without meaning to. Done on purpose, it loses the point (FIP 11).</p></div>
+<div class="card"><span class="pill a">Call it fast</span><h3 style="margin-top:10px">Stop play straight away</h3><p>Ask for the let at once. If you keep playing, you lose the right to it (FIP 10.1).</p></div>
+</div>
+<p class="muted" style="margin-top:14px">Net cords on the serve are covered on the <a href="{href("serve-rules.html")}">serve rules page</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Other ball calls</h3><p>Glass, fence, ceiling and stuck balls: use the <a href="{href("wall-rules.html")}">wall and fence checker</a>.</p></div>
+<div class="card"><h3>At the net</h3><p>Touching the net and reaching over: try the <a href="{href("net-rules.html")}">net rules checker</a>.</p></div>
+<div class="card"><h3>The court itself</h3><p>Every size and line, in metres and feet, on the <a href="{href("court-dimensions.html")}">court dimensions diagram</a>.</p></div>
+</div></div></section>'''
+ocp_faq = [
+    ("Can you play outside the court in padel?", "Yes, but only on courts built for it, with door openings and a clear area outside, and when the club allows it. If the ball bounces in your court and goes out, you may run out and hit it back before its second bounce."),
+    ("What happens if the ball goes out of the court in padel?", "If it bounced in your court first, it was a good shot by the other team. Where out-of-court play is allowed you may chase it. Where it isn't, the other team wins the point."),
+    ("How much space do you need for out-of-court play?", "The FIP rules ask for two openings per side and a clear area outside of at least 3 m wide (4 m recommended), 4 m long and 3 m high, with nothing standing in it."),
+    ("Does the return have to come back over the wall?", "The FIP rules don't say so. A return from outside counts if it crosses the net and bounces in the other team's court before touching their walls or fence. It can come back over the wall or in through the door."),
+    ("Can the other team volley a ball hit from outside the court?", "Yes. There is no special rule for these returns, so the other team may volley it like any other ball."),
+    ("What is salida de pista in padel?", "Salida de pista is Spanish for leaving the court. It means running out of the court through the door to play a ball that has bounced and gone out, on courts where this is allowed."),
+    ("Is it a let if a ball from another court rolls onto ours?", "Yes. If an object such as another ball comes onto your court during the point, it's a let and you replay the point. Call it straight away, or you lose the right to the let."),
+]
+page("out-of-court-play.html", "Padel Out-of-Court Play Rules: When Can You Leave the Court? (Free Checker) | Padel Glass Box",
+     "Padel out-of-court play (salida de pista) explained: when you can run out to play the ball, what space a court needs, door and serve calls, and lets. Free FIP call checker.",
+     ocp + f'<script>window.OC={json.dumps(OC)};</script>', ocp_faq, "Out-of-court play")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -1932,7 +2058,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
