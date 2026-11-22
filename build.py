@@ -125,7 +125,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -242,7 +242,8 @@ page("racket-finder.html", "Padel Racket Finder: Which Racket Suits You? | Padel
 
 # ---------------- SCORE KEEPER ----------------
 score = f'''<header class="hero" style="padding-bottom:10px"><div class="wrap"><h1>Padel score keeper.</h1>
-<p class="lead">Put your phone by the net and tap the side that wins each point. It handles deuce, golden point, tie-breaks and sets, and remembers the score if you close the page.</p></div></header>
+<p class="lead">Put your phone by the net and tap the side that wins each point. It handles deuce, golden point, tie-breaks and sets, and remembers the score if you close the page.</p>
+{quick("Padel is scored like tennis: points go 0, 15, 30, 40, game. A set is first to 6 games with a 2-game lead, and at 6-6 a tie-break to 7 points (2 clear) decides it. Matches are usually best of three sets. At 40-40 you play advantage, golden point or Star Point, whichever the organiser picks.")}</div></header>
 <section style="padding-top:10px"><div class="wrap"><div class="score" id="score">
 <div class="score-top"><div class="seg" id="mode" role="group" aria-label="Deuce format"><button type="button" data-v="adv" aria-pressed="true">Advantage</button><button type="button" data-v="golden" aria-pressed="false">Golden point</button><button type="button" data-v="star" aria-pressed="false">Star Point</button></div>
 <div class="btns" style="margin:0"><button class="btn sm" type="button" id="rename">Names</button><button class="btn sm" type="button" id="swap-srv">Switch server</button></div></div>
@@ -255,18 +256,40 @@ score = f'''<header class="hero" style="padding-bottom:10px"><div class="wrap"><
 <div class="btns"><button class="btn sm" type="button" id="undo">Undo last point</button><button class="btn sm" type="button" id="reset">New match</button></div>
 </div></div></section>
 {AD.format("score-mid")}
-<section><div class="wrap"><div class="sh"><h2>How padel scoring works</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>How does padel scoring work?</h2></div><div class="grid">
 <div class="card"><h3>Points</h3><p>0, 15, 30, 40, then the game. Exactly like tennis.</p></div>
 <div class="card"><h3>Deuce</h3><p>At 40-40 there are three official options: classic advantage, golden point (one deciding point) or the newer Star Point. All three are built in here. Not sure which to pick? See <a href="{href("golden-point-star-point.html")}">golden point vs Star Point</a>.</p></div>
 <div class="card"><h3>Sets and tie-breaks</h3><p>A set goes to six games with a two-game lead. At 6-6 a tie-break is played to 7 points, two clear. Most matches are best of three sets.</p></div>
 <div class="card"><h3>Golden point side</h3><p>With golden point, the receiving pair chooses which player receives the deciding serve.</p></div>
 <div class="card"><h3>Star Point</h3><p>You play advantage twice. If the game comes back to 40-40 a third time, one deciding point wins it. The score keeper counts the deuces for you.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Padel scoring at a glance</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Part</th><th scope="col">How it is scored</th></tr></thead><tbody>
+<tr><td>Points in a game</td><td>0 (called love), 15, 30, 40, game</td></tr>
+<tr><td>40-40</td><td>Deuce: advantage, golden point or Star Point</td></tr>
+<tr><td>A set</td><td>First to 6 games, 2 games clear (6-4, 7-5)</td></tr>
+<tr><td>At 6-6</td><td>Tie-break: first to 7 points, 2 clear (7-6 in the set)</td></tr>
+<tr><td>A match</td><td>Usually best of 3 sets</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">Social nights often use other formats, scored by points or by rounds instead of sets.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Not playing a normal match?</h2></div><div class="grid">
+<div class="card"><h3>Americano or Mexicano</h3><p>Each match is a set number of points, such as 24, and you keep every point you win. Use the <a href="{href("americano.html")}">Americano draw maker</a>.</p></div>
+<div class="card"><h3>King of the Court</h3><p>Short timed rounds where winners move up a court and losers move down. Run it with the <a href="{href("king-of-the-court.html")}">King of the Court generator</a>.</p></div>
+<div class="card"><h3>League with fixed pairs</h3><p>Every pair plays every other pair and the table does the maths: <a href="{href("round-robin.html")}">round robin generator</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Pick a deuce rule</h3><p>See all three side by side in <a href="{href("golden-point-star-point.html")}">golden point vs Star Point vs advantage</a>.</p></div>
+<div class="card"><h3>Settle a call</h3><p>Was that ball in? Check the <a href="{href("wall-rules.html")}">wall rules</a>, <a href="{href("net-rules.html")}">net rules</a> or <a href="{href("serve-rules.html")}">serve rules</a>.</p></div>
+<div class="card"><h3>Warm up first</h3><p>Start the match ready with the 10-minute <a href="{href("warm-up.html")}">warm-up timer</a>.</p></div>
 </div></div></section>'''
 score_faq = [
     ("How do you keep score in padel?", "Like tennis: 0, 15, 30, 40 and game. Sets go to six games with a two-game lead, and a tie-break decides 6-6."),
     ("What is the golden point in padel?", "At 40-40, one deciding point is played. The receiving pair chooses which side receives, and whoever wins that point wins the game."),
     ("What is Star Point in padel?", "Star Point is a deuce format used on the pro tours from 2026. You play advantage twice; if the game reaches 40-40 a third time, one deciding point wins it. This score keeper supports it."),
     ("Does this score keeper save my match?", "Yes. The score is saved on your phone, so you can lock the screen or close the page and carry on."),
+    ("What happens at 6-6 in padel?", "A tie-break is played. The first team to 7 points with a 2-point lead wins the tie-break, and the set ends 7-6."),
+    ("How many sets are in a padel match?", "Most padel matches are best of three sets. Social games and leagues sometimes play one set or a timed match instead."),
+    ("Why is zero called love in padel?", "Padel took its scoring from tennis, where zero is called love. So 15-0 is said as fifteen-love."),
 ]
 page("score.html", "Padel Score Keeper: Free Scoreboard for Your Phone | Padel Glass Box",
      "Free padel score keeper for your phone. Tap to score with advantage, golden point or Star Point, plus tie-breaks, sets, undo and server tracking. No app needed.", score, score_faq, "Score keeper")
@@ -349,6 +372,7 @@ shots = f'''<header class="hero"><div class="wrap"><h1>Every padel shot, explain
 <div class="card"><h3>Stand in the right place</h3><p>Good shots start with good positions. See the <a href="{href("positioning.html")}">positioning guide</a>.</p></div>
 <div class="card"><h3>Learn the words</h3><p>Bandeja, víbora, chiquita and more, with pronunciation, in the <a href="{href("glossary.html")}">padel glossary</a>.</p></div>
 <div class="card"><h3>Match your racket</h3><p>Control or power? The <a href="{href("racket-finder.html")}">racket finder</a> picks a shape for your game.</p></div>
+<div class="card"><h3>Practise the shots</h3><p>Turn these shots into a timed practice plan for one, two or four players with the <a href="{href("drills.html")}">padel drills planner</a>.</p></div>
 </div></div></section>'''
 shots_faq = [
     ("What is a bandeja in padel?", "A controlled overhead with slice, played after a lob. Its job is to keep your team at the net, not to win the point outright."),
@@ -378,6 +402,7 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>Booking apps</h3><p>Many clubs list their courts on booking apps such as Playtomic, where you can also find open matches at your level.</p></div>
 <div class="card"><h3>National federations</h3><p>Your country's padel or tennis federation usually lists clubs and beginner sessions. In the UK, that's LTA Padel.</p></div>
 <div class="card"><h3>Join a social night</h3><p>Many clubs run Americano evenings where you change partner each round. They are a friendly way to meet players at your level. Running one yourself? Use our <a href="{href("americano.html")}">Americano generator</a>.</p></div>
+<div class="card"><h3>Practise between matches</h3><p>A short practice once a week speeds things up. The <a href="{href("drills.html")}">drills planner</a> builds a 20 to 60 minute session with a timer.</p></div>
 <div class="card"><h3>Know your level</h3><p>Open matches and clubs often ask for your level. Our <a href="{href("level-calculator.html")}">padel level calculator</a> gives you a quick estimate.</p></div>
 <div class="card"><h3>Know where to stand</h3><p>Move up and back with your partner, and stay about 1 metre off the back glass. Our <a href="{href("positioning.html")}">positioning guide</a> shows every situation on a court.</p></div>
 <div class="card"><h3>Warm up first</h3><p>Ten minutes of jogging, moving stretches and soft rallies makes the first games easier on your body. Our <a href="{href("warm-up.html")}">warm-up timer</a> talks you through it step by step.</p></div>
@@ -467,6 +492,7 @@ amer = f'''<header class="hero"><div class="wrap"><h1>Americano and Mexicano dra
 <div class="card"><h3>Points, not games</h3><p>Each match is a fixed number of points, such as 24. Every point counts, even if your team loses: lose 10-14 and you still add 10 to your total. The player with the most points at the end wins.</p></div>
 <div class="card"><h3>Serving</h3><p>A simple rule many clubs use: each player serves a block of points (often four in a row for 16, 24 or 32 points), then the serve passes to the other team. Agree the rule before you start.</p></div>
 <div class="card"><h3>Odd numbers of players</h3><p>It works best with 4, 8, 12 or 16 players. With other numbers, some players sit out each round. This tool spreads the rests as evenly as it can, and the leaderboard shows points per match so it stays fair.</p></div>
+<div class="card"><h3>Want more competition?</h3><p>Try <a href="{href("king-of-the-court.html")}">King of the Court</a>: winners move up a court, losers move down, and everyone fights for court 1.</p></div>
 <div class="card"><h3>Playing in fixed pairs?</h3><p>If teams want to keep the same partner all night, use the <a href="{href("round-robin.html")}">round robin generator</a>: every pair plays every other pair, with a standings table.</p></div>
 <div class="card"><h3>How long it takes</h3><p>A 24-point match often takes around 10 to 15 minutes, and 32 points a bit longer. Seven rounds of 24 points fits a typical two-hour court booking with time for changes.</p></div>
 </div></div></section>'''
@@ -841,6 +867,7 @@ warm = f'''<header class="hero"><div class="wrap"><h1>Padel warm-up timer.</h1>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Short on court time?</h2></div><div class="grid">
 <div class="card"><h3>Do the first half before you go on</h3><p>The jog, moving stretches and squats need no court. Do them by the court while the last game finishes, then use your court time for the racket steps.</p></div>
 <div class="card"><h3>Playing early or in the cold?</h3><p>Choose the 15 minute version. Cold muscles need longer, and the balls feel flatter too. Read <a href="{href("padel-balls.html")}">when to change padel balls</a>.</p></div>
+<div class="card"><h3>Warmed up? Now practise</h3><p>Go straight into a planned session with the <a href="{href("drills.html")}">padel drills planner</a> and its timer.</p></div>
 <div class="card"><h3>Something hurts?</h3><p>A warm-up is not a fix for an injury. If you feel sharp pain, stop and get advice from a doctor or physiotherapist.</p></div>
 </div></div></section>'''
 warm_faq = [
@@ -1617,6 +1644,168 @@ page("racket-care.html", "Padel Racket Care: Heat, Cold, Protector Tape and a Fr
      "How to look after a padel racket: a 2-minute racket health check, cleaning, storage, heat and cold, protector tape, overgrips and the habits that crack frames.",
      rcare, rcare_faq, "Racket care")
 
+# ---------------- PADEL DRILLS SESSION PLANNER ----------------
+# Drills from LTA Padel "Padel training tips" and "Skills for beginners", and Padel Browser "Best padel drills, solo and partner" (Jun 2026). Own wording.
+# who: player counts the drill works for. f: focus tags. g: what to count (empty = nothing to count).
+DRILLS = [
+    ("glass", "Back-glass rally on your own", [1], ["cons", "wall"], "Stand about two metres from the back glass. Hit the ball softly into the glass, let it come back and bounce once, then hit it again. Mix forehands and backhands.", "Best streak without a miss. Start by aiming for 20, then 50."),
+    ("chase", "Corner rebound chase", [1], ["wall", "feet"], "From a back corner, hit the ball at an angle into the glass so it comes back across the court. Move to it, play it, and send it back to the same corner. Work for 90 seconds, then rest for 30.", "Balls played in 90 seconds."),
+    ("taps", "Racket tap-ups", [1], ["cons"], "Tap the ball straight up off the racket, keeping it at about head height. To make it harder, turn the racket over and use the other face on every tap. You can do this at home.", "Best streak of taps."),
+    ("wallv", "Volleys against a wall", [1], ["net"], "Find a solid wall outside the court. Stand two or three metres away and volley the ball against it without letting it bounce. Keep the racket up in front of you and use short punches, not big swings.", "Best streak of volleys."),
+    ("serve", "Serve targets", [1, 2, 4], ["serve"], "Put four targets in the service box, such as cones, bottles or spare balls: two near the centre line and two near the side glass. Serve ten balls at each one, then serve from the other side. With a partner, they return each serve and you swap after 20.", "Serves that hit or land close to the target, out of 40."),
+    ("feet", "Footwork and split step", [1, 2, 4], ["feet"], "No ball needed. Do short side steps along the baseline, quick in-and-out steps on a chalk grid or agility ladder, and a small hop (the split step) each time you imagine the opponent hitting. Stay on your toes.", ""),
+    ("ladder", "Ladder rallies", [2, 4], ["cons"], "Rally on half the court. First keep the ball going for 2 shots, then 3, then 4, and so on. A miss sends you both back to 2. To make it harder, one player stays at the net and the other plays from the back.", "Highest rung you reach together."),
+    ("feeds", "Back-glass feeds", [2, 4], ["wall"], "Stand on the same side of the net. The feeder throws the ball onto the floor just in front of the back glass. The player lets it come off the glass and plays it softly back into the feeder's hands. Swap after ten. Harder: feed into the corner so the ball hits two walls.", "Clean returns out of ten."),
+    ("cross", "Cross-court rally", [2, 4], ["cons"], "Both players hit only diagonal, cross-court shots from the back of the court, at a steady pace. Count the rally as a team.", "Best team rally. Aim for 30, then 50."),
+    ("volley", "Volley to volley", [2, 4], ["net"], "Both players stand at the net, two or three metres apart, and keep soft volleys going between you. No winners, just control.", "Best team streak of volleys."),
+    ("netback", "One up, one back", [2, 4], ["net", "wall"], "One player at the net volleys calmly to a player at the back, who lets some balls come off the back glass before returning them. Swap roles halfway through.", "Longest rally."),
+    ("lob", "Lob and overhead rotation", [2, 4], ["over"], "One player lobs from the back. The other moves back and plays a controlled bandeja, then a víbora or smash when the bandeja is reliable. After each overhead, step back in towards the net. Swap roles after 15 lobs.", "Overheads that land in, out of 15."),
+    ("cards", "Yellow card, red card", [2, 4], ["cons", "game"], "Play normal games, one against one on half a court or two against two on the full court. Your first mistake in a game is a yellow card. A second mistake in the same game is a red card, and you lose that game.", "Games won."),
+]
+DR_FOCUS = [("mix", "A bit of everything"), ("cons", "Keeping the ball in play"), ("wall", "Playing off the glass"), ("net", "Volleys at the net"), ("over", "Lobs and overheads"), ("serve", "Serve and return")]
+DR_JSON = json.dumps([{"id": a, "n": b, "who": c, "f": d, "d": x, "g": y} for a, b, c, d, x, y in DRILLS], ensure_ascii=False)
+_WHO = {1: "On your own", 2: "With a partner", 4: "Four players"}
+def _dcard(dr):
+    i, n, who, f, d, g = dr
+    pills = "".join(f'<span class="pill{" b" if w == 1 else " i"}">{_WHO[w]}</span>' for w in who)
+    best = f'<label class="dr-pb">Your best <input type="number" min="0" max="9999" inputmode="numeric" data-pb="{i}" aria-label="Your best for {e(n)}"></label>' if g else ""
+    return f'<div class="card dr-card" data-who="{" ".join(map(str, who))}"><h3>{e(n)}</h3><div class="dr-pills">{pills}</div><p>{e(d)}</p>{f"<p class=\"muted\"><b>Count:</b> {e(g)}</p>" if g else ""}{best}</div>'
+drills = f'''<header class="hero"><div class="wrap"><h1>Padel drills session planner.</h1>
+<p class="lead">Tell us who is practising, for how long and what you want to work on. You get a timed practice session built from simple padel drills, with a timer to run it on court and a place to log your records.</p>
+{quick("Good padel drills for beginners are rallies with a target (keep the ball going for 10, then 20 shots), back-glass feeds, soft volleys at the net and serves at targets. Practise one skill at a time, warm up first, and count something in every drill so you can see progress. A 30-minute session can be a 5-minute warm-up, four 5-minute drills and a short game.")}</div></header>
+<section style="padding-top:10px"><div class="wrap gen">
+<div class="gen-main"><div class="card" id="dr-setup">
+<h2 style="font-size:1.6rem">Build your session</h2>
+<div class="q"><h3>Who is practising?</h3><div class="opts" data-dr="who" role="group" aria-label="Players"><button class="opt" type="button" data-v="1" aria-pressed="false">Just me</button><button class="opt" type="button" data-v="2" aria-pressed="true">Two players</button><button class="opt" type="button" data-v="4" aria-pressed="false">Four players</button></div></div>
+<div class="q"><h3>How long?</h3><div class="opts" data-dr="len" role="group" aria-label="Session length"><button class="opt" type="button" data-v="20" aria-pressed="false">20 minutes</button><button class="opt" type="button" data-v="30" aria-pressed="true">30 minutes</button><button class="opt" type="button" data-v="45" aria-pressed="false">45 minutes</button><button class="opt" type="button" data-v="60" aria-pressed="false">60 minutes</button></div></div>
+<div class="q"><h3>Your level</h3><div class="opts" data-dr="lv" role="group" aria-label="Level"><button class="opt" type="button" data-v="b" aria-pressed="true">New to padel</button><button class="opt" type="button" data-v="i" aria-pressed="false">Improving</button><button class="opt" type="button" data-v="a" aria-pressed="false">Experienced</button></div><p class="muted" style="margin:10px 0 0">Not sure? Try the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div>
+<div class="q"><h3>What do you want to work on?</h3><div class="opts" data-dr="focus" role="group" aria-label="Focus">{"".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="{"true" if v == "mix" else "false"}">{t}</button>' for v, t in DR_FOCUS)}</div></div>
+<p class="muted" id="dr-sum" aria-live="polite"></p>
+</div></div>
+<aside class="gen-side"><div class="lb" id="dr-plan"><h2>Your session</h2><p>Pick your options to see the plan.</p></div></aside>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Run the session with the timer</h2><p class="muted">Press start. It beeps for the last 3 seconds and when it is time to change drill.</p></div>
+<div class="wu" id="dr">
+<div class="wu-stage">
+<div class="wu-bar"><span class="pill" id="dr-tot"></span><div class="seg" id="dr-snd" role="group" aria-label="Sound"><button type="button" data-v="on" aria-pressed="true">Beeps on</button><button type="button" data-v="off" aria-pressed="false">Off</button></div></div>
+<div class="wu-main">
+<svg class="wu-ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="10"/><circle id="dr-arc" cx="60" cy="60" r="52" fill="none" stroke="#e8f84a" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="0" transform="rotate(-90 60 60)"/></svg>
+<div class="wu-time"><b id="dr-clock">5:00</b><span id="dr-of">Block 1</span></div>
+</div>
+<div class="wu-now" aria-live="polite"><span class="pill" id="dr-ph"></span><h2 id="dr-name"></h2><p id="dr-how"></p><p class="wu-next" id="dr-best"></p><p class="wu-next" id="dr-next"></p></div>
+<div class="prog"><i id="dr-prog"></i></div>
+<div class="wu-ctl"><button class="btn ghost sm" type="button" id="dr-back">Back</button><button class="btn lime" type="button" id="dr-go">Start</button><button class="btn ghost sm" type="button" id="dr-skip">Skip</button></div>
+<p class="wu-left" id="dr-left"></p>
+</div>
+<ol class="wu-list" id="dr-list"></ol>
+</div></div></section>
+<script>window.DRL={DR_JSON};</script>
+{AD.format("drills-mid")}
+<section><div class="wrap"><div class="sh"><h2>All the drills</h2><div class="seg dr-filter" id="dr-filter" role="group" aria-label="Show drills for" style="background:#dfe8f7"><button type="button" data-v="all" aria-pressed="true">All</button><button type="button" data-v="1" aria-pressed="false">On your own</button><button type="button" data-v="2" aria-pressed="false">Two</button><button type="button" data-v="4" aria-pressed="false">Four</button></div></div>
+<p class="muted">Type your best score into a drill and it is saved on this device, so you can try to beat it next time.</p>
+<div class="grid" id="dr-lib">{"".join(_dcard(d) for d in DRILLS)}</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do you plan a padel practice session?</h2></div><div class="grid">
+<div class="card"><h3>Warm up first</h3><p>Start with a few minutes of easy movement and soft hitting before any drill. Our <a href="{href("warm-up.html")}">warm-up timer</a> gives you a 10 or 15 minute routine.</p></div>
+<div class="card"><h3>One skill at a time</h3><p>LTA Padel advises working on one skill per session instead of everything at once. Pick one focus above and most of the session goes to it.</p></div>
+<div class="card"><h3>Control before power</h3><p>Hit at a steady pace and aim for the target. New players can aim for about 20 clean shots in a row before they add movement or speed.</p></div>
+<div class="card"><h3>Count something</h3><p>A streak, a score out of 40 or a rung on the ladder. Numbers show you are getting better and make drills more fun. Log them in the drill list.</p></div>
+<div class="card"><h3>Finish with a game</h3><p>End with a game that rewards fewer mistakes, like yellow card, red card. It puts the drill work under a bit of match pressure.</p></div>
+<div class="card"><h3>Swap roles often</h3><p>In partner drills, change who feeds and who hits every few minutes, so both players practise and nobody gets cold.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How should drills change with your level?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Level</th><th scope="col">What to focus on</th><th scope="col">How to make it harder</th></tr></thead><tbody>
+<tr><td>New to padel</td><td>Control and a steady rhythm. Learn to let the ball come off the back glass.</td><td>Raise the target streak</td></tr>
+<tr><td>Improving</td><td>Add movement: get back to your spot after every shot. Start overheads.</td><td>Play from one up, one back; feed into the corners</td></tr>
+<tr><td>Experienced</td><td>Decisions and accuracy when tired. Bandeja and víbora under pressure.</td><td>Smaller targets; do your hardest drill at the end</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Learn the shots</h3><p>See how the bandeja, víbora and chiquita are played in the <a href="{href("shots.html")}">shot library</a>.</p></div>
+<div class="card"><h3>Know where to stand</h3><p>Drills work better when you recover to the right spot. See the <a href="{href("positioning.html")}">positioning guide</a>.</p></div>
+<div class="card"><h3>Play a fun format</h3><p>Got eight or more players? Try <a href="{href("king-of-the-court.html")}">King of the Court</a> or an <a href="{href("americano.html")}">Americano</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Practice kit</h3><p>Drills use a lot of balls. A bag of spare balls and a fresh overgrip make practice easier. Old balls are fine for drills, just not for matches.</p><ul class="aff-links"><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-bags")}" {AFF_ATTR}>Padel bags</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>Rackets</a></li></ul>{AFF_NOTE}</div></div></section>'''
+drills_faq = [
+    ("What are good padel drills for beginners?", "Rallies with a target streak, back-glass feeds where a partner throws the ball at the glass for you, soft volleys at the net, serves at targets and racket tap-ups at home. Keep them slow and count your best streak."),
+    ("How long should a padel practice session be?", "20 to 60 minutes works. Even 20 minutes a week on top of your matches helps. Spend a few minutes warming up, most of the time on one skill, and finish with a short game."),
+    ("Can you practise padel on your own?", "Yes. You can rally against the back glass, chase rebounds from the corners, serve at targets, volley against a wall and tap the ball up on your racket at home."),
+    ("What padel drills can two players do?", "Ladder rallies on half court, cross-court rallies, volley to volley at the net, back-glass feeds, one up one back, lobs and overheads, and the yellow card, red card game."),
+    ("How do you practise playing off the back glass?", "Have a partner throw the ball onto the floor just in front of the back glass. Let it come off the glass, then play it softly back. When that is easy, feed into the corner so it hits two walls."),
+    ("What is the yellow card, red card padel drill?", "A game where your first mistake in a game is a yellow card and your second is a red card, which loses you that game. It rewards keeping the ball in play."),
+]
+page("drills.html", "Padel Drills Session Planner: Free Practice Plan and Timer | Padel Glass Box",
+     "Free padel drills planner. Pick players, time, level and focus to get a timed practice session, with 13 drills for one, two or four players and a place to log your records.",
+     drills, drills_faq, "Padel drills")
+
+# ---------------- KING OF THE COURT ----------------
+# Format: Padel Browser "Padel tournament formats: Americano and King of the Court" (winners up a court, losers down, partners rotate, most rounds on court 1)
+# and Champion of the Court Padel rules (winners move up a court, losers down, top/bottom stay, partners change every round, final-round court 1 winners).
+kotc = f'''<header class="hero"><div class="wrap"><h1>King of the Court padel generator.</h1>
+<p class="lead">Run a King of the Court night on two or more courts. Enter your players, tap the winners on each court, and the next round is made for you: winners move up, losers move down, and partners change. Live table, round timer, saved on this device.</p>
+{quick("In padel King of the Court, courts are ranked from court 1 (the king court) down. After each short round, the winning pair moves up one court and the losing pair moves down one; winners on court 1 stay, and losers on the bottom court stay. In most versions you change partner every round. The king is the player who spent the most rounds on court 1, or who won court 1 in the last round.")}</div></header>
+<section style="padding-top:10px"><div class="wrap gen">
+<div class="gen-main">
+<div class="card" id="kc-setup">
+<h2 style="font-size:1.6rem">Set up King of the Court</h2>
+<div class="q"><h3>Partners</h3><div class="opts" data-kc="mode" role="group" aria-label="Partners"><button class="opt" type="button" data-v="split" aria-pressed="true">Change partner every round</button><button class="opt" type="button" data-v="fixed" aria-pressed="false">Fixed pairs</button></div><p class="muted" id="kc-mode-note" style="margin:10px 0 0"></p></div>
+<div class="q"><h3><label for="kc-names">Players, one name per line (8, 12, 16, 20, 24 or 28)</label></h3><textarea class="search" id="kc-names" rows="8" placeholder="Sam&#10;Priya&#10;Omar&#10;Lucia&#10;..."></textarea><p class="muted" id="kc-count" style="margin:-6px 0 0"></p></div>
+<div class="q"><h3>Who is king?</h3><div class="opts" data-kc="champ" role="group" aria-label="How the winner is decided"><button class="opt" type="button" data-v="top" aria-pressed="true">Most rounds on court 1</button><button class="opt" type="button" data-v="last" aria-pressed="false">Wins court 1 in the last round</button><button class="opt" type="button" data-v="wins" aria-pressed="false">Most wins</button></div></div>
+<div class="q"><h3>Round length</h3><div class="opts" data-kc="len" role="group" aria-label="Round length"><button class="opt" type="button" data-v="8" aria-pressed="false">8 minutes</button><button class="opt" type="button" data-v="10" aria-pressed="true">10 minutes</button><button class="opt" type="button" data-v="12" aria-pressed="false">12 minutes</button><button class="opt" type="button" data-v="15" aria-pressed="false">15 minutes</button></div></div>
+<div class="gen-nums"><div class="q"><h3><label for="kc-rounds">Rounds</label></h3><input class="search" id="kc-rounds" type="number" min="2" max="20" value="8" inputmode="numeric"></div><div class="q"><h3>Courts</h3><p class="muted" id="kc-courts" style="margin:0">Add players to see</p></div></div>
+<p class="msg" id="kc-err" role="alert" style="color:#a43c13;min-height:0"></p>
+<div class="btns" style="margin-top:4px"><button class="btn lime" type="button" id="kc-start">Make round 1</button><button class="btn ghost" type="button" id="kc-demo">Fill 12 sample names</button></div>
+</div>
+<div id="kc-live" hidden>
+<div class="card gen-bar"><div><span class="pill b" id="kc-sum"></span></div><div class="btns" style="margin:0"><button class="btn ghost sm" type="button" id="kc-copy">Copy table</button><button class="btn ghost sm" type="button" id="kc-new">New event</button></div></div>
+<div class="card kc-timer"><div><b id="kc-clock">10:00</b><span>Round timer</span></div><div class="btns" style="margin:0"><button class="btn lime sm" type="button" id="kc-tgo">Start timer</button><button class="btn ghost sm" type="button" id="kc-treset">Reset</button></div></div>
+<div id="kc-round"></div>
+<p class="msg" id="kc-rerr" role="alert" style="color:#a43c13;min-height:0"></p>
+<div class="btns"><button class="btn" type="button" id="kc-next">Make next round</button><button class="btn ghost sm" type="button" id="kc-undo">Remove last round</button></div>
+<div class="card"><h2 style="font-size:1.4rem">Earlier rounds</h2><div id="kc-hist"><p class="muted">Finished rounds appear here.</p></div></div>
+</div>
+</div>
+<aside class="gen-side"><div class="lb" id="kc-board"><h2>The table</h2><p>Make round 1 and tap the winners to see who is king.</p></div></aside>
+</div></section>
+{AD.format("kotc-mid")}
+<section><div class="wrap"><div class="sh"><h2>How does King of the Court work in padel?</h2></div><div class="grid">
+<div class="card"><h3>Courts are ranked</h3><p>Court 1 is the king court. The other courts go down in order: court 2, court 3 and so on. Everyone wants to get to court 1 and stay there.</p></div>
+<div class="card"><h3>Short rounds</h3><p>Each round is short, often a timed round of about 10 to 15 minutes, or a quick game to a set number of points. Everyone starts and stops at the same time.</p></div>
+<div class="card"><h3>Winners up, losers down</h3><p>The winning pair on each court moves up one court. The losing pair moves down one. Winners on court 1 stay, and losers on the bottom court stay.</p></div>
+<div class="card"><h3>New partners</h3><p>In the usual version, the two pairs that arrive on a court split up, so you play with someone new each round. With fixed pairs, the pair moves together.</p></div>
+<div class="card"><h3>Who is king?</h3><p>Groups use different rules: most rounds played on court 1, the winners of court 1 in the final round, or simply most wins. Pick one before you start.</p></div>
+<div class="card"><h3>A draw when time runs out?</h3><p>Agree a tie rule first. A simple one is to play one more deciding point, like a <a href="{href("golden-point-star-point.html")}">golden point</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How many players and courts do you need?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Players</th><th scope="col">Courts</th><th scope="col">8 rounds of 10 minutes</th></tr></thead><tbody>
+<tr><td>8</td><td>2</td><td>About 1 hour 35 minutes</td></tr>
+<tr><td>12</td><td>3</td><td>About 1 hour 35 minutes</td></tr>
+<tr><td>16</td><td>4</td><td>About 1 hour 35 minutes</td></tr>
+<tr><td>20 or more</td><td>5 or more</td><td>Same time: more courts, not more rounds</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">Times assume about 2 minutes to change courts between rounds. You need four players per court, so the number of players must be a multiple of four. With other numbers, use the <a href="{href("americano.html")}">Americano draw maker</a>, which handles rests.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>King of the Court, Americano, Mexicano or round robin?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Format</th><th scope="col">Partners</th><th scope="col">How you win</th><th scope="col">Feels like</th></tr></thead><tbody>
+<tr><td>King of the Court</td><td>Usually change every round</td><td>Time on court 1, or court 1 at the end</td><td>Fast and competitive, with movement every round</td></tr>
+<tr><td><a href="{href("americano.html")}">Americano</a></td><td>Change every round, planned</td><td>Most points in total</td><td>Social: you play with everyone</td></tr>
+<tr><td><a href="{href("americano.html")}">Mexicano</a></td><td>Change every round, by score</td><td>Most points in total</td><td>Social but levels sort themselves out</td></tr>
+<tr><td><a href="{href("round-robin.html")}">Round robin</a></td><td>Fixed pairs</td><td>Best record in the table</td><td>A mini league</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Keep score on court</h3><p>Put a phone by the net and use the free <a href="{href("score.html")}">score keeper</a>.</p></div>
+<div class="card"><h3>Warm up together</h3><p>Start the night with the 10-minute <a href="{href("warm-up.html")}">warm-up timer</a>.</p></div>
+<div class="card"><h3>Running a season?</h3><p>Keep a ranking going between nights with the <a href="{href("ladder.html")}">padel ladder tracker</a>.</p></div>
+</div></div></section>'''
+kotc_faq = [
+    ("What is King of the Court in padel?", "A social format on several courts. Court 1 is the king court. After each short round, the winners move up one court and the losers move down one, so the best players end up fighting for court 1."),
+    ("How many players do you need for King of the Court?", "At least eight players on two courts. You need four players per court, so 8, 12, 16 or 20 players fit best."),
+    ("Do you change partners in King of the Court?", "In the usual version, yes: the pairs that arrive on each court split up, so you play with someone new each round. Some groups play with fixed pairs instead, and this generator supports both."),
+    ("How long is a King of the Court round?", "Rounds are short, often 10 to 15 minutes, or a quick game to a set number of points. Pick one length and start and stop every court at the same time."),
+    ("Who wins King of the Court?", "It depends on the rule you agree: the player with the most rounds on court 1, the pair that wins court 1 in the last round, or the most wins overall. The generator tracks all three."),
+    ("What happens to the winners on court 1?", "They stay on court 1. Losers on the bottom court also stay where they are. Everyone else moves one court up or down."),
+]
+page("king-of-the-court.html", "King of the Court Padel Generator: Free Rounds, Courts and Table | Padel Glass Box",
+     "Free King of the Court padel generator. Enter 8 to 28 players, tap the winners and get the next round: winners up, losers down, new partners. Round timer and live table.",
+     kotc, kotc_faq, "King of the Court")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -1627,7 +1816,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

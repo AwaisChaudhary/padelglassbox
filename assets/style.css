@@ -503,3 +503,21 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 /* racket care health check: ticked = noticed, not done */
 #rc-list input:checked + span { color: var(--ink); text-decoration: none; font-weight: 600; }
 #rc-out .b-why { margin-bottom: 12px; }
+/* drills planner */
+.dr-pills { display: flex; flex-wrap: wrap; gap: 6px; margin: -4px 0 10px; }
+.dr-card[hidden] { display: none; }
+.dr-pb { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: .92rem; margin-top: 6px; }
+.dr-pb input { font: inherit; font-family: var(--display); width: 90px; padding: 8px 10px; border-radius: 10px; border: 1.5px solid #cdd9ee; background: var(--glass-2); color: var(--ink); }
+.dr-pb input:focus { border-color: var(--turf); outline: none; }
+.dr-filter button { color: var(--muted); }
+/* king of the court */
+.kc-pick { font: inherit; font-weight: 700; color: var(--ink); background: var(--glass-2); border: 1.5px solid #cdd9ee; border-radius: 12px; padding: 10px 12px; cursor: pointer; text-align: left; min-height: 44px; }
+.kc-pick.b { text-align: right; }
+.kc-pick:hover { border-color: var(--turf); }
+.kc-pick[aria-pressed="true"] { background: var(--ball); border-color: #c5d62a; color: var(--deep); }
+.kc-m .kc-pick { display: block; }
+.kc-timer { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 16px 20px; margin-bottom: 16px; }
+.kc-timer b { font-family: var(--display); font-size: 2rem; color: var(--turf); font-variant-numeric: tabular-nums; display: block; line-height: 1; }
+.kc-timer span { color: var(--muted); font-size: .85rem; }
+#kc-hist p { margin: 0 0 12px; font-size: .92rem; overflow-wrap: anywhere; }
+#dr-plan .num { white-space: nowrap; }

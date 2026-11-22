@@ -1379,4 +1379,206 @@
     $("#rc-reset").addEventListener("click", function () { rboxes.forEach(function (b) { b.checked = false; }); rrender(); });
     rrender();
   }
+
+  /* ---------- drills session planner ---------- */
+  var drs = $("#dr-setup");
+  if (drs && window.DRL) (function () {
+    var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var cfg = store.get("pp-dr-cfg", { who: "2", len: "30", lv: "b", focus: "mix" }), pb = store.get("pp-dr-pb", {});
+    var by = {}; window.DRL.forEach(function (d) { by[d.id] = d; });
+    var TIP = { b: "Keep it slow and steady. Aim for about 20 clean shots before you add movement.", i: "Add movement: get back to your spot after every shot.", a: "Add pressure: smaller targets, more pace, or no second chances." };
+    var FN = { mix: "a bit of everything", cons: "keeping the ball in play", wall: "playing off the glass", net: "volleys at the net", over: "lobs and overheads", serve: "serve and return" };
+    var fmt = function (s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); };
+    var plan = [];
+    var build = function () {
+      var who = +cfg.who, len = +cfg.len, wu = len <= 30 ? 5 : 10;
+      var ok = window.DRL.filter(function (d) { return d.who.indexOf(who) > -1 && d.f.indexOf("game") < 0; });
+      var game = who > 1 && len >= 30 ? by.cards : null, gm = game ? (len >= 45 ? 10 : 6) : 0;
+      var rest = len - wu - gm, bl = len <= 30 ? 5 : (cfg.lv === "a" ? 8 : 7), n = Math.max(1, Math.floor(rest / bl));
+      var pri = ok.filter(function (d) { return cfg.focus !== "mix" && d.f.indexOf(cfg.focus) > -1; });
+      var oth = ok.filter(function (d) { return pri.indexOf(d) < 0 && d.id !== "feet"; });
+      var pick = [];
+      if (cfg.focus === "mix") pick = oth.slice(0, n);
+      else { var nf = Math.min(Math.ceil(n * 0.6), pri.length * 2), j = 0; for (var k = 0; k < nf; k++) pick.push(pri[k % pri.length]); while (pick.length < n && j < oth.length) pick.push(oth[j++]); }
+      while (pick.length < n) pick.push(ok[pick.length % ok.length]);
+      var mins = pick.map(function () { return Math.floor(rest / n); }), extra = rest - Math.floor(rest / n) * n;
+      for (var x = 0; x < extra; x++) mins[x % n]++;
+      plan = [{ id: "", n: "Warm-up", ph: "Warm up", t: wu * 60, d: "Easy jog, side steps and moving stretches, then soft mini rallies close to the net. Want a full routine? Use the warm-up timer." }];
+      pick.forEach(function (d, i) { var again = pick.indexOf(d) < i; plan.push({ id: d.id, n: d.n + (again ? " (again)" : ""), ph: "Drill", t: mins[i] * 60, d: d.d + " " + TIP[cfg.lv], g: d.g }); });
+      if (game) plan.push({ id: game.id, n: game.n, ph: "Game", t: gm * 60, d: game.d, g: game.g });
+      var sum = { 1: "Just you", 2: "Two players", 4: "Four players" }[cfg.who] + ", " + len + " minutes, focus on " + FN[cfg.focus] + ".";
+      $("#dr-sum").textContent = sum + (who === 4 ? " With four players, split into two pairs and use one half of the court each." : "");
+      $("#dr-plan").innerHTML = "<h2>Your session</h2><p>" + esc(sum) + "</p><table><tbody>" + plan.map(function (b, i) { return '<tr><td>' + (i + 1) + "</td><td>" + esc(b.n) + '</td><td class="num"><b>' + Math.round(b.t / 60) + " min</b></td></tr>"; }).join("") + '</tbody></table><p style="margin-top:12px">Run it with the timer below.</p>';
+      $("#dr-tot").textContent = len + " minute session";
+      stop(); buildList(); go(0);
+    };
+    $$("[data-dr]", drs).forEach(function (g) {
+      $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", String(cfg[g.dataset.dr] === b.dataset.v)); });
+      choose(g, function (v) { cfg[g.dataset.dr] = v; store.set("pp-dr-cfg", cfg); build(); });
+    });
+    /* timer */
+    var T = { i: 0, left: 0, run: false, snd: store.get("pp-dr-snd", "on") }, tick = null, ac = null, lock = null, list = $("#dr-list");
+    var beep = function (f, d) {
+      if (T.snd !== "on") return;
+      try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); var o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = f; o.connect(g); g.connect(ac.destination); g.gain.setValueAtTime(0.18, ac.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + d); o.start(); o.stop(ac.currentTime + d); } catch (e) {}
+    };
+    var wake = function (on) { try { if (on && navigator.wakeLock && !lock) navigator.wakeLock.request("screen").then(function (l) { lock = l; l.addEventListener("release", function () { lock = null; }); }, function () {}); else if (!on && lock) { lock.release(); lock = null; } } catch (e) {} };
+    var total = function () { return plan.reduce(function (a, s) { return a + s.t; }, 0); };
+    function buildList() {
+      list.innerHTML = plan.map(function (s, n) { return '<li data-n="' + n + '"><b>' + (n + 1) + ". " + esc(s.n) + '</b><span class="pill">' + s.ph + '</span><span class="wu-t">' + fmt(s.t) + "</span><p>" + esc(s.d) + "</p></li>"; }).join("");
+      $$("li", list).forEach(function (li) { li.addEventListener("click", function () { go(+li.dataset.n); }); });
+    }
+    function render() {
+      var s = plan[T.i], done = 0;
+      for (var k = 0; k < T.i; k++) done += plan[k].t;
+      done += s.t - T.left;
+      $("#dr-clock").textContent = fmt(T.left);
+      $("#dr-of").textContent = "Block " + (T.i + 1) + " of " + plan.length;
+      $("#dr-ph").textContent = s.ph; $("#dr-name").textContent = s.n; $("#dr-how").textContent = s.d;
+      $("#dr-best").textContent = s.g ? "Count: " + s.g + (pb[s.id] ? " Your best: " + pb[s.id] + "." : "") : "";
+      $("#dr-next").textContent = T.i + 1 < plan.length ? "Next: " + plan[T.i + 1].n : "Last block.";
+      $("#dr-arc").setAttribute("stroke-dashoffset", (326.7 * (1 - T.left / s.t)).toFixed(1));
+      $("#dr-prog").style.width = (done / total() * 100) + "%";
+      $("#dr-left").textContent = fmt(total() - done) + " left in total";
+      $("#dr-go").textContent = T.run ? "Pause" : (T.left < s.t || T.i ? "Resume" : "Start");
+      $$("li", list).forEach(function (li, n) { li.classList.toggle("on", n === T.i); li.classList.toggle("done", n < T.i); });
+      $$("#dr-snd button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.v === T.snd)); });
+    }
+    function stop() { T.run = false; clearInterval(tick); tick = null; wake(false); }
+    function finish() {
+      stop(); beep(880, 0.6);
+      $("#dr-clock").textContent = "0:00"; $("#dr-name").textContent = "Session done. Nice work!"; $("#dr-how").textContent = "Log your best numbers in the drill list below, then stretch gently.";
+      $("#dr-best").textContent = ""; $("#dr-next").textContent = ""; $("#dr-prog").style.width = "100%"; $("#dr-left").textContent = ""; $("#dr-go").textContent = "Start again";
+      $$("li", list).forEach(function (li) { li.classList.remove("on"); li.classList.add("done"); });
+      T.i = 0; T.left = plan[0].t; T.end = true;
+    }
+    function go(n) { T.end = false; T.i = Math.max(0, Math.min(plan.length - 1, n)); T.left = plan[T.i].t; T.last = Date.now(); render(); }
+    var stepT = function () {
+      var now = Date.now(); T.left -= (now - T.last) / 1000; T.last = now;
+      var c = Math.ceil(T.left);
+      if (c !== T.shown && c <= 3 && c > 0) beep(660, 0.12);
+      T.shown = c;
+      if (T.left <= 0) { if (T.i + 1 >= plan.length) return finish(); beep(990, 0.35); go(T.i + 1); return; }
+      render();
+    };
+    $("#dr-go").addEventListener("click", function () {
+      if (T.run) { stop(); render(); return; }
+      if (T.end) go(0);
+      T.run = true; T.last = Date.now(); beep(990, 0.2); wake(true); tick = setInterval(stepT, 250); render();
+    });
+    $("#dr-skip").addEventListener("click", function () { if (T.i + 1 >= plan.length) finish(); else go(T.i + 1); });
+    $("#dr-back").addEventListener("click", function () { go(T.left < plan[T.i].t - 2 ? T.i : T.i - 1); });
+    $$("#dr-snd button").forEach(function (b) { b.addEventListener("click", function () { T.snd = b.dataset.v; store.set("pp-dr-snd", T.snd); render(); }); });
+    document.addEventListener("visibilitychange", function () { if (!document.hidden && T.run) wake(true); });
+    /* library: filter and personal bests */
+    $$("[data-pb]").forEach(function (inp) {
+      if (pb[inp.dataset.pb]) inp.value = pb[inp.dataset.pb];
+      inp.addEventListener("change", function () { var v = parseInt(inp.value, 10); if (v > 0) pb[inp.dataset.pb] = Math.min(v, 9999); else delete pb[inp.dataset.pb]; store.set("pp-dr-pb", pb); if (!T.run) render(); toast("Saved on this device"); });
+    });
+    var flt = $("#dr-filter");
+    if (flt) choose(flt, function (v) { $$(".dr-card").forEach(function (c) { c.hidden = v !== "all" && c.dataset.who.split(" ").indexOf(v) < 0; }); });
+    build();
+  })();
+
+  /* ---------- King of the Court ---------- */
+  var kcs = $("#kc-setup");
+  if (kcs) (function () {
+    var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var cfg = store.get("pp-kc-cfg", { mode: "split", champ: "top", len: "10" }), K = store.get("pp-kc", null);
+    var namesEl = $("#kc-names"), err = $("#kc-err");
+    var NOTE = { split: "The two pairs that arrive on a court split up, so you get a new partner every round.", fixed: "Pairs stay together all night. Type names in pairs: lines 1 and 2 are a pair, lines 3 and 4, and so on." };
+    var parse = function () { var seen = {}; return namesEl.value.split("\n").map(function (x) { return x.trim().slice(0, 40); }).filter(function (x) { if (!x || seen[x.toLowerCase()]) return false; seen[x.toLowerCase()] = 1; return true; }); };
+    var sync = function () {
+      $$("[data-kc] button", kcs).forEach(function (b) { b.setAttribute("aria-pressed", String(cfg[b.parentNode.dataset.kc] === b.dataset.v)); });
+      $("#kc-mode-note").textContent = NOTE[cfg.mode];
+      var n = parse().length;
+      $("#kc-count").textContent = n ? n + " player" + (n === 1 ? "" : "s") + (n < 8 ? ", add at least 8" : n % 4 ? ", needs a multiple of 4 (add " + (4 - n % 4) + " or remove " + (n % 4) + ")" : "") : "";
+      $("#kc-courts").textContent = n >= 8 && n % 4 === 0 ? (n / 4) + " courts" : "Add players to see";
+    };
+    $$("[data-kc]", kcs).forEach(function (g) { choose(g, function (v) { cfg[g.dataset.kc] = v; store.set("pp-kc-cfg", cfg); sync(); if (K) { K.champ = cfg.champ; save(); draw(); } }); });
+    namesEl.addEventListener("input", sync);
+    $("#kc-demo").addEventListener("click", function () { namesEl.value = ["Sam", "Priya", "Omar", "Lucia", "Ben", "Aisha", "Marta", "Jon", "Leo", "Fatima", "Chris", "Noor"].join("\n"); sync(); });
+    var save = function () { store.set("pp-kc", K); };
+    var shuffle = function (a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x; } return a; };
+    var nm = function (i) { return K.p[i]; };
+    var pairTxt = function (pr) { return esc(nm(pr[0])) + " &amp; " + esc(nm(pr[1])); };
+    var stats = function () {
+      var S = K.p.map(function (n, i) { return { i: i, n: n, pl: 0, w: 0, top: 0, pos: 99 }; });
+      K.r.forEach(function (rd) { rd.forEach(function (m, c) {
+        m.a.concat(m.b).forEach(function (i) { S[i].pl += m.w ? 1 : 0; if (c === 0 && m.w) S[i].top++; });
+        if (m.w) (m.w === "a" ? m.a : m.b).forEach(function (i) { S[i].w++; });
+      }); });
+      var last = null; for (var r = K.r.length - 1; r >= 0; r--) { if (K.r[r].every(function (m) { return m.w; })) { last = K.r[r]; break; } }
+      if (last) last.forEach(function (m, c) { (m.w === "a" ? m.a : m.b).forEach(function (i) { S[i].pos = c * 2; }); (m.w === "a" ? m.b : m.a).forEach(function (i) { S[i].pos = c * 2 + 1; }); });
+      var key = { top: function (x, y) { return y.top - x.top || y.w - x.w || x.pos - y.pos; }, wins: function (x, y) { return y.w - x.w || y.top - x.top || x.pos - y.pos; }, last: function (x, y) { return x.pos - y.pos || y.w - x.w || y.top - x.top; } }[K.champ || "top"];
+      return S.sort(function (x, y) { return key(x, y) || x.n.localeCompare(y.n); });
+    };
+    var next = function () {
+      var rd = K.r[K.r.length - 1], C = rd.length, out = [], ri = K.r.length;
+      var W = function (c) { return rd[c].w === "a" ? rd[c].a : rd[c].b; }, L = function (c) { return rd[c].w === "a" ? rd[c].b : rd[c].a; };
+      for (var c = 0; c < C; c++) {
+        var X = c === 0 ? W(0) : L(c - 1), Y = c === 0 ? W(1) : (c === C - 1 ? L(C - 1) : W(c + 1));
+        if (K.mode === "fixed") out.push({ a: X.slice(), b: Y.slice(), w: null });
+        else if (ri % 2) out.push({ a: [X[0], Y[1]], b: [X[1], Y[0]], w: null });
+        else out.push({ a: [X[0], Y[0]], b: [X[1], Y[1]], w: null });
+      }
+      return out;
+    };
+    var show = function (on) { $("#kc-setup").hidden = on; $("#kc-live").hidden = !on; };
+    var draw = function () {
+      var rn = K.r.length, rd = K.r[rn - 1], done = rd.every(function (m) { return m.w; });
+      $("#kc-sum").textContent = "Round " + rn + " of " + K.n + ", " + rd.length + " courts, " + K.p.length + " players";
+      $("#kc-round").innerHTML = '<div class="card"><h2 style="font-size:1.4rem">Round ' + rn + ': tap the winning pair on each court</h2>' + rd.map(function (m, c) {
+        return '<div class="match kc-m' + (m.w ? " won-" + m.w : "") + '"><span class="ct">' + (c === 0 ? "Court 1, king court" : "Court " + (c + 1)) + '</span><button type="button" class="kc-pick pair a" data-c="' + c + '" data-w="a" aria-pressed="' + (m.w === "a") + '">' + pairTxt(m.a) + '</button><span class="vs">vs</span><button type="button" class="kc-pick pair b" data-c="' + c + '" data-w="b" aria-pressed="' + (m.w === "b") + '">' + pairTxt(m.b) + "</button></div>";
+      }).join("") + "</div>";
+      $$(".kc-pick").forEach(function (b) { b.addEventListener("click", function () { var m = K.r[K.r.length - 1][+b.dataset.c]; m.w = m.w === b.dataset.w ? null : b.dataset.w; $("#kc-rerr").textContent = ""; save(); draw(); }); });
+      $("#kc-next").textContent = rn >= K.n ? (done ? "Play an extra round" : "Tap the winners to finish") : "Make round " + (rn + 1);
+      $("#kc-undo").hidden = rn < 2;
+      $("#kc-hist").innerHTML = rn < 2 ? '<p class="muted">Finished rounds appear here.</p>' : K.r.slice(0, -1).map(function (r, i) { return "<p><b>Round " + (i + 1) + "</b><br>" + r.map(function (m, c) { var w = m.w === "a" ? m.a : m.b, l = m.w === "a" ? m.b : m.a; return "Court " + (c + 1) + ": " + pairTxt(w) + " beat " + pairTxt(l); }).join("<br>") + "</p>"; }).reverse().join("");
+      var S = stats(), fin = rn >= K.n && done, lbl = { top: "Most rounds on court 1", last: "Court 1 winners in the last round", wins: "Most wins" }[K.champ || "top"];
+      $("#kc-board").innerHTML = "<h2>" + (fin ? "King: " + esc(S[0].n) + (K.champ === "last" ? " &amp; " + esc(S[1].n) : "") : "The table") + "</h2><p>Ranked by: " + lbl + '.</p><table><thead><tr><th scope="col">#</th><th scope="col">Player</th><th scope="col" class="num">Court 1</th><th scope="col" class="num">Won</th><th scope="col" class="num">Played</th></tr></thead><tbody>' + S.map(function (x, i) { return '<tr class="' + (i < (K.champ === "last" ? 2 : 1) && x.pl ? "top" : "") + '"><td>' + (i + 1) + "</td><td>" + esc(x.n) + '</td><td class="num"><b>' + x.top + '</b></td><td class="num">' + x.w + '</td><td class="num">' + x.pl + "</td></tr>"; }).join("") + "</tbody></table>";
+    };
+    $("#kc-start").addEventListener("click", function () {
+      var p = parse(), n = p.length, rounds = Math.max(2, Math.min(20, parseInt($("#kc-rounds").value, 10) || 8));
+      if (n < 8) { err.textContent = "Add at least 8 players (2 courts)."; return; }
+      if (n > 28) { err.textContent = "28 players (7 courts) is the most this tool handles."; return; }
+      if (n % 4) { err.textContent = "You need a multiple of 4 players: 4 per court. With " + n + " players, try the Americano draw maker, which handles rests."; return; }
+      err.textContent = "";
+      var idx = p.map(function (x, i) { return i; }), r1 = [];
+      if (cfg.mode === "fixed") { var prs = []; for (var i = 0; i < n; i += 2) prs.push([i, i + 1]); prs = shuffle(prs); for (var c = 0; c < n / 4; c++) r1.push({ a: prs[c * 2], b: prs[c * 2 + 1], w: null }); }
+      else { idx = shuffle(idx); for (var c2 = 0; c2 < n / 4; c2++) r1.push({ a: [idx[c2 * 4], idx[c2 * 4 + 1]], b: [idx[c2 * 4 + 2], idx[c2 * 4 + 3]], w: null }); }
+      K = { p: p, mode: cfg.mode, champ: cfg.champ, len: +cfg.len, n: rounds, r: [r1] }; save(); show(true); resetT(); draw();
+    });
+    $("#kc-next").addEventListener("click", function () {
+      var rd = K.r[K.r.length - 1];
+      if (!rd.every(function (m) { return m.w; })) { $("#kc-rerr").textContent = "Tap the winning pair on every court first."; return; }
+      if (K.r.length >= K.n) K.n = K.r.length + 1;
+      K.r.push(next()); save(); resetT(); draw(); window.scrollTo({ top: $("#kc-live").offsetTop - 80, behavior: "smooth" });
+    });
+    $("#kc-undo").addEventListener("click", function () { if (K.r.length < 2) return; if (!confirm("Remove the last round and go back?")) return; K.r.pop(); save(); draw(); });
+    $("#kc-new").addEventListener("click", function () {
+      if (!confirm("Start a new event? This one will be cleared from this device.")) return;
+      namesEl.value = K.p.join("\n"); K = null; store.set("pp-kc", null); stopT(); show(false); sync();
+    });
+    $("#kc-copy").addEventListener("click", function () {
+      var S = stats(), txt = "King of the Court, after round " + K.r.length + "\n" + S.map(function (x, i) { return (i + 1) + ". " + x.n + "  court 1: " + x.top + ", won " + x.w + "/" + x.pl; }).join("\n") + "\n\nMade with padelglassbox.com/king-of-the-court";
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { toast("Table copied"); }, function () { toast("Couldn't copy"); }); else toast("Couldn't copy");
+    });
+    /* round timer */
+    var TT = { left: 600, run: false }, tk = null, ac = null;
+    var tfmt = function (s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); };
+    var tb = function (f, d) { try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); var o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = f; o.connect(g); g.connect(ac.destination); g.gain.setValueAtTime(0.2, ac.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + d); o.start(); o.stop(ac.currentTime + d); } catch (e) {} };
+    var tdraw = function () { $("#kc-clock").textContent = tfmt(TT.left); $("#kc-tgo").textContent = TT.run ? "Pause" : (TT.left < (K ? K.len : 10) * 60 && TT.left > 0 ? "Resume" : "Start timer"); };
+    function stopT() { TT.run = false; clearInterval(tk); tk = null; }
+    function resetT() { stopT(); TT.left = (K ? K.len : +cfg.len) * 60; tdraw(); }
+    $("#kc-tgo").addEventListener("click", function () {
+      if (TT.run) { stopT(); tdraw(); return; }
+      if (TT.left <= 0) TT.left = K.len * 60;
+      TT.run = true; TT.last = Date.now(); tb(990, 0.2);
+      tk = setInterval(function () { var now = Date.now(); TT.left -= (now - TT.last) / 1000; TT.last = now; if (TT.left <= 0) { TT.left = 0; stopT(); tb(880, 0.8); toast("Time! Tap the winners."); } tdraw(); }, 250); tdraw();
+    });
+    $("#kc-treset").addEventListener("click", resetT);
+    sync();
+    if (K && K.r) { show(true); resetT(); draw(); }
+  })();
 })();
