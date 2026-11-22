@@ -125,7 +125,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -259,7 +259,7 @@ score = f'''<header class="hero" style="padding-bottom:10px"><div class="wrap"><
 <section><div class="wrap"><div class="sh"><h2>How does padel scoring work?</h2></div><div class="grid">
 <div class="card"><h3>Points</h3><p>0, 15, 30, 40, then the game. Exactly like tennis.</p></div>
 <div class="card"><h3>Deuce</h3><p>At 40-40 there are three official options: classic advantage, golden point (one deciding point) or the newer Star Point. All three are built in here. Not sure which to pick? See <a href="{href("golden-point-star-point.html")}">golden point vs Star Point</a>.</p></div>
-<div class="card"><h3>Sets and tie-breaks</h3><p>A set goes to six games with a two-game lead. At 6-6 a tie-break is played to 7 points, two clear. Most matches are best of three sets.</p></div>
+<div class="card"><h3>Sets and tie-breaks</h3><p>A set goes to six games with a two-game lead. At 6-6 a tie-break is played to 7 points, two clear. Most matches are best of three sets. Who serves when: <a href="{href("tie-break.html")}">tie-break rules and tracker</a>.</p></div>
 <div class="card"><h3>Golden point side</h3><p>With golden point, the receiving pair chooses which player receives the deciding serve.</p></div>
 <div class="card"><h3>Star Point</h3><p>You play advantage twice. If the game comes back to 40-40 a third time, one deciding point wins it. The score keeper counts the deuces for you.</p></div>
 </div></div></section>
@@ -307,23 +307,38 @@ court_svg = '''<svg viewBox="0 0 360 640" role="group" aria-label="Top-down pade
 <text x="180" y="590" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="800" font-size="14" pointer-events="none">20 m long</text>
 </svg>'''
 rules = f'''<header class="hero"><div class="wrap"><h1>Padel rules, tap by tap.</h1>
-<p class="lead">Tap any part of the court to see the rule that goes with it, then read the key rules for serving, walls and scoring below.</p></div></header>
+<p class="lead">Tap any part of the court to see the rule that goes with it, then read the key rules for serving, walls and scoring below.</p>
+{quick("Padel is played in pairs on a 20 x 10 m court with glass walls. Serve underhand, after one bounce, at or below waist height, diagonally into the box across the net (two tries). The ball must bounce on the ground before it touches a wall on the other side; after that bounce it may hit the glass and stay in play. Scoring is like tennis: 15, 30, 40, game, sets to six, tie-break at 6-6.")}</div></header>
 <section style="padding-top:10px"><div class="wrap rules-layout">
 <div class="court-art" style="max-width:440px;margin-inline:auto;width:100%">{court_svg}</div>
 <aside class="card zpanel" id="zpanel" aria-live="polite"></aside>
 </div></section>
 {AD.format("rules-mid")}
-<section><div class="wrap"><div class="sh"><h2>The key rules</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>What are the basic rules of padel?</h2></div><div class="grid">
 <div class="card"><h3>The serve</h3><p>Stand behind the service line with your feet off the lines, bounce the ball, and hit it underhand at or below waist height with one foot on the ground. It must land in the box diagonally opposite. You get two attempts per point.</p></div>
 <div class="card"><h3>A serve is a fault if</h3><p>it lands outside the diagonal box, it's hit above the waist, you miss the ball, your foot touches the line, or after bouncing in the box it hits the metal mesh. Not sure? Use our <a href="{href("serve-rules.html")}">serve checker</a>.</p></div>
 <div class="card"><h3>Lets</h3><p>If the serve touches the net and still lands in the right box, without touching the metal fence, it is a let and you replay that serve.</p></div>
 <div class="card"><h3>Receiving</h3><p>The receiver must let the serve bounce before hitting it. After that, players can volley freely.</p></div>
 <div class="card"><h3>Using the walls</h3><p>On your side, the ball can bounce once and then hit the glass or fence; you can still play it. You may also hit the ball into your own glass to get it back over the net, but not into your own metal fence. Not sure about a call? Try the <a href="{href("wall-rules.html")}">wall and fence checker</a>.</p></div>
 <div class="card"><h3>Lost points</h3><p>You lose the point if the ball bounces twice on your side, if your shot hits the opponents' wall or fence before their ground, if it hits your own fence, if the ball touches you or your partner, or if you touch the net or posts during the rally. All the net calls: <a href="{href("net-rules.html")}">net rules checker</a>.</p></div>
-<div class="card"><h3>Scoring</h3><p>15, 30, 40, game, sets to six with a tie-break at 6-6. At deuce, the organiser chooses advantage, golden point or Star Point: <a href="{href("golden-point-star-point.html")}">see how each one works</a>.</p></div>
+<div class="card"><h3>Scoring</h3><p>15, 30, 40, game, sets to six with a tie-break at 6-6 (first to 7, 2 clear): see <a href="{href("tie-break.html")}">who serves in a tie-break</a>. At deuce, the organiser chooses advantage, golden point or Star Point: <a href="{href("golden-point-star-point.html")}">see how each one works</a>.</p></div>
 <div class="card"><h3>Court size</h3><p>The court is 20 m by 10 m, with the service lines 6.95 m from the net. See every measurement, in metres or feet, on our <a href="{href("court-dimensions.html")}">measured court diagram</a>.</p></div>
 <div class="card"><h3>Where to stand</h3><p>Rules tell you what is allowed; position wins points. See where all four players stand at the serve, at the net and at the back on our <a href="{href("positioning.html")}">positioning guide</a>.</p></div>
 <div class="card"><h3>Social formats</h3><p>At club nights you often play points, not sets: an Americano or Mexicano. Our <a href="{href("americano.html")}">draw maker</a> sets the partners, courts and leaderboard for you.</p></div>
+<div class="card"><h3>Changing ends</h3><p>Change ends after games 1, 3, 5 and every odd game of a set. In a tie-break, change after every 6 points.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which rule are you checking?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Question</th><th scope="col">Short answer</th><th scope="col">Check it</th></tr></thead><tbody>
+<tr><td>Was my serve legal?</td><td>Underhand, at or below the waist, after one bounce, into the diagonal box</td><td><a href="{href("serve-rules.html")}">Serve checker</a></td></tr>
+<tr><td>Was that ball in after the wall?</td><td>In if it bounced on the ground first; you can use your own glass but not your own fence</td><td><a href="{href("wall-rules.html")}">Wall checker</a></td></tr>
+<tr><td>Can I touch the net?</td><td>No, not you, your clothes or your racket, while the ball is in play</td><td><a href="{href("net-rules.html")}">Net checker</a></td></tr>
+<tr><td>What happens at 40-40?</td><td>Advantage, golden point or Star Point, as agreed</td><td><a href="{href("golden-point-star-point.html")}">Deuce formats</a></td></tr>
+<tr><td>Who serves in a tie-break?</td><td>One point, then two each; change ends every 6 points</td><td><a href="{href("tie-break.html")}">Tie-break tracker</a></td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Keep score</h3><p>Put a phone by the net with the free <a href="{href("score.html")}">score keeper</a>.</p></div>
+<div class="card"><h3>New to padel?</h3><p>What to bring and what to know: the <a href="{href("beginners.html")}">first match checklist</a>.</p></div>
+<div class="card"><h3>Learn the words</h3><p>Bandeja, cristal, malla and more in the <a href="{href("glossary.html")}">padel glossary</a>.</p></div>
 </div></div></section>'''
 rules_faq = [
     ("Can you serve overarm in padel?", "No. The padel serve is always underhand: you bounce the ball and hit it at or below waist height."),
@@ -333,10 +348,12 @@ rules_faq = [
     ("Where must the server stand?", "Behind the service line, which is 6.95 m from the net, between the centre line and the side wall, serving diagonally into the opposite service box."),
     ("What is a let in padel?", "A serve that touches the net and then lands in the correct box without touching the metal fence. The serve is replayed. A let on the second serve replays only the second serve."),
     ("Can you play the ball off your own fence in padel?", "No. You may hit the ball into your own glass to send it back over the net, but if your shot hits the metal fence on your side you lose the point."),
+    ("What happens at 6-6 in padel?", "A tie-break: first to 7 points with a 2-point lead. One player serves the first point, then each player serves two points in turn, and you change ends every 6 points. The set ends 7-6."),
+    ("When do you change ends in padel?", "After the 1st, 3rd and every odd game of a set, and after every 6 points in a tie-break."),
     ("Is a net cord in play during a padel rally?", "Yes. In a rally a ball that touches the net and lands on the other side is in play. Only on the serve does a net touch mean a let."),
 ]
 page("rules.html", "Padel Rules Explained Simply, With an Interactive Court | Padel Glass Box",
-     "Padel rules in plain English: the underhand serve, walls, faults and scoring, plus an interactive court you can tap to learn each part.", rules, rules_faq, "Rules")
+     "Padel rules in plain English: the underhand serve, walls, net, faults, scoring, tie-breaks and changing ends, plus an interactive court you can tap to learn each part.", rules, rules_faq, "Rules")
 
 # ---------------- SHOTS ----------------
 PATHS = {
@@ -684,7 +701,7 @@ deuce = f'''<header class="hero"><div class="wrap"><h1>Golden point, Star Point 
 <div class="card"><h3>Professional padel</h3><p>The International Padel Federation (FIP) approved Star Point in late 2025. From 2026 it is used on Premier Padel, the FIP Tour, FIP Promises and the FIP Beyond amateur events.</p></div>
 <div class="card"><h3>National events</h3><p>Some federations follow the pro tours. In the US, USPA-sanctioned tournaments use Star Point from January 2026. Always check the event's own rules.</p></div>
 <div class="card"><h3>Your club game</h3><p>Friendly games can use any of the three. Golden point keeps games short when court time is tight. Agree on one before the first serve, so nobody argues at 40-40.</p></div>
-<div class="card"><h3>Tie-breaks</h3><p>None of this changes the tie-break. At 6-6 you play to 7 points with a two-point lead. Read more on our <a href="{href("rules.html")}">rules page</a>.</p></div>
+<div class="card"><h3>Tie-breaks</h3><p>None of this changes the tie-break. At 6-6 you play to 7 points with a two-point lead. See who serves each point on our <a href="{href("tie-break.html")}">tie-break page</a>.</p></div>
 </div></div></section>'''
 deuce_faq = [
     ("What is the Star Point in padel?", "A deuce format used from 2026. You play advantage twice. If the game reaches 40-40 a third time, one deciding point, the Star Point, wins the game."),
@@ -1806,6 +1823,105 @@ page("king-of-the-court.html", "King of the Court Padel Generator: Free Rounds, 
      "Free King of the Court padel generator. Enter 8 to 28 players, tap the winners and get the next round: winners up, losers down, new partners. Round timer and live table.",
      kotc, kotc_faq, "King of the Court")
 
+# ---------------- TIE-BREAK ----------------
+# Sources: FIP Rules of Padel PDF (in force 01.01.2026): Rule 1 tie-break 1.1-1.5, alternative score methods 1(b) and 1(c),
+# 2.4 (20 s between points), 2.5 (90 s change of ends, no rest after game 1 or during a tie-break), 2.6 (120 s end of set),
+# 2.10 (20 s change of ends in a tie-break), 5.1 (change ends after odd games), 5.2 (tie-break: change ends every 6 points).
+# Cross-check: Bounce "Padel scoring" (Jul 2026), LTA Padel rules page (7 points, 2 clear).
+def _tb_row(n):
+    srv = 0 if n == 0 else ((n + 1) // 2) % 4
+    lab = ["Player 1 (team A)", "Player 2 (team B)", "Player 3 (team A)", "Player 4 (team B)"][srv]
+    side = "Right" if n % 2 == 0 else "Left"
+    ends = "Change ends after this point" if (n + 1) % 6 == 0 else ""
+    return f"<tr><td>{n + 1}</td><td>{lab}</td><td>{side}</td><td>{ends}</td></tr>"
+TB_COURT = '''<svg viewBox="0 0 440 240" id="tb-court" role="img" aria-label="Top view of a padel court showing who serves next, from which side, and into which box">
+<rect x="10" y="10" width="420" height="220" rx="8" fill="#1d55e6"/>
+<rect id="tb-box" x="220" y="20" width="139" height="100" fill="#e8f84a" opacity=".28"/>
+<path d="M20 20h400v200H20z" fill="none" stroke="#fff" stroke-width="2.5"/>
+<path d="M81 20v200M359 20v200M81 120h278" stroke="#fff" stroke-width="2"/>
+<path d="M220 14v212" stroke="#e4eef6" stroke-width="5"/>
+<rect x="10" y="10" width="420" height="220" rx="8" fill="none" stroke="#9cc4ea" stroke-width="8" opacity=".6"/>
+<text id="tb-lname" x="50" y="126" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="800" font-size="13" transform="rotate(-90 50 120)">Team A</text>
+<text id="tb-rname" x="390" y="126" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="800" font-size="13" transform="rotate(90 390 120)">Team B</text>
+<path id="tb-arrow" d="M60 170 L290 70" fill="none" stroke="#e8f84a" stroke-width="2.5" stroke-dasharray="6 6"/>
+<circle id="tb-srv" cx="60" cy="170" r="10" fill="#e8f84a" stroke="#0b1530" stroke-width="2"/>
+</svg>'''
+tb = f'''<header class="hero"><div class="wrap"><h1>Padel tie-break rules, point by point.</h1>
+<p class="lead">Not sure who serves next in a tie-break, or when to change ends? Enter the four players, tap who wins each point, and the tracker shows the next server, the side to serve from and when to swap ends.</p>
+{quick("At 6-6 padel plays a tie-break: first to 7 points with a 2-point lead wins, and the set ends 7-6. The next server in the set's order serves point 1 from the right. After that each player serves two points in turn (first from the left, then the right), keeping the same order. Change ends after every 6 points. A match tie-break (super tie-break) at one set all is the same, but first to 10.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="score" id="tb">
+<div class="score-top"><div class="seg" id="tb-type" role="group" aria-label="Tie-break type"><button type="button" data-v="7" aria-pressed="true">Set tie-break (to 7)</button><button type="button" data-v="10" aria-pressed="false">Match tie-break (to 10)</button></div>
+<div class="btns" style="margin:0"><button class="btn sm" type="button" id="tb-undo">Undo</button><button class="btn sm" type="button" id="tb-reset">Start again</button></div></div>
+<details class="tb-names"><summary>Player names and serve order</summary>
+<p class="muted" style="color:#c9d6fb">Put the players in serving order. Player 1 is the player whose turn it is to serve after 6-6. Players 1 and 3 are team A; players 2 and 4 are team B.</p>
+<div class="tb-grid">
+<label>Player 1, serves first (team A)<input class="search" id="tb-n0" maxlength="18" placeholder="Player 1"></label>
+<label>Player 2, serves next (team B)<input class="search" id="tb-n1" maxlength="18" placeholder="Player 2"></label>
+<label>Player 3, partner of player 1<input class="search" id="tb-n2" maxlength="18" placeholder="Player 3"></label>
+<label>Player 4, partner of player 2<input class="search" id="tb-n3" maxlength="18" placeholder="Player 4"></label>
+</div></details>
+<div class="tb-now" aria-live="polite"><div><span>Next serve</span><b id="tb-who">Player 1</b><i id="tb-side">from the right side</i></div><div class="tb-sc"><b id="tb-a">0</b><span>-</span><b id="tb-b">0</b></div></div>
+<p class="tb-alert" id="tb-alert" role="status"></p>
+<div class="court-art tb-art">{TB_COURT}</div>
+<div class="teams tb-btns" style="margin-top:12px"><button class="btn lime" type="button" data-w="0" id="tb-wa">Team A wins the point</button><button class="btn lime" type="button" data-w="1" id="tb-wb">Team B wins the point</button></div>
+<div class="tb-log" id="tb-log"></div>
+<div class="btns" style="margin-top:10px"><button class="btn sm" type="button" id="tb-copy">Copy result</button><button class="btn sm" type="button" id="tb-rand">Play a random tie-break</button></div>
+</div>
+<p class="muted" style="margin-top:14px">Saved on this device, so you can close the page between points. Playing a full match? The <a href="{href("score.html")}">score keeper</a> counts points, games, sets and tie-breaks.</p>
+</div></section>
+{AD.format("tb-mid")}
+<section><div class="wrap"><div class="sh"><h2>How does a padel tie-break work?</h2></div><div class="grid">
+<div class="card"><h3>When it starts</h3><p>When a set reaches 6-6. The tie-break is the last game of the set, and the pair that wins it wins the set 7-6.</p></div>
+<div class="card"><h3>How you count</h3><p>Forget 15, 30, 40. In a tie-break you count 0, 1, 2, 3 and so on. The first pair to 7 points wins, but you must be 2 points ahead, so 7-6 is not enough: play on to 8-6, 9-7 and so on.</p></div>
+<div class="card"><h3>The first serve</h3><p>The player whose turn it is to serve in the set serves the first point only, from the right side of the court.</p></div>
+<div class="card"><h3>Then two serves each</h3><p>The other pair serves the next two points, then each player serves two points in a row, in the same order as the rest of the set. The first of each two is served from the left, the second from the right.</p></div>
+<div class="card"><h3>Change ends every 6 points</h3><p>Swap ends after 6, 12, 18 points and so on. There is no long rest: play is meant to be continuous, and the FIP rules give 20 seconds for the change.</p></div>
+<div class="card"><h3>The next set</h3><p>The next set starts with a serve from the pair that did not serve first in the tie-break.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Who serves each point of a padel tie-break?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Point</th><th scope="col">Server</th><th scope="col">Serves from</th><th scope="col">Ends</th></tr></thead><tbody>
+{"".join(_tb_row(n) for n in range(12))}
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">The pattern carries on the same way after point 12. "Right" and "left" are from the server's point of view, looking at the net. Player 1 is whoever is next to serve in the set; players 1 and 3 are partners.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Tie-break or super tie-break: what is the difference?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col"></th><th scope="col">Set tie-break</th><th scope="col">Match tie-break (super tie-break)</th></tr></thead><tbody>
+<tr><td>When</td><td>A set reaches 6-6</td><td>At one set all, instead of a third set</td></tr>
+<tr><td>Points to win</td><td>7, with a 2-point lead</td><td>10, with a 2-point lead</td></tr>
+<tr><td>Result</td><td>Set won 7-6</td><td>Wins the match</td></tr>
+<tr><td>Serve order</td><td>1 point, then 2 each</td><td>1 point, then 2 each</td></tr>
+<tr><td>Is it always used?</td><td>Yes, unless the event plays a final set with no tie-break</td><td>Only if the organiser chooses it</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">The FIP lists the 10-point match tie-break, and a 7-point one, as other ways to settle a match at one set all. The rules give "every 6 points" for changing ends in a tie-break; this tracker uses the same for the 10-point version. Check with your organiser.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>When do you change ends in padel?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Moment</th><th scope="col">What happens</th><th scope="col">Time allowed (FIP)</th></tr></thead><tbody>
+<tr><td>Between points</td><td>No change</td><td>Up to 20 seconds</td></tr>
+<tr><td>After games 1, 3, 5 and every odd game</td><td>Change ends</td><td>Up to 90 seconds, but no rest after game 1</td></tr>
+<tr><td>In a tie-break, every 6 points</td><td>Change ends</td><td>20 seconds, play is continuous</td></tr>
+<tr><td>End of a set</td><td>Rest</td><td>Up to 120 seconds</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Common tie-break mix-ups</h2></div><div class="grid">
+<div class="card"><h3>"First to 7 wins"</h3><p>Only with a 2-point lead. At 6-6 in the tie-break, keep going until one pair is 2 points clear.</p></div>
+<div class="card"><h3>"Golden point at 6-6 in the tie-break"</h3><p>Golden point and Star Point are for 40-40 in a normal game. A tie-break is counted in single points and needs 2 clear. <a href="{href("golden-point-star-point.html")}">How deuce formats work</a>.</p></div>
+<div class="card"><h3>Serving from the wrong side</h3><p>Point 1 is served from the right. After that, each player serves their first point from the left and their second from the right.</p></div>
+<div class="card"><h3>Forgetting to swap ends</h3><p>Use the total of both scores: when it reaches 6, 12 or 18, swap. At 4-2, 5-1 or 3-3 it's time to change.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Keep the whole score</h3><p>Points, games, sets and tie-breaks on one phone with the <a href="{href("score.html")}">score keeper</a>.</p></div>
+<div class="card"><h3>Serve it right</h3><p>Check feet, height and bounce with the <a href="{href("serve-rules.html")}">serve rules checker</a>.</p></div>
+<div class="card"><h3>All the rules</h3><p>Walls, net and scoring on a court you can tap: <a href="{href("rules.html")}">padel rules</a>.</p></div>
+</div></div></section>'''
+tb_faq = [
+    ("How many points is a padel tie-break?", "A set tie-break is first to 7 points with a 2-point lead, so it can go past 7, for example 8-6 or 10-8. A match tie-break (super tie-break) is first to 10, also with a 2-point lead."),
+    ("Who serves first in a padel tie-break?", "The player whose turn it is to serve in the set. They serve only the first point, from the right. Then the other pair serves two points, and everyone serves two points in turn."),
+    ("When do you change ends in a padel tie-break?", "After every 6 points: when the total score reaches 6, 12, 18 and so on. The change should be quick; the FIP rules allow 20 seconds."),
+    ("What is a super tie-break in padel?", "A tie-break to 10 points, 2 clear, played at one set all instead of a full third set. It is an option the organiser can choose, often used in club leagues and some events."),
+    ("Who serves first in the set after a tie-break?", "The pair that did not serve first in the tie-break starts the next set."),
+    ("Is there a golden point in a padel tie-break?", "No. Golden point and Star Point are ways to settle 40-40 in a normal game. In a tie-break you need to win by 2 points."),
+    ("What is the score of a set won on a tie-break?", "7-6. The tie-break counts as the deciding game of the set."),
+]
+page("tie-break.html", "Padel Tie-Break Rules: Who Serves and When to Change Ends (Free Tracker) | Padel Glass Box",
+     "Padel tie-break rules made simple: first to 7, 2 clear, serve order 1 then 2 each, change ends every 6 points. Free tracker for set and 10-point match tie-breaks.", tb, tb_faq, "Tie-break rules")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -1816,7 +1932,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

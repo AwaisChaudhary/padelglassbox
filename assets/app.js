@@ -1581,4 +1581,64 @@
     sync();
     if (K && K.r) { show(true); resetT(); draw(); }
   })();
+
+  /* ---------- tie-break tracker ---------- */
+  var tbe = $("#tb");
+  if (tbe) {
+    var TS = store.get("pgb-tb", null) || {};
+    if (!TS.t) TS.t = 7; if (!TS.n) TS.n = ["", "", "", ""]; if (!TS.p) TS.p = [];
+    var tbSave = function () { store.set("pgb-tb", TS); };
+    var nm = function (i) { return (TS.n[i] || "").trim() || "Player " + (i + 1); };
+    var tname = function (k) { return "Team " + (k ? "B" : "A") + " (" + nm(k) + " & " + nm(k + 2) + ")"; };
+    var tcount = function (p) {
+      var a = 0, b = 0, i, end = -1;
+      for (i = 0; i < p.length; i++) { if (p[i]) b++; else a++; if (end < 0 && Math.max(a, b) >= TS.t && Math.abs(a - b) >= 2) end = i; }
+      return { a: a, b: b, done: end >= 0 };
+    };
+    var setAttr = function (el, o) { for (var k in o) el.setAttribute(k, o[k]); };
+    var tbRender = function () {
+      var c = tcount(TS.p), n = TS.p.length;
+      $("#tb-a").textContent = c.a; $("#tb-b").textContent = c.b;
+      $$("#tb-type button").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.dataset.v === TS.t)); });
+      for (var i = 0; i < 4; i++) { var inp = $("#tb-n" + i); if (document.activeElement !== inp) inp.value = TS.n[i] || ""; }
+      $("#tb-wa").textContent = "Team A wins the point"; $("#tb-wb").textContent = "Team B wins the point";
+      var aLeft = Math.floor(n / 6) % 2 === 0;
+      $("#tb-lname").textContent = aLeft ? "Team A" : "Team B"; $("#tb-rname").textContent = aLeft ? "Team B" : "Team A";
+      var alert = $("#tb-alert");
+      if (c.done) {
+        var w = c.a > c.b ? 0 : 1, hi = Math.max(c.a, c.b), lo = Math.min(c.a, c.b);
+        $("#tb-who").textContent = "Tie-break over"; $("#tb-side").textContent = tname(w) + " wins " + hi + "-" + lo;
+        alert.textContent = TS.t === 7 ? tname(w) + " wins the set 7-6. Next set: team B (" + nm(1) + " & " + nm(3) + ") serves first, as they did not serve first in the tie-break." : tname(w) + " wins the match tie-break " + hi + "-" + lo + " and the match.";
+        $("#tb-srv").setAttribute("opacity", "0"); $("#tb-arrow").setAttribute("opacity", "0"); $("#tb-box").setAttribute("opacity", "0");
+      } else {
+        var rot = n === 0 ? 0 : Math.floor((n + 1) / 2) % 4, team = rot % 2, right = n % 2 === 0;
+        $("#tb-who").textContent = nm(rot) + " (team " + (team ? "B" : "A") + ")";
+        $("#tb-side").textContent = "serves point " + (n + 1) + " from the " + (right ? "right" : "left") + " side";
+        var onLeft = (team === 0) === aLeft, sx, sy, bx, by;
+        if (onLeft) { sx = 50; sy = right ? 170 : 70; bx = 220; by = right ? 20 : 120; }
+        else { sx = 390; sy = right ? 70 : 170; bx = 81; by = right ? 120 : 20; }
+        setAttr($("#tb-srv"), { cx: sx, cy: sy, opacity: 1 });
+        setAttr($("#tb-box"), { x: bx, y: by, opacity: 0.28 });
+        setAttr($("#tb-arrow"), { d: "M" + sx + " " + sy + " L" + (bx + 70) + " " + (by + 50), opacity: 1 });
+        if (n > 0 && n % 6 === 0) alert.textContent = "Change ends now: " + n + " points played. Play on straight away (20 seconds at most).";
+        else if (c.a === c.b && c.a >= TS.t - 1) alert.textContent = c.a + "-" + c.b + ": keep going, you need a 2-point lead.";
+        else if (Math.max(c.a, c.b) >= TS.t - 1 && Math.abs(c.a - c.b) >= 1) alert.textContent = "Set point for team " + (c.a > c.b ? "A" : "B") + (TS.t === 10 ? " (match point)" : "") + ".";
+        else alert.textContent = n === 0 ? "Point 1 is the only one served alone. After it, every player serves two points." : "";
+      }
+      $$(".tb-btns button", tbe).forEach(function (b) { b.disabled = c.done; });
+      var a = 0, b = 0;
+      $("#tb-log").innerHTML = TS.p.map(function (w, i) { if (w) b++; else a++; return '<span class="' + ((i + 1) % 6 === 0 ? "sw" : "") + '">' + (i + 1) + ". " + (w ? "B" : "A") + " " + a + "-" + b + ((i + 1) % 6 === 0 ? " · change ends" : "") + "</span>"; }).join("") || '<span>No points yet.</span>';
+    };
+    $$(".tb-btns button", tbe).forEach(function (b) { b.addEventListener("click", function () { if (tcount(TS.p).done) return; TS.p.push(+b.dataset.w); tbSave(); tbRender(); }); });
+    $$("#tb-type button").forEach(function (b) { b.addEventListener("click", function () { var v = +b.dataset.v; if (v === TS.t) return; if (TS.p.length && !confirm("Switch tie-break type and clear the points?")) return; TS.t = v; TS.p = []; tbSave(); tbRender(); }); });
+    for (var ti = 0; ti < 4; ti++) (function (i) { $("#tb-n" + i).addEventListener("input", function () { TS.n[i] = this.value; tbSave(); tbRender(); }); })(ti);
+    $("#tb-undo").addEventListener("click", function () { TS.p.pop(); tbSave(); tbRender(); });
+    $("#tb-reset").addEventListener("click", function () { TS.p = []; tbSave(); tbRender(); });
+    $("#tb-rand").addEventListener("click", function () { TS.p = []; var g = 0; while (!tcount(TS.p).done && g++ < 80) TS.p.push(Math.random() < 0.5 ? 0 : 1); tbSave(); tbRender(); });
+    $("#tb-copy").addEventListener("click", function () {
+      var c = tcount(TS.p), txt = (TS.t === 7 ? "Set tie-break" : "Match tie-break") + ": " + tname(0) + " " + c.a + " - " + c.b + " " + tname(1) + (c.done ? "" : " (in progress)") + "\nPoints: " + TS.p.map(function (w) { return w ? "B" : "A"; }).join(" ") + "\nTracked with padelglassbox.com/tie-break";
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { toast("Result copied"); }, function () { toast("Couldn't copy"); }); else toast("Couldn't copy");
+    });
+    tbRender();
+  }
 })();

@@ -521,3 +521,29 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .kc-timer span { color: var(--muted); font-size: .85rem; }
 #kc-hist p { margin: 0 0 12px; font-size: .92rem; overflow-wrap: anywhere; }
 #dr-plan .num { white-space: nowrap; }
+
+/* ---------- tie-break tracker ---------- */
+.tb-names { background: rgba(255,255,255,0.05); border-radius: 14px; padding: 12px 14px; margin-bottom: 12px; }
+.tb-names summary { cursor: pointer; font-weight: 700; color: #fff; }
+.tb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tb-grid label { display: flex; flex-direction: column; gap: 6px; font-size: .86rem; color: #c9d6fb; font-weight: 600; }
+.tb-grid input.search { margin: 0; }
+@media (max-width: 600px) { .tb-grid { grid-template-columns: 1fr; } }
+.tb-now { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; background: linear-gradient(170deg, var(--turf-2), var(--turf) 60%, #1a3cad); border-radius: 18px; padding: 16px 18px; }
+.tb-now span { display: block; font-size: .82rem; color: #c9d6fb; font-weight: 600; }
+.tb-now b#tb-who { display: block; font-family: var(--display); font-size: 1.5rem; color: #fff; overflow-wrap: anywhere; }
+.tb-now i { font-style: normal; color: var(--ball); font-weight: 700; }
+.tb-sc { display: flex; align-items: baseline; gap: 10px; font-family: var(--display); }
+.tb-sc b { font-size: clamp(2.8rem, 10vw, 4.4rem); line-height: 1; color: var(--ball); font-variant-numeric: tabular-nums; }
+.tb-sc span { font-size: 2rem; color: #c9d6fb; }
+.tb-alert { min-height: 1.5em; margin: 10px 0; font-weight: 700; color: var(--ball); }
+.tb-art { padding: 10px; margin: 0; }
+.tb-art svg circle, .tb-art svg path#tb-arrow, .tb-art #tb-box { transition: all .3s ease; }
+.tb-log { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.tb-log span { background: rgba(255,255,255,0.08); padding: 5px 9px; border-radius: 8px; font-size: .84rem; font-variant-numeric: tabular-nums; color: #dfe7ff; }
+.tb-log span.sw { background: rgba(232,248,74,0.18); color: var(--ball); }
+.tb-btns .btn:disabled { opacity: .45; cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) { .tb-art svg * { transition: none !important; } }
+.tb-art { max-width: 620px; margin: 0 auto; }
+.score .tb-btns .btn { background: var(--ball); border-color: var(--ball); color: var(--deep); justify-content: center; }
+.score .tb-btns .btn:hover { background: #f2ff7a; color: var(--deep); }
