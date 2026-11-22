@@ -500,3 +500,6 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .lb td.ld-mv { font-size: .85rem; color: #9fb0e0; white-space: nowrap; }
 .lb td.ld-mv.up { color: var(--ball); }
 .lb td.ld-mv.dn { color: #ffb4a0; }
+/* racket care health check: ticked = noticed, not done */
+#rc-list input:checked + span { color: var(--ink); text-decoration: none; font-weight: 600; }
+#rc-out .b-why { margin-bottom: 12px; }

@@ -125,7 +125,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -186,7 +186,7 @@ home = f'''<div class="arena"><div class="wrap arena-grid">
 <div>{R_SCORE}<h3>Scored like tennis</h3><p>15, 30, 40, game, with sets to six. At 40-40 many clubs play a golden point, where one deciding point wins the game.</p></div>
 </div></div></section>'''
 home_faq = [
-    ("What is padel?", "Padel is a racket sport played mostly in doubles on an enclosed court about a third the size of a tennis court. You use a solid, holed racket and can play the ball off the glass walls."),
+    ("What is padel?", "Padel is a racket sport played mostly in doubles on an enclosed 20 x 10 m court, smaller than a tennis court. You use a solid, holed racket and can play the ball off the glass walls."),
     ("How big is a padel court?", "A padel court is 20 m long and 10 m wide. The net is 88 cm high in the middle and 92 cm at the posts."),
     ("Is padel easy for beginners?", "Yes. The underhand serve, small court and walls make long rallies possible from the first game, which is why it's one of the fastest-growing sports."),
     ("Is padel scored like tennis?", "Yes: 15, 30, 40 and game, with sets to six. Many matches use a golden point at 40-40, and the 2026 rules also allow a format called Star Point."),
@@ -222,7 +222,7 @@ finder = f'''<header class="hero"><div class="wrap"><h1>Find your padel racket.<
 <div class="card"><h3>Core foam</h3><p>Soft foam gives easy power and comfort at slow speeds. Hard foam gives control when you swing fast.</p></div>
 <div class="card"><h3>Face material</h3><p>Fiberglass is softer and forgiving. Carbon is stiffer and more precise, and usually costs more.</p></div>
 </div></div></section>
-<section style="padding-top:0" id="grip"><div class="wrap"><div class="sh"><h2>Grip and overgrip</h2><p class="muted">The cheapest upgrade you can make to any racket.</p></div><div class="grid">
+<section style="padding-top:0" id="grip"><div class="wrap"><div class="sh"><h2>Grip and overgrip</h2><p class="muted">The cheapest upgrade you can make to any racket. Looking after the rest of it? See <a href="{href("racket-care.html")}">racket care</a>.</p></div><div class="grid">
 <div class="card"><h3>Grip vs overgrip</h3><p>The base grip is the thick, cushioned layer that comes on the handle. An overgrip is a thin, light tape you wrap over it. It protects the base grip, which is harder to replace, and soaks up sweat.</p></div>
 <div class="card"><h3>When to change it</h3><p>Change it when it looks dirty or worn, or when it feels slippery, wet or less sticky. Social players often get a few sessions from one. Players who sweat a lot, or play in heat, change it far more often.</p></div>
 <div class="card"><h3>How to put one on</h3><p>Take off the old overgrip. Start at the bottom of the handle, by the butt cap, and wrap up towards the head, keeping each turn parallel and slightly overlapping. Cut the end straight and fix it with the finishing tape.</p></div>
@@ -296,7 +296,7 @@ rules = f'''<header class="hero"><div class="wrap"><h1>Padel rules, tap by tap.<
 <div class="card"><h3>Lets</h3><p>If the serve touches the net and still lands in the right box, without touching the metal fence, it is a let and you replay that serve.</p></div>
 <div class="card"><h3>Receiving</h3><p>The receiver must let the serve bounce before hitting it. After that, players can volley freely.</p></div>
 <div class="card"><h3>Using the walls</h3><p>On your side, the ball can bounce once and then hit the glass or fence; you can still play it. You may also hit the ball into your own glass to get it back over the net, but not into your own metal fence. Not sure about a call? Try the <a href="{href("wall-rules.html")}">wall and fence checker</a>.</p></div>
-<div class="card"><h3>Lost points</h3><p>You lose the point if the ball bounces twice on your side, if your shot hits the opponents' wall or fence before their ground, if it hits your own fence, if the ball touches you or your partner, or if you touch the net or posts during the rally.</p></div>
+<div class="card"><h3>Lost points</h3><p>You lose the point if the ball bounces twice on your side, if your shot hits the opponents' wall or fence before their ground, if it hits your own fence, if the ball touches you or your partner, or if you touch the net or posts during the rally. All the net calls: <a href="{href("net-rules.html")}">net rules checker</a>.</p></div>
 <div class="card"><h3>Scoring</h3><p>15, 30, 40, game, sets to six with a tie-break at 6-6. At deuce, the organiser chooses advantage, golden point or Star Point: <a href="{href("golden-point-star-point.html")}">see how each one works</a>.</p></div>
 <div class="card"><h3>Court size</h3><p>The court is 20 m by 10 m, with the service lines 6.95 m from the net. See every measurement, in metres or feet, on our <a href="{href("court-dimensions.html")}">measured court diagram</a>.</p></div>
 <div class="card"><h3>Where to stand</h3><p>Rules tell you what is allowed; position wins points. See where all four players stand at the serve, at the net and at the back on our <a href="{href("positioning.html")}">positioning guide</a>.</p></div>
@@ -528,7 +528,8 @@ DIMS = [("len", "Length"), ("wid", "Width"), ("svc", "Net to service line"), ("b
         ("glassl", "Side glass length"), ("glass3", "Glass height"), ("step2", "Side step height"), ("back4", "Back wall total"), ("neth", "Net height"), ("netl", "Net length")]
 dbtn = "".join(f'<button class="opt" type="button" data-k="{k}" aria-pressed="false">{n}</button>' for k, n in DIMS)
 court = f'''<header class="hero"><div class="wrap"><h1>Padel court dimensions, measured.</h1>
-<p class="lead">Every official measurement on one court you can explore: tap a measurement to light it up and read what it's for. Switch between metres and feet.</p></div></header>
+<p class="lead">Every official measurement on one court you can explore: tap a measurement to light it up and read what it's for. Switch between metres and feet.</p>
+{quick("A doubles padel court is 20 m long and 10 m wide (about 65 ft 7 in by 32 ft 10 in). The service line is 6.95 m from the net, the net is 0.88 m high in the middle and 0.92 m at the posts, and the back wall is 4 m high: 3 m of glass plus 1 m of mesh. Indoor courts need at least 6 m of clear height.")}</div></header>
 <section style="padding-top:10px"><div class="wrap">
 <div class="dim-bar"><div class="seg" id="unit" role="group" aria-label="Units"><button type="button" data-v="m" aria-pressed="true">Metres</button><button type="button" data-v="ft" aria-pressed="false">Feet</button></div></div>
 <div class="dims-layout">
@@ -555,10 +556,15 @@ court = f'''<header class="hero"><div class="wrap"><h1>Padel court dimensions, m
 <p class="muted" style="margin-top:14px">Small building tolerances are allowed. Some courts use a variant with taller side glass, and rules for new venues can ask for more height. If you are building a court, check the current rules with your national federation.</p>
 </div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What the measurements mean for your game</h2></div><div class="grid">
-<div class="card"><h3>A third of a tennis court</h3><p>At 20 m by 10 m, the court is small enough that you rarely sprint far. That is a big reason padel feels easy to start.</p></div>
+<div class="card"><h3>Smaller than a tennis court</h3><p>At 20 m by 10 m, the court is about three quarters the area of a tennis doubles court (23.77 m by 10.97 m), and there is no run-off space behind the walls. You rarely sprint far, which is a big reason padel feels easy to start. See all three sports to scale on our <a href="{href("padel-vs-tennis-vs-pickleball.html")}">padel vs tennis vs pickleball</a> page.</p></div>
 <div class="card"><h3>A short back area</h3><p>Only about 3 m sits behind the service line. Balls reach the back glass quickly, so learning to let the ball come off the wall matters early.</p></div>
 <div class="card"><h3>A low net</h3><p>The net is lower than in tennis, and dips a little in the middle. Low, flat balls over the centre are the safest way to keep the ball in play.</p></div>
-<div class="card"><h3>Where the glass steps down</h3><p>The side glass is tallest near the back walls. Balls that hit the mesh act differently from glass, which you can read about on our <a href="{href("rules.html")}">rules court</a>.</p></div>
+<div class="card"><h3>Where the glass steps down</h3><p>The side glass is tallest near the back walls. Balls that hit the mesh act differently from glass, which you can read about on our <a href="{href("wall-rules.html")}">wall and fence rules</a> page.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>The net</h3><p>Can you touch it or reach over it? Check the <a href="{href("net-rules.html")}">net rules checker</a>.</p></div>
+<div class="card"><h3>Where to stand</h3><p>Use the measurements in play with the <a href="{href("positioning.html")}">positioning court</a>.</p></div>
+<div class="card"><h3>The serve</h3><p>The service box in action: the <a href="{href("serve-rules.html")}">serve checker</a>.</p></div>
 </div></div></section>'''
 court_faq = [
     ("How big is a padel court?", "A doubles padel court is 20 m long and 10 m wide inside the walls. That is about 65 ft 7 in by 32 ft 10 in."),
@@ -567,6 +573,7 @@ court_faq = [
     ("How high are the walls of a padel court?", "The back wall is 4 m in total: 3 m of glass with 1 m of metal mesh on top. The side glass is 3 m high near the back walls, then steps down to 2 m."),
     ("How much ceiling height does indoor padel need?", "The official rules ask for at least 6 m of clear height above the court. Higher is better for lobs."),
     ("How big is a singles padel court?", "Singles courts are 20 m long like doubles, but only 6 m wide."),
+    ("Is a padel court smaller than a tennis court?", "Yes. A padel court is 20 x 10 m (200 square metres). A tennis doubles court is 23.77 x 10.97 m (about 261 square metres), so padel is about three quarters of the area, before counting the space tennis needs around the lines."),
 ]
 page("court-dimensions.html", "Padel Court Dimensions: Interactive Measured Diagram (m and ft) | Padel Glass Box",
      "Official padel court dimensions on an interactive diagram: 20 x 10 m court, 6.95 m service line, 88 cm net, wall and glass heights. Switch metres and feet.", court, court_faq, "Court dimensions")
@@ -956,7 +963,7 @@ wall = f'''<header class="hero"><div class="wrap"><h1>Padel wall rules: was that
 <div class="card"><span class="pill b">Your side</span><h3 style="margin-top:10px">Your glass is a tool</h3><p>You can hit the ball into your own glass to send it back over the net. This is a normal shot in padel, often used when the ball gets past you into the corner.</p></div>
 <div class="card"><span class="pill b">Your side</span><h3 style="margin-top:10px">Your fence is not</h3><p>Hitting the ball into the metal mesh on your own side loses the point. Only the glass may be used to play the ball back.</p></div>
 <div class="card"><span class="pill b">Their side</span><h3 style="margin-top:10px">One bounce, then anything</h3><p>After one bounce on their side, the ball may hit their glass, their fence or both, as many times as it likes. They must hit it before it touches the ground a second time.</p></div>
-<div class="card"><span class="pill b">Net</span><h3 style="margin-top:10px">Net cord is fine in a rally</h3><p>In a rally, a ball that clips the net and lands on their side is good. On the serve it is a let. Touching the net or the posts with your body or racket loses the point.</p></div>
+<div class="card"><span class="pill b">Net</span><h3 style="margin-top:10px">Net cord is fine in a rally</h3><p>In a rally, a ball that clips the net and lands on their side is good. On the serve it is a let. Touching the net or the posts with your body or racket loses the point. More in the <a href="{href("net-rules.html")}">net rules checker</a>.</p></div>
 <div class="card"><span class="pill b">Outside</span><h3 style="margin-top:10px">Out of the court</h3><p>A ball that bounces on their side and then flies out of the court was a good shot. At clubs that allow it, they may run out and play it back. If not, you win the point.</p></div>
 </div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Every wall and fence call</h2></div>
@@ -1444,6 +1451,172 @@ page("ladder.html", "Padel Ladder Tracker: Free Challenge Ladder for Pairs or Pl
      "Free padel ladder tracker. Add your pairs or players, record challenges and the ladder updates itself, with records, movement and history. Plus ladder rules to agree.",
      lad, lad_faq, "Padel ladder tracker")
 
+# ---------------- NET RULES CHECKER ----------------
+# Calls follow the FIP Rules of Padel PDF (in force 01.01.2026). Ball positions are x,y on the 400x160 side view.
+NET = {
+    "rk": ("lose", "You lose the point", "If your racket touches the net, a net post or the net cable while the ball is in play, your team loses the point. It doesn't matter if your shot was a winner.", "FIP rule 13.1(a)", [186, 100]),
+    "bd": ("lose", "You lose the point", "Your body, clothes and anything you carry count too. A shirt, a cap or a hand on the net while the ball is in play loses the point.", "FIP rule 13.1(a)", [190, 118]),
+    "cr": ("lose", "You lose the point", "Touching the opponents' court while the ball is in play also loses the point, for example a foot that slides under the net onto their side.", "FIP rule 13.1(a)", [214, 138]),
+    "af": ("on", "No net fault", "The net rule applies while the ball is in play. Once the point has ended (for example the ball bounced twice), touching the net does not change the result. Make sure the point really is over first, and treat the net with care.", "FIP rule 13.1(a), which covers touches \"while the ball is in play\"", [190, 112]),
+    "ov": ("lose", "You lose the point", "You must wait until the ball has crossed the net to your side. Hitting it while it is still over their court loses the point.", "FIP rule 13.1(f)", [222, 86]),
+    "ft": ("on", "Play on", "If you hit the ball on your side, your swing may carry on over the net. What matters is where you hit the ball and that you don't touch the net or their court.", "FIP rules 13.1(a) and 13.1(f)", [194, 84]),
+    "sb": ("on", "Play on: they may reach over", "If your shot bounces on their side and then spins or blows back over the net, they may hit it, even by reaching over the net. They lose the point if they touch the net, the posts or your court, or if it bounces a second time first.", "FIP rule 14.1(g)", [180, 120]),
+    "nc": ("on", "Play on", "In a rally, a ball that clips the net or a post and then lands on their side is a good shot. Keep playing.", "FIP rule 14.1(e)", [200, 96]),
+    "np": ("on", "Play on", "The net posts count like the net. If your shot hits a post and then lands in their court, the rally goes on.", "FIP rule 14.1(e)", [204, 92]),
+    "ns": ("let", "Let: serve again", "On the serve it is different. A serve that touches the net or a post and then lands in the correct service box is a let, so you serve that serve again. If it touches the net and lands anywhere else, it is a fault.", "FIP rules 9.1 and 9.2", [200, 96]),
+    "hb": ("lose", "You lose the point", "If the other team's shot hits you or your clothes before it bounces, your team loses the point. This is true even if the ball looked like it was going out.", "FIP rule 13.1", [176, 100]),
+}
+def _nq(label, opts):
+    return f'<div class="q nt-q"><h3>{label}</h3><div class="opts">' + "".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="false">{t}</button>' for v, t in opts) + '</div></div>'
+NT_SVG = '''<svg viewBox="0 0 400 160" class="wr-court" role="img" aria-label="Side view of the net. The ball shows where the situation happens.">
+<rect x="0" y="0" width="400" height="160" rx="14" fill="#0e2468"/>
+<rect x="20" y="140" width="360" height="6" fill="#1e46c8"/>
+<defs><pattern id="ntm" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 0H6M0 0V6" stroke="#e4eef6" stroke-width=".8" opacity=".55"/></pattern></defs>
+<rect x="197" y="102" width="6" height="38" fill="url(#ntm)"/><path d="M196 100h8" stroke="#fff" stroke-width="4"/>
+<rect x="198" y="96" width="4" height="44" fill="#e4eef6" opacity=".35"/>
+<text x="110" y="156" text-anchor="middle" font-size="9" fill="#9fb0e0" font-family="Onest, sans-serif">Your side</text><text x="290" y="156" text-anchor="middle" font-size="9" fill="#9fb0e0" font-family="Onest, sans-serif">Their side</text>
+<text x="210" y="98" font-size="8" fill="#9fb0e0" font-family="Onest, sans-serif">net 0.88 m</text>
+<g fill="#e8f84a"><circle cx="150" cy="84" r="5"/><path d="M150 90v22M150 112l-6 28M150 112l6 28" stroke="#e8f84a" stroke-width="3"/><path d="M150 96l20 -6" stroke="#e8f84a" stroke-width="3"/></g>
+<g fill="#ffffff"><circle cx="270" cy="84" r="5"/><path d="M270 90v22M270 112l-6 28M270 112l6 28" stroke="#fff" stroke-width="3" opacity=".9"/></g>
+<circle id="nt-ring" cx="200" cy="100" r="13" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="3 3" opacity="0"/>
+<circle id="nt-ball" cx="110" cy="132" r="6" fill="#e8f84a" stroke="#0b1530" stroke-width="1.5"/>
+</svg>'''
+net = f'''<header class="hero"><div class="wrap"><h1>Padel net rules: can you touch the net?</h1>
+<p class="lead">Racket on the net, a ball that spins back, a swing over the top, a net cord on the serve: tap what happened and get the call with the FIP rule number.</p>
+{quick("No. If you, your clothes or your racket touch the net, the net posts or the other team's court while the ball is in play, you lose the point. You also lose it if you hit the ball before it has crossed to your side. Your swing may go over the net after you hit the ball on your side, and a rally ball that clips the net and lands over is good. On the serve, a net cord that lands in the box is a let.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="nt">
+<div>
+{_nq("Touching the net", [("rk", "My racket touched the net"), ("bd", "My body or clothes touched the net or a post"), ("cr", "My foot went under the net onto their side"), ("af", "I touched the net after the point was over")])}
+{_nq("Hitting over the net", [("ov", "I hit the ball before it crossed to my side"), ("ft", "I hit it on my side and my swing went over the net"), ("sb", "My shot bounced on their side and spun back over")])}
+{_nq("The ball and the net", [("nc", "My rally shot clipped the net and landed over"), ("np", "My shot hit the net post and landed in their court"), ("ns", "My serve clipped the net and landed in the box"), ("hb", "Their shot hit me at the net before it bounced")])}
+<button class="btn sm" type="button" id="nt-reset">Start again</button>
+</div>
+<aside class="result" id="nt-out" aria-live="polite"><div class="wr-svg">{NT_SVG}</div><div id="nt-txt"><h2>Make the call</h2><p>Tap a situation and the verdict appears here.</p></div></aside>
+</div></div></section>
+{AD.format("net-mid")}
+<section><div class="wrap"><div class="sh"><h2>What are the net rules in padel?</h2></div><div class="grid">
+<div class="card"><span class="pill a">Lose the point</span><h3 style="margin-top:10px">No touching</h3><p>While the ball is in play, you may not touch the net, the posts, the net cable or the other team's court. This covers your racket, your body, your clothes and anything you carry.</p></div>
+<div class="card"><span class="pill a">Lose the point</span><h3 style="margin-top:10px">Wait for the ball</h3><p>You may only hit the ball once it has crossed the net to your side. No volleying it over their court.</p></div>
+<div class="card"><span class="pill b">Allowed</span><h3 style="margin-top:10px">Follow-through</h3><p>If you hit the ball on your side, your racket may go over the net as you finish the swing, as long as it touches nothing.</p></div>
+<div class="card"><span class="pill b">Allowed</span><h3 style="margin-top:10px">Net cord in a rally</h3><p>A rally shot that touches the net or a post and then lands in their court is good.</p></div>
+<div class="card"><span class="pill i">Serve again</span><h3 style="margin-top:10px">Net cord on the serve</h3><p>A serve that touches the net and lands in the right box is a let. Touching the net and landing anywhere else is a fault. More on the <a href="{href("serve-rules.html")}">serve rules page</a>.</p></div>
+<div class="card"><span class="pill b">Allowed</span><h3 style="margin-top:10px">Ball coming back</h3><p>A ball that bounces on your side and then spins back over the net can still be hit by you, reaching over, as long as you don't touch the net or their court.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Can you reach over the net in padel?</h2></div><div class="grid">
+<div class="card"><h3>Before the ball crosses: no</h3><p>If the ball has not yet come over to your side, reaching over to hit it loses the point.</p></div>
+<div class="card"><h3>To finish your swing: yes</h3><p>Hit the ball on your side and let the racket carry on over. Keep your racket and body clear of the net.</p></div>
+<div class="card"><h3>When the ball spins back: yes</h3><p>After a drop shot or a smash with backspin, the ball can bounce and come back to the hitter's side. The other team may reach over or run around to play it, without touching the net or the court.</p></div>
+</div>
+<p class="muted" style="margin-top:14px">Some guides add extra conditions, such as only reaching over after the ball has bounced on your side. The FIP rules don't say this: they only say the ball must have crossed the net and you must not touch the net or the other court. In club play, agree how you will call it before you start.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Other calls that happen near the net</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">What happened</th><th scope="col">The call</th></tr></thead><tbody>
+<tr><td>You hit the ball twice in one swing</td><td>You lose the point (13.1)</td></tr>
+<tr><td>You and your partner both hit the ball</td><td>You lose the point (13.1)</td></tr>
+<tr><td>The ball bounces twice on your side</td><td>You lose the point (13.1)</td></tr>
+<tr><td>You throw your racket at the ball</td><td>You lose the point (13.1)</td></tr>
+<tr><td>You drop your racket or break the safety cord</td><td>You lose the point (13.1)</td></tr>
+<tr><td>Their shot touches your racket and goes over</td><td>Good return: play on (14.1)</td></tr>
+<tr><td>Your shot hits an opponent before bouncing</td><td>You win the point (13.1)</td></tr>
+<tr><td>Their volley at the net hits you before bouncing</td><td>You lose the point (13.1)</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">These calls follow the International Padel Federation (FIP) rules in force from January 2026. Rule numbers are from the FIP Rules of Padel. Local leagues can add their own rules.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How to stay safe at the net</h2></div><div class="grid">
+<div class="card"><h3>Stand a step back</h3><p>About a racket length or two from the net gives you time to react and keeps your racket clear of the net on fast volleys.</p></div>
+<div class="card"><h3>Racket up, in front</h3><p>Keep the racket head up and in front of your body. Balls aimed at you are easier to block, and you are less likely to be hit.</p></div>
+<div class="card"><h3>Stop before the net</h3><p>On a short ball, slow down early. Most net touches happen when a player runs in and can't stop.</p></div>
+</div>
+<p class="muted" style="margin-top:14px">See where to stand in every situation on our <a href="{href("positioning.html")}">positioning court</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Walls and fences</h3><p>Was that ball in? Check it with the <a href="{href("wall-rules.html")}">wall and fence checker</a>.</p></div>
+<div class="card"><h3>The serve</h3><p>Fault, let or good serve? Use the <a href="{href("serve-rules.html")}">serve checker</a>.</p></div>
+<div class="card"><h3>All the rules</h3><p>Tap any part of the <a href="{href("rules.html")}">interactive rules court</a>.</p></div>
+</div></div></section>'''
+net_faq = [
+    ("Can you touch the net in padel?", "No. If you, your clothes or your racket touch the net, the posts or the net cable while the ball is in play, your team loses the point."),
+    ("Can your racket go over the net in padel?", "Yes, if you hit the ball on your side and the racket carries over as you finish your swing, and you don't touch the net. Hitting the ball before it crosses to your side loses the point."),
+    ("What happens if the ball spins back over the net in padel?", "If it bounces on one side and then comes back over the net, the team on that side may still hit it, even by reaching over the net, as long as they don't touch the net or the other court."),
+    ("Is a net cord a let in padel?", "Only on the serve, when the ball touches the net and lands in the correct service box. In a rally, a ball that clips the net and lands in the other court is in play."),
+    ("Can you volley the ball before it crosses the net in padel?", "No. You must wait until the ball is on your side of the net. Hitting it over the other court loses the point."),
+    ("Is it a fault to touch the net after the point is over?", "The FIP net rule applies while the ball is in play, so a touch after the point has ended does not change the result. Make sure the point is really over first."),
+    ("What if the ball hits you at the net before bouncing?", "Your team loses the point, even if you think the ball was going out."),
+]
+page("net-rules.html", "Padel Net Rules: Can You Touch the Net? Free Net Call Checker | Padel Glass Box",
+     "Padel net rules in plain English: touching the net, reaching over, follow-through, balls that spin back, net cords in a rally and on the serve. Tap what happened and get the FIP call.",
+     net + f'<script>window.NT={json.dumps(NET)};</script>', net_faq, "Net rules")
+
+# ---------------- RACKET CARE ----------------
+# Advice from Babolat help centre, Zona de Padel, PadelProShop and Padelshop care guides (see CONTENT-LOG). Checker verdicts are our own wording.
+RC_ITEMS = [
+    ("crack", 3, "I can see a crack in the frame"),
+    ("crack", 3, "There is a crack, dent or hole in the hitting face"),
+    ("in", 2, "Something rattles inside when I shake it"),
+    ("in", 2, "It feels dead or soft in spots, or has less power than before"),
+    ("in", 1, "Hits feel buzzy, with odd vibrations"),
+    ("heat", 1, "It was left in a hot car or in the sun for hours"),
+    ("tape", 0, "The protector tape on the top edge is worn through or peeling"),
+    ("grip", 0, "The overgrip is slippery, shiny or torn"),
+    ("cord", 0, "The wrist cord is frayed or the stopper is loose"),
+]
+rcare = f'''<header class="hero"><div class="wrap"><h1>Padel racket care: make your racket last</h1>
+<p class="lead">Heat, cold, damp and knocks on the glass are what wear a padel racket out. Run the two-minute health check, then follow the simple care routine below.</p>
+{quick("Keep your racket in a cover, in a dry place indoors, away from the sun and out of the car. Wipe off sand and sweat after every game and dry it before you put it away. Put protector tape on the top of the frame, change the overgrip when it gets slippery, and check for cracks every few weeks.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="rc">
+<div><div class="q"><h3>Racket health check: tick anything that is true</h3>
+<ul class="check" id="rc-list">{"".join(f'<li><label><input type="checkbox" data-c="{c}" data-w="{w}"><span>{t}</span></label></li>' for c, w, t in RC_ITEMS)}</ul></div>
+<button class="btn sm" type="button" id="rc-reset">Start again</button></div>
+<aside class="result" id="rc-out" aria-live="polite"><h2>Your racket check</h2><p>Tick what you notice and the verdict and fixes appear here.</p></aside>
+</div></div></section>
+{AD.format("care-mid")}
+<section><div class="wrap"><div class="sh"><h2>How do you look after a padel racket?</h2></div><div class="grid">
+<div class="card"><span class="pill b">After every game</span><h3 style="margin-top:10px">Wipe and dry</h3><p>Wipe sand and dust off the faces and frame with a dry, soft cloth. If it is damp from sweat or rain, let it dry before it goes into its cover.</p></div>
+<div class="card"><span class="pill b">After every game</span><h3 style="margin-top:10px">Cover it</h3><p>Put it straight into its cover or the racket pocket of your bag, away from keys and bottles.</p></div>
+<div class="card"><span class="pill i">For stains</span><h3 style="margin-top:10px">A little soap</h3><p>Use a cloth that is only slightly damp, with a drop of mild soap. Dry it straight away. Never soak the racket or use strong cleaning products.</p></div>
+<div class="card"><span class="pill i">Every few weeks</span><h3 style="margin-top:10px">Check for damage</h3><p>Look along the frame and both faces for cracks and chips, especially at the top edge, which hits the glass and the floor most.</p></div>
+<div class="card"><span class="pill i">When worn</span><h3 style="margin-top:10px">New overgrip</h3><p>Change it when it feels slippery. Players who play a lot and sweat a lot may change it every few matches; others go a month or two.</p></div>
+<div class="card"><span class="pill i">When worn</span><h3 style="margin-top:10px">New protector tape</h3><p>Replace the tape when it peels or wears through. Old tape can trap sand and grit under it.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Does heat or cold damage a padel racket?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Condition</th><th scope="col">What it does</th><th scope="col">What to do</th></tr></thead><tbody>
+<tr><td>Heat (hot car, sun, near a heater)</td><td>The foam core softens and can lose its shape, so the racket can feel different or lose power for good</td><td>Never leave it in the car or in the sun. Take it inside with you.</td></tr>
+<tr><td>Cold (garage, car boot in winter)</td><td>The foam core gets stiffer and harder, and cracks are more likely</td><td>Store it indoors. Let a cold racket warm up to room temperature before you play.</td></tr>
+<tr><td>Damp and sweat</td><td>Water can get into small cracks and the core, adding weight and changing the feel</td><td>Dry it after play and before you cover it. Don't store it in a damp place.</td></tr>
+<tr><td>Big temperature changes</td><td>Repeated hot and cold stresses the materials</td><td>Keep it somewhere with a steady temperature. A bag with a thermal pocket helps.</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">Most padel rackets have a core of EVA foam or softer foam inside a carbon or fibreglass shell, which is why temperature matters more than with a tennis racket. Rackets are not all the same: follow your brand's care notes if they say something different.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do you put on protector tape?</h2></div><div class="grid">
+<div class="card"><h3>1. Clean and dry</h3><p>Remove the old tape, then wipe the top of the frame so it is clean and fully dry.</p></div>
+<div class="card"><h3>2. Start in the middle</h3><p>Line the centre of the tape up with the very top of the frame and press it down there first.</p></div>
+<div class="card"><h3>3. Work outwards</h3><p>Smooth the tape down one side, then the other, pulling it slightly tight so there are no bubbles or creases.</p></div>
+<div class="card"><h3>4. Mind the balance</h3><p>Tape adds a little weight to the head, so the racket feels a bit more head-heavy. See how much it matters with the <a href="{href("racket-balance.html")}">balance decoder</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Habits that break rackets</h2></div><div class="grid">
+<div class="card"><h3>Hitting the floor or walls</h3><p>Banging the racket on the ground or the glass in frustration is the quickest way to crack the frame.</p></div>
+<div class="card"><h3>Scooping up balls</h3><p>Picking balls up by scraping the face along the turf wears the face and the edge. Use your hand or foot.</p></div>
+<div class="card"><h3>Clashing with your partner</h3><p>Racket clashes in the middle crack frames. Call "mine" or "yours" early (in Spanish: mía and tuya).</p></div>
+<div class="card"><h3>Leaving it in the car</h3><p>A car in the sun gets very hot, and in winter very cold. Both are bad for the foam inside.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How long does a padel racket last?</h2></div>
+<div class="card"><p>There is no fixed number. It depends on how often and how hard you play, and how you store it. Instead of counting months, watch for the signs: a crack that grows, a rattle inside, dead or soft spots, or less power than when it was new. If you see them, ask the shop or the brand to look at it, and check whether it is still under warranty. Good care, protector tape and a cover all help a racket last longer.</p></div>
+<p class="muted" style="margin-top:14px">Ready for a new one? Find the right shape and weight with the <a href="{href("racket-finder.html")}">racket finder</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Grip and overgrip</h3><p>How to wrap an overgrip and make a thin handle thicker, in the <a href="{href("racket-finder.html")}#grip">racket finder guide</a>.</p></div>
+<div class="card"><h3>Your balls</h3><p>Flat balls are hard on your arm too. Run the <a href="{href("padel-balls.html")}">dead ball checker</a>.</p></div>
+<div class="card"><h3>Your shoes</h3><p>Worn soles mean slips. Check the <a href="{href("padel-shoes.html")}">padel shoes guide</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Kit to keep your racket in shape</h3><p>A thermal racket bag and fresh overgrips are the cheapest ways to protect your racket. If yours is done, browse rackets by shape.</p><ul class="aff-links"><li><a href="{go("padel-bags")}" {AFF_ATTR}>Padel bags</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>All rackets</a></li></ul>{AFF_NOTE}</div></div></section>'''
+rcare_faq = [
+    ("How do you look after a padel racket?", "Wipe off sand and sweat after each game, dry it before you cover it, keep it in a cover in a dry place indoors, keep it out of the sun and the car, use protector tape on the frame and change the overgrip when it is slippery."),
+    ("Can I leave my padel racket in the car?", "It's best not to. A car gets very hot in the sun and very cold in winter. Heat softens the foam core and cold makes it stiffer and easier to crack."),
+    ("Does cold weather affect a padel racket?", "Yes. The foam core gets harder in the cold, so the racket feels stiffer and cracks are more likely. Let it warm up to room temperature before you play."),
+    ("Is protector tape worth it on a padel racket?", "Yes for most players. It protects the top of the frame from knocks on the glass and the floor, which is where cracks often start. It adds a little weight to the head."),
+    ("How do you clean a padel racket?", "Use a dry, soft cloth after each game. For marks, use a cloth that is only slightly damp with a little mild soap, then dry it straight away. Never soak it or use strong cleaners."),
+    ("How often should you change your padel overgrip?", "When it gets slippery, shiny or torn. That can be every few matches if you play a lot and sweat a lot, or every month or two if you play less."),
+    ("How do I know if my padel racket is broken?", "Look for cracks in the frame or face, listen for a rattle inside, and notice dead spots, odd vibrations or a loss of power. If you find these, ask the shop or brand to check it."),
+]
+page("racket-care.html", "Padel Racket Care: Heat, Cold, Protector Tape and a Free Health Check | Padel Glass Box",
+     "How to look after a padel racket: a 2-minute racket health check, cleaning, storage, heat and cold, protector tape, overgrips and the habits that crack frames.",
+     rcare, rcare_faq, "Racket care")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -1454,7 +1627,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

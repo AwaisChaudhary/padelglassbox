@@ -1328,4 +1328,55 @@
     sync();
     if (L && L.order) { show(true); draw(); }
   })();
+
+  /* ---------- net rules checker ---------- */
+  var nt = $("#nt");
+  if (nt && window.NT) {
+    var ntxt = $("#nt-txt"), nout = $("#nt-out"), nball = $("#nt-ball"), nring = $("#nt-ring");
+    var nshow = function (k) {
+      $$(".nt-q .opt", nt).forEach(function (o) { o.setAttribute("aria-pressed", o.dataset.v === k ? "true" : "false"); });
+      var r = k && window.NT[k];
+      nout.className = "result" + (r ? (r[0] === "lose" ? " fault" : r[0] === "let" ? " let" : " good") : "");
+      if (!r) {
+        nball.setAttribute("cx", 110); nball.setAttribute("cy", 132); nring.setAttribute("opacity", 0);
+        ntxt.innerHTML = "<h2>Make the call</h2><p>Tap a situation and the verdict appears here.</p>"; return;
+      }
+      nball.setAttribute("cx", r[4][0]); nball.setAttribute("cy", r[4][1]);
+      nring.setAttribute("cx", r[4][0]); nring.setAttribute("cy", r[4][1]); nring.setAttribute("opacity", 1);
+      ntxt.innerHTML = "<h2>" + r[1] + "</h2><p>" + r[2] + "</p><p class=\"wr-src\">Based on " + r[3] + ".</p>";
+    };
+    $$(".nt-q .opt", nt).forEach(function (o) { o.addEventListener("click", function () { nshow(o.dataset.v); }); });
+    $("#nt-reset").addEventListener("click", function () { nshow(null); });
+  }
+
+  /* ---------- racket health check ---------- */
+  var rc = $("#rc");
+  if (rc) {
+    var rcl = $("#rc-list"), rco = $("#rc-out"), rboxes = $$("input", rcl);
+    var rsaved = store.get("pp-rc", []);
+    rboxes.forEach(function (b, i) { b.checked = rsaved.indexOf(i) > -1; });
+    var FIX = {
+      tape: "Put on new protector tape: remove the old tape, clean and dry the frame, then apply the new strip from the middle outwards.",
+      grip: "Fit a new overgrip. A slippery grip makes you squeeze harder, which tires your forearm.",
+      cord: "Replace the wrist cord. If it breaks or you drop the racket during a point, your pair loses the point, and a flying racket can hurt someone.",
+      heat: "Heat can soften the foam core. If it now feels different, that may not come back. From now on, keep it out of the car and the sun."
+    };
+    var rrender = function () {
+      var on = rboxes.filter(function (b) { return b.checked; });
+      store.set("pp-rc", rboxes.map(function (b, i) { return b.checked ? i : -1; }).filter(function (i) { return i > -1; }));
+      var sc = 0, crack = false, inside = false, fixes = [];
+      on.forEach(function (b) { sc += +b.dataset.w; if (b.dataset.c === "crack") crack = true; if (b.dataset.c === "in") inside = true; if (FIX[b.dataset.c] && fixes.indexOf(FIX[b.dataset.c]) < 0) fixes.push(FIX[b.dataset.c]); });
+      var h, p, cls;
+      if (!on.length) { cls = ""; h = "Your racket check"; p = "Tick what you notice and the verdict and fixes appear here. Nothing ticked? Your racket sounds healthy: keep up the care routine below."; }
+      else if (crack || sc >= 4) { cls = " fault"; h = "Get it checked"; p = (crack ? "Cracks tend to grow, and they let water into the core. " : "Together these signs point to damage inside the racket. ") + "Play gently until a shop or the brand has looked at it, and check whether it is still under warranty. It may be time for a new racket."; }
+      else if (inside || sc >= 2) { cls = " mid"; h = "Keep an eye on it"; p = "These can be early signs of wear inside the racket. Check the frame and faces closely for small cracks, and test it against a friend's racket. If it gets worse, have it checked."; }
+      else { cls = " good"; h = "Quick fixes only"; p = "Nothing serious. A few small jobs will keep it in good shape."; }
+      rco.className = "result" + cls;
+      rco.innerHTML = "<h2>" + h + "</h2><p>" + p + "</p>" + (fixes.length ? '<ul class="b-why">' + fixes.map(function (f) { return "<li>" + f + "</li>"; }).join("") + "</ul>" : "") +
+        (on.length ? '<p class="wr-src">General care guidance, not a substitute for a check by the shop or brand. Ready for a new one? Try the <a href="' + (location.protocol === "file:" ? "racket-finder.html" : "/racket-finder") + '" style="color:#e8f84a">racket finder</a>.</p>' : "");
+    };
+    rboxes.forEach(function (b) { b.addEventListener("change", rrender); });
+    $("#rc-reset").addEventListener("click", function () { rboxes.forEach(function (b) { b.checked = false; }); rrender(); });
+    rrender();
+  }
 })();
