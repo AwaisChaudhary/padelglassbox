@@ -1688,4 +1688,44 @@
     });
     tbRender();
   }
+  /* ---------- padel injuries: body area picker ---------- */
+  var inj = $("#inj");
+  if (inj && window.INJ) {
+    var itxt = $("#inj-txt"), izb = $$("#inj-zones button"), idots = $$(".inj-dot", inj);
+    var iz = store.get("pp-inj-z", null);
+    var irender = function () {
+      izb.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.z === iz ? "true" : "false"); });
+      idots.forEach(function (d) { d.classList.toggle("on", d.dataset.z === iz); });
+      var z = window.INJ[iz];
+      if (!z) { itxt.innerHTML = "<h2>Pick an area</h2><p>Choose a body area to see what padel studies report and what helps.</p>"; return; }
+      itxt.innerHTML = "<h2>" + z.t + "</h2><p>" + z.s + "</p><p><b>Padel moves that load it:</b> " + z.m + "</p><p><b>Habits that help:</b></p><ul class=\"b-why\">" + z.h.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul><p><b>Get it checked if:</b> " + z.r + "</p><p class=\"wr-src\">General information from a 2023 review of padel injury studies and NHS advice. Not a diagnosis: see a doctor or physiotherapist if pain lasts.</p>";
+    };
+    var ipick = function (z) { iz = z; store.set("pp-inj-z", iz); irender(); };
+    izb.forEach(function (b) { b.addEventListener("click", function () { ipick(b.dataset.z); }); });
+    idots.forEach(function (d) { d.style.cursor = "pointer"; d.addEventListener("click", function () { ipick(d.dataset.z); }); });
+    irender();
+  }
+
+  /* ---------- padel injuries: prevention habits check ---------- */
+  var injc = $("#injc");
+  if (injc && window.INJH) {
+    var hbox = $$("input", $("#injc-list")), hout = $("#injc-out");
+    var hsaved = store.get("pp-injc", []);
+    hbox.forEach(function (b) { b.checked = hsaved.indexOf(b.dataset.h) > -1; });
+    var hrender = function () {
+      var on = hbox.filter(function (b) { return b.checked; }).map(function (b) { return b.dataset.h; });
+      store.set("pp-injc", on);
+      var miss = hbox.filter(function (b) { return !b.checked; }).map(function (b) { return b.dataset.h; });
+      var n = on.length, tot = hbox.length, h, p, cls;
+      if (n === tot) { cls = " good"; h = "All " + tot + " habits: great"; p = "You do everything on the list. Keep it up, and still stop if something hurts."; }
+      else if (n >= 6) { cls = " good"; h = n + " of " + tot + ": good habits"; p = "You're doing most of the right things. Add the last few:"; }
+      else if (n >= 3) { cls = " mid"; h = n + " of " + tot + ": room to improve"; p = "Pick one or two of these to add first. The warm-up and shoes are the quickest wins."; }
+      else { cls = " fault"; h = n + " of " + tot + ": start with the basics"; p = "Start with a proper warm-up and the right shoes, then add the rest over time:"; }
+      hout.className = "result" + cls;
+      hout.innerHTML = "<h2>" + h + "</h2><p>" + p + "</p>" + (miss.length ? '<ul class="b-why">' + miss.map(function (k) { var r = window.INJH[k]; return "<li>" + r[0] + (r[1] ? ' (<a href="' + r[1] + '" style="color:#e8f84a">' + r[2] + "</a>)" : "") + "</li>"; }).join("") + "</ul>" : "") + '<p class="wr-src">Based on general sports injury advice from NI Direct and the NHS. Habits lower the risk, they don\'t remove it.</p>';
+    };
+    hbox.forEach(function (b) { b.addEventListener("change", hrender); });
+    $("#injc-reset").addEventListener("click", function () { hbox.forEach(function (b) { b.checked = false; }); hrender(); });
+    hrender();
+  }
 })();

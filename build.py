@@ -125,7 +125,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -873,7 +873,8 @@ def wu_steps(k):
 WU_JSON = json.dumps({"q": wu_steps(0), "f": wu_steps(1)}, ensure_ascii=False)
 def mmss(s): return f"{s // 60}:{s % 60:02d}"
 warm = f'''<header class="hero"><div class="wrap"><h1>Padel warm-up timer.</h1>
-<p class="lead">Press start and follow the steps. A 10 or 15 minute warm-up that gets your legs, arms and eye ready before the first point. Works on your phone at the court.</p></div></header>
+<p class="lead">Press start and follow the steps. A 10 or 15 minute warm-up that gets your legs, arms and eye ready before the first point. Works on your phone at the court.</p>
+{quick("Warm up for 10 to 15 minutes before padel: 2 minutes of easy jogging and side steps, a few minutes of moving stretches (leg swings, arm circles, lunges with a twist), squats, lunges and short sprints, then soft rallies, volleys, lobs, easy overheads and a few serves. Save long, held stretches for after the match.")}</div></header>
 <section style="padding-top:10px"><div class="wrap"><div class="wu" id="wu">
 <div class="wu-stage">
 <div class="wu-bar"><div class="seg" id="wu-len" role="group" aria-label="Warm-up length"><button type="button" data-v="q" aria-pressed="true">10 minutes</button><button type="button" data-v="f" aria-pressed="false">15 minutes</button></div>
@@ -891,7 +892,7 @@ warm = f'''<header class="hero"><div class="wrap"><h1>Padel warm-up timer.</h1>
 </div></div></section>
 <script>window.WU={WU_JSON};</script>
 {AD.format("warm-mid")}
-<section><div class="wrap"><div class="sh"><h2>How this warm-up works</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>What should a padel warm-up include?</h2></div><div class="grid">
 <div class="card"><h3>1. Get warm</h3><p>A couple of minutes of easy jogging raises your heart rate and sends blood to your muscles. Start slow.</p></div>
 <div class="card"><h3>2. Move</h3><p>Moving stretches, like leg swings and lunges with a twist, loosen your hips, back and shoulders. Keep them moving: save long, held stretches for after the match.</p></div>
 <div class="card"><h3>3. Activate</h3><p>Squats, lunges and short sprints wake up the legs you use for every split step and change of direction. LTA Padel's warm-up advice is built around exercises like these to help avoid hamstring, calf and thigh strains.</p></div>
@@ -899,21 +900,32 @@ warm = f'''<header class="hero"><div class="wrap"><h1>Padel warm-up timer.</h1>
 <div class="card"><h3>5. Mind</h3><p>Agree three simple goals with your partner. It takes 30 seconds and helps you start the match switched on.</p></div>
 <div class="card"><h3>After you play</h3><p>Walk for a couple of minutes, then gently hold stretches for your calves, thighs, hips, forearms and shoulders, about 20 to 30 seconds each.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Short on court time?</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Short on court time or playing in the cold?</h2></div><div class="grid">
 <div class="card"><h3>Do the first half before you go on</h3><p>The jog, moving stretches and squats need no court. Do them by the court while the last game finishes, then use your court time for the racket steps.</p></div>
 <div class="card"><h3>Playing early or in the cold?</h3><p>Choose the 15 minute version. Cold muscles need longer, and the balls feel flatter too. Read <a href="{href("padel-balls.html")}">when to change padel balls</a>.</p></div>
 <div class="card"><h3>Warmed up? Now practise</h3><p>Go straight into a planned session with the <a href="{href("drills.html")}">padel drills planner</a> and its timer.</p></div>
-<div class="card"><h3>Something hurts?</h3><p>A warm-up is not a fix for an injury. If you feel sharp pain, stop and get advice from a doctor or physiotherapist.</p></div>
+<div class="card"><h3>Something hurts?</h3><p>A warm-up is not a fix for an injury. If you feel sharp pain, stop and get advice from a doctor or physiotherapist. See which areas padel players hurt most in the <a href="{href("padel-injuries.html")}">padel injuries guide</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Why warm up before padel?</h2></div><div class="grid">
+<div class="card"><h3>Padel injuries are mostly muscles and tendons</h3><p>A 2023 review of padel injury studies found that most injuries were to tendons and muscles, with the elbow, knee, shoulder and lower back reported most. Calf strains also appear often.</p></div>
+<div class="card"><h3>Not warming up is a known cause</h3><p>NI Direct, the UK government health site for Northern Ireland, lists not warming up properly among the common causes of sports injuries.</p></div>
+<div class="card"><h3>Check your other habits</h3><p>Shoes, grip, rest days and technique matter too. Run the two-minute <a href="{href("padel-injuries.html")}#check">injury prevention check</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Practise with a plan</h3><p>Turn your warm-up into a full session with the <a href="{href("drills.html")}">drills planner</a>.</p></div>
+<div class="card"><h3>Keep score</h3><p>Ready to play? Open the <a href="{href("score.html")}">score keeper</a> on your phone.</p></div>
+<div class="card"><h3>Protect your body</h3><p>Where padel players get hurt and what helps: the <a href="{href("padel-injuries.html")}">padel injuries guide</a>.</p></div>
 </div></div></section>'''
 warm_faq = [
     ("How long should a padel warm-up be?", "About 10 to 15 minutes is enough for most players. LTA Padel suggests 10 to 15 minutes, starting with a short jog, then exercises, then a few minutes of rallying."),
     ("Should I stretch before padel?", "Use moving stretches before you play, such as leg swings, arm circles and lunges with a twist. Keep long, held stretches for after the match."),
     ("What should a padel warm-up include?", "A short jog, moving stretches, a few leg exercises such as squats and lunges, short sprints, and then racket work: soft rallies, volleys, lobs, easy overheads and a few serves."),
     ("Can I warm up without a court?", "Yes. The jog, moving stretches, squats, lunges and sprints can all be done next to the court before your booking starts."),
+    ("Does warming up prevent padel injuries?", "A warm-up lowers the risk but can't remove it. Not warming up properly is a common cause of sports injuries, and most padel injuries are to muscles and tendons, which a warm-up prepares for play."),
     ("Does the timer work without internet?", "Once the page has loaded, the timer runs in your browser. Keep the screen on, because some phones pause timers when the screen locks."),
 ]
 page("warm-up.html", "Padel Warm-Up Routine With Free Timer (10 or 15 Minutes) | Padel Glass Box",
-     "A free padel warm-up timer: follow a 10 or 15 minute routine step by step, from jogging and moving stretches to volleys, lobs and serves. Works on your phone.", warm, warm_faq, "Warm-up timer")
+     "Free padel warm-up timer: a 10 or 15 minute routine step by step, from jogging and moving stretches to volleys, lobs and serves, plus why warming up helps prevent padel injuries.", warm, warm_faq, "Warm-up timer")
 
 # ---------------- PADEL BALLS ----------------
 def _bq(qid, label, opts):
@@ -1424,7 +1436,7 @@ cal = f'''<header class="hero"><div class="wrap"><h1>Padel calories calculator.<
 <div class="card"><h3>Two games a week</h3><p>Two 90-minute club matches a week is 180 minutes of vigorous play. That is more than twice the 75-minute vigorous target on its own.</p></div>
 </div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
-<div class="card"><h3>Warm up first</h3><p>Use the 10 or 15 minute <a href="{href("warm-up.html")}">warm-up timer</a> before every game.</p></div>
+<div class="card"><h3>Warm up first</h3><p>Use the 10 or 15 minute <a href="{href("warm-up.html")}">warm-up timer</a> before every game, and see how to avoid the most common <a href="{href("padel-injuries.html")}">padel injuries</a>.</p></div>
 <div class="card"><h3>Play more often</h3><p>Run a social night with the <a href="{href("americano.html")}">Americano generator</a>, or start a <a href="{href("ladder.html")}">padel ladder</a> at your club.</p></div>
 <div class="card"><h3>Shoes that grip</h3><p>More running around means more slips in the wrong shoes. Check the <a href="{href("padel-shoes.html")}">padel shoe finder</a>.</p></div>
 </div></div></section>'''
@@ -2048,6 +2060,149 @@ page("out-of-court-play.html", "Padel Out-of-Court Play Rules: When Can You Leav
      "Padel out-of-court play (salida de pista) explained: when you can run out to play the ball, what space a court needs, door and serve calls, and lets. Free FIP call checker.",
      ocp + f'<script>window.OC={json.dumps(OC)};</script>', ocp_faq, "Out-of-court play")
 
+# ---------------- PADEL INJURIES ----------------
+# Sources: Dahmen et al. 2023, "Incidence, prevalence and nature of injuries in padel: a systematic review" (BMJ Open Sport & Exercise Medicine 9:e001607);
+# NHS "Tennis elbow"; NI Direct "Sports injuries". General information in our own words, not medical advice. See CONTENT-LOG.
+# Each zone: id, label, svg x, svg y, how it shows up in padel studies, padel moves that load it, habits that help, red flags.
+INJ = [
+    ("elbow", "Elbow (outside)", 156, 108,
+     "The most often reported injury area in padel studies. Pain on the outer elbow is often called tennis elbow or padel elbow (lateral epicondylitis).",
+     "Lots of gripping and wrist movement on every shot: volleys, bandejas and backhands off the glass.",
+     ["Don't squeeze the handle: hold it firmly but relaxed, and change a slippery overgrip.", "Build up your playing hours slowly after a break.", "Get a coach to check your technique, especially volleys and the bandeja.", "Rest when it hurts: playing through it can slow recovery."],
+     "Pain on the outside of the elbow that is worse when you grip, lift or turn your wrist. Tenderness, or trouble straightening the arm."),
+    ("shoulder", "Shoulder", 132, 64,
+     "Reported often in padel studies, after the elbow and the knee.",
+     "Overheads: bandejas, víboras and smashes, plus reaching for high balls off the glass.",
+     ["Warm up your shoulders with arm circles and easy overheads before any full smash.", "Build up overhead pace slowly in the warm-up.", "Mix bandejas with lobs and volleys in practice, not 50 smashes in a row."],
+     "Pain lifting the arm above your head, or a shoulder that feels weak or unstable."),
+    ("wrist", "Wrist and hand", 166, 148,
+     "Reported less often than the elbow, but common in studies that looked only at the upper body.",
+     "Flicked shots like the víbora and chiquita, blocked volleys, and catching the ball late.",
+     ["Keep the wrist cord on and the grip dry.", "Hit through the ball with your arm and body, not just a flick of the wrist.", "Ease back in after a break."],
+     "Swelling, pain on gripping, or numbness or tingling in the fingers."),
+    ("back", "Lower back", 110, 126,
+     "One of the four most reported areas in padel studies, with the elbow, knee and shoulder.",
+     "Twisting to play balls off the glass, bending low for chiquitas, and reaching back for overheads.",
+     ["Use your legs: bend your knees for low balls instead of bending your back.", "Turn your hips and shoulders together on glass shots.", "Include hip and trunk moves in your warm-up."],
+     "Back pain with numbness, tingling or weakness in the legs needs a doctor quickly."),
+    ("knee", "Knee", 126, 204,
+     "The second most reported area in padel studies. Knee sprains show up among the common injuries.",
+     "Quick stops, lunges to the side glass and turning on a planted foot.",
+     ["Wear padel or court shoes with the right sole: running shoes grip badly and slide.", "Split step and take small steps, so you don't lunge on one leg.", "Squats and lunges in the warm-up."],
+     "A pop at the moment of injury, quick swelling, or the knee giving way."),
+    ("calf", "Calf", 130, 236,
+     "Calf strains appear among the common padel injuries in the studies.",
+     "Sudden sprints forward to drop shots and pushing off from the back of the court.",
+     ["Warm up properly: a jog, then short sprints.", "Take extra time to warm up when it's cold.", "Stop at the first sharp pain instead of playing on."],
+     "Sudden sharp pain in the back of the lower leg, or you can't stand on your toes."),
+    ("ankle", "Ankle and foot", 133, 268,
+     "Ankle sprains and foot pain are reported in padel studies, but less often than the elbow.",
+     "Changes of direction, landing on a ball on the turf, and worn or wrong shoes.",
+     ["Shoes with grip for your court surface. Replace worn soles.", "Clear loose balls off your side of the court between points.", "Footwork in your warm-up: side steps and quick feet."],
+     "You can't put weight on it, it looks out of shape, or there is a lot of swelling."),
+]
+INJ_HABITS = [
+    ("wu", "I warm up for 10 to 15 minutes before I play", "warm-up.html", "warm-up timer"),
+    ("build", "After a break, I build my playing time back up slowly", "", ""),
+    ("shoes", "I wear padel or court shoes, not running shoes", "padel-shoes.html", "shoe finder"),
+    ("grip", "My overgrip is fresh and I don't squeeze the handle", "racket-care.html", "racket care guide"),
+    ("rack", "My racket weight suits me (not too heavy for my arm)", "racket-balance.html", "weight and balance decoder"),
+    ("coach", "I've had a lesson or coaching on my technique", "", ""),
+    ("rest", "I take rest days between hard sessions", "", ""),
+    ("stop", "I stop when I feel pain instead of playing through it", "", ""),
+    ("cool", "I cool down and stretch gently after playing", "", ""),
+]
+def _inj_fig():
+    dots = "".join(f'<g class="inj-dot" data-z="{z}"><circle cx="{x}" cy="{y}" r="15" fill="#e8f84a" opacity=".18"/><circle cx="{x}" cy="{y}" r="6" fill="#e8f84a" stroke="#0b1530" stroke-width="1.5"/></g>' for z, _, x, y, *_ in INJ)
+    return f'''<svg viewBox="0 0 220 300" class="wr-court inj-fig" role="img" aria-label="Simple drawing of a padel player. The dots show the body areas you can choose.">
+<rect width="220" height="300" rx="14" fill="#0e2468"/>
+<g fill="#1e46c8" stroke="#9cc4ea" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<circle cx="110" cy="30" r="16"/>
+<path d="M88 56 Q110 50 132 56 L130 140 Q110 146 90 140 Z"/>
+<path d="M132 64 L156 108 L166 148" fill="none" stroke-width="12"/>
+<path d="M88 64 L70 108 L64 148" fill="none" stroke-width="12"/>
+<path d="M100 140 L96 204 L90 268" fill="none" stroke-width="14" opacity=".85"/>
+<path d="M120 140 L126 204 L133 268" fill="none" stroke-width="14"/>
+</g>
+<g transform="rotate(-25 172 162)" opacity=".9"><rect x="168" y="152" width="8" height="26" rx="4" fill="#e8f84a"/><ellipse cx="172" cy="200" rx="16" ry="22" fill="#e8f84a"/></g>
+{dots}
+</svg>'''
+inj = f'''<header class="hero"><div class="wrap"><h1>Padel injuries: where it hurts and how to prevent it</h1>
+<p class="lead">Tap the part of the body that worries you to see how often it shows up in padel, which moves load it and the habits that help. Then run the two-minute prevention check.</p>
+{quick("The elbow is the most often reported padel injury, followed by the knee, shoulder and lower back, and most padel injuries are tendon or muscle problems, not broken bones. The habits that help most: a 10 to 15 minute warm-up, building up playing time slowly, court shoes, a relaxed grip, coaching on technique and stopping when something hurts. This page is general information, not medical advice.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="inj">
+<div>
+<div class="q"><h3>Where does it hurt, or what do you want to protect?</h3><div class="opts" id="inj-zones">{"".join(f'<button class="opt" type="button" data-z="{z}" aria-pressed="false">{t}</button>' for z, t, *_ in INJ)}</div></div>
+<p class="muted">You can also tap a dot on the drawing. Your choice is only kept in this browser.</p>
+</div>
+<aside class="result" id="inj-out" aria-live="polite"><div class="wr-svg">{_inj_fig()}</div><div id="inj-txt"><h2>Pick an area</h2><p>Choose a body area to see what padel studies report and what helps.</p></div></aside>
+</div></div></section>
+<script>window.INJ={json.dumps({z: {"t": t, "s": s, "m": m, "h": h, "r": r} for z, t, _, _, s, m, h, r in INJ}, ensure_ascii=False)};</script>
+{AD.format("inj-mid")}
+<section><div class="wrap"><div class="sh"><h2>How common are padel injuries?</h2></div><div class="grid">
+<div class="card"><h3>About 3 per 1,000 hours</h3><p>A 2023 review of 8 studies with 2,022 padel players (BMJ Open Sport &amp; Exercise Medicine) found about 3 injuries per 1,000 hours of training and about 8 per 1,000 matches.</p></div>
+<div class="card"><h3>Most players get one</h3><p>Between 40% and 95% of the players in those studies said they had been injured at some point. Most of the studies asked players to remember, so treat these as rough numbers.</p></div>
+<div class="card"><h3>Tendons and muscles</h3><p>Most reported injuries were to tendons (like tennis elbow) or muscles (like calf strains), not bones. These are often overuse injuries that build up over time.</p></div>
+</div>
+<div class="card" style="padding:8px 24px;overflow-x:auto;margin-top:18px"><table class="mt mt-plain"><thead><tr><th scope="col">Rank</th><th scope="col">Body area</th><th scope="col">Typical problem</th></tr></thead><tbody>
+<tr><td>1</td><td>Elbow</td><td>Tennis elbow (pain on the outer elbow)</td></tr>
+<tr><td>2</td><td>Knee</td><td>Sprains and pain from twisting</td></tr>
+<tr><td>3</td><td>Shoulder</td><td>Pain from overheads</td></tr>
+<tr><td>4</td><td>Lower back</td><td>Back pain from twisting and bending</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">Order from the 2023 review. Most players in the studies were adult club players in Spain, and study quality was low to moderate, so the review's authors call the evidence limited.</p></div></section>
+<section style="padding-top:0" id="check"><div class="wrap"><div class="sh"><h2>Injury prevention check: how well do you protect yourself?</h2></div>
+<div class="quiz" id="injc">
+<div><div class="q"><h3>Tick every habit you already have</h3>
+<ul class="check" id="injc-list">{"".join(f'<li><label><input type="checkbox" data-h="{k}"><span>{t}</span></label></li>' for k, t, _, _ in INJ_HABITS)}</ul></div>
+<button class="btn sm" type="button" id="injc-reset">Start again</button></div>
+<aside class="result" id="injc-out" aria-live="polite"><h2>Your habits</h2><p>Tick what you already do. Your score and the habits to add appear here.</p></aside>
+</div>
+<script>window.INJH={json.dumps({k: [t, href(f) if f else "", n] for k, t, f, n in INJ_HABITS}, ensure_ascii=False)};</script>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What is padel elbow, and what can you do about it?</h2></div><div class="grid">
+<div class="card"><h3>What it feels like</h3><p>Pain on the outside of the elbow. It can be mild or constant, and it gets worse when you grip, lift or turn your wrist. The NHS lists tenderness and trouble fully straightening the arm as other signs.</p></div>
+<div class="card"><h3>Why it happens</h3><p>The NHS describes tennis elbow as a problem with the tendons of the forearm after lots of gripping and twisting. In padel you grip and use your wrist on almost every shot.</p></div>
+<div class="card"><h3>Looking after it at home</h3><p>NHS advice: rest from what makes it worse, use painkillers such as paracetamol or an anti-inflammatory gel, and use a hot or cold pack wrapped in a towel for up to 20 minutes every 2 to 3 hours. A forearm strap or brace from a pharmacy may help.</p></div>
+<div class="card"><h3>When to see a GP</h3><p>If the pain has not got better after 2 weeks of rest and self-care. A GP may suggest physiotherapy if home treatment has not helped after about 6 weeks.</p></div>
+<div class="card"><h3>How long it lasts</h3><p>It often gets better within a few weeks of rest, but the NHS says it can last more than a year. Coming back too fast is a common reason it returns.</p></div>
+<div class="card"><h3>Does the racket matter?</h3><p>Many coaches and shops suggest a lighter, less head-heavy racket and a thicker, fresh grip for sore elbows. This makes sense but has not been proven in studies. Compare specs with the <a href="{href("racket-balance.html")}">weight and balance decoder</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do you prevent padel injuries?</h2></div><div class="grid">
+<div class="card"><h3>1. Warm up every time</h3><p>A short jog, moving stretches, leg exercises and easy rallies. Not warming up properly is one of the common causes of sports injuries listed by NI Direct. Use the <a href="{href("warm-up.html")}">warm-up timer</a>.</p></div>
+<div class="card"><h3>2. Build up slowly</h3><p>Don't go from one game a week to five. Pushing your body past your current fitness is another common cause of sports injuries.</p></div>
+<div class="card"><h3>3. The right shoes</h3><p>Padel or court shoes with a sole that suits your court. Running shoes are made for straight lines, not side steps. See the <a href="{href("padel-shoes.html")}">padel shoes guide</a>.</p></div>
+<div class="card"><h3>4. Learn the technique</h3><p>Coaching on the bandeja, volleys and glass shots takes load off your elbow, shoulder and back. Plan practice with the <a href="{href("drills.html")}">drills planner</a>.</p></div>
+<div class="card"><h3>5. Fresh balls and grip</h3><p>Flat balls need more effort to hit and a slippery grip makes you squeeze. Check with the <a href="{href("padel-balls.html")}">dead ball checker</a>.</p></div>
+<div class="card"><h3>6. Stop when it hurts</h3><p>Playing on with pain can cause more damage and slow your recovery. Rest, and get advice if it doesn't settle.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>When should you get medical help?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">What you notice</th><th scope="col">What to do</th></tr></thead><tbody>
+<tr><td>You think a bone is broken, a joint looks out of place, or someone hit their head hard</td><td>Go to an emergency department straight away</td></tr>
+<tr><td>Pain that has not improved after 2 weeks of rest and self-care</td><td>See a GP or doctor</td></tr>
+<tr><td>Pain that comes back every time you play</td><td>See a GP or physiotherapist before it gets worse</td></tr>
+<tr><td>A minor strain or knock</td><td>Stop playing, rest it, and ease back in when it feels normal</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">Based on NHS and NI Direct advice for UK readers. Outside the UK, follow your local health service. This page is general information and does not replace advice from a doctor or physiotherapist.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Warm up properly</h3><p>Follow the 10 or 15 minute <a href="{href("warm-up.html")}">warm-up timer</a> before your next game.</p></div>
+<div class="card"><h3>Check your racket</h3><p>Too heavy for your arm? Try the <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
+<div class="card"><h3>Know your load</h3><p>See how hard your games really are with the <a href="{href("padel-calories.html")}">padel calories calculator</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Kit that takes the strain off</h3><p>Shoes with grip for your court and a fresh overgrip are the cheapest ways to look after your body. If your racket feels heavy on your arm, browse round rackets, which often have a lower balance.</p><ul class="aff-links"><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li></ul>{AFF_NOTE}</div></div></section>'''
+inj_faq = [
+    ("What is the most common injury in padel?", "The elbow. In a 2023 review of padel studies, the elbow was the most often reported injury area, mostly tennis elbow (pain on the outer elbow), followed by the knee, shoulder and lower back."),
+    ("What is padel elbow?", "Padel elbow is the name players use for tennis elbow (lateral epicondylitis): pain on the outside of the elbow from the forearm tendons, made worse by gripping and turning the wrist."),
+    ("Can I keep playing padel with tennis elbow?", "It is better to rest from what makes it worse. The NHS advises rest, painkillers or gel and a hot or cold pack, and seeing a GP if it hasn't improved after 2 weeks. Playing through pain can slow recovery."),
+    ("How long does padel elbow take to heal?", "It often improves within a few weeks of rest, but the NHS says tennis elbow can last more than a year. Build back up slowly when it feels better."),
+    ("Is padel bad for your knees?", "Not by itself, but quick stops and turns load the knee, and knee injuries are the second most reported in padel studies. Court shoes, a proper warm-up and good footwork help."),
+    ("How can I prevent padel injuries?", "Warm up for 10 to 15 minutes, build up playing time slowly, wear court shoes, keep a fresh grip and relaxed hold, get coaching on technique, take rest days and stop when you feel pain."),
+    ("Is padel more dangerous than tennis?", "There is not enough research to say. The 2023 review found about 3 injuries per 1,000 hours of padel training, but its authors say comparisons with other racket sports should be made carefully."),
+]
+page("padel-injuries.html", "Padel Injuries: Elbow, Knee, Back and How to Prevent Them (Free Check) | Padel Glass Box",
+     "The most common padel injuries, from padel elbow to knee, shoulder and back pain: tap a body area to see what studies report and what helps, and run a free injury prevention check.",
+     inj, inj_faq, "Padel injuries")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -2058,7 +2213,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
