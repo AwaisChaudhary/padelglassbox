@@ -112,3 +112,7 @@
 
 ## 2026-11-23 16:40 PKT (main session)
 - IndexNow FLUSHED via Chrome (same-origin fetch on api.indexnow.org, all HTTP 200): every URL previously listed as "IndexNow pending" above is now sent. Scheduled cloud runs cannot use WebFetch without approval; keep writing "IndexNow pending: <paths>" and the main session flushes them daily.
+
+## 2026-11-23 18:50 PKT (main session): buyer pages from Trends
+- New /cheap-padel-rackets ("cheap padel racket" Breakout US) and /padel-black-friday ("padel racket black friday" +110% UK, BF 27 Nov 2026): 8 budget picks with sources and dated prices, Padel Market BLACK15 15% code, discount calculator. New /go/padel-black-friday and /go/padel-black-friday-rackets. Footer "Buying" column. Table scroll CSS fix.
+- After Black Friday (1 Dec): update /padel-black-friday to say the sale has ended and point to January sales / last-season rackets.

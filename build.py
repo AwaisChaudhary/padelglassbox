@@ -64,6 +64,8 @@ AFF = {
     "padel-balls": "https://padelmarket.com/en/collections/padel-balls",
     "padel-bags": "https://padelmarket.com/en/collections/padel-bags-1",
     "padel-overgrips": "https://padelmarket.com/en/collections/accessories-overgrips",
+    "padel-black-friday": "https://padelmarket.com/en/collections/black-friday",
+    "padel-black-friday-rackets": "https://padelmarket.com/en/collections/black-friday-rackets",
 }
 # ---- Affiliate links. Pages link to /go/<slug>; _redirects sends it to the store.
 # Until a programme approves us these are plain store URLs; when approved, replace the URL with the tracked link and rebuild.
@@ -126,6 +128,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
 <div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li></ul></div>
+<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -2357,6 +2360,91 @@ page("padel-grip.html", "How to Hold a Padel Racket: Continental Grip Guide and 
 
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
+
+# ---- Buyer pages (23 Nov 2026, from Google Trends: "cheap padel racket" breakout US, "padel racket black friday" +110% UK) ----
+_budget = [
+    ("Adidas Match 2026", "Round", "Beginner", "about €60", "zonadepadel (Sep 2026)", "The cheapest sensible first racket: light and easy to move."),
+    ("Siux Beat Hybrid 2026", "Hybrid", "Beginner to intermediate", "about €56", "zonadepadel (Sep 2026)", "Best value if you want one racket to grow into."),
+    ("Head Bolt 2026", "Round", "Beginner", "about €70", "zonadepadel (Sep 2026)", "Easy handling for players coming from tennis."),
+    ("Dunlop Megamax 2026", "Round", "Beginner", "about €70", "zonadepadel (Sep 2026)", "A forgiving frame with good ball output."),
+    ("Babolat Air Origin", "Teardrop", "Beginner", "under £90", "Padelspeak (Nov 2026)", "Very forgiving at 345 g, a favourite first racket."),
+    ("Wilson Optix V2 Power 2026", "Teardrop", "Beginner who likes to attack", "about £95", "Padelspeak (Nov 2026)", "Carbon-reinforced fibreglass with a rough face for spin."),
+    ("Kuikma PR Comfort Soft", "Round", "Beginner", "under £100", "Padelspeed (Apr 2026)", "Soft and comfortable: a low-risk choice while you learn."),
+    ("Dreampadel Match Carbon 2.0", "Round", "Beginner to intermediate", "about €100", "zonadepadel (Sep 2026)", "A firmer carbon feel at the top of the budget."),
+]
+_brows = "".join(f'<tr><th scope="row">{e(n)}</th><td>{s}</td><td>{e(l)}</td><td>{e(p)}</td><td>{e(w)}</td></tr>' for n, s, l, p, src, w in _budget)
+cheap = f'''<header class="hero"><div class="wrap"><h1>Cheap padel rackets that are actually good.</h1>
+<p class="lead">You don't need a $300 racket to start. Here is what a good budget racket looks like, eight that reviewers rate under $100 / £100 / €100, and what you give up by spending less.</p>
+{quick("Yes, a cheap padel racket is fine for beginners. Look for a round shape, 355 to 370 g, a soft EVA core and a low (head-light) balance, which costs about £55 to £115. Good picks under €100 include the Adidas Match 2026, Siux Beat Hybrid 2026, Head Bolt 2026 and Babolat Air Origin.")}</div></header>
+<section style="padding-top:10px"><div class="wrap">
+<h2>What should a cheap padel racket have?</h2><div class="table-wrap"><table class="facts"><tbody>
+<tr><th scope="row">Shape</th><td>Round. The sweet spot sits low and in the middle, so mis-hits still go over.</td></tr>
+<tr><th scope="row">Weight</th><td>355 to 370 g. Lighter is kinder to your elbow while your technique is new.</td></tr>
+<tr><th scope="row">Core</th><td>Soft EVA or foam. More comfort, and the ball comes off the face easily.</td></tr>
+<tr><th scope="row">Balance</th><td>Low (head-light). Quicker at the net and easier to control.</td></tr>
+<tr><th scope="row">Face</th><td>Fibreglass, or fibreglass with some carbon. Softer and more forgiving than full carbon.</td></tr>
+</tbody></table></div>
+<p class="muted">Source: Central Sports UK beginner buying guide (2026). Not sure which shape suits you? Answer three questions in our <a href="{href("racket-finder.html")}">racket finder</a>.</p>
+<h2>Which cheap padel rackets are worth buying?</h2>
+<div class="table-wrap"><table class="facts"><thead><tr><th>Racket</th><th>Shape</th><th>Level</th><th>Price seen</th><th>Why</th></tr></thead><tbody>{_brows}</tbody></table></div>
+<p class="muted">Prices are what each reviewer or shop listed on the date shown, so check the current price before you buy. Picks come from Padelspeak, Padelspeed and zonadepadel budget lists; we haven't tested these rackets ourselves.</p>
+<div class="aff-box"><h3>Shop budget rackets</h3><ul class="aff-links"><li><a href="/go/padel-round-rackets" {AFF_ATTR}>Round rackets</a></li><li><a href="/go/padel-rackets" {AFF_ATTR}>All rackets</a></li><li><a href="/go/padel-black-friday-rackets" {AFF_ATTR}>Black Friday rackets</a></li></ul>{AFF_NOTE}</div>
+<h2>What do you give up with a cheap racket?</h2><ul>
+<li><strong>Less power and spin</strong> on smashes and bandejas than carbon rackets. Beginners rarely notice.</li>
+<li><strong>A shorter life.</strong> Soft budget cores lose their pop sooner if you play several times a week.</li>
+<li><strong>Fewer weight options.</strong> Most come in one weight.</li></ul>
+<p>When you play twice a week and hit the ball cleanly, that is the time to move up. See our <a href="{href("racket-balance.html")}">weight and balance guide</a> first.</p>
+<h2>Is now a good time to buy?</h2><p>Black Friday is on <strong>27 November 2026</strong>, and last season's rackets usually get the biggest discounts. See our <a href="{href("padel-black-friday.html")}">padel Black Friday guide</a>.</p>
+</div></section>'''
+cheap_faq = [
+    ("Is a cheap padel racket good enough for a beginner?", "Yes. A round, 355 to 370 g racket with a soft EVA core and a low balance forgives mis-hits and is easy on the arm. Most beginners don't benefit from a full-carbon racket."),
+    ("How much should I spend on my first padel racket?", "About £55 to £115 (or $60 to $120) buys a good first racket. Put the rest toward court time and a lesson, which will improve your game faster than a more expensive racket."),
+    ("What is the best padel racket under $100?", "Reviewers' budget favourites include the Adidas Match 2026, Siux Beat Hybrid 2026, Head Bolt 2026, Dunlop Megamax 2026 and Babolat Air Origin. Pick a round one if you are new."),
+    ("Are cheap padel rackets bad for your elbow?", "Not if you choose a light racket with a soft core. Heavy, stiff, head-heavy rackets are the ones that strain the elbow."),
+]
+page("cheap-padel-rackets.html", "Cheap Padel Rackets: 8 Good Ones Under $100 / £100 and What to Look For | Padel Glass Box",
+     "Best cheap padel rackets under $100 / £100: what a good budget racket looks like (round, 355-370 g, soft EVA), 8 picks reviewers rate, and what you give up.",
+     cheap, cheap_faq, "Cheap padel rackets")
+
+bf = f'''<header class="hero"><div class="wrap"><h1>Padel Black Friday 2026: what's worth buying.</h1>
+<p class="lead">When the sales run, which padel gear is a real bargain, and a quick calculator to see what a discount code actually saves you.</p>
+{quick("Black Friday is Friday 27 November 2026 and Cyber Monday is 30 November. Last season's rackets are usually the best value, and balls and bags are often discounted too. Padel Market is offering 15% off a selection of rackets, shoes, bags and accessories with the code BLACK15.")}</div></header>
+<section style="padding-top:10px"><div class="wrap">
+<h2>When is padel Black Friday 2026?</h2><div class="table-wrap"><table class="facts"><tbody>
+<tr><th scope="row">Black Friday</th><td>Friday 27 November 2026</td></tr>
+<tr><th scope="row">Cyber Monday</th><td>Monday 30 November 2026</td></tr>
+<tr><th scope="row">Early deals</th><td>Many padel shops add offers through November ahead of the day.</td></tr>
+</tbody></table></div>
+<h2>Which padel deals are live now?</h2>
+<p><strong>Padel Market</strong>: 15% off a selection of rackets, shoes, clothing, bags, backpacks, accessories and balls with code <strong>BLACK15</strong>. It only works on products in their Black Friday collection and can't be combined with other codes.</p>
+<div class="aff-box"><h3>See the Black Friday padel deals</h3><ul class="aff-links"><li><a href="/go/padel-black-friday" {AFF_ATTR}>All Black Friday padel deals</a></li><li><a href="/go/padel-black-friday-rackets" {AFF_ATTR}>Black Friday rackets</a></li><li><a href="/go/padel-bags" {AFF_ATTR}>Bags</a></li><li><a href="/go/padel-balls" {AFF_ATTR}>Balls</a></li></ul>{AFF_NOTE}</div>
+<h2>What is the discount really worth?</h2>
+<div class="card" id="bf-calc"><label>Normal price <input id="bf-was" type="number" inputmode="decimal" min="0" step="0.01" value="120"></label>
+<label>Sale price <input id="bf-now" type="number" inputmode="decimal" min="0" step="0.01" value="96"></label>
+<label><input id="bf-code" type="checkbox"> Also apply a 15% code (like BLACK15)</label>
+<p id="bf-out" aria-live="polite" style="font-size:1.1rem;margin:12px 0 0"></p></div>
+<script>(function(){{function r(){{var w=+document.getElementById('bf-was').value||0,n=+document.getElementById('bf-now').value||0;if(document.getElementById('bf-code').checked)n=n*0.85;var s=w-n,p=w?100*s/w:0;document.getElementById('bf-out').innerHTML=w&&n?'You pay <strong>'+n.toFixed(2)+'</strong> and save <strong>'+s.toFixed(2)+' ('+p.toFixed(0)+'% off)</strong>.':'Enter both prices.';}}['bf-was','bf-now','bf-code'].forEach(function(i){{document.getElementById(i).addEventListener('input',r);}});r();}})();</script>
+<h2>What is worth buying on Black Friday?</h2><ul>
+<li><strong>Last season's racket.</strong> When shops clear old models to make room for the new year's stock, that is the deepest racket discount of the year. The 2026 version of a racket usually plays almost exactly like the 2027 one.</li>
+<li><strong>Balls by the pack.</strong> You go through them fast, so a multi-pack discount adds up. See <a href="{href("padel-balls.html")}">when to change padel balls</a>.</li>
+<li><strong>A bag or backpack</strong> if you carry more than one racket.</li>
+<li><strong>Shoes, but buy early.</strong> A discount is no use if your size sells out on day one. Check which <a href="{href("padel-shoes.html")}">sole you need</a> first.</li></ul>
+<h2>How do I avoid a fake deal?</h2><ul>
+<li>Some shops keep a permanent "sale" price, so a big percentage off is not always a real drop. Compare with the price a couple of weeks earlier.</li>
+<li>Pick the racket for your level first, then look for it on sale, not the other way round. Our <a href="{href("racket-finder.html")}">racket finder</a> takes a minute.</li>
+<li>Budget? These are the <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets worth buying</a>.</li></ul>
+<p class="muted">Sources: Padel Market Black Friday page (code and conditions, November 2026); Padel Browser "When to buy padel gear 2026"; zonadepadel Black Friday 2026 page. We update this page if offers change.</p>
+</div></section>'''
+bf_faq = [
+    ("When is padel Black Friday 2026?", "Black Friday is Friday 27 November 2026 and Cyber Monday is Monday 30 November 2026. Many padel shops start adding offers earlier in November."),
+    ("Is Black Friday a good time to buy a padel racket?", "Yes, especially last season's models, which usually get the biggest discounts. Choose the racket for your level first, then look for it on sale."),
+    ("Is there a Padel Market discount code for Black Friday?", "Padel Market is offering 15% off a selection of products with the code BLACK15. It only applies to items in their Black Friday collection and can't be combined with other codes."),
+    ("Should I buy padel shoes on Black Friday?", "If you know your size and the sole type you need, yes, but buy early: popular sizes sell out first."),
+]
+page("padel-black-friday.html", "Padel Black Friday 2026: Racket Deals, BLACK15 Code and What's Worth Buying | Padel Glass Box",
+     "Padel Black Friday 2026 is 27 November (Cyber Monday 30 Nov). Live padel deals, Padel Market's 15% BLACK15 code, a discount calculator and what's worth buying.",
+     bf, bf_faq, "Padel Black Friday")
+
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
      f'<section><div class="wrap" style="max-width:760px"><h1>Privacy policy</h1><p>Last updated: {e(UPDATED)}.</p><h2>What we collect</h2><p>Your score, checklist ticks and quiz answers are saved only in your own browser. If you join our email list, we keep your email address with our email provider, Kit (kit.com), to send you the cheat sheet and our updates. Every email has an unsubscribe link, and you can ask us to delete your address at any time.</p><h2>Analytics</h2><p>We use Google Analytics to count visits and see which pages are popular. It uses cookies and collects details like pages viewed, approximate location and device type.</p><h2>Advertising</h2><p>This site uses Google AdSense. Google and its partners use cookies to show ads based on your visits to this and other websites. You can turn off personalised ads at <a href="https://adssettings.google.com">Google Ads Settings</a>. Learn more at <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.</p><h2>Affiliate links</h2><p>Some links may be affiliate links. If you buy through them, we may earn a small fee at no extra cost to you.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
@@ -2365,7 +2453,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "about.html", "privacy.html"]
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
