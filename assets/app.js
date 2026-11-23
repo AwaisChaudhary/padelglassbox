@@ -1821,4 +1821,70 @@
     ogr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { ost[g.dataset.oh] = b.dataset.v; orender(); }); }); });
     orender();
   }
+
+  /* ---------- intermediate racket upgrade check ---------- */
+  var irb = $("#ir");
+  if (irb && window.IRGO) {
+    var igr = $$("[data-ir]", irb);
+    var ist = store.get("pp-ir", { shape: "round", weight: "x", face: "glass", often: "2", style: "allround", arm: "no", feel: "power" });
+    var NM = { round: "Round", teardrop: "Teardrop", diamond: "Diamond", light: "under 355 g", mid: "355 to 370 g", heavy: "over 370 g", glass: "Fibreglass", carbon: "Carbon" };
+    var ipick = function () {
+      var a = ist, why = [], t = {};
+      var sore = a.arm === "yes";
+      if (a.style === "control" || sore) t.shape = (a.style === "control" || a.feel === "control") ? "round" : "teardrop";
+      else if (a.style === "attack" && a.often === "4" && a.feel !== "control") t.shape = "diamond";
+      else t.shape = "teardrop";
+      if (a.feel === "control" && t.shape === "diamond") t.shape = "teardrop";
+      t.bal = t.shape === "round" ? "Low (head-light)" : (t.shape === "diamond" ? "Medium to high" : "Medium");
+      if (sore && t.shape !== "round") t.bal = "Low to medium";
+      t.w = (sore || a.feel === "heavy") ? "light" : (t.shape === "diamond" ? "heavy" : "mid");
+      t.wt = t.w === "light" ? "About 355 to 365 g" : (t.w === "heavy" ? "About 365 to 375 g" : "About 360 to 370 g");
+      t.core = sore ? "Soft" : (t.shape === "diamond" ? "Medium to firm" : "Soft or medium");
+      t.face = sore ? "glass" : (a.often === "1" ? "glass" : "either");
+      t.ft = t.face === "glass" ? "Fibreglass" : (t.shape === "diamond" ? "Carbon" : "Fibreglass or carbon");
+      // compare
+      var rows = [], changes = 0, unknown = 0;
+      var row = function (lab, tgt, cur, same) {
+        var tag;
+        if (cur === "x") { tag = "check yours"; unknown++; } else if (same) tag = "keep"; else { tag = "change"; changes++; }
+        rows.push([lab, tgt + " (" + tag + (cur !== "x" && !same ? ", yours: " + NM[cur] : "") + ")"]);
+      };
+      row("Shape", NM[t.shape], a.shape, a.shape === t.shape);
+      rows.push(["Balance", t.bal]);
+      row("Weight", t.wt, a.weight, a.weight === t.w || (t.w === "light" && a.weight === "light"));
+      rows.push(["Core", t.core]);
+      row("Face", t.ft, a.face, t.face === "either" ? (t.shape === "diamond" ? a.face === "carbon" : true) : a.face === t.face);
+      // reasons
+      if (t.shape === "teardrop") why.push("Teardrop is the usual next step: more punch than round, with a sweet spot that still forgives.");
+      if (t.shape === "round") why.push(sore ? "Round rackets have a big, central sweet spot and usually a low balance, which is easier on the arm." : "You win with control, and round gives the biggest, most forgiving sweet spot.");
+      if (t.shape === "diamond") why.push("You attack and play a lot, so a diamond's extra head weight can pay off. Try one first: the sweet spot is small and high.");
+      if (t.shape === "diamond" && a.shape === "round") why.push("Round straight to diamond is a big jump. Many players try a teardrop in between.");
+      if (sore) why.push("Sore arm: stay light, low balance and soft, and avoid stiff, head-heavy rackets.");
+      if (a.feel === "heavy") why.push("A tired arm late in matches points to a lighter racket or a lower balance.");
+      if (a.feel === "control") why.push("Balls flying long: more power will not help. Keep the balance low to medium.");
+      if (a.feel === "power" && t.shape !== "round") why.push("More power comes from a slightly higher balance and a firmer feel, but timing and the overhead technique matter more.");
+      if (a.style === "attack" && t.shape !== "diamond" && !sore) why.push(a.often === "4" ? "Get control of long balls first. A diamond can come later." : "A diamond is usually for players who play most days. Teardrop gives you power without the risk.");
+      var h, p, cls;
+      if (a.feel === "worn") { cls = " mid"; h = "Check it, then replace it"; p = "A racket that feels dead or damaged is the clearest reason to buy a new one. Here is what to look for:"; }
+      else if (a.often === "1" && a.feel === "fine") { cls = " good"; h = "Keep your racket"; p = "You play once a week or less and nothing bothers you. Spend on a new overgrip or a lesson instead. When you do upgrade, look for:"; }
+      else if (changes === 0 && unknown === 0) { cls = " good"; h = "Your racket already fits"; p = "Your specs match what suits your game. Keep it unless it is worn. If you replace it, stay close to:"; }
+      else if (changes === 0) { cls = " mid"; h = "Check your racket's label"; p = "What you know matches. Check the rest on the frame or shop page, or with the balance decoder. Look for:"; }
+      else { cls = ""; h = changes === 1 ? "Change one thing" : "Time for a different racket"; p = "For your game, look for:"; }
+      return { cls: cls, h: h, p: p, rows: rows, why: why, shape: t.shape };
+    };
+    var irender = function () {
+      store.set("pp-ir", ist);
+      igr.forEach(function (g) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === ist[g.dataset.ir] ? "true" : "false"); }); });
+      var r = ipick(), out = $("#ir-out");
+      out.className = "result" + r.cls;
+      $("#ir-h").textContent = r.h;
+      $("#ir-p").textContent = r.p;
+      $("#ir-spec").innerHTML = r.rows.map(function (x) { return "<dt>" + x[0] + "</dt><dd>" + x[1] + "</dd>"; }).join("");
+      $("#ir-why").innerHTML = r.why.map(function (x) { return "<li>" + x + "</li>"; }).join("");
+      var lk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+      $("#ir-shop").innerHTML = '<a href="' + window.IRGO[r.shape] + '" rel="sponsored nofollow noopener" target="_blank" style="color:#e8f84a;font-weight:700">Browse ' + r.shape + " rackets</a> (affiliate link) · Compare specs in the " + lk("racket-balance", "balance decoder") + (ist.feel === "worn" ? " · Run the " + lk("racket-care", "racket health check") : "");
+    };
+    igr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { ist[g.dataset.ir] = b.dataset.v; irender(); }); }); });
+    irender();
+  }
 })();

@@ -132,7 +132,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
 <div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li></ul></div>
-<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
+<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -242,7 +242,7 @@ finder = f'''<header class="hero"><div class="wrap"><h1>Find your padel racket.<
 <tr><td>6 months to 2 years</td><td>Round or teardrop</td><td>Low to medium</td><td>Soft to medium</td></tr>
 <tr><td>2 years or more, attacking</td><td>Teardrop or diamond</td><td>Medium to high</td><td>Harder core, carbon face</td></tr>
 </tbody></table></div>
-<p class="muted" style="margin-top:12px">A guide, not a rule: try a friend's racket or a demo racket at your club before you buy. Not sure of your level? Use the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div></section>
+<p class="muted" style="margin-top:12px">A guide, not a rule: try a friend's racket or a demo racket at your club before you buy. Moving on from your first racket? Use the <a href="{href("intermediate-padel-racket.html")}">intermediate upgrade check</a>. Not sure of your level? Use the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
 <div class="card"><h3>Compare two rackets</h3><p>Type in the weight and balance from the label and see what they mean in the <a href="{href("racket-balance.html")}">balance decoder</a>.</p></div>
 <div class="card"><h3>Hold it right</h3><p>One grip does almost everything. Learn it with the <a href="{href("padel-grip.html")}">padel grip guide</a> and grip check.</p></div>
@@ -1230,7 +1230,8 @@ def _rbr(k):
 </div>'''
 
 rb = f'''<header class="hero"><div class="wrap"><h1>Padel racket weight and balance, decoded.</h1>
-<p class="lead">Type in the weight and balance from the spec sheet. See where the weight sits on a racket drawn to scale, what it means for power, speed and your arm, and how two rackets compare.</p></div></header>
+<p class="lead">Type in the weight and balance from the spec sheet. See where the weight sits on a racket drawn to scale, what it means for power, speed and your arm, and how two rackets compare.</p>
+{quick("Balance is the distance in mm from the bottom of the handle to the point where the racket balances. Under about 260 mm is low (head-light: control, quick hands, easier on the arm), about 260 to 270 mm is medium, and over about 270 mm is high (head-heavy: more power, more load on the elbow). Most adult rackets weigh about 345 to 385 g; most improving players do well at about 355 to 370 g.")}</div></header>
 <section style="padding-top:10px"><div class="wrap rb-layout" id="rb">
 <div class="card rb-form">{_rbr("A")}{_rbr("B")}
 <p class="muted" style="margin:6px 0 0;font-size:.9rem">Balance is measured in millimetres from the bottom of the handle. No figure on the box? <a href="#measure">Find it at home</a> in a minute.</p></div>
@@ -1243,7 +1244,7 @@ rb = f'''<header class="hero"><div class="wrap"><h1>Padel racket weight and bala
 </div></section>
 <section style="padding-top:0"><div class="wrap"><p class="muted" style="max-width:80ch">The bars are a rough guide worked out from weight and balance only. The core foam, face material, thickness and how stiff the racket is also change how it feels, so try a racket before you buy when you can.</p></div></section>
 {AD.format("balance-mid")}
-<section><div class="wrap"><div class="sh"><h2>Balance: low, medium or high</h2><p class="muted">Every padel racket has more weight above its middle point.</p></div>
+<section><div class="wrap"><div class="sh"><h2>What is a good balance for a padel racket?</h2><p class="muted">Every padel racket has more weight above its middle point.</p></div>
 <div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Balance</th><th scope="col">Rough balance point</th><th scope="col">How it feels</th><th scope="col">Often found on</th></tr></thead><tbody>
 <tr><td>Low (head-light)</td><td>Under about 260 mm</td><td>Quick to move, easy to control, gentler on the arm. Less free power.</td><td>Round rackets</td></tr>
 <tr><td>Medium (even)</td><td>About 260 to 270 mm</td><td>A mix of control and power.</td><td>Teardrop rackets</td></tr>
@@ -1255,26 +1256,26 @@ rb = f'''<header class="hero"><div class="wrap"><h1>Padel racket weight and bala
 <div class="card"><h3>Shape moves the sweet spot</h3><p>The sweet spot is the part of the face that gives the cleanest hit. On a round racket it is big and in the middle. On a teardrop it sits a little higher. On a diamond it is smaller and near the top.</p></div>
 <div class="card"><h3>Balance changes the swing</h3><p>Two rackets with the same weight can feel very different. The one with the weight further up feels heavier when you swing it, because more of the weight is far from your hand.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Weight: what the grams mean</h2></div>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How heavy should a padel racket be?</h2></div>
 <div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Weight</th><th scope="col">Range</th><th scope="col">Tends to suit</th></tr></thead><tbody>
 <tr><td>Light</td><td>Under about 355 g</td><td>New players, juniors, players with sore elbows or shoulders, and anyone who wants fast hands at the net.</td></tr>
 <tr><td>Medium</td><td>About 355 to 370 g</td><td>Most improving players. A good mix of feel and power.</td></tr>
 <tr><td>Heavy</td><td>Over about 370 g</td><td>Strong, experienced players who hit hard and want more power and stability.</td></tr>
 </tbody></table></div>
 <p class="muted" style="margin-top:14px">Most adult rackets weigh between about 345 and 385 g. Weights on the box can be a few grams out, and many are given as a range, such as 360 to 375 g.</p></div></section>
-<section id="measure"><div class="wrap"><div class="sh"><h2>Find your racket's balance at home</h2><p class="muted">You need a table, a pencil and a tape measure.</p></div>
+<section id="measure"><div class="wrap"><div class="sh"><h2>How do you measure padel racket balance at home?</h2><p class="muted">You need a table, a pencil and a tape measure.</p></div>
 <div class="grid">
 <div class="card"><span class="pill b">Step 1</span><h3 style="margin-top:10px">Set it up as you play</h3><p>Leave the overgrip, frame protector and any tape on the racket. They all change the balance a little.</p></div>
 <div class="card"><span class="pill b">Step 2</span><h3 style="margin-top:10px">Find the level point</h3><p>Lay a round pencil on a table. Put the racket across it, face flat, and slide it slowly until it rests level without tipping either way.</p></div>
 <div class="card"><span class="pill b">Step 3</span><h3 style="margin-top:10px">Measure</h3><p>Mark the spot where the pencil touches. Measure from the very bottom of the handle to that mark in millimetres. That number is the balance point.</p></div>
 <div class="card"><span class="pill i">Weight</span><h3 style="margin-top:10px">Weigh it too</h3><p>A kitchen scale works. Weigh the racket as you play with it, then put both numbers into the decoder above.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Small changes that move the balance</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What changes the balance of a racket?</h2></div><div class="grid">
 <div class="card"><h3>Adding an overgrip</h3><p>An overgrip adds a few grams at the handle, so the balance moves a little towards your hand and the racket feels a touch lighter to swing. Two overgrips move it more. See our <a href="{href("racket-finder.html")}#grip">grip and overgrip tips</a>.</p></div>
 <div class="card"><h3>Frame protector tape</h3><p>Tape around the top of the frame protects it from scrapes on the floor and walls, but it adds weight at the head. The balance moves up and the racket feels heavier to swing.</p></div>
 <div class="card"><h3>Lead or weight tape</h3><p>Some players add thin weight tape to tune a racket. Put it near the top for more power, or near the handle for more control. The rules allow added weights if they are a sensible size and position.</p></div>
 </div></div></section>
-<section><div class="wrap"><div class="sh"><h2>What the rules say about the racket</h2><p class="muted">From the FIP Rules of Padel, in force from 1 January 2026.</p></div>
+<section><div class="wrap"><div class="sh"><h2>Is there a weight or size limit for padel rackets?</h2><p class="muted">From the FIP Rules of Padel, in force from 1 January 2026.</p></div>
 <div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Part</th><th scope="col">Limit</th></tr></thead><tbody>
 <tr><td>Total length</td><td>45.5 cm at most</td></tr>
 <tr><td>Handle</td><td>20 cm long at most, 50 mm wide and 50 mm thick at most</td></tr>
@@ -1285,9 +1286,11 @@ rb = f'''<header class="hero"><div class="wrap"><h1>Padel racket weight and bala
 <tr><td>Weight and balance</td><td>No limit. You can choose any weight and balance</td></tr>
 </tbody></table></div>
 <p class="muted" style="margin-top:14px">If your cord breaks or you drop the racket during a point, your pair loses that point. More in our <a href="{href("rules.html")}">padel rules guide</a>.</p></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Not sure what you need?</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Ready to upgrade?</h3><p>Moving on from your first racket? The <a href="{href("intermediate-padel-racket.html")}">intermediate racket upgrade check</a> shows which specs to keep and which to change.</p></div>
 <div class="card"><h3>Take the racket finder</h3><p>Three quick questions give you the shape, weight, balance, core and face that suit your level and style. <a href="{href("racket-finder.html")}">Open the racket finder</a>.</p></div>
 <div class="card"><h3>Know your level first</h3><p>Weight and balance advice depends a lot on how long you have played. <a href="{href("level-calculator.html")}">Check your padel level</a>.</p></div>
+<div class="card"><h3>Sore elbow?</h3><p>Head-heavy and heavy rackets load the arm more. See where it hurts and what helps in <a href="{href("padel-injuries.html")}">padel injuries</a>.</p></div>
 </div></div></section>
 <section><div class="wrap"><div class="aff-box"><h3>Shop rackets by shape</h3><p>Use the decoder on any racket you like the look of: most shops list the weight, and many list the balance.</p><ul class="aff-links"><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-teardrop-rackets")}" {AFF_ATTR}>Teardrop rackets</a></li><li><a href="{go("padel-diamond-rackets")}" {AFF_ATTR}>Diamond rackets</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>All rackets</a></li></ul>{AFF_NOTE}</div></div></section>'''
 rb_faq = [
@@ -1297,11 +1300,13 @@ rb_faq = [
     ("How heavy should my padel racket be?", "Most adult rackets weigh about 345 to 385 g. New players and those with sore arms usually do best under about 360 g; strong, experienced players often choose 365 to 375 g or more."),
     ("Is a lighter padel racket better for tennis elbow?", "A lighter racket with a low balance usually puts less strain on the arm, and a soft core helps too. If the pain continues, see a doctor or physio."),
     ("Does an overgrip change the balance?", "A little. It adds weight at the handle, so the balance point moves towards your hand. Frame protector tape does the opposite and moves it towards the head."),
+    ("What weight and balance suit an intermediate padel player?", "Most intermediate players do well at about 360 to 370 g with a medium balance of about 260 to 270 mm, usually on a teardrop racket. Go lighter and lower if your arm gets sore."),
+    ("Is a head-heavy padel racket bad for your elbow?", "It puts more load on the elbow and shoulder than a head-light racket of the same weight. If you have elbow pain, choose a low balance and a lighter, softer racket, and see a doctor or physio if it continues."),
     ("Is there a weight limit for padel rackets?", "No. The FIP rules limit the size of the racket, 45.5 cm long, 26 cm wide and 38 mm thick at most, but not its weight or balance."),
 ]
 RB_PRE = {"round": [355, 255, "round"], "teardrop": [362, 265, "teardrop"], "diamond": [368, 275, "diamond"]}
 page("racket-balance.html", "Padel Racket Weight and Balance Explained: Free Spec Decoder | Padel Glass Box",
-     "What padel racket weight and balance really mean. Enter grams and balance in mm to see the balance point on a to-scale racket, compare two rackets, and learn to measure balance at home.",
+     "What is a good padel racket weight and balance? Low, medium and high balance in mm, weight bands in grams, and a free decoder: enter grams and balance in mm to see the balance point on a to-scale racket, compare two rackets, and learn to measure balance at home.",
      rb + f'<script>window.RB={json.dumps(RB_PRE)};</script>', rb_faq, "Racket weight and balance")
 
 # ---------------- ROUND ROBIN (FIXED PAIRS) ----------------
@@ -2495,6 +2500,96 @@ page("bandeja-vs-vibora.html", "Bandeja vs Víbora vs Smash: Which Padel Overhea
      "Bandeja, víbora or smash? Answer 4 questions and see which padel overhead to play, how to hit it and where to aim on a court drawing, plus a side-by-side table and the overhead mistakes new players make.",
      oh, oh_faq, "Bandeja vs víbora")
 
+# ---------------- INTERMEDIATE RACKET UPGRADE CHECK ----------------
+def irq(name, title, opts, on):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="{"true" if val == on else "false"}">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-ir="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+IRQ_NOW = [
+    ("shape", "Shape", [("round", "Round"), ("teardrop", "Teardrop"), ("diamond", "Diamond"), ("x", "Not sure")], "round"),
+    ("weight", "Weight", [("light", "Under 355 g"), ("mid", "355 to 370 g"), ("heavy", "Over 370 g"), ("x", "Not sure")], "x"),
+    ("face", "Face", [("glass", "Fibreglass"), ("carbon", "Carbon"), ("x", "Not sure")], "glass"),
+]
+IRQ_GAME = [
+    ("often", "How often do you play?", [("1", "Once a week or less"), ("2", "2 or 3 times a week"), ("4", "4 times or more")], "2"),
+    ("style", "How do you like to play?", [("control", "Steady, few errors"), ("allround", "A bit of everything"), ("attack", "Attack and finish at the net")], "allround"),
+    ("arm", "Do your elbow, wrist or shoulder get sore?", [("no", "No"), ("yes", "Sometimes")], "no"),
+    ("feel", "What bothers you about your racket?", [("power", "Not enough power"), ("control", "Balls fly long"), ("heavy", "Arm tired late on"), ("worn", "It feels dead or damaged"), ("fine", "Nothing really")], "power"),
+]
+IR_GO = {"round": go("padel-round-rackets"), "teardrop": go("padel-teardrop-rackets"), "diamond": go("padel-diamond-rackets")}
+ir = f'''<header class="hero"><div class="wrap"><h1>Padel racket for intermediate players: is it time to upgrade?</h1>
+<p class="lead">You can rally, you play every week and your first racket is starting to feel basic. Tell us what you play with now and how you play, and see which specs to keep, which to change and why.</p>
+{quick("Most intermediate players do well with a teardrop racket: medium balance, about 360 to 370 g, a soft or medium EVA core and a fibreglass or carbon face. Stay round and a little lighter if your arm gets sore or you play a steady game. Diamond rackets suit experienced attackers who play often and have no arm trouble. If your racket is not damaged and you play once a week or less, an upgrade will change less than lessons will.")}</div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="ir">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:4px">1. Your racket now</h2>
+<p class="muted" style="margin:0 0 6px;font-size:.92rem">Check the frame, the box or the shop page. Not sure? Pick "Not sure".</p>
+{"".join(irq(*x) for x in IRQ_NOW)}
+<h2 style="font-size:1.3rem;margin:18px 0 4px">2. Your game</h2>
+{"".join(irq(*x) for x in IRQ_GAME)}
+<p class="muted" style="margin:0;font-size:.92rem">General buying advice from racket guides, not a rule. Your answers are saved on this device.</p>
+</div>
+<aside class="result" id="ir-out" aria-live="polite"><h2 id="ir-h">Your upgrade check</h2><p id="ir-p"></p><dl class="spec" id="ir-spec"></dl><ul class="b-why" id="ir-why"></ul><p id="ir-shop"></p><p class="wr-src">Try the racket before you buy if you can: many clubs and shops lend demo rackets.</p></aside>
+</div></section>
+<script>window.IRGO={json.dumps(IR_GO)};</script>
+{AD.format("intermediate-mid")}
+<section><div class="wrap"><div class="sh"><h2>What changes from a beginner to an intermediate racket?</h2><p class="muted">Ranges are a guide. Racket guides draw the lines in slightly different places.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col"></th><th scope="col">Beginner</th><th scope="col">Intermediate</th><th scope="col">Advanced</th></tr></thead><tbody>
+<tr><td>Shape</td><td>Round</td><td>Teardrop (round for control players)</td><td>Teardrop or diamond</td></tr>
+<tr><td>Sweet spot</td><td>Large, in the middle</td><td>Medium, a little higher</td><td>Small and high on a diamond</td></tr>
+<tr><td>Balance</td><td>Low (head-light)</td><td>Medium</td><td>Medium to high</td></tr>
+<tr><td>Weight</td><td>About 355 to 365 g</td><td>About 360 to 370 g</td><td>About 365 to 375 g or more</td></tr>
+<tr><td>Core feel</td><td>Soft</td><td>Soft or medium</td><td>Medium to firm</td></tr>
+<tr><td>Face</td><td>Fibreglass</td><td>Fibreglass or carbon</td><td>Usually carbon</td></tr>
+<tr><td>Who it suits</td><td>New, learning to rally</td><td>Plays 2 to 3 times a week, wants comfort and more options</td><td>Plays most days, leagues or tournaments</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">Sources use different weight bands: some split light and heavy at 365 g, others at 370 g. Shop pages often give a range, such as 360 to 375 g. Check yours with the <a href="{href("racket-balance.html")}">weight and balance decoder</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Why is teardrop the usual intermediate shape?</h2></div><div class="grid">
+<div class="card"><span class="pill i">Teardrop</span><h3 style="margin-top:10px">A step up, not a jump</h3><p>A teardrop sits between round and diamond. You get more punch on overheads than a round racket gives, while the sweet spot is still big enough to forgive a slightly late hit.</p></div>
+<div class="card"><span class="pill b">Round</span><h3 style="margin-top:10px">Still a good choice</h3><p>Moving up a level does not mean you must leave round. If you win points with steady lobs and volleys, or your arm gets sore, a better round racket can be the right upgrade.</p></div>
+<div class="card"><span class="pill a">Diamond</span><h3 style="margin-top:10px">Wait for it</h3><p>Most guides keep diamonds for advanced attacking players. The sweet spot is small and high, so mis-hits cost more, and the extra head weight puts more load on the elbow.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Soft or hard: which core and face?</h2></div><div class="grid">
+<div class="card"><h3>Soft core</h3><p>Soft EVA or foam cushions the ball. It gives easier power at slow speeds, is kind to joints and is often suggested for intermediate players.</p></div>
+<div class="card"><h3>Firm core</h3><p>Firm EVA feels stiff. It rewards fast, clean swings with control and power, but it forgives less when you miss the middle. Usually an advanced choice.</p></div>
+<div class="card"><h3>Fibreglass face</h3><p>Softer and more flexible. Comfortable, forgiving and cheaper. Plenty of intermediate players stay with it.</p></div>
+<div class="card"><h3>Carbon face</h3><p>Stiffer and more durable, with more precise feel, but more vibration reaches your arm. Rackets with carbon faces usually cost more.</p></div>
+</div>
+<p class="muted" style="margin-top:14px">You will see numbers like 3K, 12K or 18K on carbon rackets. They describe the carbon weave. Brands use them differently, so compare how a racket feels rather than the number alone.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>When is it worth buying a new padel racket?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">If this is you</th><th scope="col">What to do</th></tr></thead><tbody>
+<tr><td>Your racket has a crack, a rattle or a dead spot</td><td>Run the <a href="{href("racket-care.html")}">racket health check</a>. If it fails, replace it.</td></tr>
+<tr><td>You play 2 or more times a week and want more on your overheads</td><td>A teardrop with medium balance is the usual next step</td></tr>
+<tr><td>Your arm hurts after playing</td><td>Stay light, low balance and soft. See <a href="{href("padel-injuries.html")}">padel injuries</a></td></tr>
+<tr><td>Balls fly long and you lack control</td><td>Do not go harder or heavier. A round or teardrop with a low to medium balance helps</td></tr>
+<tr><td>The handle slips or feels thin</td><td>A new overgrip first. It is the cheapest upgrade: <a href="{href("padel-grip.html")}">grip guide</a></td></tr>
+<tr><td>You play once a week or less and nothing is wrong</td><td>Keep it. Lessons and <a href="{href("drills.html")}">drills</a> will change more</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">General buying advice in our own words, not a rule.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How should I test a racket before I buy?</h2></div><div class="grid">
+<div class="card"><span class="pill b">Step 1</span><h3 style="margin-top:10px">Borrow or demo</h3><p>Ask friends at your club, or ask the club or shop for a demo racket. Play at least a full match with it.</p></div>
+<div class="card"><span class="pill b">Step 2</span><h3 style="margin-top:10px">Test at the net</h3><p>Fast volleys show if it is too heavy or head-heavy. If you are late at the net, go lighter or lower balance.</p></div>
+<div class="card"><span class="pill b">Step 3</span><h3 style="margin-top:10px">Test off the glass</h3><p>Defend balls off the back glass and lob. If balls keep flying long, the racket may be too powerful for you right now.</p></div>
+<div class="card"><span class="pill b">Step 4</span><h3 style="margin-top:10px">Check your arm next day</h3><p>Any new elbow or wrist ache means the racket is too heavy, too head-heavy or too stiff for you.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Compare two rackets</h3><p>Put the weight and balance of your racket and the new one into the <a href="{href("racket-balance.html")}">balance decoder</a>.</p></div>
+<div class="card"><h3>On a budget?</h3><p>See good value picks in <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets</a>, and this week's <a href="{href("padel-black-friday.html")}">Black Friday deals</a>.</p></div>
+<div class="card"><h3>Check your level</h3><p>Not sure you are intermediate yet? Try the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Shop rackets by shape</h3><p>Filter by shape first, then check the weight and balance on the product page against your result above.</p><ul class="aff-links"><li><a href="{go("padel-teardrop-rackets")}" {AFF_ATTR}>Teardrop rackets</a></li><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-diamond-rackets")}" {AFF_ATTR}>Diamond rackets</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-bags")}" {AFF_ATTR}>Bags</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>All rackets</a></li></ul>{AFF_NOTE}</div></div></section>'''
+ir_faq = [
+    ("What padel racket should an intermediate player use?", "Usually a teardrop with medium balance, about 360 to 370 g, a soft or medium core and a fibreglass or carbon face. Steady players and anyone with a sore arm can stay with a round, lighter racket."),
+    ("When should I upgrade my padel racket?", "When it is damaged or feels dead, when you play two or more times a week and have outgrown it, or when it causes arm pain. If you play once a week or less and it is fine, keep it."),
+    ("Should an intermediate player use a diamond racket?", "Most racket guides keep diamond rackets for advanced attacking players. The small, high sweet spot forgives less, and the head weight loads the elbow. Try a teardrop first."),
+    ("How heavy should an intermediate padel racket be?", "About 360 to 370 g suits most intermediate players. Go to the lower end if your arm gets tired or sore."),
+    ("Is carbon better than fibreglass for intermediate players?", "Not always. Carbon is stiffer and more durable with a more precise feel, but sends more vibration to the arm. Fibreglass is softer and forgiving, and many intermediate players stay with it."),
+    ("Soft or hard core for an intermediate padel racket?", "Soft or medium. A soft core gives easier power and comfort; a firm core suits fast, clean swings and is usually for advanced players."),
+    ("Is a more expensive padel racket better?", "Not by itself. Higher prices often mean carbon and firmer cores, which suit advanced players. The right shape, weight and balance for your game matter more than the price."),
+]
+page("intermediate-padel-racket.html", "Padel Racket for Intermediate Players: Free Upgrade Check (Shape, Weight, Balance) | Padel Glass Box",
+     "Which padel racket should an intermediate player use? Enter your current racket and your game to see which specs to keep or change: shape, weight, balance, core and face, with reasons.",
+     ir, ir_faq, "Intermediate padel racket")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 
@@ -2569,7 +2664,7 @@ bf = f'''<header class="hero"><div class="wrap"><h1>Padel Black Friday 2026: wha
 <h2>How do I avoid a fake deal?</h2><ul>
 <li>Some shops keep a permanent "sale" price, so a big percentage off is not always a real drop. Compare with the price a couple of weeks earlier.</li>
 <li>Pick the racket for your level first, then look for it on sale, not the other way round. Our <a href="{href("racket-finder.html")}">racket finder</a> takes a minute.</li>
-<li>Budget? These are the <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets worth buying</a>.</li></ul>
+<li>Budget? These are the <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets worth buying</a>.</li><li>Upgrading from your first racket? Run the <a href="{href("intermediate-padel-racket.html")}">intermediate upgrade check</a> first.</li></ul>
 <p class="muted">Sources: Padel Market Black Friday page (code and conditions, November 2026); Padel Browser "When to buy padel gear 2026"; zonadepadel Black Friday 2026 page. We update this page if offers change.</p>
 </div></section>'''
 bf_faq = [
@@ -2590,7 +2685,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "about.html", "privacy.html"]
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
