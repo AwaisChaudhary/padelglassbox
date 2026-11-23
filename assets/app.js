@@ -1728,4 +1728,55 @@
     $("#injc-reset").addEventListener("click", function () { hbox.forEach(function (b) { b.checked = false; }); hrender(); });
     hrender();
   }
+  /* ---------- padel grip: shot grip finder ---------- */
+  var gp = $("#gp");
+  if (gp && window.GRIPS) {
+    var gsh = $$("button", $("#gp-shots")), ghd = $$("button", $("#gp-hand"));
+    var gst = store.get("pp-grip", { s: "vol", h: "r" });
+    if (!window.GRIPS[gst.s]) gst.s = "vol";
+    var GN = { c: "Continental grip", e: "Continental (eastern forehand is an option)", eb: "Continental (eastern backhand is an option)" };
+    var grender = function () {
+      store.set("pp-grip", gst);
+      gsh.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === gst.s ? "true" : "false"); });
+      ghd.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === gst.h ? "true" : "false"); });
+      var r = window.GRIPS[gst.s], g = r[1];
+      $("#gp-h").textContent = GN[g];
+      $("#gp-p").textContent = r[0] + ": " + r[2];
+      var bev = 1, alt = "";
+      if (g === "e") { bev = gst.h === "r" ? 2 : 8; }
+      if (g === "eb") { bev = gst.h === "r" ? 8 : 2; }
+      $("#gp-mark").setAttribute("transform", "translate(110 110) rotate(" + ((bev - 1) * 45) + ") translate(0 -97)");
+      if (g !== "c") alt = "The marker shows the optional grip: the V of your hand moves one bevel round, to bevel " + bev + ". For the continental grip it stays on bevel 1. ";
+      else alt = "The marker shows where the V between your thumb and first finger sits: bevel 1, the top edge. ";
+      $("#gp-src").textContent = alt + (gst.h === "l" ? "Left-handed: everything is mirrored." : "Right-handed view.");
+    };
+    gsh.forEach(function (b) { b.addEventListener("click", function () { gst.s = b.dataset.v; grender(); }); });
+    ghd.forEach(function (b) { b.addEventListener("click", function () { gst.h = b.dataset.v; grender(); }); });
+    grender();
+  }
+
+  /* ---------- padel grip: grip check ---------- */
+  var gc = $("#gc");
+  if (gc && window.GCFIX) {
+    var gbox = $$("input", $("#gc-list")), gout = $("#gc-out");
+    var gsv = store.get("pp-gc", []);
+    gbox.forEach(function (b) { b.checked = gsv.indexOf(b.dataset.g) > -1; });
+    var gcrender = function () {
+      var on = gbox.filter(function (b) { return b.checked; }).map(function (b) { return b.dataset.g; });
+      store.set("pp-gc", on);
+      var fx = [];
+      on.forEach(function (k) { var f = window.GCFIX[k]; if (f && fx.indexOf(f) < 0) fx.push(f); });
+      var h, p, cls;
+      if (!on.length) { cls = ""; h = "Your grip check"; p = "Tick what you notice and your fixes appear here. Nothing to tick? Your grip sounds good: keep it relaxed and continental."; }
+      else if (fx.length >= 3) { cls = " mid"; h = fx.length + " things to fix"; p = "Work on one at a time, starting with the first. Small grip changes feel odd for a few sessions, then natural."; }
+      else { cls = " good"; h = fx.length === 1 ? "One quick fix" : "Two quick fixes"; p = "Small changes, big difference:"; }
+      var lk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+      gout.className = "result" + cls;
+      gout.innerHTML = "<h2>" + h + "</h2><p>" + p + "</p>" + (fx.length ? '<ul class="b-why">' + fx.map(function (f) { return "<li>" + f + "</li>"; }).join("") + "</ul>" : "") +
+        (on.length ? '<p class="wr-src">General coaching advice. Pain that doesn\'t go away? See ' + lk("padel-injuries", "padel injuries") + ". Next: practise with the " + lk("drills", "drills planner") + ".</p>" : "");
+    };
+    gbox.forEach(function (b) { b.addEventListener("change", gcrender); });
+    $("#gc-reset").addEventListener("click", function () { gbox.forEach(function (b) { b.checked = false; }); gcrender(); });
+    gcrender();
+  }
 })();

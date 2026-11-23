@@ -125,7 +125,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -200,7 +200,8 @@ def q(name, title, opts):
     return f'<div class="q"><h3>{title}</h3><div class="opts" data-q="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
 
 finder = f'''<header class="hero"><div class="wrap"><h1>Find your padel racket.</h1>
-<p class="lead">Three questions. You'll get the racket shape, balance, weight, core and face material that suit your game, and why.</p></div></header>
+<p class="lead">Three questions. You'll get the racket shape, balance, weight, core and face material that suit your game, and why.</p>
+{quick("Most beginners do best with a round padel racket: low balance (under about 260 mm), a weight of about 345 to 360 g, a soft foam core and a fibreglass face. Improving players often move to a teardrop shape, and experienced attacking players to a diamond. If your elbow or shoulder gets sore, stay light, low-balance and soft.")}</div></header>
 <section style="padding-top:10px"><div class="wrap quiz" id="quiz">
 <div class="card">
 {q("level", "1. How long have you played?", [("new", "Under 6 months"), ("improving", "6 months to 2 years"), ("advanced", "2 years or more")])}
@@ -211,24 +212,37 @@ finder = f'''<header class="hero"><div class="wrap"><h1>Find your padel racket.<
 <aside class="result" id="result" aria-live="polite"></aside>
 </div></section>
 {AD.format("finder-mid")}
-<section><div class="wrap"><div class="sh"><h2>The 3 racket shapes</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>What are the 3 padel racket shapes?</h2></div><div class="grid">
 <div class="card"><span class="pill b">Most control</span><h3 style="margin-top:10px">Round</h3><p>The sweet spot is large and right in the middle, and the weight sits towards the handle. Forgiving, easy to handle, and the usual first racket. Plenty of top players use them too.</p></div>
 <div class="card"><span class="pill i">All-round</span><h3 style="margin-top:10px">Teardrop</h3><p>A mix of round and diamond, with medium balance. More punch than a round racket while still being fairly easy to control.</p></div>
 <div class="card"><span class="pill a">Most power</span><h3 style="margin-top:10px">Diamond</h3><p>Weight sits towards the head and the sweet spot is smaller and higher up. Big smashes, but less forgiving, so it suits experienced attackers.</p></div>
 </div></div></section>
-<section><div class="wrap"><div class="sh"><h2>What the specs mean</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>What do padel racket specs mean?</h2></div><div class="grid">
 <div class="card"><h3>Weight</h3><p>Most adult rackets weigh roughly 345 to 385 g. Heavier rackets hit harder but tire your arm sooner; lighter ones are quicker at the net. New players usually do best under about 360 g.</p></div>
 <div class="card"><h3>Balance</h3><p>Measured in mm from the bottom of the handle. Low balance (under about 260 mm) means control and quick hands. High balance (over about 270 mm) means power but more strain. <a href="{href("racket-balance.html")}">Decode and compare two rackets</a>.</p></div>
 <div class="card"><h3>Core foam</h3><p>Soft foam gives easy power and comfort at slow speeds. Hard foam gives control when you swing fast.</p></div>
 <div class="card"><h3>Face material</h3><p>Fiberglass is softer and forgiving. Carbon is stiffer and more precise, and usually costs more.</p></div>
 </div></div></section>
-<section style="padding-top:0" id="grip"><div class="wrap"><div class="sh"><h2>Grip and overgrip</h2><p class="muted">The cheapest upgrade you can make to any racket. Looking after the rest of it? See <a href="{href("racket-care.html")}">racket care</a>.</p></div><div class="grid">
+<section style="padding-top:0" id="grip"><div class="wrap"><div class="sh"><h2>How do you choose a grip and overgrip?</h2><p class="muted">The cheapest upgrade you can make to any racket. How to hold it: <a href="{href("padel-grip.html")}">padel grip guide</a>. Looking after the rest of it: <a href="{href("racket-care.html")}">racket care</a>.</p></div><div class="grid">
 <div class="card"><h3>Grip vs overgrip</h3><p>The base grip is the thick, cushioned layer that comes on the handle. An overgrip is a thin, light tape you wrap over it. It protects the base grip, which is harder to replace, and soaks up sweat.</p></div>
 <div class="card"><h3>When to change it</h3><p>Change it when it looks dirty or worn, or when it feels slippery, wet or less sticky. Social players often get a few sessions from one. Players who sweat a lot, or play in heat, change it far more often.</p></div>
 <div class="card"><h3>How to put one on</h3><p>Take off the old overgrip. Start at the bottom of the handle, by the butt cap, and wrap up towards the head, keeping each turn parallel and slightly overlapping. Cut the end straight and fix it with the finishing tape.</p></div>
-<div class="card"><h3>Handle feels too thin?</h3><p>Padel handles often feel small in bigger hands. Overlap the overgrip more as you wrap, or add a second overgrip, to make the handle thicker. Overlap less for a thinner feel.</p></div>
+<div class="card"><h3>Handle feels too thin?</h3><p>Padel handles often feel small in bigger hands. Overlap the overgrip more as you wrap, or add a second overgrip, to make the handle thicker. Overlap less for a thinner feel. Use the finger test in the <a href="{href("padel-grip.html")}">grip guide</a> to check.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which racket by level?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Level</th><th scope="col">Shape</th><th scope="col">Balance</th><th scope="col">Feel</th></tr></thead><tbody>
+<tr><td>Under 6 months</td><td>Round</td><td>Low (head-light)</td><td>Soft core, fibreglass face</td></tr>
+<tr><td>6 months to 2 years</td><td>Round or teardrop</td><td>Low to medium</td><td>Soft to medium</td></tr>
+<tr><td>2 years or more, attacking</td><td>Teardrop or diamond</td><td>Medium to high</td><td>Harder core, carbon face</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">A guide, not a rule: try a friend's racket or a demo racket at your club before you buy. Not sure of your level? Use the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Compare two rackets</h3><p>Type in the weight and balance from the label and see what they mean in the <a href="{href("racket-balance.html")}">balance decoder</a>.</p></div>
+<div class="card"><h3>Hold it right</h3><p>One grip does almost everything. Learn it with the <a href="{href("padel-grip.html")}">padel grip guide</a> and grip check.</p></div>
+<div class="card"><h3>Make it last</h3><p>Keep it out of the hot car and check it for cracks with the <a href="{href("racket-care.html")}">racket health check</a>.</p></div>
 </div></div></section>'''
 finder_faq = [
+    ("How do I hold a padel racket?", "Use the continental grip: stand the racket on its edge and shake hands with the handle, so the V between your thumb and first finger sits on the top edge. It works for almost every shot."),
     ("What padel racket should a beginner buy?", "Most beginners do best with a round racket: low balance, a lighter weight, soft foam and a fiberglass face. It's forgiving and easy to control."),
     ("Round, teardrop or diamond: which is best?", "Round gives the most control, diamond the most power, and teardrop sits in between. Many players start round, move to teardrop, then try diamond."),
     ("How heavy should a padel racket be?", "Most adult rackets weigh around 345 to 385 g. Pick the lighter end if you're new or have sore elbows, and the heavier end if you hit hard."),
@@ -2203,6 +2217,144 @@ page("padel-injuries.html", "Padel Injuries: Elbow, Knee, Back and How to Preven
      "The most common padel injuries, from padel elbow to knee, shoulder and back pain: tap a body area to see what studies report and what helps, and run a free injury prevention check.",
      inj, inj_faq, "Padel injuries")
 
+# ---------------- PADEL GRIP: HOW TO HOLD A PADEL RACKET ----------------
+# Sources: The Padel School "Find your padel grip" (continental base grip; change grip only at the back; use the free hand to reset),
+# Padel Browser "Padel grip guide" (continental for most shots incl. volley, serve, bandeja, víbora, smash; handshake/hammer; V on top edge;
+# eastern variants one bevel round for some back-court shots; too tight = forearm fatigue; tennis forehand grip mistake; wrist strap),
+# Padelshop "How to hold a padel racket" (hammer, not too tight), Padel Browser grip size guide (finger-gap test, small handle -> squeeze harder,
+# overgrip adds thickness), HEAD "How to place an overgrip" (overlap changes thickness, worn grip -> squeeze harder, replace at least every 2 months),
+# TotalPadel "How to overgrip a padel racket" (wrap from butt cap upwards, parallel turns, 2-3 sessions for club players). Own wording.
+# shot id, name, grip key, note
+GRIP_SHOTS = [
+    ("serve", "Serve", "c", "Use the continental grip. It lets you hit the underhand serve with a little slice and control."),
+    ("ret", "Return of serve", "c", "Stay in the continental grip. The ball comes quickly and there is no time to change."),
+    ("vol", "Volley (forehand or backhand)", "c", "Always continental at the net. The same grip works on both sides, so you never have to change it in a fast exchange."),
+    ("band", "Bandeja", "c", "Continental. The racket face stays a little open to put slice on the ball and keep it deep."),
+    ("vib", "Víbora", "c", "Continental. The grip lets the wrist and forearm add side spin as you hit across the ball."),
+    ("smash", "Smash", "c", "Continental for most smashes. Keep your hand relaxed until just before contact."),
+    ("glass", "Ball off the back glass", "c", "Continental. Ball after ball comes off the glass at different heights, and one grip makes every one easier."),
+    ("chiq", "Chiquita and lob", "c", "Continental. Both are touch shots that need an open, steady racket face."),
+    ("fh", "Forehand drive from the back", "e", "Continental is fine. Some coaches let improving players turn the hand one bevel towards the eastern forehand grip for a stronger drive from the back of the court, but only there, never at the net."),
+    ("bh", "High backhand from the back", "eb", "Continental is fine. Some coaches use an eastern backhand grip (one bevel the other way) for attacking high backhands from the back. Learn the continental first."),
+]
+GRIP_JSON = json.dumps({s: [n, g, t] for s, n, g, t in GRIP_SHOTS}, ensure_ascii=False)
+GC_ITEMS = [
+    ("tight", "My forearm or hand is tired or sore after playing"),
+    ("white", "I squeeze the handle hard all through the rally"),
+    ("switch", "I change grip for every forehand and backhand volley"),
+    ("tennis", "I hold it like a tennis forehand, with the palm under the handle"),
+    ("reset", "My grip has slowly turned by the end of a long rally"),
+    ("slip", "The handle feels slippery or wet"),
+    ("thin", "My fingers dig into my palm and there is no gap at all"),
+    ("thick", "There is a big gap between my fingers and my palm"),
+    ("strap", "I don't always wear the wrist strap"),
+]
+GC_FIX = {
+    "tight": "Relax your hold. Keep a loose hand between shots and squeeze a little more only as you hit. A tight grip tires the forearm and is linked to elbow trouble.",
+    "white": "Relax your hold. Keep a loose hand between shots and squeeze a little more only as you hit. A tight grip tires the forearm and is linked to elbow trouble.",
+    "switch": "Stay in the continental grip at the net. It works for forehand and backhand volleys, so you never need to change.",
+    "tennis": "Move to the continental grip: a handshake on the handle with the frame edge pointing up and down. A tennis forehand grip makes volleys and balls off the glass harder.",
+    "reset": "Use your free hand on the throat of the racket between shots to set the grip back to continental.",
+    "slip": "Fit a new overgrip. A slippery handle makes you squeeze harder without noticing.",
+    "thin": "Your handle may be too thin. Add an overgrip, or wrap the one you have with more overlap.",
+    "thick": "Your handle may be too thick. Wrap the overgrip with less overlap, or take off an extra layer.",
+    "strap": "Always wear the wrist strap. It stops the racket flying if it slips, and dropping it during a point loses the point.",
+}
+GC_JSON = json.dumps(GC_FIX, ensure_ascii=False)
+HANDLE_SVG = '''<svg id="gp-svg" viewBox="0 0 220 220" role="img" aria-label="Handle seen from the bottom, with eight numbered bevels and a marker for where the V of your hand sits">
+<polygon points="78,20 142,20 188,66 188,154 142,200 78,200 32,154 32,66" fill="#1e46c8" stroke="#e4eef6" stroke-width="3"/>
+<polygon points="92,52 128,52 156,80 156,140 128,168 92,168 64,140 64,80" fill="#132e80" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+<rect x="104" y="58" width="12" height="104" rx="4" fill="#9cc4ea" opacity=".55"/>
+<g font-family="Onest, sans-serif" font-size="15" font-weight="700" fill="#e4eef6" text-anchor="middle">
+<text x="110" y="42" id="gb1">1</text><text x="160" y="58" id="gb2">2</text><text x="176" y="115">3</text><text x="160" y="172">4</text>
+<text x="110" y="190">5</text><text x="60" y="172">6</text><text x="44" y="115">7</text><text x="60" y="58" id="gb8">8</text></g>
+<g id="gp-mark" transform="translate(110 110) translate(0 -97)"><path d="M0 10 L-11 -10 L11 -10 Z" fill="#e8f84a" stroke="#0b1530" stroke-width="2"/></g>
+</svg>'''
+grip = f'''<header class="hero"><div class="wrap"><h1>How to hold a padel racket.</h1>
+<p class="lead">One grip does almost everything in padel. Find it with the steps below, tap a shot to see which grip it uses, and run the grip check to fix what is making your hand tired or the ball fly.</p>
+{quick("Use the continental grip for almost every padel shot. Hold the racket with the frame edge pointing up and down and shake hands with the handle, as if holding a hammer: the V between your thumb and first finger sits on the top edge. Keep your hand relaxed between shots, wear the wrist strap, and use the same grip for forehands, backhands, volleys and overheads.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="quiz" id="gp">
+<div class="card">
+<div class="q"><h3>Which hand do you play with?</h3><div class="seg" id="gp-hand" role="group" aria-label="Playing hand" style="background:#dfe8f7"><button type="button" data-v="r" aria-pressed="true">Right hand</button><button type="button" data-v="l" aria-pressed="false">Left hand</button></div></div>
+<div class="q"><h3>Pick a shot</h3><div class="opts" id="gp-shots" role="group" aria-label="Shot">{"".join(f'<button class="opt" type="button" data-v="{s}" aria-pressed="{"true" if s == "vol" else "false"}">{e(n)}</button>' for s, n, g, t in GRIP_SHOTS)}</div></div>
+<p class="muted" style="margin:0;font-size:.92rem">The drawing shows the handle from the bottom, with the racket frame standing straight up. Your choice is saved on this device.</p>
+</div>
+<aside class="result" id="gp-out" aria-live="polite"><h2 id="gp-h">Continental grip</h2><div class="gp-art">{HANDLE_SVG}</div><p id="gp-p"></p><p class="wr-src" id="gp-src"></p></aside>
+</div></div></section>
+<script>window.GRIPS={GRIP_JSON};window.GCFIX={GC_JSON};</script>
+{AD.format("grip-mid")}
+<section><div class="wrap"><div class="sh"><h2>How do you find the continental grip?</h2></div><div class="grid">
+<div class="card"><span class="pill b">Step 1</span><h3 style="margin-top:10px">Stand the racket on its edge</h3><p>Hold the racket by the throat with your free hand, so the frame points straight up and down and the faces point left and right.</p></div>
+<div class="card"><span class="pill b">Step 2</span><h3 style="margin-top:10px">Shake hands with it</h3><p>Put your playing hand on the handle as if you were shaking someone's hand, or holding a hammer to knock in a nail.</p></div>
+<div class="card"><span class="pill b">Step 3</span><h3 style="margin-top:10px">Check the V</h3><p>Look down at your hand. The V shape between your thumb and first finger should sit on the top edge of the handle (bevel 1 in the drawing).</p></div>
+<div class="card"><span class="pill b">Step 4</span><h3 style="margin-top:10px">Leave a small gap</h3><p>Wrap your fingers round. Spread them a little and keep a small gap between your palm and the handle. Don't press your palm flat on it.</p></div>
+<div class="card"><span class="pill i">Step 5</span><h3 style="margin-top:10px">Strap on first</h3><p>Put the wrist strap on before you take your grip. Every padel racket has one, and many clubs ask you to wear it.</p></div>
+<div class="card"><span class="pill i">Step 6</span><h3 style="margin-top:10px">Reset between shots</h3><p>After each shot, let your free hand touch the throat of the racket and turn the grip back to continental if it has moved.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Is your grip holding you back? Run the grip check</h2></div>
+<div class="quiz" id="gc"><div><div class="q"><h3>Tick anything that is true for you</h3>
+<ul class="check" id="gc-list">{"".join(f'<li><label><input type="checkbox" data-g="{c}"><span>{e(t)}</span></label></li>' for c, t in GC_ITEMS)}</ul></div>
+<button class="btn sm" type="button" id="gc-reset">Start again</button></div>
+<aside class="result" id="gc-out" aria-live="polite"><h2>Your grip check</h2><p>Tick what you notice and your fixes appear here.</p></aside>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which grip for which padel shot?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Shot</th><th scope="col">Grip</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><td>Serve and return</td><td>Continental</td><td>Control and a little slice</td></tr>
+<tr><td>Volleys, both sides</td><td>Continental</td><td>No time to change grip at the net</td></tr>
+<tr><td>Bandeja, víbora, smash</td><td>Continental</td><td>Lets you slice and spin overheads</td></tr>
+<tr><td>Balls off the glass, lobs, chiquitas</td><td>Continental</td><td>Steady, open racket face</td></tr>
+<tr><td>Forehand drive from the back</td><td>Continental (some coaches: eastern forehand)</td><td>Only at the back, once the basics are solid</td></tr>
+<tr><td>Attacking high backhand from the back</td><td>Continental (some coaches: eastern backhand)</td><td>Only at the back, once the basics are solid</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">Coaches agree the continental grip is the base. The eastern options are extras for improving players and are never used at the net. If you are in your first months of padel, keep one grip for everything.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How tight should you hold a padel racket?</h2></div><div class="grid">
+<div class="card"><h3>Relaxed between shots</h3><p>Hold the racket loosely while you wait and move. A loose hand reacts faster at the net.</p></div>
+<div class="card"><h3>A little firmer at contact</h3><p>Squeeze a bit more just as you hit, then relax again straight after. Don't hold at full strength all the time.</p></div>
+<div class="card"><h3>Why it matters</h3><p>Gripping hard all the time locks your wrist, tires the forearm and is linked to elbow pain. See <a href="{href("padel-injuries.html")}">padel injuries</a> for more on padel elbow.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Is my padel grip too small or too big?</h2></div><div class="grid">
+<div class="card"><h3>The finger test</h3><p>Take the continental grip. There should be a small gap between your fingertips and the base of your thumb, about the width of one finger of your other hand. No gap means the handle is thin; a big gap means it is thick.</p></div>
+<div class="card"><h3>Too small</h3><p>If the handle is too thin, you tend to squeeze harder as the match goes on. Add an overgrip, or wrap with more overlap.</p></div>
+<div class="card"><h3>Too big</h3><p>A handle that is too thick is hard to turn and hold relaxed. Wrap the overgrip with less overlap, or remove an extra layer.</p></div>
+<div class="card"><h3>Overgrips change the size</h3><p>Many padel rackets come in one handle size, so players change the feel with overgrips. Each extra layer, or more overlap as you wrap, makes the handle a little thicker.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do you put on an overgrip?</h2></div>
+<div class="card"><ol class="gp-steps">
+<li>Pull off the old overgrip and its finishing tape.</li>
+<li>Put the wrist strap on its holder so it doesn't get in the way.</li>
+<li>Start at the bottom of the handle, by the butt cap. Peel the backing and stick the thin end there.</li>
+<li>Turn the racket slowly and wrap up the handle, keeping each turn parallel and overlapping the last one by the same amount.</li>
+<li>Stop at the top of the handle. Cut the end straight across and fix it with the finishing tape.</li>
+</ol>
+<p class="muted" style="margin:10px 0 0">How often to change it: brand guides range from every two or three sessions for club players to at least every two months. Change it sooner if it looks dirty, changes colour or stops feeling sticky. More on this in <a href="{href("racket-care.html")}">racket care</a>.</p></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What grip mistakes do new players make?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Mistake</th><th scope="col">What happens</th><th scope="col">Fix</th></tr></thead><tbody>
+<tr><td>Tennis forehand grip</td><td>Volleys and balls off the glass get awkward</td><td>Continental for everything</td></tr>
+<tr><td>Squeezing all the time</td><td>Tired forearm, stiff wrist, sore elbow</td><td>Loose hand, firmer only at contact</td></tr>
+<tr><td>Changing grip at the net</td><td>Late on fast volleys</td><td>One grip at the net</td></tr>
+<tr><td>Never resetting</td><td>Grip slowly turns during a rally</td><td>Free hand on the throat after each shot</td></tr>
+<tr><td>Worn or slippery overgrip</td><td>You squeeze harder without noticing</td><td>New overgrip</td></tr>
+<tr><td>No wrist strap</td><td>Racket can fly, and dropping it loses the point</td><td>Strap on before you grip</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Use the grip on court</h3><p>See the bandeja, víbora and chiquita drawn out in the <a href="{href("shots.html")}">shot library</a>.</p></div>
+<div class="card"><h3>Practise it</h3><p>Tap-ups and wall volleys build a relaxed grip. Plan a session with the <a href="{href("drills.html")}">drills planner</a>.</p></div>
+<div class="card"><h3>Check your racket</h3><p>Heavy or head-heavy rackets make you squeeze more. Try the <a href="{href("racket-finder.html")}">racket finder</a> or the <a href="{href("racket-balance.html")}">balance decoder</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Grip kit</h3><p>A fresh overgrip is the cheapest way to make any racket feel better in your hand. Keep a few spare in your bag.</p><ul class="aff-links"><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>All rackets</a></li><li><a href="{go("padel-bags")}" {AFF_ATTR}>Padel bags</a></li></ul>{AFF_NOTE}</div></div></section>'''
+grip_faq = [
+    ("What grip do you use in padel?", "The continental grip. It is the base grip for almost every shot: serve, return, volleys on both sides, bandeja, víbora, smash and balls off the glass."),
+    ("How do you find the continental grip in padel?", "Stand the racket on its edge and shake hands with the handle, like holding a hammer. The V between your thumb and first finger sits on the top edge of the handle."),
+    ("Do you change grip in padel?", "Mostly no. Beginners should use the continental grip for everything. Some coaches let improving players turn the hand one bevel for some forehands or high backhands from the back of the court, but never at the net."),
+    ("How tight should I hold my padel racket?", "Loosely between shots and a little firmer just as you hit. Squeezing hard all the time tires your forearm and is linked to elbow pain."),
+    ("How do I know if my padel grip is too small?", "Take the continental grip. If your fingertips dig into your palm with no gap, or you find yourself squeezing harder as you play, the handle is probably too thin. Add an overgrip or overlap it more."),
+    ("Is the padel grip the same as in tennis?", "The continental grip is the same one tennis players use to serve and volley. Many tennis players use a different grip for forehands, but in padel the continental is used for nearly everything."),
+    ("Is the grip different for left-handed players?", "It is the same continental grip, just mirrored. If a coach tells you to turn one bevel for a forehand, a left-hander turns the other way."),
+]
+page("padel-grip.html", "How to Hold a Padel Racket: Continental Grip Guide and Free Grip Check | Padel Glass Box",
+     "How to hold a padel racket: find the continental grip in 6 steps, tap any shot to see its grip, check your grip size and overgrip, and fix the grip mistakes new players make.",
+     grip, grip_faq, "Padel grip")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
@@ -2213,7 +2365,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "about.html", "privacy.html"]
+urls = ["index.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
