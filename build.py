@@ -127,7 +127,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li></ul></div>
 <div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
@@ -401,7 +401,7 @@ shots = f'''<header class="hero"><div class="wrap"><h1>Every padel shot, explain
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What makes padel shots different from tennis?</h2></div><div class="grid">
 <div class="card"><h3>Shorter swings</h3><p>The court is small and the ball comes back off the glass, so compact swings and control beat raw power.</p></div>
 <div class="card"><h3>Let it come off the glass</h3><p>Many balls are easier after the back glass. Wait for the rebound instead of rushing. The <a href="{href("wall-rules.html")}">wall rules checker</a> shows what is in and out.</p></div>
-<div class="card"><h3>Overheads that keep the net</h3><p>The bandeja and víbora are not smashes. Their job is to keep your team at the net, so placement matters more than pace.</p></div>
+<div class="card"><h3>Overheads that keep the net</h3><p>The bandeja and víbora are not smashes. Their job is to keep your team at the net, so placement matters more than pace. Not sure which one to play? Try the <a href="{href("bandeja-vs-vibora.html")}">overhead chooser</a>.</p></div>
 </div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
 <div class="card"><h3>Stand in the right place</h3><p>Good shots start with good positions. See the <a href="{href("positioning.html")}">positioning guide</a>.</p></div>
@@ -670,7 +670,8 @@ def lvq(name, title, opts):
     b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="false">{e(lab)}</button>' for val, lab in opts)
     return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-lv="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
 lvl = f'''<header class="hero"><div class="wrap"><h1>What is my padel level?</h1>
-<p class="lead">Answer seven quick questions about your game. You get an estimated level from 1 to 7, what it means, and the one thing to work on next. Free and private: your answers stay on this device.</p></div></header>
+<p class="lead">Answer seven quick questions about your game. You get an estimated level from 1 to 7, what it means, and the one thing to work on next. Free and private: your answers stay on this device.</p>
+{quick("Padel levels run from 0 or 1 (complete beginner) to 7 (professional). Most club players are between 2 and 4.5: about 1 to 2.5 if you are new, 3 to 3.5 if you can rally and use the back glass, 4 to 4.5 if you play a reliable bandeja and think about tactics, and 5 or more if you play regular tournaments. On Playtomic, your level then moves up or down after each competitive match.")}</div></header>
 <section style="padding-top:10px"><div class="wrap quiz" id="lvquiz">
 <div class="card">
 {"".join(lvq(*x) for x in LVQ)}
@@ -679,29 +680,54 @@ lvl = f'''<header class="hero"><div class="wrap"><h1>What is my padel level?</h1
 <aside class="result" id="lv-result" aria-live="polite"></aside>
 </div></section>
 {AD.format("level-mid")}
-<section><div class="wrap"><div class="sh"><h2>The levels in plain English</h2><p class="muted">A general guide. Each club or app words it a little differently.</p></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>What do padel levels 1 to 7 mean?</h2><p class="muted">A general guide. Each club or app words it a little differently.</p></div><div class="grid">
 <div class="card"><span class="pill b">1 to 2.5</span><h3 style="margin-top:10px">Beginner</h3><p>You are learning the serve, the scoring and how the ball comes off the glass. Rallies are short. Most new players move up quickly here.</p></div>
 <div class="card"><span class="pill b">3 to 3.5</span><h3 style="margin-top:10px">Improver</h3><p>You can rally, use the back glass on easy balls and move with your partner. Many tennis and squash players start around here.</p></div>
 <div class="card"><span class="pill i">4 to 4.5</span><h3 style="margin-top:10px">Intermediate</h3><p>You control the court, play a bandeja, defend the corners and think about tactics. This is a strong club player.</p></div>
 <div class="card"><span class="pill a">5 to 5.5</span><h3 style="margin-top:10px">Advanced</h3><p>You play tournaments, build points on purpose and rarely give away easy errors. Ranked players often sit at 5.5 and up.</p></div>
 <div class="card"><span class="pill a">6 to 7</span><h3 style="margin-top:10px">Elite</h3><p>Semi-professional and professional players. If this is you, you already know your ranking.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Why your level matters</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Why does your padel level matter?</h2></div><div class="grid">
 <div class="card"><h3>Better matches</h3><p>Games are most fun when all four players are close in level. Booking apps use levels to suggest open matches for you.</p></div>
 <div class="card"><h3>Different scales</h3><p>Not every system is the same. Playtomic uses 0 to 7 and moves your level after each rated match. The LTA in the UK uses 1.0 to 7.0. A 3 in one place may not be a 3 in another.</p></div>
 <div class="card"><h3>Your real level comes from results</h3><p>A quiz gives you a starting point. Rated matches, or a coach watching you play, give a truer number over time.</p></div>
 <div class="card"><h3>Running a social night?</h3><p>Ask players for a rough level, then use our <a href="{href("americano.html")}">Mexicano generator</a>: it pairs people with similar scores as the night goes on.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How does the Playtomic level work?</h2><p class="muted">From Playtomic's help pages, checked {e(UPDATED)}. Apps change their rules, so check the app if something looks different.</p></div><div class="grid">
+<div class="card"><span class="pill b">Start</span><h3 style="margin-top:10px">One questionnaire</h3><p>When you join, a short set of questions about your experience gives your starting level on a 0 to 7 scale. You can only do it once.</p></div>
+<div class="card"><span class="pill b">Moves</span><h3 style="margin-top:10px">Results against expectations</h3><p>After a competitive match, the app compares each team's average level with the result. Beat a stronger pair and you go up more; lose to a weaker pair and you go down more. Even a draw can move levels.</p></div>
+<div class="card"><span class="pill i">Reliability</span><h3 style="margin-top:10px">Big jumps at first</h3><p>Each level has a reliability figure. When it is low, your level moves a lot after each match. As you play more competitive matches it rises and the changes get smaller. You can't change it yourself.</p></div>
+<div class="card"><span class="pill i">Casual</span><h3 style="margin-top:10px">Not every match counts</h3><p>Only competitive matches with an accepted, valid score count. Pick "casual" when you book if you just want a friendly game that won't touch your level.</p></div>
+<div class="card"><span class="pill a">Fix it</span><h3 style="margin-top:10px">Levelling session</h3><p>Certified clubs can run a levelling session with a coach, which sets your level and puts its reliability at 50%. Useful if your starting level was far off.</p></div>
+<div class="card"><span class="pill a">Fix it</span><h3 style="margin-top:10px">10-Match Challenge</h3><p>If your reliability is 85% or more and you think your level is wrong, you can opt in to 10 competitive matches where changes count 2, 3 or 4 times. You can't stop once you start, and you can repeat it after 3 months.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which skills match which level?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Level</th><th scope="col">You can usually</th><th scope="col">Work on next</th></tr></thead><tbody>
+<tr><td>1 to 2.5</td><td>Serve legally, rally slowly, return easy balls</td><td><a href="{href("wall-rules.html")}">The back glass</a> and <a href="{href("rules.html")}">the rules</a></td></tr>
+<tr><td>3 to 3.5</td><td>Rally, play easy balls off the glass, move with your partner</td><td><a href="{href("positioning.html")}">Positioning</a> and the bandeja</td></tr>
+<tr><td>4 to 4.5</td><td>Bandeja, corners, volleys with direction</td><td><a href="{href("bandeja-vs-vibora.html")}">Picking the right overhead</a></td></tr>
+<tr><td>5 to 5.5</td><td>Víbora, attack off the glass, build points on purpose</td><td>Fewer errors under pressure</td></tr>
+<tr><td>6 to 7</td><td>Semi-pro and pro play</td><td>You know already</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">A general guide in our own words. Playtomic, the LTA and other systems each describe their levels a little differently.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Practise your weak spot</h3><p>Turn your "work on next" into a timed session with the <a href="{href("drills.html")}">drills planner</a>.</p></div>
+<div class="card"><h3>Learn the overheads</h3><p>The step from 3.5 to 4.5 is mostly about overheads. Try the <a href="{href("bandeja-vs-vibora.html")}">bandeja vs víbora chooser</a>.</p></div>
+<div class="card"><h3>Match your racket</h3><p>Your level changes which racket suits you. Try the <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
 </div></div></section>'''
 lvl_faq = [
     ("What padel level am I?", "Most people who play for fun sit between 1 and 4 on a 1 to 7 scale. Beginners are 1 to 2.5, improvers 3 to 3.5, strong club players 4 to 4.5, and tournament players 5 and up. Answer the questions on this page for your estimate."),
     ("What is a good padel level?", "There is no bad level. As a rough guide, a 3 can enjoy long rallies, a 4 is a solid club player and a 5 plays regular tournaments."),
-    ("How does the Playtomic level work?", "Playtomic uses a 0 to 7 scale. You start with a level from a short questionnaire, then it goes up or down based on your rated match results and the level of the players you face."),
+    ("How does the Playtomic level work?", "Playtomic uses a 0 to 7 scale. You start with a level from a short questionnaire, then it goes up or down after each competitive match, based on the result and the average level of each team. Beating stronger players moves you up more."),
+    ("Why did my Playtomic level change so much?", "When your level's reliability is low, usually because you haven't played many competitive matches, each result moves it a lot. The changes get smaller as reliability rises."),
+    ("Do friendly matches change my Playtomic level?", "Not if you choose a casual match. Only competitive matches with an accepted, valid score change your level."),
+    ("Can I change my Playtomic level?", "You can't edit reliability yourself. Options are a levelling session at a certified club, which sets your level, or the 10-Match Challenge if your reliability is 85% or higher."),
     ("Is this calculator an official rating?", "No. It's a free estimate to help you pick games and know what to practise. Clubs, apps and federations each run their own rating systems."),
     ("What level is a tennis player starting padel?", "Many good tennis or squash players start around 3 to 3.5, because they already hit the ball well. Learning the glass and the net game usually takes a few months."),
     ("How do I move up a level?", "Fix the weakest part of your game first, as it costs you the most points. For most players that means getting comfortable with the back glass and learning the bandeja."),
 ]
 page("level-calculator.html", "Padel Level Calculator: What Is My Padel Level (1 to 7)? | Padel Glass Box",
-     "Free padel level calculator. Answer 7 quick questions and get your estimated padel level from 1 to 7, what it means, and what to practise next.", lvl, lvl_faq, "Level calculator")
+     "What is my padel level? Answer 7 quick questions for your estimated level from 1 to 7, what each level means, how the Playtomic level and reliability work, and what to practise next.", lvl, lvl_faq, "Level calculator")
 
 # ---------------- GOLDEN POINT vs STAR POINT ----------------
 deuce = f'''<header class="hero"><div class="wrap"><h1>Golden point, Star Point or advantage?</h1>
@@ -2340,7 +2366,7 @@ grip = f'''<header class="hero"><div class="wrap"><h1>How to hold a padel racket
 <tr><td>No wrist strap</td><td>Racket can fly, and dropping it loses the point</td><td>Strap on before you grip</td></tr>
 </tbody></table></div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
-<div class="card"><h3>Use the grip on court</h3><p>See the bandeja, víbora and chiquita drawn out in the <a href="{href("shots.html")}">shot library</a>.</p></div>
+<div class="card"><h3>Use the grip on court</h3><p>See the bandeja, víbora and chiquita drawn out in the <a href="{href("shots.html")}">shot library</a>, and pick the right overhead with the <a href="{href("bandeja-vs-vibora.html")}">bandeja vs víbora chooser</a>.</p></div>
 <div class="card"><h3>Practise it</h3><p>Tap-ups and wall volleys build a relaxed grip. Plan a session with the <a href="{href("drills.html")}">drills planner</a>.</p></div>
 <div class="card"><h3>Check your racket</h3><p>Heavy or head-heavy rackets make you squeeze more. Try the <a href="{href("racket-finder.html")}">racket finder</a> or the <a href="{href("racket-balance.html")}">balance decoder</a>.</p></div>
 </div></div></section>
@@ -2357,6 +2383,113 @@ grip_faq = [
 page("padel-grip.html", "How to Hold a Padel Racket: Continental Grip Guide and Free Grip Check | Padel Glass Box",
      "How to hold a padel racket: find the continental grip in 6 steps, tap any shot to see its grip, check your grip size and overgrip, and fix the grip mistakes new players make.",
      grip, grip_faq, "Padel grip")
+
+# ---------------- OVERHEADS: BANDEJA vs VIBORA vs SMASH ----------------
+OH_SHOTS = {
+    "smash": {"h": "Flat smash", "what": "An easy, high ball close to the net is the one time to hit an overhead hard.",
+              "how": ["Turn sideways and point your free hand at the ball.", "Hit it in front of you with your arm fully stretched, like a tennis serve.", "Aim down into the space between the two players or at their feet. Placement first, then pace."],
+              "aim": "Down into the gap or at their feet", "after": "Stay at the net. If they get it back, it will usually be a weak ball."},
+    "vibora": {"h": "Víbora", "what": "The attacking version of the bandeja. You are close enough and balanced enough to hurt them, but the ball is not easy enough to smash.",
+               "how": ["Take the ball a little later and lower than a bandeja, as it starts to drop.", "Swing more firmly and add side spin, brushing round the side of the ball.", "Aim at the side glass or the corner, so the ball kicks sideways and stays low."],
+               "aim": "Side glass or the corner", "after": "Move back to the net with your partner. A víbora that is too short or too hard out of position gives them the attack."},
+    "bandeja": {"h": "Bandeja", "what": "The safe overhead that keeps your team at the net. It is about control and depth, not winning the point.",
+                "how": ["Turn sideways with the racket up beside your head, like carrying a tray.", "Meet the ball at about eye height and swing forwards and across your body, not straight down. This puts slice on it.", "Keep the pace low and send it deep, past their service line, so it bounces low off their back glass."],
+                "aim": "Deep, past their service line", "after": "Use the swing to walk forward and get level with your partner at the net again."},
+    "glass": {"h": "Let it go to the glass", "what": "The ball will go over you, or you can't get behind it. Running backwards for an overhead is how most bad overheads happen.",
+              "how": ["Call it early (\"mine\" or \"yours\") and turn to follow the ball to your back glass.", "Let it bounce on the ground, hit the glass and come back to you.", "Lob it back high and deep if they are at the net. If it comes off the glass high and you are a confident player, an attacking shot as it drops (a bajada) is an option."],
+              "aim": "High and deep over them, if they are at the net", "after": "If your lob goes deep over them, move up together and take the net back."},
+}
+OH_JSON = json.dumps(OH_SHOTS, ensure_ascii=False)
+def ohq(name, title, opts, on):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="{"true" if val == on else "false"}">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-oh="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+OHQ = [
+    ("pos", "1. Where are you when you hit it?", [("near", "Close to the net"), ("mid", "Around the service line"), ("deep", "Near my back glass")], "mid"),
+    ("ball", "2. How is the ball coming?", [("easy", "High and slow, I'm under it"), ("hard", "I'm stretching or moving back"), ("over", "It will go over my head")], "easy"),
+    ("opp", "3. Where are your opponents?", [("back", "At the back"), ("net", "At the net or coming in")], "back"),
+    ("lvl", "4. How long have you played?", [("new", "Under a year"), ("imp", "A year or more"), ("conf", "I'm confident overhead")], "new"),
+]
+OH_SVG = '''<svg class="wr-court" id="oh-svg" viewBox="0 0 440 240" role="img" aria-label="Top view of a padel court. Your side is on the left. The dot shows where you are, the yellow area shows where to aim.">
+<rect x="20" y="20" width="400" height="200" rx="6" fill="#1e46c8"/>
+<rect x="20" y="20" width="400" height="200" rx="6" fill="none" stroke="#9cc4ea" stroke-width="6" opacity=".8"/>
+<path d="M81 20v200M359 20v200M81 120h278" stroke="#fff" stroke-width="2" opacity=".85"/>
+<path d="M220 14v212" stroke="#e4eef6" stroke-width="5"/>
+<rect id="oh-zone" x="370" y="40" width="44" height="160" rx="8" fill="#e8f84a" opacity=".45"/>
+<path id="oh-path" d="M90 130 Q250 20 392 120" fill="none" stroke="#e8f84a" stroke-width="2.5" stroke-dasharray="5 5"/>
+<circle id="oh-me" cx="90" cy="130" r="9" fill="#e8f84a" stroke="#0b1530" stroke-width="2"/>
+<circle id="oh-p" cx="90" cy="70" r="7" fill="#9fd8ff" stroke="#0b1530" stroke-width="1.5"/>
+<circle class="oh-op" cx="390" cy="70" r="8" fill="#ff9b78" stroke="#0b1530" stroke-width="1.5"/>
+<circle class="oh-op" cx="390" cy="170" r="8" fill="#ff9b78" stroke="#0b1530" stroke-width="1.5"/>
+<g font-family="Onest, sans-serif" font-size="12" font-weight="700" fill="#e4eef6"><text x="30" y="236">Your side</text><text x="410" y="236" text-anchor="end">Their side</text></g>
+</svg>'''
+oh = f'''<header class="hero"><div class="wrap"><h1>Bandeja, víbora or smash: which overhead?</h1>
+<p class="lead">A lob is coming. Do you smash it, play a bandeja, try a víbora or let it go to the glass? Answer four quick questions and see the shot, how to hit it and where to aim, drawn on the court.</p>
+{quick("Smash only easy, high balls close to the net. Play a bandeja when you are further back or a bit off balance: slow, sliced and deep, so you keep the net. Play a víbora when you are balanced around the service line and want to attack: firmer, with side spin, into the side glass. If the lob will go over you, let it bounce off your back glass and lob back.")}</div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="oh">
+<div class="card">
+{"".join(ohq(*x) for x in OHQ)}
+<p class="muted" style="margin:0;font-size:.92rem">General coaching advice, not a rule. Your answers are saved on this device.</p>
+</div>
+<aside class="result" id="oh-out" aria-live="polite"><div class="wr-svg">{OH_SVG}</div><h2 id="oh-h">Bandeja</h2><p id="oh-p1"></p><ul class="b-why" id="oh-how"></ul><p id="oh-aim"></p><p class="wr-src" id="oh-why"></p></aside>
+</div></section>
+<script>window.OHS={OH_JSON};</script>
+{AD.format("overhead-mid")}
+<section><div class="wrap"><div class="sh"><h2>What is the difference between a bandeja and a víbora?</h2></div><div class="grid">
+<div class="card"><span class="pill b">Bandeja</span><h3 style="margin-top:10px">Control, to keep the net</h3><p>Bandeja means tray in Spanish. It started as the answer to the lob: a way to stay at the net when a smash is too risky. It is slow, sliced and deep. Coaches call it a defensive shot.</p></div>
+<div class="card"><span class="pill a">Víbora</span><h3 style="margin-top:10px">Spin, to attack</h3><p>Víbora means viper. It grew out of the bandeja but is hit harder, with side spin, so the ball skids off the side glass. It can win points, but it is riskier.</p></div>
+<div class="card"><span class="pill i">Smash</span><h3 style="margin-top:10px">Power, to finish</h3><p>The smash is close to a tennis serve. It is the shot new players reach for most, but in padel it only pays on easy balls near the net. A hard smash from deep often bounces off the glass into the other pair's hands.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Bandeja vs víbora vs smash at a glance</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col"></th><th scope="col">Bandeja</th><th scope="col">Víbora</th><th scope="col">Flat smash</th></tr></thead><tbody>
+<tr><td>Main job</td><td>Keep the net</td><td>Attack, set up a winner</td><td>Win the point</td></tr>
+<tr><td>Where you hit from</td><td>Further back, or off balance</td><td>Around the service line, balanced</td><td>Close to the net</td></tr>
+<tr><td>Contact point</td><td>About eye height, beside you</td><td>A little later, as the ball drops</td><td>High and in front, arm stretched</td></tr>
+<tr><td>Swing</td><td>Forward and across the body</td><td>Wider and firmer, with wrist</td><td>Up and down, like a serve</td></tr>
+<tr><td>Spin</td><td>Slice (backspin)</td><td>Side spin and slice</td><td>Little or none</td></tr>
+<tr><td>Pace</td><td>Low</td><td>Medium to high</td><td>High</td></tr>
+<tr><td>Aim</td><td>Deep, past their service line</td><td>Side glass or the corner</td><td>Down into the gap or their feet</td></tr>
+<tr><td>Risk</td><td>Low</td><td>Medium</td><td>High from deep, low from close</td></tr>
+<tr><td>Grip</td><td colspan="3">Continental for all three (see <a href="{href("padel-grip.html")}">how to hold a padel racket</a>)</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">Coaching guides describe the spin in slightly different words: some call bandeja spin backspin, others slice or underspin, and some say it can be flat. They all agree it is slower and more controlled than a víbora.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>When should you smash in padel?</h2></div><div class="grid">
+<div class="card"><h3>Yes: close and easy</h3><p>You are near the net, the ball is high and slow, and you are already under it. Hit down into the space between them.</p></div>
+<div class="card"><h3>Careful: from the service line</h3><p>From here a flat smash often bounces off their back glass and comes back as an easy ball. A bandeja or víbora is usually the better pick.</p></div>
+<div class="card"><h3>No: deep or moving back</h3><p>If you are near your own back glass, or running backwards, a smash is a guess. Play a bandeja, or let the ball go to the glass.</p></div>
+<div class="card"><h3>Smashing out of the court</h3><p>Strong players sometimes smash so the ball bounces out over the side wall (often called por 3) or the back wall. That needs a lot of power and, on courts that allow it, the other pair may run out to play it. Read <a href="{href("out-of-court-play.html")}">out-of-court play rules</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What overhead mistakes do new players make?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Mistake</th><th scope="col">What happens</th><th scope="col">Fix</th></tr></thead><tbody>
+<tr><td>Smashing every lob</td><td>The ball comes back off the glass and they attack you</td><td>Smash only easy balls near the net</td></tr>
+<tr><td>Bandeja hit too hard</td><td>You can't recover to the net in time</td><td>Slow it down, aim deep</td></tr>
+<tr><td>Bandeja too short</td><td>It sits up for them to attack</td><td>Land it past their service line</td></tr>
+<tr><td>Víbora when off balance</td><td>Errors, or a weak ball they can punish</td><td>Bandeja instead</td></tr>
+<tr><td>Running backwards to hit</td><td>Late contact, ball into the net or out</td><td>Turn sideways early, or let it go to the glass</td></tr>
+<tr><td>Staying back after the shot</td><td>A gap opens between you and your partner</td><td>Walk forward to the net together</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do you practise overheads?</h2></div><div class="grid">
+<div class="card"><h3>Bandeja to a target</h3><p>A partner feeds lobs from the other side. Every bandeja must land past their service line. Count how many in a row you can make.</p></div>
+<div class="card"><h3>Bandeja, then back to the net</h3><p>After each bandeja, touch the net area with your racket before the next feed. It builds the habit of moving forward.</p></div>
+<div class="card"><h3>One shot per session</h3><p>Spend 10 to 15 minutes on one overhead before mixing them. Filming yourself on a phone shows if you are turning sideways early enough.</p></div>
+</div>
+<p class="muted" style="margin-top:12px">Plan a full session with a timer in the <a href="{href("drills.html")}">drills planner</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>See the ball paths</h3><p>Bandeja, víbora, bajada and chiquita drawn out in the <a href="{href("shots.html")}">shot library</a>.</p></div>
+<div class="card"><h3>Stand in the right place</h3><p>Where you and your partner go when you are lobbed at the net: <a href="{href("positioning.html")}">padel positioning</a>.</p></div>
+<div class="card"><h3>Check your level</h3><p>Picking the right overhead is a big step up. See where you are with the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div>
+</div></div></section>'''
+oh_faq = [
+    ("What is the difference between a bandeja and a víbora?", "A bandeja is a slow, sliced overhead hit deep to keep your place at the net. A víbora is firmer and hit with side spin into the side glass or corner to attack. The bandeja is safer; the víbora can win points but is riskier."),
+    ("When should I use a bandeja in padel?", "When you are lobbed at the net and the ball is not easy enough to smash, especially if you are further back or a little off balance. Hit it slow and deep, then move back to the net."),
+    ("When should I smash in padel?", "Only on an easy, high ball when you are close to the net. From the service line or deeper, a hard smash usually comes back off the glass and gives the other pair the attack."),
+    ("Is the bandeja a defensive shot?", "Yes. Coaches describe it as a defensive overhead. Its job is to keep your team at the net, not to win the point."),
+    ("Should beginners learn the bandeja or the víbora first?", "The bandeja. It is easier to learn, safer and used more often. Add the víbora once your bandeja is reliable."),
+    ("What grip do you use for a bandeja?", "The continental grip, the same one you use for volleys and serves. The víbora and smash use it too."),
+    ("What should I do if the lob goes over my head?", "Turn, follow the ball to your back glass, let it bounce and come off the glass, then lob it back deep. Running backwards to force an overhead is a common mistake."),
+]
+page("bandeja-vs-vibora.html", "Bandeja vs Víbora vs Smash: Which Padel Overhead? (Free Shot Chooser) | Padel Glass Box",
+     "Bandeja, víbora or smash? Answer 4 questions and see which padel overhead to play, how to hit it and where to aim on a court drawing, plus a side-by-side table and the overhead mistakes new players make.",
+     oh, oh_faq, "Bandeja vs víbora")
 
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
@@ -2453,7 +2586,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "about.html", "privacy.html"]
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

@@ -1779,4 +1779,46 @@
     $("#gc-reset").addEventListener("click", function () { gbox.forEach(function (b) { b.checked = false; }); gcrender(); });
     gcrender();
   }
+
+  /* ---------- overheads: bandeja vs víbora vs smash chooser ---------- */
+  var oh = $("#oh");
+  if (oh && window.OHS) {
+    var ogr = $$("[data-oh]", oh);
+    var ost = store.get("pp-oh", { pos: "mid", ball: "easy", opp: "back", lvl: "new" });
+    var ZONE = { smash: [280, 50, 70, 140], vibora: [362, 22, 56, 54], bandeja: [366, 40, 48, 160], glass: [370, 40, 44, 160] };
+    var MEX = { near: 185, mid: 95, deep: 45 };
+    var opick = function () {
+      var why = [], k;
+      if (ost.ball === "over") { k = "glass"; why.push("The ball will go over you, so an overhead would be hit late and off balance."); }
+      else if (ost.ball === "hard") { k = "bandeja"; why.push("You are stretching or moving back, so control beats power."); if (ost.pos === "deep") why.push("If you can't get behind it at all, letting it go to the glass is fine too."); }
+      else if (ost.pos === "near") { k = "smash"; why.push("High, slow ball and you are close to the net: the best chance to finish."); if (ost.lvl === "new") why.push("Still new? Go for placement over power."); }
+      else if (ost.pos === "mid") {
+        if (ost.lvl === "new") { k = "bandeja"; why.push("From the service line a bandeja is the safe choice while you are learning. The víbora comes later."); }
+        else { k = "vibora"; why.push("Balanced around the service line with a comfortable ball: room to attack with spin."); }
+      } else { k = "bandeja"; why.push("From deep, a smash usually comes back off their glass. Keep the net with a deep bandeja."); }
+      if (ost.opp === "net" && k !== "smash" && k !== "glass") why.push("They are at the net, so a deep, low ball pushes them back. Don't leave it short.");
+      if (ost.opp === "net" && k === "smash") why.push("They are close: aim at their feet or between them, not at their bodies.");
+      return [k, why];
+    };
+    var orender = function () {
+      store.set("pp-oh", ost);
+      ogr.forEach(function (g) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === ost[g.dataset.oh] ? "true" : "false"); }); });
+      var r = opick(), k = r[0], s = window.OHS[k], z = ZONE[k];
+      $("#oh-h").textContent = s.h;
+      $("#oh-p1").textContent = s.what;
+      $("#oh-how").innerHTML = s.how.map(function (x) { return "<li>" + x + "</li>"; }).join("");
+      $("#oh-aim").innerHTML = "<b>Aim:</b> " + s.aim + ". <b>Then:</b> " + s.after;
+      $("#oh-why").textContent = "Why: " + r[1].join(" ");
+      var zr = $("#oh-zone"); zr.setAttribute("x", z[0]); zr.setAttribute("y", z[1]); zr.setAttribute("width", z[2]); zr.setAttribute("height", z[3]);
+      var mx = MEX[ost.pos], my = 140, tx = z[0] + z[2] / 2, ty = z[1] + z[3] / 2;
+      $("#oh-me").setAttribute("cx", mx); $("#oh-me").setAttribute("cy", my);
+      $("#oh-p").setAttribute("cx", ost.pos === "deep" ? 45 : (ost.pos === "near" ? 185 : 110));
+      var opx = ost.opp === "net" ? 262 : 392;
+      $$(".oh-op", oh).forEach(function (c) { c.setAttribute("cx", opx); });
+      var d = k === "glass" ? "M" + mx + " " + my + " L26 " + (my - 10) + " Q220 -30 " + tx + " " + ty : "M" + mx + " " + my + " Q" + ((mx + tx) / 2) + " " + (k === "smash" ? 80 : 30) + " " + tx + " " + ty;
+      $("#oh-path").setAttribute("d", d);
+    };
+    ogr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { ost[g.dataset.oh] = b.dataset.v; orender(); }); }); });
+    orender();
+  }
 })();
