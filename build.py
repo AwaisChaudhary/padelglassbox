@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Builds the padel site. `python3 build.py` = live (clean URLs). `python3 build.py --preview` = local files."""
 import json, html, pathlib, sys, hashlib
+import pathlib as _pl, sys as _sy
+_sy.path.insert(0, str(_pl.Path(__file__).resolve().parent / "tools"))
+from og import og_image
 
 ROOT = pathlib.Path(__file__).resolve().parent
 DOMAIN = "https://padelglassbox.com"
@@ -82,6 +85,7 @@ def write_redirects(root):
 
 
 def page(file, title, desc, body, faqs=None, crumb=None):
+    _og = og_image(file, title, DOMAIN)
     url = canon(file)
     ld = [{"@context": "https://schema.org", "@type": "WebPage", "name": title, "description": desc, "url": url, "dateModified": UPDATED,
            "isPartOf": {"@type": "WebSite", "name": SITE, "url": DOMAIN + "/"}}]
@@ -105,7 +109,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <link rel="canonical" href="{url}">
 <meta name="robots" content="{"noindex, follow" if file in NOINDEX else "index, follow, max-image-preview:large"}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="{SITE}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}">
-<meta name="twitter:card" content="summary"><meta name="theme-color" content="#0e2468">
+<meta property="og:image" content="{_og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{_og}"><meta name="theme-color" content="#0e2468">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231747c9'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23d4f53c'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
