@@ -1,3 +1,5 @@
+> **DEMAND QUEUE (24 Nov, Awais: "make these Hot Property... look what customers are searching and add that")**: BEFORE any other work, every run builds the top OPEN item in DEMAND.md (real Google autocomplete searches with no dedicated page yet), then marks it DONE with the URL. One focused page per real search question beats a paragraph inside a big page. Facts rules unchanged (2+ sources). The daily 06:40 demand radar refreshes DEMAND.md.
+
 # Padel Glass Box content log
 
 ## 2026-11-18 (launch build)
