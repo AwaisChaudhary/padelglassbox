@@ -2069,4 +2069,55 @@
     jgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { jst[g.dataset.jr] = b.dataset.v; jrender(); }); }); });
     jrender();
   }
+
+  /* ---------- padel lesson cost checker ---------- */
+  var lsb = $("#ls");
+  if (lsb && window.LSGO) {
+    var lgr = $$("[data-ls]", lsb);
+    var lst = store.get("pp-ls", { reg: "uk", type: "p1", per: "all", len: "60", blk: "1", price: 60, court: 0, n: 1, disc: "0" });
+    var LCUR = { uk: "£", us: "$", eu: "€", ae: "AED " };
+    var LRNG = { uk: { p1: [40, 80], p2: [25, 50], p4: [12, 30], cl: [10, 30] }, us: { p1: [50, 160], p2: [25, 80, 1], p4: [20, 60], cl: [20, 60] } };
+    var LN = { p1: 1, p2: 2, p4: 4, cl: 6 };
+    var LNAME = { p1: "private lesson", p2: "shared private lesson", p4: "small group lesson", cl: "group clinic" };
+    var ll = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var lg = function (k, t) { return '<a href="' + window.LSGO[k] + '" rel="sponsored nofollow noopener" target="_blank" style="color:#e8f84a">' + t + "</a> (affiliate link)"; };
+    var lin = { price: $("#ls-price"), court: $("#ls-court"), n: $("#ls-n"), disc: $("#ls-disc") };
+    lin.price.value = lst.price; lin.court.value = lst.court; lin.n.value = lst.n; lin.disc.value = lst.disc;
+    var money = function (c, v) { return c + (Math.round(v * 100) / 100).toFixed(v >= 100 ? 0 : 2).replace(/\.00$/, ""); };
+    var lrender = function () {
+      lst.price = Math.max(0, +lin.price.value || 0); lst.court = Math.max(0, +lin.court.value || 0);
+      lst.n = Math.max(1, Math.min(8, Math.round(+lin.n.value || 1))); lst.disc = lin.disc.value;
+      store.set("pp-ls", lst);
+      lgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === lst[g.dataset.ls] ? "true" : "false"); }); });
+      var c = LCUR[lst.reg], n = lst.n, len = +lst.len, blk = +lst.blk, d = +lst.disc / 100;
+      var total = (lst.per === "all" ? lst.price : lst.price * n) + lst.court;
+      var each = total / n, hr = each * 60 / len, block = each * blk * (1 - d);
+      $("#ls-h").textContent = money(c, each) + " each";
+      $("#ls-p").textContent = "For one " + len + "-minute " + LNAME[lst.type] + (n > 1 ? ", split " + n + " ways" : ", just you paying") + (lst.court ? ", court hire included." : ".");
+      $("#ls-spec").innerHTML = "<dt>Whole lesson</dt><dd>" + money(c, total) + "</dd><dt>You, per hour</dt><dd>" + money(c, hr) + "</dd>" + (blk > 1 ? "<dt>" + blk + " lessons</dt><dd>" + money(c, block) + " each" + (d ? " after " + lst.disc + "% off" : "") + "</dd>" : "");
+      var R = LRNG[lst.reg] && LRNG[lst.reg][lst.type], v;
+      if (!lst.price) v = "Enter the price you were quoted.";
+      else if (!R) v = "We found no reliable published price range for " + (lst.reg === "ae" ? "the UAE" : "Europe") + ", so compare this with two or three other local clubs or coaches.";
+      else {
+        var lab = c + R[0] + " to " + c + R[1] + " per person per hour" + (R[2] ? " (our estimate: the US private range split two ways)" : "");
+        if (hr < R[0]) v = "Below the typical range of " + lab + ". Good value: check the group size and what is included.";
+        else if (hr > R[1]) v = "Above the typical range of " + lab + ". It may be a senior coach or a premium club. Ask what is included, or try a shared lesson.";
+        else v = "Within the typical range of " + lab + ".";
+      }
+      $("#ls-v").textContent = v;
+      var tip;
+      if (lst.type === "p1") tip = "Tip: share it with a friend. If the coach keeps the same total, you would pay " + money(c, total / 2) + " each (many add a small fee per extra player).";
+      else if (lst.type === "cl") tip = "Tip: in a big group you get less feedback. Ask how many players there will be and whether they are your level.";
+      else tip = "Tip: book with the same partner each time, so you learn to move as a pair.";
+      if (lst.len === "30") tip += " A 30-minute lesson is short: it suits one focused skill.";
+      $("#ls-tip").textContent = tip;
+      $("#ls-next").innerHTML = "Next: " + ll("beginners", "beginner rules") + " · " + ll("level-calculator", "your level") + " · " + ll("drills", "practise between lessons") + " · Shop: " + lg("padel-round-rackets", "round rackets");
+    };
+    lgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () {
+      lst[g.dataset.ls] = b.dataset.v;
+      if (g.dataset.ls === "type") { lin.n.value = LN[b.dataset.v]; if (b.dataset.v !== "p1") { lst.per = b.dataset.v === "p2" ? "all" : "pp"; } else lst.per = "all"; }
+      lrender(); }); }); });
+    ["price", "court", "n", "disc"].forEach(function (k) { lin[k].addEventListener("input", lrender); lin[k].addEventListener("change", lrender); });
+    lrender();
+  }
 })();

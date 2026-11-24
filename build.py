@@ -132,7 +132,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
 <div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("padel-court-cost.html")}">Padel court cost</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li></ul></div>
-<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("padel-equipment.html")}">Padel equipment and what to wear</a></li><li><a href="{href("padel-racket-for-kids.html")}">Padel rackets for kids</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
+<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("padel-equipment.html")}">Padel equipment and what to wear</a></li><li><a href="{href("padel-racket-for-kids.html")}">Padel rackets for kids</a></li><li><a href="{href("padel-lessons.html")}">Padel lessons: cost and first lesson</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -465,6 +465,7 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>Find your racket</h3><p>Three questions and you'll know the shape and weight to look for: <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
 <div class="card"><h3>Learn the rules</h3><p>Tap any part of the <a href="{href("rules.html")}">interactive rules court</a>.</p></div>
 <div class="card"><h3>Pack your bag</h3><p>Get a packing list and what to wear for your game: <a href="{href("padel-equipment.html")}">padel equipment checklist</a>.</p></div>
+<div class="card"><h3>Book a first lesson</h3><p>See typical prices and what a first lesson covers: <a href="{href("padel-lessons.html")}">padel lessons guide and cost checker</a>.</p></div>
 </div></div></section>'''
 beg_faq = [
     ("What do I need for my first padel game?", "A racket, padel balls, court shoes with grip, comfy sports clothes and water. Many clubs rent rackets if you don't have one yet."),
@@ -865,7 +866,8 @@ def _q(qid, label, opts):
     return f'<div class="q sv-q" data-q="{qid}"><h3>{label}</h3><div class="opts">' + "".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="false">{t}</button>' for v, t in opts) + '</div></div>'
 YN = [("y", "Yes"), ("n", "No")]
 serve = f'''<header class="hero"><div class="wrap"><h1>Was that serve legal?</h1>
-<p class="lead">Answer a few quick questions about the serve and get the call: good serve, fault or let. Then read every padel serve rule in plain English below.</p></div></header>
+<p class="lead">Answer a few quick questions about the serve and get the call: good serve, fault or let. Then read every padel serve rule in plain English below.</p>
+{quick("Stand behind the service line, bounce the ball once on your side, and hit it at or below waist height with at least one foot on the ground. It must land in the service box diagonally opposite (lines are in). You get two serves. A serve that clips the net and lands in the box is a let (replayed). A serve that bounces in and then hits the metal fence is a fault.")}</div></header>
 <section style="padding-top:10px"><div class="wrap"><div class="quiz" id="svc">
 <div>
 {_q("try", "Which serve was it?", [("1", "First serve"), ("2", "Second serve")])}
@@ -881,15 +883,15 @@ serve = f'''<header class="hero"><div class="wrap"><h1>Was that serve legal?</h1
 <aside class="result" id="sv-out" aria-live="polite"><h2>Make the call</h2><p>Answer the questions and the verdict appears here.</p></aside>
 </div></div></section>
 {AD.format("serve-mid")}
-<section><div class="wrap"><div class="sh"><h2>The padel serve, step by step</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>How do you serve in padel, step by step?</h2></div><div class="grid">
 <div class="card"><h3>1. Stand in the right place</h3><p>Stand behind the service line, between the centre line and the side wall. Your feet must not touch the service line or the imaginary line that extends the centre line.</p></div>
 <div class="card"><h3>2. Bounce the ball</h3><p>Drop the ball and let it bounce once on your side, behind the service line, before you hit it. You may not hit it straight from your hand.</p></div>
-<div class="card"><h3>3. Hit at or below the waist</h3><p>Contact must be at or below waist height, so the padel serve is always an underhand serve. Keep at least one foot on the ground: no jump serves.</p></div>
+<div class="card"><h3>3. Hit at or below the waist</h3><p>Contact must be at or below waist height, so you serve underarm or side-arm, never overhead. Keep at least one foot on the ground: no jump serves.</p></div>
 <div class="card"><h3>4. Land it diagonally</h3><p>The ball must cross the net and bounce in the service box diagonally opposite you. A ball that lands on the line is good.</p></div>
 <div class="card"><h3>5. The receiver waits for the bounce</h3><p>The receiver must let the serve bounce before playing it. After the bounce the ball may hit the glass and stay in play.</p></div>
 <div class="card"><h3>6. Two tries</h3><p>A fault on the first serve gives you a second serve. Two faults in a row is a double fault, and the receivers win the point.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Faults and lets at a glance</h2></div>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What is a fault or a let on a padel serve?</h2></div>
 <div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">What happened</th><th scope="col">The call</th></tr></thead><tbody>
 <tr><td>Ball hit above the waist</td><td>Fault</td></tr>
 <tr><td>Ball not bounced first, or bounced in the wrong place</td><td>Fault</td></tr>
@@ -899,6 +901,7 @@ serve = f'''<header class="hero"><div class="wrap"><h1>Was that serve legal?</h1
 <tr><td>Lands outside the diagonal box</td><td>Fault</td></tr>
 <tr><td>Lands in the box, then hits the metal fence before a second bounce</td><td>Fault</td></tr>
 <tr><td>Hits the server's partner before crossing the net</td><td>Fault</td></tr>
+<tr><td>Lands in the box, then goes straight out through a door (court without out-of-court play)</td><td>Fault</td></tr>
 <tr><td>Lands in the box, then hits the glass</td><td>Good, play on</td></tr>
 <tr><td>Touches the net, lands in the box, does not touch the fence</td><td>Let: replay that serve</td></tr>
 <tr><td>Touches the net, then lands out</td><td>Fault</td></tr>
@@ -907,11 +910,21 @@ serve = f'''<header class="hero"><div class="wrap"><h1>Was that serve legal?</h1
 </tbody></table></div>
 <p class="muted" style="margin-top:14px">A let replays only that serve. A let on the second serve means you take the second serve again, not two new serves. Calls in the rally are on the <a href="{href("wall-rules.html")}">wall and fence checker</a>, more rules on our <a href="{href("rules.html")}">interactive rules court</a>, and serve tactics on the <a href="{href("positioning.html")}">positioning guide</a>.</p>
 </div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Who serves and when</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Who serves first in padel, and when do you switch?</h2></div><div class="grid">
+<div class="card"><h3>Toss for the first serve</h3><p>Before the match, a coin toss (or spin of a racket) decides. The winners choose to serve, receive or pick an end, or let the other pair choose.</p></div>
+<div class="card"><h3>Set the order for each set</h3><p>Before each set, each pair decides which partner serves first, and keeps that order for the set. The receiving pair also decides who receives on which side in the first game of the set, and keeps it.</p></div>
 <div class="card"><h3>A whole game each</h3><p>One player serves for the whole game. Then the other pair serves the next game, and so on.</p></div>
 <div class="card"><h3>Swap sides every point</h3><p>The server changes side after every point, so each point is served diagonally to the other receiver.</p></div>
 <div class="card"><h3>Golden point and Star Point</h3><p>On a deciding point the receiving pair chooses which player receives. See <a href="{href("golden-point-star-point.html")}">how deciding points work</a>.</p></div>
-</div></div></section>'''
+<div class="card"><h3>First point from the right</h3><p>Each game starts with a serve from the right-hand side of the court, then the server switches sides every point.</p></div>
+<div class="card"><h3>Time between points</h3><p>FIP rules allow up to 20 seconds between points, 90 seconds when you change ends, and 2 minutes between sets.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Serving in a tie-break</h3><p>The serve order changes in a tie-break. Track it point by point with the <a href="{href("tie-break.html")}">tie-break tracker</a>.</p></div>
+<div class="card"><h3>Keep score</h3><p>Use the free <a href="{href("score.html")}">score keeper</a> on your phone at the court.</p></div>
+<div class="card"><h3>Learn the serve with a coach</h3><p>Most first lessons cover the serve. See <a href="{href("padel-lessons.html")}">what padel lessons cost and what to expect</a>.</p></div>
+</div>
+<p class="muted" style="margin-top:14px;font-size:.9rem">Source: FIP Rules of Padel (review of application 1 Jan 2026): rules 2 (time), 4 (toss), 6 (serve), 7 (faults), 8 (receiving), 9 (net and let serves). Checked 25 Nov 2026.</p></div></section>'''
 serve_faq = [
     ("Can you serve overarm in padel?", "No. You must hit the ball at or below waist height after it bounces, so every padel serve is underhand."),
     ("Is it a let if the serve hits the net in padel?", "Yes, if it then lands in the correct box and does not touch the metal fence before bouncing again. If it touches the net and lands out, it is a fault."),
@@ -920,9 +933,12 @@ serve_faq = [
     ("Can you stand on the line when serving in padel?", "No. Touching the service line or the imaginary extension of the centre line with your foot when you serve is a fault."),
     ("Can you jump when you serve in padel?", "No. At least one foot must be on the ground when you hit the ball."),
     ("How many serves do you get in padel?", "Two. If the first is a fault, you have a second serve. Two faults is a double fault and loses the point."),
+    ("Who serves first in padel?", "A coin toss decides. The winning pair chooses to serve or receive, or picks an end. Before each set, each pair also decides which partner serves first."),
+    ("How long do you have between points in padel?", "Under FIP rules, up to 20 seconds between points, 90 seconds when you change ends and 2 minutes between sets."),
+    ("Which side do you serve from first in padel?", "From the right-hand side. The server then switches sides after every point for the rest of the game."),
 ]
 page("serve-rules.html", "Padel Serve Rules: Is My Serve Legal? Free Serve Checker | Padel Glass Box",
-     "Padel serve rules in plain English: where to stand, the bounce, waist height, faults and lets. Use the free serve checker to make the call on any serve.", serve, serve_faq, "Serve rules")
+     "Padel serve rules in plain English (FIP 2026): stand behind the line, bounce, hit at or below the waist, land it diagonally. Faults, lets, who serves first, and a free serve checker.", serve, serve_faq, "Serve rules")
 
 # ---------------- WARM-UP TIMER ----------------
 # Each step: (seconds quick, seconds full, phase, name, how). 0 seconds = step left out of that routine.
@@ -3028,6 +3044,116 @@ page("padel-racket-for-kids.html", "Padel Racket for Kids: Junior Size and Weigh
      "Which padel racket for a child? Junior racket weight by age and height (3 to 14), the right shape and core, signs a racket is too heavy, and when kids can move to an adult racket. Free size finder.",
      jr, jr_faq, "Padel racket for kids")
 
+# ---------------- PADEL LESSONS (25 Nov 2026, DEMAND R3 "padel lessons") ----------------
+def lsq(name, title, opts, on):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="{"true" if val == on else "false"}">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-ls="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+LSQ = [
+    ("reg", "Where do you play?", [("uk", "UK (£)"), ("us", "US ($)"), ("eu", "Europe (€)"), ("ae", "UAE (AED)")], "uk"),
+    ("type", "What kind of lesson?", [("p1", "Private, just me"), ("p2", "Shared private, 2 players"), ("p4", "Small group, 3 or 4"), ("cl", "Group clinic, 5 to 8")], "p1"),
+    ("per", "The price you were quoted is", [("all", "For the whole lesson"), ("pp", "Per person")], "all"),
+    ("len", "How long is the lesson?", [("30", "30 min"), ("60", "60 min"), ("90", "90 min")], "60"),
+    ("blk", "How many lessons will you book?", [("1", "Just one"), ("4", "4"), ("6", "6"), ("10", "10")], "1"),
+]
+ls_nums = '''<div class="gen-nums">
+<div class="q"><h3><label for="ls-price">Price quoted</label></h3><input class="search" id="ls-price" type="number" min="0" step="1" value="60" inputmode="decimal" style="margin:0"></div>
+<div class="q"><h3><label for="ls-court">Court hire extra (0 if included)</label></h3><input class="search" id="ls-court" type="number" min="0" step="1" value="0" inputmode="decimal" style="margin:0"></div>
+</div>
+<div class="gen-nums">
+<div class="q"><h3><label for="ls-n">Players sharing the cost</label></h3><input class="search" id="ls-n" type="number" min="1" max="8" step="1" value="1" inputmode="numeric" style="margin:0"></div>
+<div class="q"><h3><label for="ls-disc">Block discount</label></h3><select class="search" id="ls-disc" style="margin:0"><option value="0">None</option><option value="10">10%</option><option value="15">15%</option><option value="20">20%</option></select></div>
+</div>'''
+LS_GO = {k: go(k) for k in ("padel-round-rackets", "padel-shoes", "padel-balls")}
+LS_ASK = [
+    "Is the coach qualified? (UK: an LTA-accredited padel coach. Elsewhere: ask which padel course they did.)",
+    "Is the price for the whole lesson or per person?",
+    "Is court hire included, and are there extra fees for floodlights or peak times?",
+    "Are rackets and balls provided, or do I bring my own?",
+    "How many players will be in the group, and are they my level?",
+    "What is the cancellation window, and is there a no-show fee?",
+    "Is there a discount if I book a block of lessons?",
+    "What should I work on after the lesson, and what is the next step?",
+]
+ls = f'''<header class="hero"><div class="wrap"><h1>Padel lessons: what they cost and what to expect.</h1>
+<p class="lead">Private, shared or group: see typical padel lesson prices in the UK and US, work out what your lesson really costs each, and learn what happens in a first lesson and how to pick a good coach.</p>
+{quick("A private padel lesson usually costs about £40 to £80 an hour in the UK and about $50 to $160 an hour in the US. Group sessions and clinics are cheaper: about £10 to £30 or $20 to $60 per person. Many US clubs run 60-minute intro clinics for free to $40. Sharing a private lesson with 1 to 3 friends cuts the cost each a lot.")}</div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="ls">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:4px">Lesson cost checker</h2>
+<p class="muted" style="margin-top:0">Enter the price a club or coach gave you. See what it costs you per lesson, per hour and for a block, and how it compares with typical prices.</p>
+{"".join(lsq(*x) for x in LSQ[:3])}
+{ls_nums}
+{"".join(lsq(*x) for x in LSQ[3:])}
+<p class="muted" style="margin:0;font-size:.92rem">Typical ranges come from published 2026 price guides (sources below) and are rounded. Your answers are saved on this device only.</p>
+</div>
+<aside class="result" id="ls-out" aria-live="polite"><h2 id="ls-h">Your lesson</h2><p id="ls-p"></p><dl class="spec" id="ls-spec"></dl><p id="ls-v"></p><p id="ls-tip"></p><p id="ls-next" class="wr-src"></p></aside>
+</div></section>
+<script>window.LSGO={json.dumps(LS_GO)};</script>
+{AD.format("lessons-mid")}
+<section><div class="wrap"><div class="sh"><h2>How much do padel lessons cost?</h2><p class="muted">Typical 2026 prices. London and big US cities are often at the top of the range.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Lesson type</th><th scope="col">UK</th><th scope="col">US</th></tr></thead><tbody>
+<tr><td>Private lesson, 1 player</td><td>£40 to £80 an hour</td><td>$50 to $160 an hour</td></tr>
+<tr><td>Shared private, 2 players</td><td>About £25 to £50 each</td><td>No reliable published range</td></tr>
+<tr><td>Group session or clinic</td><td>About £10 to £30 per person</td><td>About $20 to $60 per person</td></tr>
+<tr><td>Intro or taster session</td><td>Often free or low cost at clubs; some charge for a short level check</td><td>Free to $40 for 60 minutes</td></tr>
+<tr><td>Beginner course, 4 to 6 weeks</td><td>About £80 to £150</td><td>Starter packs of 4 to 6 lessons about $100 to $200</td></tr>
+<tr><td>Block of lessons booked ahead</td><td>Often 10 to 20% off</td><td>Packs common, discount varies</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">Always check two things: whether the price is per person or for the whole lesson, and whether court hire is included. In Europe and the UAE prices vary a lot by city and club, and we found no reliable published range, so compare two or three local quotes in the checker above.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Private, shared or group: which padel lesson should you book?</h2></div><div class="grid">
+<div class="card"><span class="pill b">Private</span><h3 style="margin-top:10px">Best for fixing one thing fast</h3><p>The coach watches only you. Good for a stubborn problem like your grip, serve or play off the back glass. It is the most expensive option per person.</p></div>
+<div class="card"><span class="pill b">Shared private</span><h3 style="margin-top:10px">Best value with a regular partner</h3><p>Two to four friends split one coach. Many clubs charge only a small extra amount per added player, so the cost each drops a lot. You also learn to play as a pair.</p></div>
+<div class="card"><span class="pill b">Group clinic</span><h3 style="margin-top:10px">Best for your first steps</h3><p>A cheap way to learn the basics and meet players at your level. You get less personal feedback, and you may be grouped with people at a different level.</p></div>
+<div class="card"><span class="pill i">Course</span><h3 style="margin-top:10px">Best for building a habit</h3><p>A weekly block of 4 to 6 sessions with the same coach and group. You repeat skills often enough to keep them.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What happens in a first padel lesson?</h2><p class="muted">Most coaches cover the same basics. The order and timing below are a typical example for a 60-minute session.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">About</th><th scope="col">What you do</th></tr></thead><tbody>
+<tr><td>5 to 10 min</td><td>Warm-up and a short chat about your sport background. Some clubs do a quick level check.</td></tr>
+<tr><td>10 min</td><td>How to hold the racket (the continental grip) and the ready position. Strap round your wrist.</td></tr>
+<tr><td>10 to 15 min</td><td>Forehand and backhand from the back of the court, with control rather than power.</td></tr>
+<tr><td>10 min</td><td>Letting the ball come off the back glass and hitting it after it rebounds. This is the new skill for most people.</td></tr>
+<tr><td>10 min</td><td>Volleys at the net and where to stand with your partner.</td></tr>
+<tr><td>5 min</td><td>The underarm serve: bounce, hit at or below the waist, land it diagonally.</td></tr>
+<tr><td>5 to 10 min</td><td>A short game or cooperative rally to put it together. Basic scoring.</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">Most coaches leave the smash, bandeja and víbora for later lessons. Read ahead with our guides to the <a href="{href("padel-grip.html")}">padel grip</a>, <a href="{href("wall-rules.html")}">playing off the walls</a> and <a href="{href("serve-rules.html")}">the serve</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What should I bring to my first padel lesson?</h2></div><div class="grid">
+<div class="card"><h3>Racket and balls</h3><p>Intro sessions and clinics usually provide them. Ask when you book. If you buy later, a round racket is easiest to learn with: see the <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
+<div class="card"><h3>Shoes</h3><p>Padel or tennis shoes grip best on sandy turf. Trainers are usually fine for a first intro session, but not for regular play. See the <a href="{href("padel-shoes.html")}">padel shoes guide</a>.</p></div>
+<div class="card"><h3>Clothes and water</h3><p>Normal gym clothes, layers if you play outdoors in winter, and a full water bottle. Arrive about 10 minutes early. Full list in the <a href="{href("padel-equipment.html")}">kit planner</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do I find a good padel coach?</h2></div><div class="grid">
+<div class="card"><h3>In the UK</h3><p>Use the LTA "Find a coach" tool with the padel filter, or ask your club which coach runs beginner sessions. The main LTA qualification is the Level 2 Padel Instructor, a five-day course. Check the coach is insured and has safeguarding and first-aid training, especially for children.</p></div>
+<div class="card"><h3>In the US and elsewhere</h3><p>Ask the club's pro shop or front desk, or look in the coaching section of booking apps such as Playtomic. There is no single required padel qualification everywhere, so ask what padel-specific training and experience the coach has. Some tennis pros also coach padel.</p></div>
+<div class="card"><h3>Good signs</h3><p>The coach asks about your level and goals first, the lesson has a clear plan, they give you one or two things to work on, and they tell you what to do next. A "lesson" that is only feeding balls with no feedback is poor value.</p></div>
+</div>
+<p class="muted" style="margin-top:12px">Good-sign list is general advice in our own words.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How many padel lessons does a beginner need?</h2></div>
+<div class="card"><p>There is no fixed number. A common path, in our own words:</p>
+<ul style="margin:8px 0 12px;padding-left:20px;display:grid;gap:6px"><li>Take one intro session or lesson before your first proper match, so you know the grip, the serve and how the walls work.</li><li>Add two or three more hours of coached play or clinics, then join beginner open play or a social like an <a href="{href("americano.html")}">Americano</a>.</li><li>After that, many players book a 4 to 6 week course or a block of shared lessons, and take a private lesson when one thing keeps going wrong.</li></ul>
+<p>Check your progress with the <a href="{href("level-calculator.html")}">padel level calculator</a>, and practise between lessons with the <a href="{href("drills.html")}">drills planner</a>.</p></div></div></section>
+<section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sh"><h2>What should I ask before booking a padel lesson?</h2><p class="muted">Tick each one off as you ask. Saved on this device.</p></div>
+<div class="card">{checklist("lsask", LS_ASK)}</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Before your first lesson</h3><p>Learn the four basic rules in the <a href="{href("beginners.html")}">beginner's guide</a> and warm up with the <a href="{href("warm-up.html")}">warm-up timer</a>.</p></div>
+<div class="card"><h3>After a few lessons</h3><p>Find your level with the <a href="{href("level-calculator.html")}">level calculator</a> so you join the right group sessions.</p></div>
+<div class="card"><h3>Ready for your own racket?</h3><p>Answer three questions in the <a href="{href("racket-finder.html")}">racket finder</a>, or see <a href="{href("cheap-padel-rackets.html")}">good cheap rackets</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Gear for your lessons</h3><p>Most clubs lend rackets for intro sessions. Once you book regular lessons, your own racket and shoes help you improve faster.</p><ul class="aff-links"><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li></ul>{AFF_NOTE}</div>
+<p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 25 Nov 2026. UK prices: UK Padel Guide "Padel coaching cost UK 2026" (13 Oct 2026), Padeli "Padel coaching in the UK 2026" (updated 22 Nov 2026) and "Padel lessons for beginners UK" (28 Oct 2026), RacketRise "How to find a padel coach in the UK" (updated 6 Nov 2026), Padel Finders "How much does padel cost in the UK" (Feb 2026), Park Sports London (shared lessons up to 3 players, small fee per extra player). US prices: Padel Browser "How much does padel cost in the US" (8 Jun 2026), "First padel lesson: intro clinics in the US" (15 Oct 2026) and "How to choose a padel coach" (18 May 2026), Bounce "Why is padel so expensive" (23 Jul 2026), Miami Living "Best padel clubs in Miami 2026" (20 Sep 2026). First lesson content: LTA Padel "What to expect from your first padel session" (16 Oct 2026) plus the UK and US guides above. Coach qualification: LTA Level 2 Padel Instructor, five-day course (Padeli, RacketRise). Prices are rounded ranges, not quotes, and change often. Left out: UAE and European price ranges (no reliable published data), single-source coach certifications.</p></div></section>'''
+ls_faq = [
+    ("How much does a padel lesson cost?", "A private padel lesson usually costs about £40 to £80 an hour in the UK and about $50 to $160 an hour in the US. Group sessions and clinics cost about £10 to £30 or $20 to $60 per person."),
+    ("How much is a group padel lesson?", "In the UK about £10 to £30 per person per session. In the US clinics usually cost about $20 to $60 per person, and many clubs run 60-minute intro clinics for free to $40."),
+    ("Can I share a private padel lesson with friends?", "Usually yes. Many coaches let 2 to 4 players share one private lesson for a small extra fee per player, which makes the cost each much lower. Ask when you book."),
+    ("How long is a padel lesson?", "Most private lessons are 60 minutes. Group clinics are usually 60 or 90 minutes, and US intro clinics are usually 60 minutes."),
+    ("What do you learn in a first padel lesson?", "The grip and ready position, forehand and backhand, playing the ball after it comes off the back glass, volleys at the net, the underarm serve and a short game with basic scoring."),
+    ("Do I need my own racket for a padel lesson?", "Not for a first lesson. Intro sessions and clinics usually lend rackets and balls. Ask the club when you book."),
+    ("How many padel lessons do I need as a beginner?", "There is no fixed number. One intro session before your first match, then two or three more hours of coaching or clinics, is a common way to start. After that many players book a 4 to 6 week course."),
+]
+page("padel-lessons.html", "Padel Lessons: Cost (UK and US), First Lesson and Free Cost Checker | Padel Glass Box",
+     "How much do padel lessons cost? Private lessons about £40 to £80 or $50 to $160 an hour, groups £10 to £30 or $20 to $60 each. What a first lesson covers, how to find a coach, and a free lesson cost checker.",
+     ls, ls_faq, "Padel lessons")
+
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
      f'<section><div class="wrap" style="max-width:760px"><h1>Privacy policy</h1><p>Last updated: {e(UPDATED)}.</p><h2>What we collect</h2><p>Your score, checklist ticks and quiz answers are saved only in your own browser. If you join our email list, we keep your email address with our email provider, Kit (kit.com), to send you the cheat sheet and our updates. Every email has an unsubscribe link, and you can ask us to delete your address at any time.</p><h2>Analytics</h2><p>We use Google Analytics to count visits and see which pages are popular. It uses cookies and collects details like pages viewed, approximate location and device type.</p><h2>Advertising</h2><p>This site uses Google AdSense. Google and its partners use cookies to show ads based on your visits to this and other websites. You can turn off personalised ads at <a href="https://adssettings.google.com">Google Ads Settings</a>. Learn more at <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.</p><h2>Affiliate links</h2><p>Some links may be affiliate links. If you buy through them, we may earn a small fee at no extra cost to you.</p><h2>Contact</h2><p>Email <a href="mailto:awaiskaramat@hotmail.com">awaiskaramat@hotmail.com</a>.</p></div></section>')
 page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
@@ -3036,7 +3162,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "padel-racket-for-kids.html", "padel-court-cost.html", "about.html", "privacy.html"]
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "padel-racket-for-kids.html", "padel-court-cost.html", "padel-lessons.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
