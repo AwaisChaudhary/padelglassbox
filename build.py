@@ -112,7 +112,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <meta property="og:image" content="{_og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{_og}"><meta name="theme-color" content="#0e2468">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231747c9'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23d4f53c'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Onest:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Onest:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="{asset("style.css")}">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
@@ -131,7 +131,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("padel-court-cost.html")}">Padel court cost</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li></ul></div>
 <div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("padel-equipment.html")}">Padel equipment and what to wear</a></li><li><a href="{href("padel-racket-for-kids.html")}">Padel rackets for kids</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
@@ -198,7 +198,7 @@ home_faq = [
     ("Is padel easy for beginners?", "Yes. The underhand serve, small court and walls make long rallies possible from the first game, which is why it's one of the fastest-growing sports."),
     ("Is padel scored like tennis?", "Yes: 15, 30, 40 and game, with sets to six. Many matches use a golden point at 40-40, and the 2026 rules also allow a format called Star Point."),
 ]
-page("index.html", "Padel Racket Finder, Score Keeper and Rules | Padel Glass Box",
+page("index.html", "Padel Tennis Rules, Racket Finder and Free Score Keeper | Padel Glass Box",
      "Free padel tools: find the right racket in a minute, keep score on court with your phone, and learn padel rules and shots in plain English.", home, home_faq)
 
 # ---------------- RACKET FINDER ----------------
@@ -374,7 +374,7 @@ rules_faq = [
     ("When do you change ends in padel?", "After the 1st, 3rd and every odd game of a set, and after every 6 points in a tie-break."),
     ("Is a net cord in play during a padel rally?", "Yes. In a rally a ball that touches the net and lands on the other side is in play. Only on the serve does a net touch mean a let."),
 ]
-page("rules.html", "Padel Rules Explained Simply, With an Interactive Court | Padel Glass Box",
+page("rules.html", "Padel Rules (Padel Tennis) Explained Simply: Scoring, Serve, Walls | Padel Glass Box",
      "Padel rules in plain English: the underhand serve, walls, net, faults, scoring, tie-breaks and changing ends, plus an interactive court you can tap to learn each part.", rules, rules_faq, "Rules")
 
 # ---------------- SHOTS ----------------
@@ -683,7 +683,7 @@ court_faq = [
     ("How big is a singles padel court?", "Singles courts are 20 m long like doubles, but only 6 m wide."),
     ("Is a padel court smaller than a tennis court?", "Yes. A padel court is 20 x 10 m (200 square metres). A tennis doubles court is 23.77 x 10.97 m (about 261 square metres), so padel is about three quarters of the area, before counting the space tennis needs around the lines."),
 ]
-page("court-dimensions.html", "Padel Court Dimensions: Interactive Measured Diagram (m and ft) | Padel Glass Box",
+page("court-dimensions.html", "Padel Court Dimensions and Size: Measured Diagram (m and ft) | Padel Glass Box",
      "Official padel court dimensions on an interactive diagram: 20 x 10 m court, 6.95 m service line, 88 cm net, wall and glass heights. Switch metres and feet.", court, court_faq, "Court dimensions")
 
 # ---------------- LEVEL CALCULATOR ----------------
@@ -1545,6 +1545,55 @@ cal_faq = [
 page("padel-calories.html", "Padel Calories Calculator: How Many Calories Does Padel Burn? | Padel Glass Box",
      "Free padel calories calculator. Enter your weight, time and effort to see how many calories padel burns per session, per hour and per week, and how it counts toward the weekly activity target.",
      cal, cal_faq, "Padel calories calculator")
+
+# ---------------- PADEL COURT COST (senior SEO pass 25 Nov 2026; KP: "padel court cost"/"price" 100-1k medium, "padel court" 10k-100k) ----------------
+cc = f"""<section class="hero" style="padding-bottom:20px"><div class="wrap" style="max-width:860px"><h1>How Much Does a Padel Court Cost?</h1>
+<p class="lede">A single outdoor padel court usually costs <strong>£45,000 to £80,000 in the UK</strong> and <strong>$25,000 to $65,000 in the US</strong> once it is installed. Ground work, lighting, panoramic glass and an indoor building push it higher. Below are the published ranges, what moves the price, and a free budget planner for one court or a whole club.</p></div></section>
+<section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sh"><h2>Padel court cost: published ranges</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Where</th><th scope="col">What it covers</th><th scope="col">Typical range</th><th scope="col">Source</th></tr></thead><tbody>
+<tr><td>UK</td><td>Single court, installed</td><td>£45,000–£80,000</td><td>MyBuilder price guide; Padel Market UK guide</td></tr>
+<tr><td>UK</td><td>Average court built (planning data)</td><td>about £71,000</td><td>Barbour ABI, 2026</td></tr>
+<tr><td>UK</td><td>Projects incl. lighting, drainage, foundations, several courts</td><td>£60,000–£270,000</td><td>LTA Padel construction guidance</td></tr>
+<tr><td>UK</td><td>Indoor court, before the building itself</td><td>£60,000–£80,000</td><td>Padel Market UK guide</td></tr>
+<tr><td>US</td><td>Single outdoor court</td><td>$25,000–$60,000 (typical $35,000–$45,000)</td><td>PadelBrowser 2026 guide</td></tr>
+<tr><td>US</td><td>Turnkey outdoor court (structure, glass, turf, lights, basic ground work)</td><td>$24,000–$65,000</td><td>Dojo Business</td></tr>
+<tr><td>US</td><td>LED court lighting</td><td>adds $2,800–$10,000</td><td>Dojo Business</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">Ranges are what the sources publish, rounded. They are planning numbers, not quotes. Always get at least three quotes from installers who build to the federation's court rules.</p></div></section>
+<section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sh"><h2>Padel court budget planner</h2></div>
+<div class="tool card" id="cc-tool"><p class="muted">Pick a price per court from the table (or your own quote), set the extras, and see the total with a safety margin.</p>
+<div class="q"><h3><label for="cc-cur">Currency</label></h3><select id="cc-cur"><option value="£">£ (UK)</option><option value="$">$ (US)</option><option value="€">€</option><option value="AED ">AED</option></select></div>
+<div class="q"><h3><label for="cc-n">Number of courts</label></h3><input id="cc-n" type="number" min="1" max="30" value="1"></div>
+<div class="q"><h3><label for="cc-p">Price per court, installed</label></h3><input id="cc-p" type="number" min="0" step="1000" value="60000"></div>
+<div class="q"><h3><label for="cc-g">Ground work per court (base, drainage)</label></h3><input id="cc-g" type="number" min="0" step="1000" value="0"><p class="muted" style="margin:6px 0 0">0 if you are building on an existing tennis court or tarmac.</p></div>
+<div class="q"><h3><label for="cc-l">Lighting per court</label></h3><input id="cc-l" type="number" min="0" step="500" value="0"></div>
+<div class="q"><h3><label for="cc-c">Safety margin (contingency)</label></h3><select id="cc-c"><option value="0.1">10%</option><option value="0.15" selected>15%</option><option value="0.2">20%</option></select></div>
+<div class="result" id="cc-out" aria-live="polite"></div></div>
+<script>(function(){{var $=function(i){{return document.getElementById(i)}};function f(c,v){{return c+Math.round(v).toLocaleString()}}function r(){{var c=$('cc-cur').value,n=Math.max(1,+$('cc-n').value||1),per=(+$('cc-p').value||0)+(+$('cc-g').value||0)+(+$('cc-l').value||0),sub=per*n,m=+$('cc-c').value;$('cc-out').innerHTML='<h2>Your budget</h2><p><strong>'+f(c,sub*(1+m))+'</strong> in total for '+n+' court'+(n>1?'s':'')+' (including a '+Math.round(m*100)+'% margin).</p><p class="muted">'+f(c,per)+' per court before the margin, '+f(c,sub)+' for all courts. Add planning fees, a building if you play indoors, and turf replacement every 5 to 10 years.</p>'}}['cc-cur','cc-n','cc-p','cc-g','cc-l','cc-c'].forEach(function(i){{$(i).addEventListener('input',r)}});r()}})();</script>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What changes the price of a padel court?</h2></div><div class="grid">
+<div class="card"><h3>Standard or panoramic</h3><p>A standard court has glass at the back and mesh on the sides. A panoramic court uses full glass sides with no side posts, which needs more tempered glass and heavier engineering, so it costs more.</p></div>
+<div class="card"><h3>The ground under it</h3><p>The court kit costs about the same anywhere. Grading, drainage and a new concrete or asphalt base can change the total by tens of thousands, so a flat existing base (like an old tennis court) saves the most.</p></div>
+<div class="card"><h3>Indoor or outdoor</h3><p>Outdoor courts are cheapest. Indoors you also pay for a building or canopy with enough clear height above the court, plus heating, ventilation and planning permission.</p></div>
+<div class="card"><h3>Lighting</h3><p>LED floodlights let you sell evening slots, which is when most clubs are busiest. Budget them per court.</p></div>
+<div class="card"><h3>Turf and upkeep</h3><p>Sand-filled artificial turf is the standard surface. Plan to brush and top up sand regularly and replace the turf every 5 to 10 years.</p></div>
+<div class="card"><h3>Shipping and install crew</h3><p>Many court systems are made in Europe. Outside Europe, freight, import duty and a specialist install crew add to the bill.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Before you build</h2></div><div class="grid">
+<div class="card"><h3>Check the footprint</h3><p>A doubles court is 20 m × 10 m inside the walls. See every measurement on the <a href="{href("court-dimensions.html")}">padel court dimensions diagram</a>.</p></div>
+<div class="card"><h3>Fill it from day one</h3><p>Run launch nights with the <a href="{href("americano.html")}">Americano generator</a> and keep members coming back with a <a href="{href("ladder.html")}">padel ladder</a>.</p></div>
+<div class="card"><h3>Teach new players</h3><p>Most new members have never played. Share <a href="{href("rules.html")}">padel rules explained simply</a> and the <a href="{href("beginners.html")}">beginner checklist</a>.</p></div>
+</div></div></section>"""
+cc_faq = [
+    ("How much does a padel court cost in the UK?", "Usually £45,000 to £80,000 for a single installed court, with Barbour ABI planning data putting the 2026 average at about £71,000. Projects with lighting, drainage, foundations or several courts can reach £270,000 (LTA)."),
+    ("How much does a padel court cost in the US?", "Most 2026 estimates for a single outdoor court fall between about $25,000 and $65,000, with a typical mid-range build around $35,000 to $45,000. Site work and lighting can add a lot."),
+    ("Is a panoramic padel court more expensive?", "Yes. Full glass side walls need more tempered glass and stronger engineering than a standard court with mesh sides, so panoramic courts sit at the top of the price range."),
+    ("Can you build a padel court on a tennis court?", "Often, yes, if the old base is flat, sound and drains well. Reusing it can save most of the ground work cost; ask an installer to check it first."),
+    ("How long does padel court turf last?", "Plan to replace sand-filled artificial turf every 5 to 10 years, depending on how much the court is used and how well it is brushed and topped up."),
+]
+page("padel-court-cost.html", "How Much Does a Padel Court Cost? UK and US Prices + Budget Planner | Padel Glass Box",
+     "A padel court costs about £45,000–£80,000 in the UK and $25,000–$65,000 in the US. See published price ranges, what changes the cost, and a free budget planner.",
+     cc, cc_faq, "Padel court cost")
 
 # ---------------- PADEL LADDER TRACKER ----------------
 lad = f'''<header class="hero"><div class="wrap"><h1>Padel ladder tracker.</h1>
@@ -2987,7 +3036,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "padel-racket-for-kids.html", "about.html", "privacy.html"]
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "padel-racket-for-kids.html", "padel-court-cost.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
