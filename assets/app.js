@@ -1958,4 +1958,71 @@
     });
     vrender();
   }
+
+  /* ---------- padel equipment: kit planner / packing list ---------- */
+  var kpb = $("#kp");
+  if (kpb && window.KPGO) {
+    var kgr = $$("[data-kp]", kpb);
+    var kst = store.get("pp-kp", { often: "first", where: "in", wx: "mild", racket: "no", shoes: "run" });
+    var ktick = store.get("pp-kp-tick", {});
+    var kl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var ka = function (k, t) { return '<a href="' + window.KPGO[k] + '" rel="sponsored nofollow noopener" target="_blank" style="color:#e8f84a">' + t + "</a> (affiliate link)"; };
+    var kbuild = function () {
+      var a = kst, M = [], G = [], S = [];
+      var reg = a.often === "week", first = a.often === "first";
+      if (a.racket === "no") M.push(["racket", "A padel racket", first ? "Rent one at the club or borrow one. Ask when you book." : "Rent for now, or buy a round, light, forgiving racket. " + kl("racket-finder", "Racket finder") + " · " + ka("padel-round-rackets", "Round rackets")]);
+      else M.push(["racket", "Your racket", "Check the frame for cracks and the grip for wear. " + kl("racket-care", "Racket health check")]);
+      M.push(["balls", "A can of padel balls (3 balls)", "Fresh balls bounce properly. Padel balls, not tennis balls. " + ka("padel-balls", "Shop balls")]);
+      if (a.shoes === "padel") M.push(["shoes", "Your padel shoes", "Check the sole is not worn smooth. " + kl("padel-shoes", "When to replace")]);
+      else if (a.shoes === "tennis") M.push(["shoes", "Your tennis or clay court shoes", reg ? "Fine to start, but padel shoes with a herringbone sole grip sand turf better if you play every week. " + ka("padel-shoes", "Shop padel shoes") : "Fine for now. " + kl("padel-shoes", "Shoe finder")]);
+      else M.push(["shoes", "Court shoes, not running shoes", (first ? "Borrow tennis, clay court or padel shoes if you can. Running shoes slip on sand turf and give little side support. " : "Running shoes slip on sand turf and give little side support. Get padel shoes with a herringbone sole. " + ka("padel-shoes", "Shop padel shoes") + " · ") + kl("padel-shoes", "Which sole?")]);
+      M.push(["top", a.wx === "cold" ? "A light technical top plus a base layer" : "A light technical top", "Polyester or similar that dries fast, not heavy cotton."]);
+      M.push(["bottom", a.wx === "cold" && a.where === "out" ? "Leggings or joggers (or shorts with a layer)" : "Shorts, sports skirt or leggings with a pocket", "Stretchy, with a deep pocket for the second ball."]);
+      M.push(["socks", "Padded sports socks", "Thin socks give blisters when you slide."]);
+      M.push(["water", "A water bottle", a.wx === "warm" ? "Bring extra in the heat." : "Sip between games."]);
+      if (a.wx === "cold") G.push(["jacket", "A windproof jacket or warm layer", "For the warm-up and between games. Take it off once you are warm."]);
+      else G.push(["layer", "A light layer for the warm-up", "Keeps you warm while you get loose. " + kl("warm-up", "Warm-up timer")]);
+      if (a.where === "out" && a.wx !== "cold") G.push(["sun", "Cap or visor, sports sunglasses and sun cream", "Glare off the glass and turf is strong on sunny days."]);
+      if (a.where === "out" && a.wx === "cold") G.push(["hat", "A hat and gloves for before and after", "Hands go cold fast between games outdoors."]);
+      G.push(["towel", "A small towel and a wristband", "Stops sweat running down to your hand and grip."]);
+      if (a.racket === "yes" || !first) G.push(["grip", "A spare overgrip", "Swap it when the handle feels slippery. " + kl("padel-grip", "How to fit one") + " · " + ka("padel-overgrips", "Shop overgrips")]);
+      if (reg) G.push(["bag", "A padel bag or sports bag", "One bag for racket, shoes and balls. A thermal pocket helps in heat and cold. " + ka("padel-bags", "Shop bags")]);
+      G.push(["booking", "Your court booking and three other players", first ? "Check the booking time and arrive 10 minutes early. " + kl("beginners", "First match checklist") : "Need a format for 8 or more? " + kl("americano", "Americano draw maker")]);
+      if (!reg) S.push(["sbag", "A dedicated padel bag", "Any sports bag works until you play every week."]);
+      if (first && a.racket === "no") S.push(["sgrip", "Overgrips and frame protector", "Not needed on a rented racket."]);
+      if (a.racket === "yes" && !reg) S.push(["sprot", "Frame protector tape", "Optional. It guards against chips but adds a few grams at the top."]);
+      S.push(["sclothes", "Branded padel clothes", "Any tennis or gym kit works the same."]);
+      if (first) S.push(["sracket", "Buying an expensive racket", "Play a few games first, then choose with the " + kl("racket-finder", "racket finder") + "."]);
+      return { M: M, G: G, S: S };
+    };
+    var kgrp = function (title, L, skip) {
+      if (!L.length) return "";
+      return '<h3 class="kp-g">' + title + '</h3><ul class="kp-l">' + L.map(function (x) {
+        if (skip) return '<li class="kp-skip"><span><b>' + x[1] + "</b><small>" + x[2] + "</small></span></li>";
+        return '<li><label><input type="checkbox" data-k="' + x[0] + '"' + (ktick[x[0]] ? " checked" : "") + "><span><b>" + x[1] + "</b><small>" + x[2] + "</small></span></label></li>";
+      }).join("") + "</ul>";
+    };
+    var klast;
+    var krender = function () {
+      store.set("pp-kp", kst);
+      kgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === kst[g.dataset.kp] ? "true" : "false"); }); });
+      var r = kbuild(); klast = r;
+      var n = r.M.length + r.G.length, done = r.M.concat(r.G).filter(function (x) { return ktick[x[0]]; }).length;
+      $("#kp-h").textContent = { first: "Your first game kit", some: "Your padel bag", week: "Your weekly padel kit" }[kst.often];
+      $("#kp-p").textContent = done + " of " + n + " packed. Must bring: " + r.M.length + " items.";
+      $("#kp-list").innerHTML = kgrp("Must bring", r.M) + kgrp("Good to have", r.G) + kgrp("Skip for now", r.S, true);
+      $$("#kp-list input").forEach(function (c) { c.addEventListener("change", function () { if (c.checked) ktick[c.dataset.k] = 1; else delete ktick[c.dataset.k]; store.set("pp-kp-tick", ktick); var d2 = klast.M.concat(klast.G).filter(function (x) { return ktick[x[0]]; }).length; $("#kp-p").textContent = d2 + " of " + n + " packed. Must bring: " + klast.M.length + " items."; }); });
+      $("#kp-next").innerHTML = "Next: " + kl("beginners", "first match rules") + " · " + kl("padel-shoes", "shoe finder") + " · " + kl("racket-finder", "racket finder");
+    };
+    kgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { kst[g.dataset.kp] = b.dataset.v; krender(); }); }); });
+    $("#kp-clear").addEventListener("click", function () { ktick = {}; store.set("pp-kp-tick", ktick); krender(); });
+    $("#kp-copy").addEventListener("click", function () {
+      var strip = function (h) { var d = document.createElement("div"); d.innerHTML = h; return d.textContent; };
+      var line = function (x) { return (ktick[x[0]] ? "[x] " : "[ ] ") + x[1]; };
+      var txt = "My padel kit list\n\nMust bring\n" + klast.M.map(line).join("\n") + "\n\nGood to have\n" + klast.G.map(line).join("\n") + "\n\nSkip for now\n" + klast.S.map(function (x) { return "- " + x[1] + ": " + strip(x[2]); }).join("\n") + "\n\nhttps://padelglassbox.com/padel-equipment";
+      var ok = function () { toast("List copied"); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, function () { toast("Copy failed"); }); else toast("Copy not supported");
+    });
+    krender();
+  }
 })();

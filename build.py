@@ -132,7 +132,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
 <div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li></ul></div>
-<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
+<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("padel-equipment.html")}">Padel equipment and what to wear</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -464,6 +464,7 @@ beg = f'''<header class="hero"><div class="wrap"><h1>Your first padel match.</h1
 <div class="card"><h3>Keep score</h3><p>Not sure how scoring works? Use the free <a href="{href("score.html")}">score keeper</a> on your phone.</p></div>
 <div class="card"><h3>Find your racket</h3><p>Three questions and you'll know the shape and weight to look for: <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
 <div class="card"><h3>Learn the rules</h3><p>Tap any part of the <a href="{href("rules.html")}">interactive rules court</a>.</p></div>
+<div class="card"><h3>Pack your bag</h3><p>Get a packing list and what to wear for your game: <a href="{href("padel-equipment.html")}">padel equipment checklist</a>.</p></div>
 </div></div></section>'''
 beg_faq = [
     ("What do I need for my first padel game?", "A racket, padel balls, court shoes with grip, comfy sports clothes and water. Many clubs rent rackets if you don't have one yet."),
@@ -520,7 +521,8 @@ page("glossary.html", "Padel Glossary: Terms, Spanish Pronunciation and Meanings
 def pts_opts():
     return "".join(f'<button class="opt" type="button" data-v="{p}" aria-pressed="{"true" if p == 24 else "false"}">{p} points</button>' for p in (16, 21, 24, 32))
 amer = f'''<header class="hero"><div class="wrap"><h1>Americano and Mexicano draw maker.</h1>
-<p class="lead">Type in your players, pick a format and get every round with partners and courts. Enter the points after each match and the leaderboard updates live. Free, no sign-up, saved on this device.</p></div></header>
+<p class="lead">Type in your players, pick a format and get every round with partners and courts. Enter the points after each match and the leaderboard updates live. Free, no sign-up, saved on this device.</p>
+{quick("An Americano is a social padel format for 4 or more players: you change partner every round, each match is a fixed number of points (often 16, 21, 24 or 32) and you keep every point you win. The highest total wins. A Mexicano works the same way, but only round 1 is random: each later round is drawn from the leaderboard, usually 1st and 4th against 2nd and 3rd on court 1, so similar players meet. Seven rounds of 24 points fit about a two-hour booking.")}</div></header>
 <section style="padding-top:10px"><div class="wrap gen">
 <div class="gen-main">
 <div class="card" id="mx-setup">
@@ -542,7 +544,7 @@ amer = f'''<header class="hero"><div class="wrap"><h1>Americano and Mexicano dra
 <aside class="gen-side"><div class="lb" id="mx-board"><h2>Leaderboard</h2><p>Make the draw and enter scores to see who leads.</p></div></aside>
 </div></section>
 {AD.format("americano-mid")}
-<section><div class="wrap"><div class="sh"><h2>How the two formats work</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>How do Americano and Mexicano work?</h2></div><div class="grid">
 <div class="card"><h3>Americano</h3><p>You change partner every round. The aim is that you play with, and against, as many different people as possible. Nobody is knocked out.</p></div>
 <div class="card"><h3>Mexicano</h3><p>Round one is random. After that, each round is made from the leaderboard, so players with similar scores meet. A common way, used here, is 1st and 4th against 2nd and 3rd on the top court, then the next four, and so on.</p></div>
 <div class="card"><h3>Points, not games</h3><p>Each match is a fixed number of points, such as 24. Every point counts, even if your team loses: lose 10-14 and you still add 10 to your total. The player with the most points at the end wins.</p></div>
@@ -551,6 +553,27 @@ amer = f'''<header class="hero"><div class="wrap"><h1>Americano and Mexicano dra
 <div class="card"><h3>Want more competition?</h3><p>Try <a href="{href("king-of-the-court.html")}">King of the Court</a>: winners move up a court, losers move down, and everyone fights for court 1.</p></div>
 <div class="card"><h3>Playing in fixed pairs?</h3><p>If teams want to keep the same partner all night, use the <a href="{href("round-robin.html")}">round robin generator</a>: every pair plays every other pair, with a standings table.</p></div>
 <div class="card"><h3>How long it takes</h3><p>A 24-point match often takes around 10 to 15 minutes, and 32 points a bit longer. Seven rounds of 24 points fits a typical two-hour court booking with time for changes.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How does Mexicano pick the next round?</h2><p class="muted">An example with 8 players on 2 courts after round 1.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Leaderboard place</th><th scope="col">Round 2 court</th><th scope="col">Team</th></tr></thead><tbody>
+<tr><td>1st and 4th</td><td>Court 1</td><td>Team A</td></tr>
+<tr><td>2nd and 3rd</td><td>Court 1</td><td>Team B</td></tr>
+<tr><td>5th and 8th</td><td>Court 2</td><td>Team A</td></tr>
+<tr><td>6th and 7th</td><td>Court 2</td><td>Team B</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">Pairing the top player with the 4th keeps each match close. Some clubs use other pairings (such as 1st and 3rd against 2nd and 4th); agree the rule before you start. The tool above uses 1st and 4th against 2nd and 3rd.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which social format should you pick?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Format</th><th scope="col">Partners</th><th scope="col">Best for</th></tr></thead><tbody>
+<tr><td>Americano</td><td>Change every round, planned</td><td>Mixing a group that doesn't know each other</td></tr>
+<tr><td>Mexicano</td><td>Change every round, by score</td><td>Mixed levels: close games as the night goes on</td></tr>
+<tr><td><a href="{href("king-of-the-court.html")}">King of the Court</a></td><td>Change every round</td><td>Competitive nights on 2 or more courts</td></tr>
+<tr><td><a href="{href("round-robin.html")}">Round robin</a></td><td>Fixed pairs</td><td>Teams that want to play together all night</td></tr>
+<tr><td><a href="{href("ladder.html")}">Ladder</a></td><td>Fixed pairs or players</td><td>A league that runs for weeks</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Players of mixed level?</h3><p>Ask everyone to try the <a href="{href("level-calculator.html")}">level calculator</a>, then play Mexicano so levels sort themselves out.</p></div>
+<div class="card"><h3>Warm up first</h3><p>Start the night with the <a href="{href("warm-up.html")}">10-minute warm-up timer</a> on court.</p></div>
+<div class="card"><h3>Bring the right kit</h3><p>Fresh balls for every court make a big difference: see the <a href="{href("padel-equipment.html")}">equipment checklist</a> and <a href="{href("padel-balls.html")}">when balls are dead</a>.</p></div>
 </div></div></section>'''
 amer_faq = [
     ("What is an Americano in padel?", "A social format where you change partner every round and play a set number of points per match. Each player keeps the points they win, and the highest total at the end wins."),
@@ -558,9 +581,12 @@ amer_faq = [
     ("How many players do you need for an Americano?", "At least four. Multiples of four (8, 12, 16) fill every court in every round. Other numbers work too, with a few players resting each round."),
     ("How many points per match in an Americano?", "Clubs often use 16, 21, 24 or 32. Fewer points means quicker matches and more rounds in the same court time."),
     ("Do you need an app to run an Americano?", "No. This page makes the draw, keeps the scores and shows the leaderboard in your browser. It saves on your device, so you can close it and come back."),
+    ("How are teams picked in Mexicano padel?", "Round one is random. After each round the players are ranked by total points, and the top four play on court 1 with 1st and 4th against 2nd and 3rd. The next four play on court 2 the same way, and so on."),
+    ("Who wins a padel Americano?", "The player with the most points in total after the last round. If players have played a different number of matches because of rests, compare points per match."),
+    ("How long does a padel Americano take?", "It depends on the points per match and the number of rounds. Seven rounds of 24 points usually fits a two-hour court booking, with short breaks to change partners."),
 ]
 page("americano.html", "Padel Americano and Mexicano Generator: Free Draw and Leaderboard | Padel Glass Box",
-     "Free padel Americano and Mexicano generator. Enter player names, get every round with partners and courts, type in the points and see a live leaderboard.", amer, amer_faq, "Americano generator")
+     "Free padel Americano and Mexicano generator for 4 to 24 players. Get every round with partners and courts, enter the points, see a live leaderboard. Plus how Mexicano pairs players and which format to pick.", amer, amer_faq, "Americano generator")
 
 # ---------------- COURT DIMENSIONS ----------------
 def dt(m, x, y, extra=""):
@@ -1430,7 +1456,7 @@ shoes = f'''<header class="hero"><div class="wrap"><h1>Padel shoes: which sole d
 <div class="card"><h3>Pain that stays</h3><p>Shoes help, but they don't fix injuries. If pain in your feet, knees or ankles doesn't go away, see a doctor or physio.</p></div>
 </div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
-<div class="card"><h3>Rest of your kit</h3><p>Find a racket that suits you with the <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
+<div class="card"><h3>Rest of your kit</h3><p>Find a racket that suits you with the <a href="{href("racket-finder.html")}">racket finder</a>, and see <a href="{href("padel-equipment.html")}">what else to bring and wear</a>.</p></div>
 <div class="card"><h3>Before you play</h3><p>Look after your legs with the <a href="{href("warm-up.html")}">10-minute warm-up timer</a>.</p></div>
 <div class="card"><h3>Check your balls</h3><p>Flat balls make you lunge more. Run the <a href="{href("padel-balls.html")}">dead ball checker</a>.</p></div>
 </div></div></section>
@@ -2685,6 +2711,89 @@ page("padel-gifts.html", "Padel Gifts: Free Gift Finder by Budget + Printable Vo
      "What to buy a padel player: answer 6 questions for padel gift ideas that suit their level and your budget, what to check before buying a racket or shoes, and a free printable padel gift voucher.",
      gf, gf_faq, "Padel gifts")
 
+# ---------------- PADEL EQUIPMENT + WHAT TO WEAR (24 Nov 2026, DEMAND R4 "padel equipment", 4 "padel outfits") ----------------
+def kpq(name, title, opts, on):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="{"true" if val == on else "false"}">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-kp="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+KPQ = [
+    ("often", "How often do you play?", [("first", "First game"), ("some", "Now and then"), ("week", "Every week or more")], "first"),
+    ("where", "Where is the court?", [("in", "Indoors"), ("out", "Outdoors")], "in"),
+    ("wx", "What is the weather like?", [("warm", "Warm or hot"), ("mild", "Mild"), ("cold", "Cold")], "mild"),
+    ("racket", "Do you have a padel racket?", [("no", "No"), ("yes", "Yes")], "no"),
+    ("shoes", "Which shoes do you have?", [("padel", "Padel shoes"), ("tennis", "Tennis or clay court shoes"), ("run", "Only running shoes or trainers")], "run"),
+]
+KP_LINKS = {k: go(k) for k in ("padel-balls", "padel-overgrips", "padel-bags", "padel-shoes", "padel-round-rackets")}
+eq = f'''<header class="hero"><div class="wrap"><h1>Padel equipment: what you need and what to wear.</h1>
+<p class="lead">Tell us how often you play, where, and what you already own. You get a packing list split into must bring, good to have and skip for now, with tips for each item. Tick things off as you pack.</p>
+{quick("To play padel you only need three things: a padel racket (many clubs rent them), padel balls (usually sold in cans of 3) and court shoes with grip, ideally padel shoes with a herringbone sole. Wear light sports clothes that wick sweat and let you move, with a pocket for the second ball. Most clubs have no strict dress code, but they expect sportswear and non-marking soles. A bag, overgrips and a protector can wait until you play every week.")}</div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="kp">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:4px">Your game</h2>
+{"".join(kpq(*x) for x in KPQ)}
+<p class="muted" style="margin:0;font-size:.92rem">General kit advice in our own words. Your answers and ticks are saved on this device only.</p>
+</div>
+<aside class="result" id="kp-out" aria-live="polite"><h2 id="kp-h">Your packing list</h2><p id="kp-p"></p><div id="kp-list"></div>
+<div class="btns" style="margin:14px 0 0"><button class="btn lime sm" type="button" id="kp-copy">Copy my list</button><button class="btn ghost sm" type="button" id="kp-clear" style="color:#fff;border-color:rgba(255,255,255,.4)">Clear ticks</button></div>
+<p id="kp-next" class="wr-src" style="margin-top:12px"></p></aside>
+</div></section>
+<script>window.KPGO={json.dumps(KP_LINKS)};</script>
+{AD.format("equipment-mid")}
+<section><div class="wrap"><div class="sh"><h2>What equipment do you need for padel?</h2><p class="muted">Must have first, extras later.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Item</th><th scope="col">Do you need it?</th><th scope="col">Tip for new players</th></tr></thead><tbody>
+<tr><td>Padel racket</td><td>Yes (rent one at first)</td><td>Solid face with holes, no strings. Start with a round, light, forgiving racket. See the <a href="{href("racket-finder.html")}">racket finder</a> or <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets</a>.</td></tr>
+<tr><td>Padel balls</td><td>Yes</td><td>Padel balls have a little less pressure than tennis balls. Most cans hold 3. Check <a href="{href("padel-balls.html")}">when balls are dead</a>.</td></tr>
+<tr><td>Court shoes</td><td>Yes</td><td>Padel shoes with a herringbone (zig-zag) sole suit most sand-filled turf courts. Tennis or clay shoes are fine at first. Avoid running shoes. See the <a href="{href("padel-shoes.html")}">shoe guide</a>.</td></tr>
+<tr><td>Sports clothes</td><td>Yes</td><td>Light, stretchy, sweat-wicking. Any tennis or gym kit works.</td></tr>
+<tr><td>Water bottle</td><td>Yes</td><td>Bring plenty, especially outdoors in summer.</td></tr>
+<tr><td>Overgrip</td><td>Later</td><td>A thin wrap over the handle for grip. Change it when it feels slippery. <a href="{href("padel-grip.html")}">How to fit one</a>.</td></tr>
+<tr><td>Frame protector</td><td>Optional</td><td>Tape round the top of the frame that stops chips off the glass. Adds a few grams. More in <a href="{href("racket-care.html")}">racket care</a>.</td></tr>
+<tr><td>Padel bag</td><td>Later</td><td>A normal sports bag is fine to start. A padel bag helps once you carry a racket, shoes and balls every week.</td></tr>
+<tr><td>Wristband, cap, sunglasses</td><td>Optional</td><td>Wristbands stop sweat running to your hand. Cap and sports sunglasses help on sunny outdoor courts.</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What should you wear to play padel?</h2><p class="muted">There is no special padel uniform. Tennis clothes work almost the same.</p></div><div class="grid">
+<div class="card"><h3>Top</h3><p>A light T-shirt, polo or tank in a technical fabric (polyester or similar) that dries fast. Avoid heavy cotton: it gets wet and stays wet.</p></div>
+<div class="card"><h3>Bottoms</h3><p>Shorts, a sports skirt with shorts under it, or leggings. They should stretch for lunges and low volleys, and not be too loose or too tight.</p></div>
+<div class="card"><h3>A pocket for the ball</h3><p>You hold the second serve ball, so a deep, secure pocket (or ball clip) saves trips to the back of the court.</p></div>
+<div class="card"><h3>Socks</h3><p>Sports socks with some padding, not thin casual socks. They help stop blisters when you slide and stop a lot.</p></div>
+<div class="card"><h3>Layers</h3><p>A light top for the warm-up and after the game. In winter outdoors: a base layer, full-length leggings or joggers and a windproof jacket you can take off.</p></div>
+<div class="card"><h3>Sun and sweat</h3><p>Outdoors in summer, wear a cap or visor and sports sunglasses against glare. Wristbands and a small towel help in any heat.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Is there a dress code for padel?</h2></div>
+<div class="card"><p style="margin:0">Most padel clubs have no strict dress code. They do expect sports clothes and shoes with <b>non-marking soles</b> that won't damage the turf. Some clubs and tournaments have their own rules, so check the club's website before your first booking.</p></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What should you not wear for padel?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Avoid</th><th scope="col">Why</th><th scope="col">Wear instead</th></tr></thead><tbody>
+<tr><td>Running shoes</td><td>Little side support and the wrong grip for sand turf, so ankles roll more easily</td><td>Padel shoes (herringbone or omni sole), or tennis/clay shoes at first</td></tr>
+<tr><td>Football boots with studs</td><td>Studs can damage the turf and catch on it</td><td>Court shoes</td></tr>
+<tr><td>Jeans or chinos</td><td>No stretch for lunges and low shots</td><td>Shorts, a sports skirt or leggings</td></tr>
+<tr><td>Heavy cotton tops and hoodies</td><td>Soak up sweat and get heavy</td><td>A light technical top, with a layer for the warm-up</td></tr>
+<tr><td>Thin casual socks</td><td>Blisters from sliding and stopping</td><td>Padded sports socks</td></tr>
+<tr><td>Shallow pockets</td><td>The spare ball falls out</td><td>Deep or zipped pockets, or a ball clip</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Can you rent padel equipment?</h2></div><div class="grid">
+<div class="card"><h3>Rackets</h3><p>Many clubs rent rackets at reception or include them in beginner sessions. Ask when you book. Renting lets you try a few shapes before you buy.</p></div>
+<div class="card"><h3>Balls</h3><p>Ask whether the club sells balls at the desk. Bringing your own fresh can is safer, because old balls bounce low.</p></div>
+<div class="card"><h3>Shoes</h3><p>Ask the club whether it lends or rents shoes. For a first game, tennis or clay court shoes, or a borrowed pair of padel shoes, are fine.</p></div>
+</div>
+<p class="muted" style="margin-top:12px">Rental and prices differ from club to club. Check the club's own website or booking app.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Ready for your first game?</h3><p>The <a href="{href("beginners.html")}">first match checklist</a> covers the four rules you need and how to book a court.</p></div>
+<div class="card"><h3>Buying a racket?</h3><p>Answer three questions in the <a href="{href("racket-finder.html")}">racket finder</a>, then compare <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets</a>.</p></div>
+<div class="card"><h3>Need shoes?</h3><p>The <a href="{href("padel-shoes.html")}">padel shoe finder</a> tells you which sole suits your court.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Shop padel equipment</h3><p>The basics first: a forgiving racket, balls and shoes. Then overgrips and a bag.</p><ul class="aff-links"><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-bags")}" {AFF_ATTR}>Bags</a></li></ul>{AFF_NOTE}</div></div></section>'''
+eq_faq = [
+    ("What equipment do you need for padel?", "A padel racket, padel balls and court shoes with grip, plus sports clothes and water. Overgrips, a frame protector and a padel bag are useful later but not needed to start."),
+    ("What do you wear to play padel?", "Light sportswear that wicks sweat and stretches: a technical T-shirt or polo, shorts, a sports skirt or leggings, padded sports socks and court shoes. A pocket for the second ball helps."),
+    ("Is there a dress code for padel?", "Most clubs have no strict dress code, but they expect sports clothes and non-marking court shoes. Some clubs and tournaments set their own rules, so check before you go."),
+    ("Can I play padel in running shoes?", "It is better not to. Running shoes have little side support and the wrong grip for sand-filled turf. Use padel shoes, or tennis or clay court shoes for your first games."),
+    ("Can I wear tennis clothes for padel?", "Yes. Tennis clothes and padel clothes are almost the same: light, breathable and easy to move in."),
+    ("Do I need to buy a racket to start padel?", "No. Many clubs rent rackets. Rent or borrow for a few games, then buy a round, light, forgiving racket when you know you'll keep playing."),
+    ("What should I wear for padel in winter?", "Outdoors in the cold: a base layer, a light top, full-length leggings or joggers and a windproof jacket for the warm-up, with cushioned sports socks. Take layers off as you warm up."),
+]
+page("padel-equipment.html", "Padel Equipment and What to Wear: Free Beginner Kit Checklist | Padel Glass Box",
+     "What do you need to play padel and what should you wear? Get a packing list for your game (must bring, good to have, skip for now), plus a clothing guide, dress code and what not to wear.",
+     eq, eq_faq, "Padel equipment")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 
@@ -2780,7 +2889,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "about.html", "privacy.html"]
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")
