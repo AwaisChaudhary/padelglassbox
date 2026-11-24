@@ -569,3 +569,21 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .table-wrap table{min-width:100%}
 #bf-calc label{display:block;margin:8px 0}
 #bf-calc input[type=number]{margin-left:8px;width:9em}
+/* ---------- padel gift finder + voucher ---------- */
+.gf-list { margin: 12px 0; padding-left: 22px; display: grid; gap: 10px; }
+.gf-list li b { display: block; color: #fff; }
+.gf-list li span { color: #d6e0fb; font-size: .95rem; }
+.gv-f { display: block; font-weight: 600; margin: 0 0 12px; }
+.gv-f input { display: block; width: 100%; box-sizing: border-box; margin-top: 6px; font: inherit; padding: 10px 12px; border-radius: 12px; border: 1.5px solid #cdd9ee; background: #fff; color: var(--ink); }
+.gv-card { position: relative; background: linear-gradient(160deg, #fff, var(--glass-2)); border: 3px dashed var(--turf); border-radius: 22px; padding: 28px; overflow: hidden; min-height: 260px; }
+.gv-card .gv-art { position: absolute; right: 14px; top: 14px; width: 84px; height: 84px; opacity: .9; }
+.gv-k { color: var(--turf); font-weight: 700; margin: 0 0 8px; }
+.gv-card h3 { font-size: 1.6rem; margin: 0 100px 14px 0; overflow-wrap: anywhere; }
+.gv-to, .gv-from { margin: 6px 0; overflow-wrap: anywhere; }
+.gv-msg { font-style: italic; color: var(--muted); margin: 10px 0; overflow-wrap: anywhere; }
+#gv-print-root { display: none; }
+@media print {
+  body.print-gv { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body.print-gv > *:not(#gv-print-root) { display: none !important; }
+  body.print-gv #gv-print-root { display: block; padding: 10mm; }
+}

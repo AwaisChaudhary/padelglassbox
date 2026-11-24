@@ -132,7 +132,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
 <div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li></ul></div>
-<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
+<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -978,7 +978,8 @@ page("warm-up.html", "Padel Warm-Up Routine With Free Timer (10 or 15 Minutes) |
 def _bq(qid, label, opts):
     return f'<div class="q bq" data-q="{qid}"><h3>{label}</h3><div class="opts">' + "".join(f'<button class="opt" type="button" data-v="{v}" aria-pressed="false">{t}</button>' for v, t in opts) + '</div></div>'
 balls = f'''<header class="hero"><div class="wrap"><h1>Are your padel balls dead?</h1>
-<p class="lead">Six quick checks tell you if a ball is still good for a match, fine for practice, or ready for the bin. Then learn how long padel balls last and how to keep them lively.</p></div></header>
+<p class="lead">Six quick checks tell you if a ball is still good for a match, fine for practice, or ready for the bin. Then learn how long padel balls last and how to keep them lively.</p>
+{quick("For relaxed social games, a can of padel balls (usually 3 balls) stays playable for about 3 to 5 sessions. For a match that matters, open a new can. A ball is dead when it squashes easily, bounces lower than a new ball, sounds dull and dies off the back glass. Padel balls have less pressure than tennis balls (about 11 psi vs 14 psi), so don't swap one for the other.")}</div></header>
 <section style="padding-top:10px"><div class="wrap"><div class="quiz" id="bchk">
 <div>
 {_bq("use", "How many times have you played with this can?", [("0", "Just opened"), ("1", "Once or twice"), ("2", "3 to 5 times"), ("3", "More than 5")])}
@@ -1000,7 +1001,7 @@ balls = f'''<header class="hero"><div class="wrap"><h1>Are your padel balls dead
 <div class="card"><h3>Heat and cold change the feel</h3><p>On a cold day even new balls feel flat. Keep opened cans away from hot cars and cold garages; a cool, dry cupboard is best.</p></div>
 <div class="card"><h3>Pressurisers help a little</h3><p>A ball saver tube keeps air in for longer, but it can't fix worn felt or bring a dead ball back to life.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Padel ball vs tennis ball</h2></div>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What is the difference between a padel ball and a tennis ball?</h2></div>
 <div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col"></th><th scope="col">Padel ball</th><th scope="col">Tennis ball</th></tr></thead><tbody>
 <tr><td>Diameter</td><td>6.35 to 6.77 cm</td><td>6.54 to 6.86 cm</td></tr>
 <tr><td>Weight</td><td>56.0 to 59.4 g</td><td>56.0 to 59.4 g</td></tr>
@@ -1010,11 +1011,16 @@ balls = f'''<header class="hero"><div class="wrap"><h1>Are your padel balls dead
 </tbody></table></div>
 <p class="muted" style="margin-top:14px">The two balls look almost the same, but the lower pressure is what makes padel feel like padel. Tennis balls bounce too high off the floor and walls, so use real padel balls. Sizes and pressure from LTA Padel; bounce test as given in the padel rules.</p>
 </div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Make your balls last longer</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do I make padel balls last longer?</h2></div><div class="grid">
 <div class="card"><h3>Close the can</h3><p>Put the lid back on tightly after every game, or use a ball saver.</p></div>
 <div class="card"><h3>Keep them dry</h3><p>Don't play with wet balls if you can avoid it, and let them dry at room temperature, not on a heater.</p></div>
 <div class="card"><h3>Mark your cans</h3><p>Write the date or a tally on the lid each time you play. Then you know which can is fresh and which is for drills.</p></div>
 <div class="card"><h3>Use old balls well</h3><p>Old balls are fine for <a href="{href("warm-up.html")}">warming up</a>, drills and practice serves. Just not for your next match. Check if a <a href="{href("serve-rules.html")}">serve is legal</a> while you practise.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Check your racket too</h3><p>Dead balls and a dead racket feel alike. Run the <a href="{href("racket-care.html")}">racket health check</a>.</p></div>
+<div class="card"><h3>Use old balls for drills</h3><p>Plan a short practice with the <a href="{href("drills.html")}">padel drills planner</a>.</p></div>
+<div class="card"><h3>Buying for a padel player?</h3><p>Balls are the safest present. See more <a href="{href("padel-gifts.html")}">padel gift ideas</a> by budget.</p></div>
 </div></div></section>
 <section><div class="wrap"><div class="aff-box"><h3>Need fresh balls?</h3><p>Browse padel balls, plus overgrips and bags to keep your kit match-ready.</p><ul class="aff-links"><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-bags")}" {AFF_ATTR}>Bags</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>Rackets</a></li></ul>{AFF_NOTE}</div></div></section>'''
 balls_faq = [
@@ -1024,9 +1030,11 @@ balls_faq = [
     ("What is the pressure of a padel ball?", "LTA Padel gives about 11 psi for a new padel ball, compared with about 14 psi for a new tennis ball."),
     ("Are padel balls smaller than tennis balls?", "Only very slightly. A padel ball is 6.35 to 6.77 cm across and a tennis ball 6.54 to 6.86 cm, and both weigh 56.0 to 59.4 g."),
     ("Do ball pressurisers work?", "They can slow down the loss of pressure, but they can't repair worn felt or make a dead ball lively again."),
+    ("How many balls come in a can of padel balls?", "Most cans or tubes hold 3 padel balls. Shops also sell multi-packs of several cans, which work out cheaper if you play every week."),
+    ("Can I play padel with old balls?", "Yes, for warm-ups, drills and relaxed practice. For a match, open a fresh can: old balls bounce low and die off the glass, which changes how the game plays."),
 ]
 page("padel-balls.html", "When to Change Padel Balls: Free Dead Ball Checker | Padel Glass Box",
-     "Are your padel balls dead? Use the free 6-step checker, learn how long padel balls last, padel vs tennis ball pressure and size, and how to store them.", balls, balls_faq, "Padel balls")
+     "How long do padel balls last? About 3 to 5 social sessions per can. Use the free 6-step dead ball checker, compare padel vs tennis balls (size, pressure, bounce) and learn how to make balls last longer.", balls, balls_faq, "Padel balls")
 
 # ---------------- ABOUT / PRIVACY / 404 ----------------
 # ---------------- WALL AND FENCE RULES ----------------
@@ -2590,6 +2598,93 @@ page("intermediate-padel-racket.html", "Padel Racket for Intermediate Players: F
      "Which padel racket should an intermediate player use? Enter your current racket and your game to see which specs to keep or change: shape, weight, balance, core and face, with reasons.",
      ir, ir_faq, "Intermediate padel racket")
 
+# ---------------- PADEL GIFT FINDER (24 Nov 2026, DEMAND R1 "padel gifts") ----------------
+def gfq(name, title, opts, on):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="{"true" if val == on else "false"}">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-gf="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+GFQ = [
+    ("who", "How much do they play?", [("new", "Just started"), ("reg", "About once a week"), ("keen", "2 or more times a week")], "reg"),
+    ("budget", "Your budget (about, in £, $ or €)", [("s", "Under 20"), ("m", "20 to 60"), ("l", "60 to 150"), ("xl", "Over 150")], "m"),
+    ("racket", "Do they have their own racket?", [("no", "No, they rent or borrow"), ("yes", "Yes")], "yes"),
+    ("specs", "Do you know which racket suits them (shape, weight)?", [("no", "No idea"), ("yes", "Yes, I know their racket")], "no"),
+    ("shoes", "Do they have padel shoes?", [("no", "No, or not sure"), ("yes", "Yes")], "no"),
+    ("bag", "Do they have a padel bag?", [("no", "No, or not sure"), ("yes", "Yes")], "no"),
+]
+GF_LINKS = {k: go(k) for k in ("padel-balls", "padel-overgrips", "padel-bags", "padel-shoes", "padel-round-rackets", "padel-teardrop-rackets", "padel-rackets")}
+GF_V = [("lesson", "A padel lesson"), ("court", "A court booking for four"), ("americano", "An Americano night with friends"), ("racket", "A new racket of your choice"), ("shoes", "New padel shoes, we'll choose together"), ("own", "Write my own")]
+gf = f'''<header class="hero"><div class="wrap"><h1>Padel gifts: what to buy a padel player.</h1>
+<p class="lead">Answer six quick questions about the person and your budget. You get a short list of padel gifts that suit them, what to check before you buy, and the gifts to avoid. Then print a free gift voucher for a lesson, a court or a night of padel.</p>
+{quick("The safest padel gifts are things every player uses up: a pack of padel balls, overgrips and frame protector tape (small budget), a padel bag, a court booking or a lesson (medium budget), and padel shoes in their size (bigger budget). Only buy a racket if you know the shape and weight they like, or if they don't own one yet. Otherwise give a voucher and let them choose.")}</div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="gf">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:4px">About the player</h2>
+{"".join(gfq(*x) for x in GFQ)}
+<p class="muted" style="margin:0;font-size:.92rem">General gift advice in our own words, not a rule. Your answers are saved on this device only.</p>
+</div>
+<aside class="result" id="gf-out" aria-live="polite"><h2 id="gf-h">Gift ideas</h2><p id="gf-p"></p><ol class="gf-list" id="gf-list"></ol><p id="gf-warn" class="wr-src"></p></aside>
+</div></section>
+<script>window.GFGO={json.dumps(GF_LINKS)};</script>
+{AD.format("gifts-mid")}
+<section><div class="wrap"><div class="sh"><h2>What are good padel gifts by budget?</h2><p class="muted">Rough price bands in £, $ or €. Prices change, so check the shop.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Budget</th><th scope="col">Gift ideas</th><th scope="col">Good for</th></tr></thead><tbody>
+<tr><td>Under 20</td><td>A can of padel balls (most cans hold 3), a pack of overgrips, frame protector tape, sweatbands, sports socks</td><td>Anyone who plays, even once a month</td></tr>
+<tr><td>20 to 60</td><td>A multi-pack of balls, a racket cover, a court booking, a ball saver tube, a small padel backpack</td><td>Weekly players</td></tr>
+<tr><td>60 to 150</td><td>A padel bag, padel shoes, a lesson with a coach, a first racket for someone who has none</td><td>New players and regulars</td></tr>
+<tr><td>Over 150</td><td>A block of lessons, a racket they have already tried, a padel weekend or camp, a voucher for their racket upgrade</td><td>Keen players who play several times a week</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Is a padel racket a good gift?</h2></div><div class="grid">
+<div class="card"><span class="pill b">Yes</span><h3 style="margin-top:10px">For someone who has none</h3><p>A new player who rents rackets will use a simple first racket a lot. Pick a round shape, light weight, soft core and low balance. See <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets</a> for what to look for.</p></div>
+<div class="card"><span class="pill i">Maybe</span><h3 style="margin-top:10px">If you know their racket</h3><p>If you know the shape, weight and balance they like, or they have already played with a model, a racket can be a great gift. Keep the receipt.</p></div>
+<div class="card"><span class="pill a">Avoid</span><h3 style="margin-top:10px">A surprise upgrade</h3><p>Regular players are picky. A racket that is too heavy, too head-heavy or too stiff can feel wrong and even hurt their arm. Give a voucher and let them choose, or send them to the <a href="{href("intermediate-padel-racket.html")}">upgrade check</a>.</p></div>
+</div>
+<p class="muted" style="margin-top:12px">To find out what suits them without spoiling the surprise, ask what shape their racket is and how heavy it feels, or try our <a href="{href("racket-finder.html")}">racket finder</a> with what you know.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which small padel gifts do players really use?</h2></div><div class="grid">
+<div class="card"><h3>Padel balls</h3><p>Balls lose their bounce after a few sessions, so players always need more. Buy padel balls, not tennis balls: padel balls have less pressure inside. More on <a href="{href("padel-balls.html")}">when balls are dead</a>.</p></div>
+<div class="card"><h3>Overgrips</h3><p>A thin wrap that goes over the handle. It gets slippery and worn, and HEAD suggests changing it at least every two months. A pack of 3 is a cheap, useful gift. See <a href="{href("padel-grip.html")}">how to put one on</a>.</p></div>
+<div class="card"><h3>Frame protector tape</h3><p>A strip that goes round the top of the frame and stops chips when the racket hits the glass or floor. Single protectors cost about $9 to $12 in the US (Padel Browser, Sep 2026). It adds a few grams at the top, so some players skip it. More in <a href="{href("racket-care.html")}">racket care</a>.</p></div>
+<div class="card"><h3>Racket cover or ball saver</h3><p>A cover keeps sand, heat and knocks off the racket. A ball saver tube keeps opened balls lively a little longer.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What should I check before buying padel shoes as a gift?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Check</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><td>Their size in that brand</td><td>Sizes differ between brands. Look at a pair they already wear.</td></tr>
+<tr><td>The sole</td><td>Most padel courts need a herringbone (zig-zag) sole. Running shoes are not safe on sand courts. See the <a href="{href("padel-shoes.html")}">padel shoes guide</a>.</td></tr>
+<tr><td>Returns</td><td>Ask for a gift receipt and check the shop's exchange window over the holidays.</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Make a padel gift voucher</h2><p class="muted">Gift a lesson, a court or a night of padel. Fill it in, then print it or save it as a PDF.</p></div>
+<div class="quiz" id="gv">
+<div class="card">
+<div class="q"><h3>What is the gift?</h3><div class="opts" data-gv="gift" role="group" aria-label="What is the gift?">{"".join(f'<button type="button" class="opt" data-v="{k}" aria-pressed="{"true" if k == "lesson" else "false"}">{e(t)}</button>' for k, t in GF_V)}</div></div>
+<label class="gv-f">Your own gift text <input id="gv-own" type="text" maxlength="60" placeholder="For example: two hours of padel and lunch"></label>
+<label class="gv-f">To <input id="gv-to" type="text" maxlength="40" placeholder="Their name"></label>
+<label class="gv-f">From <input id="gv-from" type="text" maxlength="40" placeholder="Your name"></label>
+<label class="gv-f">Message <input id="gv-msg" type="text" maxlength="90" placeholder="Happy Christmas! See you on court."></label>
+<label class="gv-f">Use by <input id="gv-date" type="text" maxlength="30" placeholder="For example: 31 March 2027"></label>
+<button class="btn lime sm" type="button" id="gv-print">Print or save as PDF</button>
+<p class="muted" style="margin:10px 0 0;font-size:.92rem">Nothing is sent anywhere. The voucher is made on your device.</p>
+</div>
+<div class="gv-card" id="gv-card" aria-live="polite"><svg viewBox="0 0 120 120" aria-hidden="true" class="gv-art"><ellipse cx="50" cy="44" rx="34" ry="38" fill="#1e46c8"/><g fill="#e4eef6">{"".join(f'<circle cx="{50+x}" cy="{44+y}" r="2.4"/>' for y in range(-24, 25, 12) for x in range(-24, 25, 12) if x*x + y*y <= 700)}</g><rect x="44" y="80" width="12" height="34" rx="5" fill="#1e46c8"/><circle cx="95" cy="92" r="13" fill="#e8f84a" stroke="#0b1a46" stroke-width="2"/></svg>
+<p class="gv-k">Padel gift voucher</p><h3 id="gv-gift">A padel lesson</h3><p class="gv-to">For <b id="gv-to-o">you</b></p><p id="gv-msg-o" class="gv-msg"></p><p class="gv-from">From <b id="gv-from-o">me</b><span id="gv-date-o"></span></p></div>
+</div>
+<p class="muted" style="margin-top:12px">Booking a lesson or court? Ask the club whether it sells its own gift vouchers or court credit. Running a padel night? Use our <a href="{href("americano.html")}">Americano draw maker</a> to set the games.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Buying a racket?</h3><p>Start with the <a href="{href("racket-finder.html")}">racket finder</a>, then compare budget picks in <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets</a>.</p></div>
+<div class="card"><h3>Shopping this week?</h3><p>Black Friday is 27 November. See what is worth buying in our <a href="{href("padel-black-friday.html")}">padel Black Friday guide</a>.</p></div>
+<div class="card"><h3>New to padel yourself?</h3><p>The <a href="{href("beginners.html")}">beginner's guide</a> covers what to bring and the rules you need for a first game together.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Shop padel gifts</h3><p>The gifts players use most: balls, overgrips, bags and shoes, plus rackets by shape.</p><ul class="aff-links"><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-bags")}" {AFF_ATTR}>Bags</a></li><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-black-friday")}" {AFF_ATTR}>Black Friday deals</a></li></ul>{AFF_NOTE}</div></div></section>'''
+gf_faq = [
+    ("What is a good gift for a padel player?", "Things they use up: padel balls, overgrips and frame protector tape for a small budget; a bag, a court booking or a lesson for a medium budget; padel shoes in their size for a bigger budget."),
+    ("Should I buy a padel racket as a gift?", "Only if they don't have one yet, or you know the shape, weight and balance they like. Regular players are picky about rackets, so a voucher is often the better gift."),
+    ("What is a cheap padel gift?", "A can of padel balls, a pack of overgrips, frame protector tape, sweatbands or padel socks. All cost under about 20 in pounds, dollars or euros."),
+    ("What padel gift can I give a beginner?", "A simple first racket (round, light, soft) if they rent one now, a lesson with a coach, padel balls, or padel shoes with a herringbone sole."),
+    ("How many balls are in a can of padel balls?", "Most cans or tubes of padel balls hold 3 balls. Shops also sell multi-packs of several cans."),
+    ("Can I give padel lessons as a gift?", "Yes. Ask the club or coach whether they sell gift vouchers, or print our free voucher and book the lesson together."),
+    ("Are padel shoes a good gift?", "Yes, if you know their size in that brand and choose the right sole, usually herringbone. Keep the gift receipt in case they need another size."),
+]
+page("padel-gifts.html", "Padel Gifts: Free Gift Finder by Budget + Printable Voucher | Padel Glass Box",
+     "What to buy a padel player: answer 6 questions for padel gift ideas that suit their level and your budget, what to check before buying a racket or shoes, and a free printable padel gift voucher.",
+     gf, gf_faq, "Padel gifts")
+
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
      f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 
@@ -2664,7 +2759,7 @@ bf = f'''<header class="hero"><div class="wrap"><h1>Padel Black Friday 2026: wha
 <h2>How do I avoid a fake deal?</h2><ul>
 <li>Some shops keep a permanent "sale" price, so a big percentage off is not always a real drop. Compare with the price a couple of weeks earlier.</li>
 <li>Pick the racket for your level first, then look for it on sale, not the other way round. Our <a href="{href("racket-finder.html")}">racket finder</a> takes a minute.</li>
-<li>Budget? These are the <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets worth buying</a>.</li><li>Upgrading from your first racket? Run the <a href="{href("intermediate-padel-racket.html")}">intermediate upgrade check</a> first.</li></ul>
+<li>Budget? These are the <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets worth buying</a>.</li><li>Buying for someone else? Try the <a href="{href("padel-gifts.html")}">padel gift finder</a>.</li><li>Upgrading from your first racket? Run the <a href="{href("intermediate-padel-racket.html")}">intermediate upgrade check</a> first.</li></ul>
 <p class="muted">Sources: Padel Market Black Friday page (code and conditions, November 2026); Padel Browser "When to buy padel gear 2026"; zonadepadel Black Friday 2026 page. We update this page if offers change.</p>
 </div></section>'''
 bf_faq = [
@@ -2685,7 +2780,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "about.html", "privacy.html"]
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

@@ -1887,4 +1887,75 @@
     igr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { ist[g.dataset.ir] = b.dataset.v; irender(); }); }); });
     irender();
   }
+
+  /* ---------- padel gift finder + voucher ---------- */
+  var gfb = $("#gf");
+  if (gfb && window.GFGO) {
+    var ggr = $$("[data-gf]", gfb);
+    var gst = store.get("pp-gf", { who: "reg", budget: "m", racket: "yes", specs: "no", shoes: "no", bag: "no" });
+    var gl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var ga = function (k, t) { return '<a href="' + window.GFGO[k] + '" rel="sponsored nofollow noopener" target="_blank" style="color:#e8f84a">' + t + "</a> (affiliate link)"; };
+    var BO = { s: 0, m: 1, l: 2, xl: 3 };
+    var gpick = function () {
+      var a = gst, b = BO[a.budget], L = [], warn = "";
+      var add = function (min, max, score, h, t) { if (b >= min && b <= max) L.push({ s: score, h: h, t: t }); };
+      add(0, 3, a.who === "new" ? 3 : 6, "Padel balls", "Everyone runs out. A can holds 3 balls; bigger budgets can buy a multi-pack. " + ga("padel-balls", "Shop balls"));
+      add(0, 1, a.racket === "yes" ? 6 : 2, "A pack of overgrips", "Cheap and always needed when the handle gets slippery. " + ga("padel-overgrips", "Shop overgrips") + " · " + gl("padel-grip", "How to fit one"));
+      add(0, 1, a.racket === "yes" ? 4 : 0, "Frame protector tape", "Guards the top of the frame against chips off the glass. " + gl("racket-care", "Racket care tips"));
+      add(0, 0, 3, "Sweatbands and padel socks", "Small, useful and hard to get wrong.");
+      add(1, 1, a.bag === "no" && a.racket === "yes" ? 5 : 2, "A racket cover or small backpack", "Keeps sand, heat and knocks off the racket. " + ga("padel-bags", "Shop bags"));
+      add(1, 2, a.who === "keen" ? 4 : 5, "A court booking", "Book a court for four and play together. Ask the club about gift vouchers or court credit, or print the voucher below.");
+      add(2, 3, a.bag === "no" ? 7 : 1, "A padel bag", "Holds rackets, shoes and balls in one. " + ga("padel-bags", "Shop bags"));
+      add(2, 3, a.shoes === "no" ? 7 : 2, "Padel shoes", "Check their size and get a herringbone sole for most courts. Keep the gift receipt. " + ga("padel-shoes", "Shop shoes") + " · " + gl("padel-shoes", "Which sole?"));
+      add(2, 3, a.who === "new" ? 8 : (a.who === "reg" ? 5 : 3), b === 3 ? "A block of lessons" : "A lesson with a coach", "Lessons change a game more than gear does, at any level. Ask the club or a local coach for a voucher.");
+      if (a.racket === "no") add(2, 3, 9, "Their first racket", "Pick round, light, soft and head-light. " + ga("padel-round-rackets", "Shop round rackets") + " · " + gl("cheap-padel-rackets", "What to look for"));
+      if (a.racket === "yes" && a.specs === "yes") add(3, 3, a.who === "keen" ? 8 : 4, "A racket they have tried", "Only the model they already like, or one with the same shape, weight and balance. " + gl("intermediate-padel-racket", "Upgrade check"));
+      if (a.racket === "yes" && a.specs === "no") add(3, 3, a.who === "keen" ? 6 : 3, "A racket voucher", "Give the money for their next racket and let them demo and choose. " + gl("racket-finder", "Racket finder"));
+      add(3, 3, a.who === "keen" ? 5 : 2, "A padel weekend or camp", "For keen players: coaching and games over a few days. Check what is included before you book.");
+      add(0, 3, 1, "An Americano night", "Free to organise: book courts, invite friends and use our " + gl("americano", "Americano draw maker") + ".");
+      L.sort(function (x, y) { return y.s - x.s; });
+      L = L.slice(0, 5);
+      if (a.racket === "yes" && a.specs === "no") warn = "Skip a surprise racket: regular players are picky, and the wrong weight or balance can hurt their arm.";
+      else if (a.racket === "no") warn = "A first racket is a safe gift. Avoid stiff, heavy or diamond rackets for a new player.";
+      else warn = "Keep the gift receipt for anything with a size or a feel, like shoes and rackets.";
+      var who = { "new": "a new player", reg: "a weekly player", keen: "a keen player" }[a.who];
+      return { h: "Top gifts for " + who, p: "Best first, for your budget:", L: L, warn: warn };
+    };
+    var grender = function () {
+      store.set("pp-gf", gst);
+      ggr.forEach(function (g) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === gst[g.dataset.gf] ? "true" : "false"); }); });
+      var r = gpick();
+      $("#gf-h").textContent = r.h;
+      $("#gf-p").textContent = r.p;
+      $("#gf-list").innerHTML = r.L.map(function (x) { return "<li><b>" + x.h + "</b><span>" + x.t + "</span></li>"; }).join("");
+      $("#gf-warn").textContent = r.warn;
+    };
+    ggr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { gst[g.dataset.gf] = b.dataset.v; grender(); }); }); });
+    grender();
+  }
+  var gvb = $("#gv");
+  if (gvb) {
+    var GV = { lesson: "A padel lesson", court: "A court booking for four", americano: "An Americano night with friends", racket: "A new racket of your choice", shoes: "New padel shoes, we'll choose together" };
+    var vst = store.get("pp-gv", { gift: "lesson", own: "", to: "", from: "", msg: "", date: "" });
+    var vin = { own: $("#gv-own"), to: $("#gv-to"), from: $("#gv-from"), msg: $("#gv-msg"), date: $("#gv-date") };
+    Object.keys(vin).forEach(function (k) { vin[k].value = vst[k] || ""; vin[k].addEventListener("input", function () { vst[k] = vin[k].value; vrender(); }); });
+    var vbtn = $$("[data-gv] button", gvb);
+    var vrender = function () {
+      store.set("pp-gv", vst);
+      vbtn.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === vst.gift ? "true" : "false"); });
+      vin.own.parentNode.style.display = vst.gift === "own" ? "" : "none";
+      $("#gv-gift").textContent = vst.gift === "own" ? (vst.own || "Your gift here") : GV[vst.gift];
+      $("#gv-to-o").textContent = vst.to || "you";
+      $("#gv-from-o").textContent = vst.from || "me";
+      $("#gv-msg-o").textContent = vst.msg;
+      $("#gv-date-o").textContent = vst.date ? " · Use by " + vst.date : "";
+    };
+    vbtn.forEach(function (b) { b.addEventListener("click", function () { vst.gift = b.dataset.v; vrender(); }); });
+    $("#gv-print").addEventListener("click", function () {
+      var root = document.createElement("div"); root.id = "gv-print-root"; root.appendChild($("#gv-card").cloneNode(true)); root.firstChild.removeAttribute("id");
+      document.body.appendChild(root); document.body.classList.add("print-gv"); window.print();
+      setTimeout(function () { document.body.classList.remove("print-gv"); if (root.parentNode) root.parentNode.removeChild(root); }, 500);
+    });
+    vrender();
+  }
 })();

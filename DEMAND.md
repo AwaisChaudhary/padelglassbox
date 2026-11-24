@@ -1,6 +1,6 @@
 # Padel Glass Box demand queue (Google autocomplete, 24 Nov 2026)
 ## RADAR 24 Nov 06:45 PKT — NEW top OPEN items
-R1. OPEN Padel gifts ('padel gifts'): Christmas gift guide for padel players by budget (own picks, general advice, affiliate /go/ links where we have them). Timely: build before 1 Dec.
+R1. DONE 24 Nov (/padel-gifts) Padel gifts ('padel gifts'): Christmas gift guide for padel players by budget (own picks, general advice, affiliate /go/ links where we have them). Timely: build before 1 Dec.
 R2. OPEN City guides (top autocomplete: austin, atlanta, boston, chicago, dallas, denver, miami, los angeles, nyc, jersey city, kansas city, las vegas, charlotte, detroit, fort lauderdale, frisco, el paso, indianapolis): hub /where-to-play-padel then cities with 3+ confirmed venues (rule from earlier block).
 R3. OPEN 'padel lessons' / 'lessons near me' -> how to find lessons + what a first lesson covers + cost ranges (2 sources).
 R4. OPEN 'padel equipment' -> beginner kit checklist page; 'padel ball vs tennis ball' -> section on /padel-balls; 'padel game rules' -> make /rules title match; 'padel definition / meaning / en ingles' -> 'What is padel?' page.
