@@ -132,7 +132,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
 <div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li></ul></div>
-<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("padel-equipment.html")}">Padel equipment and what to wear</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
+<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("padel-equipment.html")}">Padel equipment and what to wear</a></li><li><a href="{href("padel-racket-for-kids.html")}">Padel rackets for kids</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -242,7 +242,7 @@ finder = f'''<header class="hero"><div class="wrap"><h1>Find your padel racket.<
 <tr><td>6 months to 2 years</td><td>Round or teardrop</td><td>Low to medium</td><td>Soft to medium</td></tr>
 <tr><td>2 years or more, attacking</td><td>Teardrop or diamond</td><td>Medium to high</td><td>Harder core, carbon face</td></tr>
 </tbody></table></div>
-<p class="muted" style="margin-top:12px">A guide, not a rule: try a friend's racket or a demo racket at your club before you buy. Moving on from your first racket? Use the <a href="{href("intermediate-padel-racket.html")}">intermediate upgrade check</a>. Not sure of your level? Use the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div></section>
+<p class="muted" style="margin-top:12px">A guide, not a rule: try a friend's racket or a demo racket at your club before you buy. Moving on from your first racket? Use the <a href="{href("intermediate-padel-racket.html")}">intermediate upgrade check</a>. Buying for a child? See the <a href="{href("padel-racket-for-kids.html")}">junior racket size finder</a>. Not sure of your level? Use the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
 <div class="card"><h3>Compare two rackets</h3><p>Type in the weight and balance from the label and see what they mean in the <a href="{href("racket-balance.html")}">balance decoder</a>.</p></div>
 <div class="card"><h3>Hold it right</h3><p>One grip does almost everything. Learn it with the <a href="{href("padel-grip.html")}">padel grip guide</a> and grip check.</p></div>
@@ -1188,7 +1188,8 @@ VSWHY = {
     "k": "Pickleball has the smallest court, a light plastic ball and an underhand serve. Players often say it is the quickest of the three to pick up, and it is easy on the joints. Games are won with soft shots near the net as much as with power.",
 }
 vs = f'''<header class="hero"><div class="wrap"><h1>Padel vs tennis vs pickleball.</h1>
-<p class="lead">Three racket sports, three very different games. See the courts drawn to the same scale, compare the rules side by side, then answer five quick questions to see which one suits you best.</p></div></header>
+<p class="lead">Three racket sports, three very different games. See the courts drawn to the same scale, compare the rules side by side, then answer five quick questions to see which one suits you best.</p>
+{quick("Padel is played almost always in doubles on a 20 × 10 m court closed in by glass walls you can play off, with a solid racket full of holes and a low-pressure felt ball. Tennis has the biggest court (23.77 × 10.97 m for doubles), no walls and an overhead serve. Pickleball has the smallest court (13.41 × 6.10 m, or 44 × 20 ft), a solid paddle, a plastic ball and a no-volley zone called the kitchen. Padel and pickleball are not the same sport.")}</div></header>
 <section style="padding-top:10px"><div class="wrap"><div class="vs-layout" id="vs">
 <div class="court-art vs-art"><div class="vs-bar"><div class="seg" id="vs-show" role="group" aria-label="Show court"><button type="button" data-v="all" aria-pressed="true">All three</button><button type="button" data-v="t" aria-pressed="false">Tennis</button><button type="button" data-v="p" aria-pressed="false">Padel</button><button type="button" data-v="k" aria-pressed="false">Pickleball</button></div>
 <div class="seg" id="vs-unit" role="group" aria-label="Units"><button type="button" data-v="m" aria-pressed="true">Metres</button><button type="button" data-v="ft" aria-pressed="false">Feet</button></div></div>
@@ -1197,7 +1198,7 @@ vs = f'''<header class="hero"><div class="wrap"><h1>Padel vs tennis vs picklebal
 <aside class="card zpanel" id="vs-info" aria-live="polite"></aside>
 </div></div></section>
 {AD.format("vs-mid")}
-<section><div class="wrap"><div class="sh"><h2>Side by side</h2><p class="muted">The main rules of each sport, in short.</p></div>
+<section><div class="wrap"><div class="sh"><h2>What is the difference between padel, tennis and pickleball?</h2><p class="muted">The main rules of each sport, side by side.</p></div>
 <div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt vs-t"><thead><tr><th scope="col"></th><th scope="col">Padel</th><th scope="col">Tennis</th><th scope="col">Pickleball</th></tr></thead><tbody>
 <tr><th scope="row">Court</th><td>20 × 10 m</td><td>23.77 × 10.97 m (doubles)</td><td>13.41 × 6.10 m (44 × 20 ft)</td></tr>
 <tr><th scope="row">Walls</th><td>Yes, glass and fence, part of the game</td><td>No</td><td>No</td></tr>
@@ -1213,7 +1214,7 @@ vs = f'''<header class="hero"><div class="wrap"><h1>Padel vs tennis vs picklebal
 </tbody></table></div>
 <p class="muted" style="margin-top:14px">Padel figures from the FIP rules (see our <a href="{href("court-dimensions.html")}">padel court dimensions</a>). Pickleball court, net, kitchen and scoring from USA Pickleball. Tennis court and net from the ITF rules of tennis. Local leagues can use other formats.</p>
 </div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which sport suits you?</h2><p class="muted">Five questions, no right answers.</p></div>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which sport suits you: padel, tennis or pickleball?</h2><p class="muted">Five questions, no right answers.</p></div>
 <div class="quiz" id="vsq">
 <div>
 {vs_q("who", "1. Who will you usually play with?", [("one", "One friend"), ("group", "Three friends or a group"), ("any", "Either")])}
@@ -1225,7 +1226,7 @@ vs = f'''<header class="hero"><div class="wrap"><h1>Padel vs tennis vs picklebal
 </div>
 <aside class="result" id="vsq-out" aria-live="polite"><h2>Your match</h2><p>Answer the questions and your best fit appears here. You can change any answer.</p></aside>
 </div></div></section>
-<section><div class="wrap"><div class="sh"><h2>The biggest differences</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>What makes padel different from tennis and pickleball?</h2></div><div class="grid">
 <div class="card"><span class="pill b">Padel</span><h3 style="margin-top:10px">The walls change everything</h3><p>In padel the ball can bounce once and then hit the glass, and you can still play it. That gives you a second chance on many shots, so rallies last longer. Read the <a href="{href("wall-rules.html")}">wall and fence rules</a>.</p></div>
 <div class="card"><span class="pill i">Tennis</span><h3 style="margin-top:10px">Space and the serve</h3><p>A tennis court is the biggest of the three, and the overhead serve is a weapon. You need more running and more technique before rallies feel easy.</p></div>
 <div class="card"><span class="pill a">Pickleball</span><h3 style="margin-top:10px">The kitchen</h3><p>Pickleball has a 7 ft (2.13 m) zone each side of the net where you can't volley. It stops players smashing from the net, so soft drop shots, called dinks, matter a lot.</p></div>
@@ -1233,10 +1234,15 @@ vs = f'''<header class="hero"><div class="wrap"><h1>Padel vs tennis vs picklebal
 <div class="card"><span class="pill a">Pickleball</span><h3 style="margin-top:10px">Only servers score</h3><p>In the traditional pickleball format, only the serving side can win points, and a game goes to 11, won by two. Some events now try rally scoring, where every rally counts.</p></div>
 <div class="card"><span class="pill i">All three</span><h3 style="margin-top:10px">Different kit</h3><p>A tennis racket has strings. A padel racket is solid foam with holes. A pickleball paddle is solid and flat. Each sport also has its own ball, so you can't swap them.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Coming to padel from another sport</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Is padel easy to learn if you play tennis or pickleball?</h2></div><div class="grid">
 <div class="card"><h3>From tennis</h3><p>Your volleys and footwork help a lot. The hard part is letting the ball pass you and come off the glass instead of hitting it early. Shorten your swing: big tennis swings send the ball into the back glass. Start with the <a href="{href("shots.html")}">shot library</a>.</p></div>
 <div class="card"><h3>From pickleball</h3><p>You already know the underhand serve and how to win at the net. In padel the serve must bounce first, there is no kitchen, and lobs over the net players are a main weapon. Learn <a href="{href("positioning.html")}">where to stand</a> as a pair.</p></div>
 <div class="card"><h3>Brand new</h3><p>Padel is a good first racket sport: the court is small and the walls keep the ball in. Read the <a href="{href("beginners.html")}">first match checklist</a> and find a <a href="{href("racket-finder.html")}">racket that suits you</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Ready to try padel?</h3><p>The <a href="{href("beginners.html")}">beginner's guide</a> has the rules for a first game, and the <a href="{href("padel-equipment.html")}">kit planner</a> shows what to bring.</p></div>
+<div class="card"><h3>Learn the walls</h3><p>The glass is the biggest change from tennis and pickleball. Try the <a href="{href("wall-rules.html")}">wall and fence rules</a> checker.</p></div>
+<div class="card"><h3>Playing with your kids?</h3><p>Padel is easy for families to share. Find the right junior weight in the <a href="{href("padel-racket-for-kids.html")}">padel racket for kids</a> finder.</p></div>
 </div></div></section>
 <section><div class="wrap"><div class="aff-box"><h3>Trying padel for the first time?</h3><p>Most clubs rent rackets. If you want your own, start with a forgiving round racket and proper court shoes.</p><ul class="aff-links"><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>All rackets</a></li><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li></ul>{AFF_NOTE}</div></div></section>'''
 vs_faq = [
@@ -1246,10 +1252,12 @@ vs_faq = [
     ("Which court is bigger, padel or pickleball?", "Padel. A padel court is 20 × 10 m (200 m²). A pickleball court is 13.41 × 6.10 m (about 82 m²), so it is less than half the size."),
     ("Is a padel court smaller than a tennis court?", "Yes. A padel court is 20 × 10 m. A tennis doubles court is 23.77 × 10.97 m, so padel covers about three quarters of the area, and the walls make it feel even smaller."),
     ("Is padel scored like tennis?", "Yes: 15, 30, 40 and game, with sets to six. Many padel games use a golden point at 40-40, and the pro tours use Star Point from 2026."),
+    ("Are padel and pickleball the same thing?", "No. They are different sports. Padel has glass walls, a felt ball and a racket with holes, on a 20 × 10 m court. Pickleball has no walls, a plastic ball with holes and a solid paddle, on a 44 × 20 ft court with a kitchen zone."),
+    ("Can you use a tennis racket or pickleball paddle for padel?", "No. Padel rackets are solid with holes and no strings, and the FIP rules set their size. Each sport has its own racket and ball."),
     ("Which is the best workout: padel, tennis or pickleball?", "Tennis usually means the most running. Padel is lots of short, quick movements and bending. Pickleball is the lowest impact of the three. Any of them is good exercise if you play regularly."),
 ]
 page("padel-vs-tennis-vs-pickleball.html", "Padel vs Tennis vs Pickleball: Differences, Courts to Scale and Quiz | Padel Glass Box",
-     "Padel vs tennis vs pickleball: compare court size, walls, serve, scoring and kit side by side, see the three courts drawn to scale, and take a quick quiz to pick your sport.",
+     "Padel vs tennis vs pickleball: the differences in court size (20 × 10 m vs 23.77 × 10.97 m vs 44 × 20 ft), walls, serve, scoring and kit side by side, the three courts drawn to scale, and a quiz to pick your sport.",
      vs + f'<script>window.VS={json.dumps({"c": VS, "q": VSQ, "why": VSWHY})};</script>', vs_faq, "Padel vs tennis vs pickleball")
 
 # ---------------- RACKET WEIGHT AND BALANCE ----------------
@@ -2659,7 +2667,7 @@ gf = f'''<header class="hero"><div class="wrap"><h1>Padel gifts: what to buy a p
 <tr><td>Over 150</td><td>A block of lessons, a racket they have already tried, a padel weekend or camp, a voucher for their racket upgrade</td><td>Keen players who play several times a week</td></tr>
 </tbody></table></div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Is a padel racket a good gift?</h2></div><div class="grid">
-<div class="card"><span class="pill b">Yes</span><h3 style="margin-top:10px">For someone who has none</h3><p>A new player who rents rackets will use a simple first racket a lot. Pick a round shape, light weight, soft core and low balance. See <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets</a> for what to look for.</p></div>
+<div class="card"><span class="pill b">Yes</span><h3 style="margin-top:10px">For someone who has none</h3><p>A new player who rents rackets will use a simple first racket a lot. Pick a round shape, light weight, soft core and low balance. See <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets</a> for what to look for. For a child, use the <a href="{href("padel-racket-for-kids.html")}">junior size finder</a>.</p></div>
 <div class="card"><span class="pill i">Maybe</span><h3 style="margin-top:10px">If you know their racket</h3><p>If you know the shape, weight and balance they like, or they have already played with a model, a racket can be a great gift. Keep the receipt.</p></div>
 <div class="card"><span class="pill a">Avoid</span><h3 style="margin-top:10px">A surprise upgrade</h3><p>Regular players are picky. A racket that is too heavy, too head-heavy or too stiff can feel wrong and even hurt their arm. Give a voucher and let them choose, or send them to the <a href="{href("intermediate-padel-racket.html")}">upgrade check</a>.</p></div>
 </div>
@@ -2881,6 +2889,96 @@ page("padel-black-friday.html", "Padel Black Friday 2026: Racket Deals, BLACK15 
      "Padel Black Friday 2026 is 27 November (Cyber Monday 30 Nov). Live padel deals, Padel Market's 15% BLACK15 code, a discount calculator and what's worth buying.",
      bf, bf_faq, "Padel Black Friday")
 
+# ---------------- PADEL RACKET FOR KIDS (24 Nov 2026, DEMAND 4 "padel racket for kids") ----------------
+def jrq(name, title, opts, on):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="{"true" if val == on else "false"}">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-jr="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+JRQ = [
+    ("age", "How old is the child?", [("0", "3 to 6"), ("1", "7 to 9"), ("2", "10 to 12"), ("3", "13 to 14"), ("4", "15 or older")], "1"),
+    ("h", "How tall are they?", [("0", "Under 120 cm (4 ft)"), ("1", "120 to 140 cm"), ("2", "140 to 155 cm"), ("3", "Over 155 cm (5 ft 1)"), ("x", "Not sure")], "x"),
+    ("build", "Compared with friends their age, they are", [("s", "Smaller or not so strong"), ("a", "About average"), ("b", "Bigger or stronger")], "a"),
+    ("play", "How much do they play?", [("try", "Just trying it"), ("week", "About once a week"), ("lots", "Lessons or club squad, 2+ times a week")], "try"),
+    ("sore", "Does their arm or shoulder hurt after playing?", [("no", "No"), ("yes", "Yes, sometimes")], "no"),
+]
+JR_GO = {k: go(k) for k in ("padel-round-rackets", "padel-teardrop-rackets", "padel-rackets", "padel-balls", "padel-overgrips")}
+JR_SVG = '''<svg viewBox="0 0 320 70" class="jr-scale" role="img" aria-label="Racket weight scale from 200 to 400 grams. The suggested band for this child is highlighted. Most adult rackets are about 355 to 375 grams.">
+<rect x="10" y="26" width="300" height="14" rx="7" fill="#1a3a9a"/>
+<rect id="jr-adult" x="242.5" y="26" width="30" height="14" fill="#9cc4ea" opacity=".45"/>
+<rect id="jr-band" x="10" y="22" width="40" height="22" rx="8" fill="#e8f84a"/>
+<g fill="#9fb0e0" font-size="10" font-family="Onest, sans-serif" text-anchor="middle"><text x="10" y="60">200 g</text><text x="85" y="60">250</text><text x="160" y="60">300</text><text x="235" y="60">350</text><text x="310" y="60" text-anchor="end">400 g</text></g>
+<text x="257.5" y="16" fill="#9cc4ea" font-size="10" font-family="Onest, sans-serif" text-anchor="middle">Most adults</text>
+</svg>'''
+jr = f'''<header class="hero"><div class="wrap"><h1>Padel racket for kids: which size and weight?</h1>
+<p class="lead">Junior padel rackets differ mainly in weight, not length. Answer five quick questions about the child to see the weight band to look for, the right shape and core, and whether they are ready for an adult racket.</p>
+{quick("Choose by weight. As a rough guide: about 210 to 260 g for ages 3 to 6, 260 to 300 g for 7 to 9, 300 to 330 g for 10 to 12, and 330 to 355 g for 13 to 14. Pick a round shape with a soft core and a fibreglass face, use the wrist cord, and move to a light adult racket (about 350 to 360 g) at around 12 to 14, when the child is strong enough.")}</div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="jr">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:4px">About the child</h2>
+{"".join(jrq(*x) for x in JRQ)}
+<p class="muted" style="margin:0;font-size:.92rem">A rough guide in our own words, based on maker and retailer sizing advice. Answers are saved on this device only.</p>
+</div>
+<aside class="result" id="jr-out" aria-live="polite"><h2 id="jr-h">Junior racket</h2><p id="jr-p"></p>{JR_SVG}<dl class="spec" id="jr-spec"></dl><p id="jr-move"></p><p id="jr-warn" class="wr-src"></p><p id="jr-next" class="wr-src"></p></aside>
+</div></section>
+<script>window.JRGO={json.dumps(JR_GO)};</script>
+{AD.format("kids-mid")}
+<section><div class="wrap"><div class="sh"><h2>What size padel racket does a child need?</h2><p class="muted">Approximate bands. Makers split their ranges at different ages, so use the child's size and strength as well as their age.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Age</th><th scope="col">Height (about)</th><th scope="col">Racket weight</th><th scope="col">Type and shape</th></tr></thead><tbody>
+<tr><td>3 to 6</td><td>Under 120 cm (4 ft)</td><td>210 to 260 g</td><td>Mini or foam racket, round</td></tr>
+<tr><td>7 to 9</td><td>120 to 140 cm</td><td>260 to 300 g</td><td>Light junior racket, round, soft core</td></tr>
+<tr><td>10 to 12</td><td>140 to 155 cm</td><td>300 to 330 g</td><td>Junior racket, round (teardrop for strong players later)</td></tr>
+<tr><td>13 to 14</td><td>Over 155 cm (5 ft 1)</td><td>330 to 355 g</td><td>Older junior or light adult racket</td></tr>
+<tr><td>Teen ready to move up</td><td>Adult size</td><td>About 350 to 360 g to start</td><td>Light round adult racket</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">For comparison, most adult rackets weigh about 355 to 375 g. Check the weight printed on the racket or the shop page: some rackets sold as "junior" still weigh 330 to 350 g, which is heavy for a young child.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Are junior padel rackets shorter?</h2></div><div class="grid">
+<div class="card"><h3>A little, but weight matters more</h3><p>Unlike tennis, padel rackets don't come in many lengths. Older junior rackets are often only about a finger shorter than an adult racket. The big difference is weight, and a thinner handle for small hands.</p></div>
+<div class="card"><h3>The adult limit</h3><p>The rules allow a racket up to 45.5 cm long and 38 mm thick. Junior rackets are smaller or thinner than that. See all the sizes on our <a href="{href("racket-balance.html")}">racket weight and balance</a> page.</p></div>
+<div class="card"><h3>Don't cut down an adult racket</h3><p>A shortened adult racket is still heavy and stiff, so it tires a young arm. A racket made for juniors is lighter all over.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do I know if a padel racket is too heavy for my child?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Sign</th><th scope="col">What to do</th></tr></thead><tbody>
+<tr><td>Their arm, elbow or shoulder is sore after playing</td><td>The most common sign the racket is too heavy or too stiff. Go lighter and softer, and rest. If pain lasts, see a doctor or physio. More in <a href="{href("padel-injuries.html")}">padel injuries</a>.</td></tr>
+<tr><td>The racket head drops after a few shots</td><td>Their arm is tired. A lighter racket lets them keep good form for longer.</td></tr>
+<tr><td>They are always late on the ball</td><td>A heavy racket is slow to swing and hard to get ready at the net.</td></tr>
+<tr><td>They hold it with two hands for most shots</td><td>Often a sign it is too heavy. Try one band lighter.</td></tr>
+<tr><td>It feels too light and they say it "flaps"</td><td>Too light is less of a problem than too heavy. Move up one band when they grow or get stronger.</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">General coaching advice in our own words. If in doubt, choose the lighter racket.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which shape, core and face suit a child?</h2></div><div class="grid">
+<div class="card"><span class="pill b">Shape</span><h3 style="margin-top:10px">Round</h3><p>A round racket has its sweet spot low and in the middle, so off-centre hits still go over. Teardrop and diamond shapes move the sweet spot higher and are harder to control. Keep those for strong teenagers.</p></div>
+<div class="card"><span class="pill b">Core</span><h3 style="margin-top:10px">Soft foam</h3><p>A soft EVA or foam core gives an easy, comfortable feel and helps a light swing send the ball deep. Hard cores are for strong adult players.</p></div>
+<div class="card"><span class="pill b">Face</span><h3 style="margin-top:10px">Fibreglass</h3><p>Fibreglass faces are more flexible and cheaper. Stiff carbon faces are for older, stronger players. Learn more in <a href="{href("intermediate-padel-racket.html")}">racket specs explained</a>.</p></div>
+<div class="card"><span class="pill i">Grip</span><h3 style="margin-top:10px">Thin handle</h3><p>Junior rackets have thinner handles. An overgrip can make a handle thicker as their hand grows, but nothing makes a thick handle thinner. See <a href="{href("padel-grip.html")}">how to hold a padel racket</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>At what age can kids start playing padel?</h2></div><div class="grid">
+<div class="card"><h3>From about 3 years old</h3><p>HEAD says children can start hitting first shots from about age three, once they are strong enough to hold the racket. LTA Padel says padel lets children of all ages and abilities join in.</p></div>
+<div class="card"><h3>Use the wrist cord</h3><p>The cord on the handle should go round the wrist every time. It stops the racket flying out of a small hand and hitting someone. The FIP rules say every player must wear it.</p></div>
+<div class="card"><h3>Coaching and junior events</h3><p>In Great Britain, LTA Padel runs youth competitions for all ages and levels. They use a simple, fast format, usually last about half a day, and earn LTA ranking points. Ask your club about junior sessions with an accredited coach.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>When should a child move to an adult padel racket?</h2></div>
+<div class="card"><p>There is no fixed age. HEAD suggests around 12 or 13; Padel Browser says usually 12 to 14. It depends on strength and technique more than birthdays. Signs they are ready:</p>
+<ul style="margin:8px 0 12px;padding-left:20px;display:grid;gap:6px"><li>They are close to adult height and can swing a 330 to 355 g racket without tiring.</li><li>They play every week and their arm never hurts afterwards.</li><li>They hit with good form at the end of a session, not only at the start.</li></ul>
+<p>Start with a light, round adult racket of about 350 to 360 g. Then use the <a href="{href("racket-finder.html")}">racket finder</a> to choose the next one.</p></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>First game as a family?</h3><p>The <a href="{href("beginners.html")}">beginner's guide</a> covers the basic rules, and the <a href="{href("padel-equipment.html")}">kit planner</a> shows what to bring.</p></div>
+<div class="card"><h3>Buying it as a present?</h3><p>See more ideas, plus a printable voucher, in the <a href="{href("padel-gifts.html")}">padel gift finder</a>.</p></div>
+<div class="card"><h3>Practice at home or the club</h3><p>Short, fun games work best for kids. Pick a few from the <a href="{href("drills.html")}">padel drills planner</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Shop light rackets and kit</h3><p>Look for round rackets and check the weight in grams on each one before you buy.</p><ul class="aff-links"><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>All rackets</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li></ul>{AFF_NOTE}</div>
+<p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 24 Nov 2026: HEAD "How to choose a padel racquet for kids" (start from about 3; under 10 about 300 g, over 10 about 330 g, junior about a finger shorter; adult racket from about 12 or 13), Decathlon UK "How to choose a padel racket for children" (round control rackets; about 265 g for 5 to 8, 310 g for 8 to 11, 330 g for 12+; EVA foam), Padel Browser "Best junior padel rackets 2026" (10 Jun 2026: age and height bands, round shape, soft core, fibreglass, wrist cord, don't cut down adult rackets, move up at 12 to 14), LTA Padel "Padel for kids" and "Youth padel competitions". Weight bands in our table combine these and are rounded.</p></div></section>'''
+jr_faq = [
+    ("What size padel racket should a child use?", "Choose by weight more than length: about 210 to 260 g for ages 3 to 6, 260 to 300 g for 7 to 9, 300 to 330 g for 10 to 12 and 330 to 355 g for 13 to 14. Adjust for the child's height and strength."),
+    ("How heavy should a junior padel racket be?", "Most junior rackets weigh between about 260 and 330 g. Younger children need the lighter end. Adult rackets usually weigh about 355 to 375 g."),
+    ("At what age can a child use an adult padel racket?", "Usually around 12 to 14, when they are strong enough. Start with a light, round adult racket of about 350 to 360 g."),
+    ("What shape padel racket is best for kids?", "Round. It has a low, central sweet spot that forgives off-centre hits. Teardrop and diamond rackets are harder to control."),
+    ("At what age can kids start padel?", "Children can start hitting first shots from about age three, once they can hold a light racket. Coaching sessions for juniors are common at clubs."),
+    ("Can a child use a cut-down adult padel racket?", "It is better not to. A shortened adult racket is still heavy and stiff and tires a young arm. Junior rackets are lighter and softer all over."),
+    ("Are junior padel rackets shorter than adult rackets?", "Only a little. Older junior rackets are often about a finger shorter than an adult racket. The main difference is a lighter weight and a thinner handle."),
+]
+page("padel-racket-for-kids.html", "Padel Racket for Kids: Junior Size and Weight Finder by Age | Padel Glass Box",
+     "Which padel racket for a child? Junior racket weight by age and height (3 to 14), the right shape and core, signs a racket is too heavy, and when kids can move to an adult racket. Free size finder.",
+     jr, jr_faq, "Padel racket for kids")
+
 page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
      f'<section><div class="wrap" style="max-width:760px"><h1>Privacy policy</h1><p>Last updated: {e(UPDATED)}.</p><h2>What we collect</h2><p>Your score, checklist ticks and quiz answers are saved only in your own browser. If you join our email list, we keep your email address with our email provider, Kit (kit.com), to send you the cheat sheet and our updates. Every email has an unsubscribe link, and you can ask us to delete your address at any time.</p><h2>Analytics</h2><p>We use Google Analytics to count visits and see which pages are popular. It uses cookies and collects details like pages viewed, approximate location and device type.</p><h2>Advertising</h2><p>This site uses Google AdSense. Google and its partners use cookies to show ads based on your visits to this and other websites. You can turn off personalised ads at <a href="https://adssettings.google.com">Google Ads Settings</a>. Learn more at <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.</p><h2>Affiliate links</h2><p>Some links may be affiliate links. If you buy through them, we may earn a small fee at no extra cost to you.</p><h2>Contact</h2><p>Email <strong>[your email address]</strong>.</p></div></section>')
 page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
@@ -2889,7 +2987,7 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "about.html", "privacy.html"]
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "padel-racket-for-kids.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

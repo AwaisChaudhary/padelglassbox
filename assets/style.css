@@ -596,3 +596,6 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .kp-l b { display: block; color: #fff; }
 .kp-l small { display: block; color: #d6e0fb; font-size: .9rem; margin-top: 2px; }
 .kp-l input:checked + span b { color: var(--ball); }
+/* junior racket finder weight scale */
+.jr-scale { width: 100%; height: auto; margin: 6px 0 4px; display: block; }
+.jr-scale #jr-band { transition: x .25s, width .25s; }

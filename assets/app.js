@@ -2025,4 +2025,48 @@
     });
     krender();
   }
+
+  /* ---------- padel racket for kids: junior size finder ---------- */
+  var jrb = $("#jr");
+  if (jrb && window.JRGO) {
+    var jgr = $$("[data-jr]", jrb);
+    var jst = store.get("pp-jr", { age: "1", h: "x", build: "a", play: "try", sore: "no" });
+    var jl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var jg = function (k, t) { return '<a href="' + window.JRGO[k] + '" rel="sponsored nofollow noopener" target="_blank" style="color:#e8f84a">' + t + "</a> (affiliate link)"; };
+    var JB = [
+      { w: [210, 260], t: "Mini or foam racket", s: "Round", c: "Soft foam", f: "Fibreglass or foam", g: "Smallest junior handle" },
+      { w: [260, 300], t: "Light junior racket", s: "Round", c: "Soft EVA or foam", f: "Fibreglass", g: "Thin junior handle" },
+      { w: [300, 330], t: "Junior racket", s: "Round", c: "Soft EVA", f: "Fibreglass", g: "Junior handle, add an overgrip as hands grow" },
+      { w: [330, 355], t: "Older junior or light adult racket", s: "Round, or teardrop for a strong, keen player", c: "Soft or medium EVA", f: "Fibreglass", g: "Junior or adult handle with a thin overgrip" },
+      { w: [350, 360], t: "Light adult racket", s: "Round to start", c: "Soft EVA", f: "Fibreglass, carbon later", g: "Adult handle" }
+    ];
+    var jrender = function () {
+      store.set("pp-jr", jst);
+      jgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === jst[g.dataset.jr] ? "true" : "false"); }); });
+      var a = +jst.age, i = a, note = [];
+      if (jst.h !== "x") { var h = +jst.h, ha = Math.min(a, 3); if (h > ha && a < 4) { i++; note.push("tall for their age, so one band up"); } else if (h < ha) { i--; note.push("small for their age, so one band down"); } }
+      if (jst.build === "s" && i === a) { i--; note.push("not so strong yet, so one band lighter"); }
+      if (jst.build === "b" && i === a && jst.sore === "no" && jst.play !== "try") { i++; note.push("strong and playing often, so one band up"); }
+      if (jst.sore === "yes") { i--; note.push("sore arm, so one band lighter"); }
+      i = Math.max(0, Math.min(4, i));
+      if (a < 4 && i === 4 && a < 3) i = 3;
+      var B = JB[i];
+      $("#jr-h").textContent = B.w[0] + " to " + B.w[1] + " g";
+      $("#jr-p").textContent = "Look for a " + B.t.toLowerCase() + " in this weight band." + (note.length ? " Adjusted: " + note.join("; ") + "." : "");
+      var x = function (gr) { return 10 + (gr - 200) * 1.5; };
+      var band = $("#jr-band"); band.setAttribute("x", x(B.w[0]).toFixed(1)); band.setAttribute("width", ((B.w[1] - B.w[0]) * 1.5).toFixed(1));
+      $("#jr-spec").innerHTML = "<dt>Type</dt><dd>" + B.t + "</dd><dt>Shape</dt><dd>" + B.s + "</dd><dt>Core</dt><dd>" + B.c + "</dd><dt>Face</dt><dd>" + B.f + "</dd><dt>Handle</dt><dd>" + B.g + "</dd><dt>Always</dt><dd>Wrist cord on</dd>";
+      var mv;
+      if (a <= 1) mv = "Adult racket: not yet. Most children move up at about 12 to 14.";
+      else if (a === 2) mv = "Adult racket: probably not yet. Re-check when they grow or play more.";
+      else if (jst.sore === "yes") mv = "Adult racket: wait. Fix the sore arm with a lighter, softer racket first.";
+      else if (a === 3) mv = (jst.build === "b" || jst.h === "3") && jst.play !== "try" ? "Adult racket: they may be ready for a light, round one (about 350 to 360 g). Let them try one first." : "Adult racket: soon. A light adult racket is the next step when they are stronger.";
+      else mv = "Adult racket: yes, a light round one to start. Then use the " + jl("racket-finder", "racket finder") + ".";
+      $("#jr-move").innerHTML = mv;
+      $("#jr-warn").innerHTML = jst.sore === "yes" ? "If pain lasts more than a few days, see a doctor or physio. " + jl("padel-injuries", "Padel injuries guide") : "Check the real weight in grams: some rackets sold as junior weigh 330 to 350 g.";
+      $("#jr-next").innerHTML = "Shop: " + jg(i >= 3 && jst.build === "b" && jst.play === "lots" ? "padel-teardrop-rackets" : "padel-round-rackets", i >= 3 && jst.build === "b" && jst.play === "lots" ? "Teardrop rackets" : "Round rackets") + " · Next: " + jl("beginners", "beginner rules") + " · " + jl("drills", "fun drills");
+    };
+    jgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { jst[g.dataset.jr] = b.dataset.v; jrender(); }); }); });
+    jrender();
+  }
 })();
