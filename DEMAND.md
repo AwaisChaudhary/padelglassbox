@@ -1,3 +1,12 @@
+## COMPETITOR WATCH 25 Nov 2026 (vs racketguide.com, Tennis Warehouse University padel, padelful/padel.fyi)
+We have 45 pages incl. tools: level calculator, racket finder, gift finder, score keeper, Americano, round robin, ladder, king of the court, FIP points calculator (/padel-rankings).
+1. GAP: racket database. racketguide.com lists 2,503 rackets with search/filters, 'similar rackets', side-by-side compare, favourites and price comparison from 40+ stores; TWU has measured-specs compare + spin prediction. We have a quiz with a short list. Plan: /padel-rackets table (shape, weight, balance, core, hardness, level) from maker spec pages, start with 60 current models, filter + compare 2-3 side by side, affiliate /go/ links. Highest affiliate value on the site.
+2. GAP: 'similar racket' finder ("I like X, what else?"). Plan: once the table exists, nearest-spec match (shape+balance+weight+hardness) = cheap feature on top of item 1.
+3. GAP: Mexicano generator (still open from 24 Nov item 4); Playtomic-style apps own this. Plan: add Mexicano mode to /americano (re-pair by standings each round).
+4. GAP: Premier Padel 2027 calendar/results hub + Hexagon World Series (open from 24 Nov). Plan: /premier-padel-2027 with official dates only.
+5. GAP: physics/tech explainers (TWU: power, spin, carbon layups). Plan: /padel-racket-materials (carbon K-count, EVA vs foam, fibreglass) in our own words, 2 sources; links into racket table.
+6. BETTER-THAN-THEM: racket finder that uses the player's result from our level calculator + injury flags (tennis elbow -> soft core, low weight) + budget, then shows 3 picks with WHY. racketguide's quiz ignores injuries and level tests. Free, no login.
+
 ## RADAR 25 Nov 06:45 PKT (Google autocomplete, US)
 P1. OPEN 'best padel player in the world' / 'padel rankings' (best #1, r #5) -> /padel-rankings (men's + women's top 10 from the official tour rankings, update monthly).
 P2. OPEN 'padel racket for sale' / 'best padel rackets 2026' -> extend racket finder copy with a 2026 shortlist (no fake reviews).
