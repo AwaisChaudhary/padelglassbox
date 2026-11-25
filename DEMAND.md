@@ -1,7 +1,15 @@
+## NEW CATEGORY: OTHER RACKET-SPORT COURTS + RULES (Keyword Planner, worldwide, 25 Nov 2026)
+"badminton court dimensions" 100k-1M LOW comp (+900% 3-month), "tennis court dimensions" 10k-100k, "badminton rules" 10k-100k, "table tennis rules" 10k-100k, "squash court dimensions" 1k-10k.
+R1. DONE 25 Nov /badminton-court-dimensions, /tennis-court-dimensions (scale SVG, m + ft, compared table).
+R2. OPEN /badminton-rules (serve height 1.15 m rule, scoring to 21, quiz) — BWF Laws.
+R3. OPEN /table-tennis-rules (serve toss 16 cm, scoring to 11, let) + /table-tennis-table-dimensions (2.74 x 1.525 m, net 15.25 cm) — ITTF.
+R4. OPEN /squash-court-dimensions (9.75 x 6.4 m, tin 0.48 m) — WSF.
+R5. OPEN /court-sizes-compared hub: every racket sport to scale, how many fit in a hall/tennis court.
+
 ## NEW CATEGORY: PICKLEBALL (Awais 25 Nov: add new topic areas where data shows demand) — Keyword Planner, US, 25 Nov 2026
 "pickleball court dimensions" 10k-100k LOW comp, "pickleball rules" 10k-100k, "pickleball paddles" 100k-1M, "padel vs pickleball" autocomplete #1, "platform tennis" 1k-10k rising. Racket-sport players overlap heavily, so build a Pickleball section with the same tool-first approach:
-K1. OPEN /pickleball-court-dimensions — measured SVG diagram (m and ft), kitchen/non-volley zone, net height, converting a tennis court (USA Pickleball rulebook + 1 more source).
-K2. OPEN /pickleball-rules — rules explained simply + interactive serve/kitchen quiz.
+K1. DONE 25 Nov /pickleball-court-dimensions — measured SVG diagram (m and ft), kitchen/non-volley zone, net height, converting a tennis court (USA Pickleball rulebook + 1 more source).
+K2. DONE 25 Nov /pickleball-rules — rules explained simply + interactive serve/kitchen quiz.
 K3. OPEN /pickleball-score — score keeper (side-out and rally scoring) reusing the padel score keeper code.
 K4. OPEN /pickleball-paddle-finder — weight/shape/core finder (no brand claims), with clearly labelled affiliate links only if a pickleball programme is approved; otherwise no shop links.
 K5. OPEN /platform-tennis — what it is, rules, court; and update /padel-vs-tennis-vs-pickleball links to the new pages.
