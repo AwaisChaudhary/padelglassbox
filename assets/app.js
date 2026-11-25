@@ -2244,4 +2244,102 @@
     $$("button", $("#mt-which")).forEach(function (b) { b.addEventListener("click", function () { mst.which = b.dataset.v; mrender(); }); });
     mrender();
   }
+  /* ---------- court space planner ---------- */
+  var csp = $("#csp");
+  if (csp) {
+    var FTm = 0.3048;
+    var SP = { padel: ["Padel", 20, 10, 0.4, 1.5, 0.4, 1.5], pickleball: ["Pickleball", 60 * FTm, 30 * FTm, 0, 0, 0, 0], badminton: ["Badminton", 13.4, 6.1, 2, 2, 1.5, 1.5], tennis: ["Tennis", 120 * FTm, 60 * FTm, 0, 0, 0, 0] };
+    var cs = store.get("csp", { s: "padel", u: "m", l: 36.58, w: 18.29 });
+    function setP(group, v) { $$("button", group).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === v ? "true" : "false"); }); }
+    function lay(sp, d1, d2) {
+      var a = Math.max(0, Math.floor((d1 - 2 * sp[3] + sp[4]) / (sp[1] + sp[4]) + 1e-6)), b = Math.max(0, Math.floor((d2 - 2 * sp[5] + sp[6]) / (sp[2] + sp[6]) + 1e-6));
+      return { a: a, b: b, n: a * b };
+    }
+    function need(sp, k, along) { return along ? k * sp[1] + (k - 1) * sp[4] + 2 * sp[3] : k * sp[2] + (k - 1) * sp[6] + 2 * sp[5]; }
+    function cRender() {
+      var f = cs.u === "ft" ? FTm : 1, L = (+$("#csp-l").value || 0) * f, W = (+$("#csp-w").value || 0) * f, sp = SP[cs.s];
+      var x = lay(sp, L, W), y = lay(sp, W, L), best = x.n >= y.n ? { r: x, rot: false } : { r: y, rot: true };
+      var r = best.r, u = function (m) { return cs.u === "ft" ? (m / FTm).toFixed(1) + " ft" : m.toFixed(2) + " m"; };
+      var h = '<p class="big">' + r.n + " " + sp[0].toLowerCase() + " court" + (r.n === 1 ? "" : "s") + " fit" + (r.n === 1 ? "s" : "") + "</p>";
+      if (r.n) h += "<p>Laid out as " + r.a + " × " + r.b + (best.rot ? ", courts running across the width." : ", courts running along the length.") + "</p>";
+      // what it takes to fit one more
+      var opts = [];
+      [[false, L, W], [true, W, L]].forEach(function (o) {
+        var g = lay(sp, o[1], o[2]), a1 = Math.max(g.a, 1), b1 = Math.max(g.b, 1);
+        var tA = need(sp, g.a + 1, true), tB = need(sp, b1, false); if ((g.a + 1) * b1 > r.n) opts.push({ d: Math.max(0, tA - o[1]) + Math.max(0, tB - o[2]), t: [tA, tB], rot: o[0], n: (g.a + 1) * b1 });
+        tA = need(sp, a1, true); tB = need(sp, g.b + 1, false); if (a1 * (g.b + 1) > r.n) opts.push({ d: Math.max(0, tA - o[1]) + Math.max(0, tB - o[2]), t: [tA, tB], rot: o[0], n: a1 * (g.b + 1) });
+      });
+      opts.sort(function (p, q) { return p.d - q.d; });
+      if (opts.length) { var o = opts[0], len = o.rot ? o.t[1] : o.t[0], wid = o.rot ? o.t[0] : o.t[1]; h += '<p class="muted">To fit ' + o.n + ", you'd need about " + u(Math.max(len, L)) + " × " + u(Math.max(wid, W)) + ".</p>"; }
+      // drawing
+      if (L > 0 && W > 0) {
+        var sc = 600 / Math.max(L, W), pw = L * sc, ph = W * sc, svg = '<svg viewBox="-10 -10 ' + (pw + 20).toFixed(0) + " " + (ph + 20).toFixed(0) + '" role="img" aria-label="Layout of ' + r.n + ' courts in your space"><rect x="0" y="0" width="' + pw.toFixed(1) + '" height="' + ph.toFixed(1) + '" fill="none" stroke="#e8f84a" stroke-width="2" stroke-dasharray="6 4"/>';
+        var cl = best.rot ? sp[2] : sp[1], cw = best.rot ? sp[1] : sp[2], ml = best.rot ? sp[5] : sp[3], mw = best.rot ? sp[3] : sp[5], gl = best.rot ? sp[6] : sp[4], gw = best.rot ? sp[4] : sp[6];
+        var nl = best.rot ? r.b : r.a, nw = best.rot ? r.a : r.b;
+        for (var i = 0; i < nl; i++) for (var j = 0; j < nw; j++) svg += '<rect x="' + ((ml + i * (cl + gl)) * sc).toFixed(1) + '" y="' + ((mw + j * (cw + gw)) * sc).toFixed(1) + '" width="' + (cl * sc).toFixed(1) + '" height="' + (cw * sc).toFixed(1) + '" fill="#1f4fd1" stroke="#fff" stroke-width="2"/>';
+        h += svg + "</svg>";
+      }
+      h += '<p style="margin-top:12px">Next: <a href="' + (location.protocol === "file:" ? "court-dimensions.html" : "/court-dimensions") + '">padel court dimensions</a> · <a href="' + (location.protocol === "file:" ? "padel-court-cost.html" : "/padel-court-cost") + '">what a padel court costs</a></p>';
+      $("#csp-out").innerHTML = h;
+      cs.l = +$("#csp-l").value; cs.w = +$("#csp-w").value; store.set("csp", cs);
+    }
+    $("#csp-l").value = cs.l; $("#csp-w").value = cs.w; setP($("#csp-s"), cs.s); setP($("#csp-u"), cs.u);
+    $$("button", $("#csp-s")).forEach(function (b) { b.addEventListener("click", function () { cs.s = b.dataset.v; setP($("#csp-s"), cs.s); cRender(); }); });
+    $$("button", $("#csp-u")).forEach(function (b) { b.addEventListener("click", function () {
+      if (b.dataset.v === cs.u) return; var k = b.dataset.v === "ft" ? 1 / FTm : FTm;
+      $("#csp-l").value = (+$("#csp-l").value * k).toFixed(1); $("#csp-w").value = (+$("#csp-w").value * k).toFixed(1); cs.u = b.dataset.v; setP($("#csp-u"), cs.u); cRender(); }); });
+    $$("button", $("#csp-p")).forEach(function (b) { b.addEventListener("click", function () {
+      var k = cs.u === "ft" ? 1 / FTm : 1; $("#csp-l").value = (+b.dataset.l * k).toFixed(2); $("#csp-w").value = (+b.dataset.w * k).toFixed(2); cRender(); }); });
+    ["#csp-l", "#csp-w"].forEach(function (id) { $(id).addEventListener("input", cRender); });
+    cRender();
+  }
+
+  /* ---------- pickleball score keeper ---------- */
+  var pbs = $("#pbs");
+  if (pbs) {
+    var pz = store.get("pbs", null);
+    function pNew(keep) { var o = keep || pz || {}; pz = { m: o.m || "d", y: o.y || "t", to: o.to || 11, sc: [0, 0], srv: o.first || 0, first: o.first || 0, n: (o.m || "d") === "d" && (o.y || "t") === "t" ? 2 : 1, win: -1, h: [], games: o.games || [] }; }
+    if (!pz || !pz.sc) pNew({});
+    function pSave() { store.set("pbs", pz); }
+    function pWin(w) {
+      if (pz.win >= 0) return;
+      pz.h.push(JSON.stringify({ sc: pz.sc, srv: pz.srv, n: pz.n }));
+      var s = pz.srv, msg = "";
+      if (pz.y === "t") {
+        if (w === s) { pz.sc[s]++; msg = "Point."; }
+        else if (pz.m === "d" && pz.n === 1) { pz.n = 2; msg = "Second server."; }
+        else { pz.srv = w; pz.n = 1; msg = "Side out."; }
+      } else {
+        if (w === s) { pz.sc[w]++; msg = "Point."; }
+        else if (pz.sc[w] + 1 >= pz.to && pz.sc[w] + 1 - pz.sc[s] >= 2) { pz.srv = w; msg = "Side out. Game point must be won on serve."; }
+        else { pz.sc[w]++; pz.srv = w; msg = "Point and side out."; }
+      }
+      [0, 1].forEach(function (i) { if (pz.sc[i] >= pz.to && pz.sc[i] - pz.sc[1 - i] >= 2) { pz.win = i; pz.games.push(pz.sc[0] + "-" + pz.sc[1]); } });
+      pz.msg = msg; pRender(true, w);
+    }
+    function pRender(flash, w) {
+      var s = pz.srv, call = pz.sc[s] + "-" + pz.sc[1 - s] + (pz.m === "d" && pz.y === "t" ? "-" + pz.n : "");
+      $("#pbs-call").textContent = pz.win >= 0 ? (pz.win ? "Side B" : "Side A") + " wins " + pz.sc[pz.win] + "-" + pz.sc[1 - pz.win] : call;
+      $$(".team", pbs).forEach(function (b, i) {
+        $(".pts", b).textContent = pz.sc[i]; $(".srv", b).style.visibility = i === s && pz.win < 0 ? "visible" : "hidden";
+        $(".gs", b).textContent = i === s && pz.win < 0 ? "Serving" + (pz.m === "d" && pz.y === "t" ? ": server " + pz.n : "") + ", from the " + (pz.sc[s] % 2 ? "left" : "right") : "Receiving";
+        if (flash && i === w) { b.classList.remove("flash"); void b.offsetWidth; b.classList.add("flash"); }
+      });
+      $("#pbs-msg").textContent = pz.win >= 0 ? "Game over. Tap New game to play again." : (pz.msg || "Tap the side that wins each rally.");
+      $("#pbs-games").innerHTML = pz.games.slice(-6).map(function (g, i) { return "<span>Game " + (pz.games.length - Math.min(6, pz.games.length) + i + 1) + ": " + g + "</span>"; }).join("");
+      [["#pbs-m", pz.m], ["#pbs-y", pz.y], ["#pbs-g", String(pz.to)]].forEach(function (g) { $$("button", $(g[0])).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === g[1] ? "true" : "false"); }); });
+      pSave();
+    }
+    $$(".team", pbs).forEach(function (b) { b.addEventListener("click", function () { pWin(+b.dataset.i); }); });
+    $("#pbs-undo").addEventListener("click", function () {
+      if (!pz.h.length) return; if (pz.win >= 0) { pz.games.pop(); pz.win = -1; }
+      var o = JSON.parse(pz.h.pop()); pz.sc = o.sc; pz.srv = o.srv; pz.n = o.n; pz.msg = "Undone."; pRender();
+    });
+    $("#pbs-new").addEventListener("click", function () { pNew(pz); pz.msg = "New game."; pRender(); });
+    $("#pbs-swap").addEventListener("click", function () { var o = pz; o.first = 1 - (o.first || 0); pNew(o); pz.msg = (pz.first ? "Side B" : "Side A") + " serves first."; pRender(); });
+    [["#pbs-m", "m"], ["#pbs-y", "y"], ["#pbs-g", "to"]].forEach(function (g) {
+      $$("button", $(g[0])).forEach(function (b) { b.addEventListener("click", function () { var o = pz; o[g[1]] = g[1] === "to" ? +b.dataset.v : b.dataset.v; o.games = []; pNew(o); pz.msg = "New game."; pRender(); }); });
+    });
+    pRender();
+  }
 })();

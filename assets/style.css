@@ -612,3 +612,11 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .aff-disclosure a { color: #3d3200; text-decoration: underline; }
 .aff-disclosure-inline { background: #fff7d6; color: #3d3200 !important; opacity: 1 !important; border: 1px solid #e8d27a; border-radius: 8px; font-size: .9rem; line-height: 1.45; padding: 10px 12px; margin: 12px 0; }
 .aff-disclosure-inline strong { color: #3d3200 !important; }
+/* court space planner + pickleball score keeper */
+.csp-in { display: flex; gap: 14px; flex-wrap: wrap; }
+.csp-in label { font-weight: 600; display: flex; flex-direction: column; gap: 6px; }
+.csp-in input { font: inherit; width: 9em; padding: 9px 11px; border-radius: 10px; border: 1.5px solid #cdd9ee; background: #fff; color: var(--ink); }
+#csp-out .big { font-family: var(--display); font-size: 1.6rem; font-weight: 800; color: var(--deep); margin: 0 0 6px; }
+#csp-out svg { width: 100%; max-width: 640px; height: auto; display: block; margin-top: 12px; background: var(--deep); border-radius: 14px; }
+.pbs-call { font-family: var(--display); font-size: clamp(2rem, 9vw, 3.2rem); font-weight: 800; text-align: center; color: var(--ball); margin: 0 0 12px; font-variant-numeric: tabular-nums; }
+#pbs .score-top { justify-content: flex-start; }
