@@ -1,3 +1,13 @@
+## TOP PRIORITY (Awais 26 Nov 01:00): "Don't just add dimensions or rules. Add something people will USE the site for: solve their problems, help them improve their padel game." Build these BEFORE any more reference pages (2-3 per run, tools first):
+I1. OPEN /fix-my-padel ("why do I keep...": interactive problem fixer). Player picks a problem (hitting the glass/out, losing at the net, can't return lobs, weak serve return, bandeja goes long, partner confusion, tired/late to the ball, elbow pain) -> cause in plain words, 3 fixes, one drill with reps, link to the shot/drill page. Coaching advice general and safe; injury items say see a physio.
+I2. OPEN /padel-training-plan (generator): level (from /level-calculator), days per week, goal (net game, defence, fitness, matches) -> a 4-week plan with drills from /drills, warm-up, match play, rest; printable + copy.
+I3. OPEN /padel-match-tracker: tap-to-log winners and errors by shot (serve, return, volley, bandeja, vibora, smash, lob, wall) during or after a match; shows where points are lost + the fix page for the worst shot; saves locally.
+I4. OPEN /which-side-padel ("left or right side?" quiz: forehand/backhand strengths, smash, lefty/righty, partner) -> recommended side and why, with what each side does.
+I5. OPEN /padel-tactics: interactive scenarios ("opponents at the net, you're at the back: what shot?") with answers and diagrams (own SVG), building on /positioning.
+I6. OPEN /padel-improvement-guide hub: "how to get better at padel" (level by level: what to learn next, which tools to use) linking I1-I5, drills, level calculator.
+I7. OPEN /mexicano (generator) if /americano doesn't already do Mexicano pairing; otherwise add a Mexicano mode to /americano.
+Evidence: 'how to get better at padel', 'padel tips', 'padel drills', 'padel left or right side', 'padel tactics', 'how to improve padel' (Google autocomplete, People Also Ask). Re-check autocomplete each run.
+
 ## RADAR 25 Nov ~20:00 PKT (build run; Google autocomplete endpoint blocked from the cloud, used web search)
 D1. DONE 25 Nov /court-sizes-compared — 'how many padel courts fit on a tennis court' and 'how many pickleball courts fit on a tennis court' return many dedicated articles (Sportmaster, Selkirk, PB5star, Alibaba, LTA guidance) = clear demand.
 D2. DONE 25 Nov /pickleball-score — many App Store score-keeper apps (Pickleball ScoreKeeper, PicklePoints, DinkTally, My PickleBall Scoreboard) + guides on 'how to call the score 0-0-2' (pickleball.com, AARP, Wilson).
