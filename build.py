@@ -3428,3 +3428,7 @@ if not (ROOT / "ads.txt").exists():
     (ROOT / "ads.txt").write_text("google.com, pub-1558743317014653, DIRECT, f08c47fec0942fa0\n")
 print("built", len(urls) + 1, "pages", "(preview)" if PREVIEW else "(live)")
 write_redirects(ROOT)
+
+# --- honest sitemap: every indexable page, lastmod only when content changes (seo_post.py, 26 Nov) ---
+import subprocess as _sp, sys as _sys, pathlib as _pl
+_sp.run([_sys.executable, str(_pl.Path(__file__).resolve().parent / "seo_post.py"), str(_pl.Path(__file__).resolve().parent), DOMAIN])
