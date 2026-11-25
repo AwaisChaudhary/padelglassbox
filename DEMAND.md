@@ -1,3 +1,11 @@
+## RADAR 25 Nov 06:45 PKT (Google autocomplete, US)
+P1. OPEN 'best padel player in the world' / 'padel rankings' (best #1, r #5) -> /padel-rankings (men's + women's top 10 from the official tour rankings, update monthly).
+P2. OPEN 'padel racket for sale' / 'best padel rackets 2026' -> extend racket finder copy with a 2026 shortlist (no fake reviews).
+P3. OPEN 'padel vs racquetball' / 'paddleball' / 'platform tennis' -> H2s on /padel-vs-tennis-vs-pickleball.
+P4. OPEN 'padel ratings' (r #6) -> link /level-calculator with 'padel rating' wording.
+P5. OPEN 'padel smash game' -> skip (mobile game, off-topic).
+Covered: rules, court dimensions, beginners, kids racket, intermediate racket, shoes, court cost (new 25 Nov).
+
 ## COMPETITOR WATCH 24 Nov 2026 (vs padelfip/premierpadel, padelful, padel.fyi, padelverdict, visu.network, xporty, sportsvenuecalculator)
 We have 40 pages incl. 5 tools (level calc, racket finder, gift finder, americano, round robin/ladder/king of the court).
 1. GAP: pro rankings (FIP/Premier Padel men + women) explained; we have none. Plan: /padel-rankings (how points work, current top 10 with date, 2 sources), refresh weekly.
