@@ -1,3 +1,12 @@
+## NEW CATEGORY: PICKLEBALL (Awais 25 Nov: add new topic areas where data shows demand) — Keyword Planner, US, 25 Nov 2026
+"pickleball court dimensions" 10k-100k LOW comp, "pickleball rules" 10k-100k, "pickleball paddles" 100k-1M, "padel vs pickleball" autocomplete #1, "platform tennis" 1k-10k rising. Racket-sport players overlap heavily, so build a Pickleball section with the same tool-first approach:
+K1. OPEN /pickleball-court-dimensions — measured SVG diagram (m and ft), kitchen/non-volley zone, net height, converting a tennis court (USA Pickleball rulebook + 1 more source).
+K2. OPEN /pickleball-rules — rules explained simply + interactive serve/kitchen quiz.
+K3. OPEN /pickleball-score — score keeper (side-out and rally scoring) reusing the padel score keeper code.
+K4. OPEN /pickleball-paddle-finder — weight/shape/core finder (no brand claims), with clearly labelled affiliate links only if a pickleball programme is approved; otherwise no shop links.
+K5. OPEN /platform-tennis — what it is, rules, court; and update /padel-vs-tennis-vs-pickleball links to the new pages.
+Link the section from the home page and footer; keep top nav at 5.
+
 ## COMPETITOR WATCH 25 Nov 2026 (vs racketguide.com, Tennis Warehouse University padel, padelful/padel.fyi)
 We have 45 pages incl. tools: level calculator, racket finder, gift finder, score keeper, Americano, round robin, ladder, king of the court, FIP points calculator (/padel-rankings).
 1. GAP: racket database. racketguide.com lists 2,503 rackets with search/filters, 'similar rackets', side-by-side compare, favourites and price comparison from 40+ stores; TWU has measured-specs compare + spin prediction. We have a quiz with a short list. Plan: /padel-rackets table (shape, weight, balance, core, hardness, level) from maker spec pages, start with 60 current models, filter + compare 2-3 side by side, affiliate /go/ links. Highest affiliate value on the site.
