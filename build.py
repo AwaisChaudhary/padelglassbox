@@ -132,7 +132,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
 <div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("padel-court-cost.html")}">Padel court cost</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li><li><a href="{href("padel-rankings.html")}">Padel world rankings</a></li></ul></div>
-<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("padel-equipment.html")}">Padel equipment and what to wear</a></li><li><a href="{href("padel-racket-for-kids.html")}">Padel rackets for kids</a></li><li><a href="{href("padel-lessons.html")}">Padel lessons: cost and first lesson</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
+<div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("padel-equipment.html")}">Padel equipment and what to wear</a></li><li><a href="{href("padel-racket-for-kids.html")}">Padel rackets for kids</a></li><li><a href="{href("padel-racket-materials.html")}">Racket materials explained</a></li><li><a href="{href("padel-lessons.html")}">Padel lessons: cost and first lesson</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">{SITE} is an independent guide and isn't linked to any padel federation, club or brand. Rules follow the International Padel Federation (FIP); local competitions can use their own formats. Last checked {e(UPDATED)}.</p>
@@ -228,7 +228,7 @@ finder = f'''<header class="hero"><div class="wrap"><h1>Find your padel racket.<
 <div class="card"><h3>Weight</h3><p>Most adult rackets weigh roughly 345 to 385 g. Heavier rackets hit harder but tire your arm sooner; lighter ones are quicker at the net. New players usually do best under about 360 g.</p></div>
 <div class="card"><h3>Balance</h3><p>Measured in mm from the bottom of the handle. Low balance (under about 260 mm) means control and quick hands. High balance (over about 270 mm) means power but more strain. <a href="{href("racket-balance.html")}">Decode and compare two rackets</a>.</p></div>
 <div class="card"><h3>Core foam</h3><p>Soft foam gives easy power and comfort at slow speeds. Hard foam gives control when you swing fast.</p></div>
-<div class="card"><h3>Face material</h3><p>Fiberglass is softer and forgiving. Carbon is stiffer and more precise, and usually costs more.</p></div>
+<div class="card"><h3>Face material</h3><p>Fiberglass is softer and forgiving. Carbon is stiffer and more precise, and usually costs more. <a href="{href("padel-racket-materials.html")}">Decode any racket label</a>.</p></div>
 </div></div></section>
 <section style="padding-top:0" id="grip"><div class="wrap"><div class="sh"><h2>How do you choose a grip and overgrip?</h2><p class="muted">The cheapest upgrade you can make to any racket. How to hold it: <a href="{href("padel-grip.html")}">padel grip guide</a>. Looking after the rest of it: <a href="{href("racket-care.html")}">racket care</a>.</p></div><div class="grid">
 <div class="card"><h3>Grip vs overgrip</h3><p>The base grip is the thick, cushioned layer that comes on the handle. An overgrip is a thin, light tape you wrap over it. It protects the base grip, which is harder to replace, and soaks up sweat.</p></div>
@@ -818,7 +818,8 @@ POS_SVG = '''<svg viewBox="0 0 340 640" id="pos-court" role="img" aria-label="To
 <g id="pos-zones"></g><g id="pos-arrows"></g><g id="pos-players"></g>
 </svg>'''
 pos = f'''<header class="hero"><div class="wrap"><h1>Where to stand in padel.</h1>
-<p class="lead">Pick a moment in the point and see where all four players should be. Your team is at the bottom: you on the left, your partner on the right.</p></div></header>
+<p class="lead">Pick a moment in the point and see where all four players should be. Your team is at the bottom: you on the left, your partner on the right.</p>
+{quick("At the net, stand about 2 to 2.5 metres from the net. When you defend, stand about 1 metre in front of the back glass. Move up and back with your partner as a pair, about 3 metres apart, and both slide towards the side the ball is on. Avoid one up and one back: it opens a gap down the diagonal.")}</div></header>
 <section style="padding-top:10px"><div class="wrap">
 <div class="opts" id="pos-pick" role="group" aria-label="Choose a situation" style="margin-bottom:12px">
 <button class="opt" type="button" data-s="serve" aria-pressed="true">Your team serves</button>
@@ -835,7 +836,7 @@ pos = f'''<header class="hero"><div class="wrap"><h1>Where to stand in padel.</h
 <aside class="card zpanel" id="pos-panel" aria-live="polite"></aside>
 </div></div></section>
 {AD.format("pos-mid")}
-<section><div class="wrap"><div class="sh"><h2>Five habits of good positioning</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>What are the habits of good padel positioning?</h2></div><div class="grid">
 <div class="card"><h3>Move as a pair</h3><p>Imagine a rope of about 3 metres between you and your partner. When one moves up, back or across, the other follows. Gaps open when you move on your own.</p></div>
 <div class="card"><h3>Win the net</h3><p>Most points are won at the net. Stand about 2 to 2.5 metres from it, close enough to volley and far enough back to reach a lob.</p></div>
 <div class="card"><h3>Give the glass room</h3><p>When you defend, stand about 1 metre in front of the back glass. Too close and the ball comes off the glass into your body. Too far forward and lobs beat you.</p></div>
@@ -843,13 +844,26 @@ pos = f'''<header class="hero"><div class="wrap"><h1>Where to stand in padel.</h
 <div class="card"><h3>Agree on the middle</h3><p>Balls down the middle cause the most mix-ups. By default the player with the forehand in the middle takes them. Call "mine" or "yours" early.</p></div>
 <div class="card"><h3>Reset after a lob</h3><p>If a lob goes over you, both players go back together, play a safe shot, then look for the next chance to move forward again.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Left side or right side?</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Should I play on the left or the right side in padel?</h2></div><div class="grid">
 <div class="card"><span class="pill i">Right side</span><h3 style="margin-top:10px">The drive side</h3><p>For a right-handed player the forehand is on the outside, near the side wall. This player plays more steady, controlled balls and builds the point.</p></div>
 <div class="card"><span class="pill a">Left side</span><h3 style="margin-top:10px">The revés side</h3><p>For a right-handed player the forehand is in the middle. This player takes many middle balls and more of the high balls and smashes, so it is often the more attacking role.</p></div>
 <div class="card"><span class="pill b">Mixed hands</span><h3 style="margin-top:10px">One right-hander, one left-hander</h3><p>Many pairs put both forehands in the middle: the left-hander on the right side and the right-hander on the left. Try both ways and see what feels natural.</p></div>
 </div>
 <p class="muted" style="margin-top:14px">New to the shots named here? See the <a href="{href("shots.html")}">shot library</a>. For court measurements, see the <a href="{href("court-dimensions.html")}">court dimensions</a> page.</p>
-</div></section>'''
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How far from the net and the glass should you stand?</h2><p class="muted">Rules of thumb that coaches use. Adjust for your height, speed and the opponents' lobs.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">Moment</th><th scope="col">Where to stand</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><td>Volleying at the net</td><td>About 2 to 2.5 m from the net</td><td>Close enough to volley, far enough back to reach a lob</td></tr>
+<tr><td>Defending at the back</td><td>About 1 m in front of the back glass</td><td>Room to let the ball come off the glass</td></tr>
+<tr><td>Receiving the serve</td><td>Near the back, about 1 m off the glass, on your half</td><td>Most serves bounce and then reach the glass</td></tr>
+<tr><td>Gap to your partner</td><td>About 3 m, moving together</td><td>No hole in the middle or down the diagonal</td></tr>
+<tr><td>After a lob goes over you</td><td>Both back together, then forward again</td><td>One up and one back leaves the diagonal open</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Practise it</h3><p>Build a session with net and glass work in the <a href="{href("drills.html")}">padel drills planner</a>.</p></div>
+<div class="card"><h3>Win the net back</h3><p>Learn the overheads that keep you forward in <a href="{href("bandeja-vs-vibora.html")}">bandeja vs víbora vs smash</a>.</p></div>
+<div class="card"><h3>Play off the walls</h3><p>Know what is in and out with the <a href="{href("wall-rules.html")}">wall and fence rules</a>.</p></div>
+</div></div></section>'''
 pos_faq = [
     ("Where should I stand at the net in padel?", "About 2 to 2.5 metres from the net, slightly towards your side of the centre line. The player nearer the ball can be a little closer, with the partner half a step back to cover the middle and the lob."),
     ("How far from the back glass should I stand?", "About 1 metre in front of it when you defend or receive. That gives the ball room to come off the glass so you can play it comfortably."),
@@ -857,9 +871,11 @@ pos_faq = [
     ("Who takes the ball down the middle?", "As a default, the player with the forehand in the middle. For two right-handers that is the player on the left. Whoever calls it first should take it."),
     ("Where does the server's partner stand?", "Usually at the net, about 2 metres from it, on the other half of the court. The rules let the server's partner stand anywhere on their side, but a serve that hits them is a fault."),
     ("Should I play on the left or the right side?", "For right-handers, the left side suits players who like to attack and smash, and the right side suits steady players who like control. Both are important."),
+    ("Where should I stand to receive a serve in padel?", "Near the back of your half, about 1 metre in front of the back glass and a little towards the side wall. Most serves bounce and reach the glass, so give the ball room."),
+    ("Should both padel players be at the net?", "Yes, when you can. Most points are won at the net, so move forward together after a good lob or a deep ball, and go back together when you are lobbed."),
 ]
 page("positioning.html", "Padel Positioning: Where to Stand on Court (Interactive) | Padel Glass Box",
-     "Where to stand in padel for every moment of the point: serving, receiving, at the net, at the back and after a lob. Tap an interactive court to see all four players.", pos, pos_faq, "Positioning")
+     "Where to stand in padel: about 2 to 2.5 m from the net, about 1 m off the back glass, moving as a pair. Tap an interactive court for serving, receiving, net, back and lob positions.", pos, pos_faq, "Positioning")
 
 # ---------------- SERVE RULES + CHECKER ----------------
 def _q(qid, label, opts):
@@ -2675,7 +2691,7 @@ ir = f'''<header class="hero"><div class="wrap"><h1>Padel racket for intermediat
 <div class="card"><h3>Fibreglass face</h3><p>Softer and more flexible. Comfortable, forgiving and cheaper. Plenty of intermediate players stay with it.</p></div>
 <div class="card"><h3>Carbon face</h3><p>Stiffer and more durable, with more precise feel, but more vibration reaches your arm. Rackets with carbon faces usually cost more.</p></div>
 </div>
-<p class="muted" style="margin-top:14px">You will see numbers like 3K, 12K or 18K on carbon rackets. They describe the carbon weave. Brands use them differently, so compare how a racket feels rather than the number alone.</p></div></section>
+<p class="muted" style="margin-top:14px">You will see numbers like 3K, 12K or 18K on carbon rackets. They describe the carbon weave. Brands use them differently, so compare how a racket feels rather than the number alone. See <a href="{href("padel-racket-materials.html")}">what 3K, 12K and 18K mean</a>.</p></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>When is it worth buying a new padel racket?</h2></div>
 <div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">If this is you</th><th scope="col">What to do</th></tr></thead><tbody>
 <tr><td>Your racket has a crack, a rattle or a dead spot</td><td>Run the <a href="{href("racket-care.html")}">racket health check</a>. If it fails, replace it.</td></tr>
@@ -3268,7 +3284,140 @@ page("padel-rankings.html", "Padel Rankings 2026: World Top 10 and How FIP Point
      f"Padel world rankings ({RK_DATE}): men's and women's FIP top 10 with points, how the ranking works (best 22 results, 52 weeks), points for a Major, P1 and P2, 2027 changes, and a free points calculator.",
      rk, rk_faq, "Padel rankings")
 
-urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "padel-racket-for-kids.html", "padel-court-cost.html", "padel-lessons.html", "padel-rankings.html", "about.html", "privacy.html"]
+# ---------------- PADEL RACKET MATERIALS + LABEL DECODER (25 Nov 2026, competitor watch item 5) ----------------
+def mtq(name, title, opts, on):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="{"true" if val == on else "false"}">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-mt="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+MTQ_RACKET = [
+    ("face", "Face (the skin over the core)", [("glass", "Fibreglass"), ("hybrid", "Fibreglass + carbon"), ("carbon", "Carbon"), ("x", "Not stated")], "glass"),
+    ("k", "Carbon number on the label", [("none", "None"), ("3", "3K"), ("12", "12K"), ("18", "18K"), ("24", "24K or more"), ("x", "Not stated")], "none"),
+    ("core", "Core", [("foam", "Foam"), ("soft", "Soft EVA"), ("med", "Medium EVA"), ("hard", "Hard EVA"), ("multi", "Two layers / mixed"), ("x", "Not stated")], "soft"),
+    ("surf", "Surface", [("smooth", "Smooth"), ("sand", "Sandy / gritty"), ("3d", "3D relief"), ("both", "3D + sand"), ("x", "Not stated")], "smooth"),
+]
+MTQ_YOU = [
+    ("lvl", "Your level", [("new", "New or under 1 year"), ("mid", "Improving, plays weekly"), ("adv", "Advanced, plays a lot")], "new"),
+    ("arm", "Do your elbow, wrist or shoulder get sore?", [("no", "No"), ("yes", "Sometimes")], "no"),
+]
+MT_GO = {"round": go("padel-round-rackets"), "teardrop": go("padel-teardrop-rackets"), "diamond": go("padel-diamond-rackets"), "all": go("padel-rackets")}
+MT_SVG = '''<svg viewBox="0 0 360 250" role="img" aria-label="Cut-away drawing of a padel racket head: textured surface, face skin, foam core, second face skin and the hollow frame" style="width:100%;height:auto;display:block">
+<rect x="0" y="0" width="360" height="250" rx="18" fill="#0e2468"/>
+<g font-family="Onest, sans-serif" font-size="12" fill="#dfe8ff">
+<rect x="24" y="34" width="210" height="10" rx="4" fill="#d4f53c"/>
+<g fill="#0b1530">''' + "".join(f'<circle cx="{30 + i * 10}" cy="39" r="1.6"/>' for i in range(21)) + '''</g>
+<text x="246" y="43">Surface texture</text>
+<rect x="24" y="52" width="210" height="18" rx="4" fill="#9cc4ea"/>
+<path d="M24 61h210" stroke="#5f8fd0" stroke-dasharray="6 4"/>
+<text x="246" y="65">Face skin</text><text x="246" y="80" font-size="10.5" fill="#9fb0e0">fibreglass or carbon</text>
+<rect x="24" y="78" width="210" height="74" rx="6" fill="#ffffff" opacity=".9"/>
+<g fill="#0e2468" opacity=".25">''' + "".join(f'<circle cx="{40 + (i % 9) * 23}" cy="{92 + (i // 9) * 22}" r="{5 if i % 2 else 3}"/>' for i in range(27)) + '''</g>
+<text x="246" y="112">Core</text><text x="246" y="127" font-size="10.5" fill="#9fb0e0">EVA rubber or foam</text>
+<rect x="24" y="160" width="210" height="18" rx="4" fill="#9cc4ea"/>
+<path d="M24 169h210" stroke="#5f8fd0" stroke-dasharray="6 4"/>
+<text x="246" y="173">Face skin</text>
+<rect x="24" y="186" width="210" height="10" rx="4" fill="#d4f53c"/>
+<rect x="24" y="208" width="210" height="22" rx="11" fill="none" stroke="#e8f84a" stroke-width="3"/>
+<rect x="30" y="213" width="198" height="12" rx="6" fill="#ffffff" opacity=".35"/>
+<text x="246" y="219">Frame</text><text x="246" y="234" font-size="10.5" fill="#9fb0e0">hollow tube, often carbon</text>
+<text x="24" y="22" font-size="11" fill="#9fb0e0">Side view of the racket head, cut open (not to scale)</text>
+</g></svg>'''
+mt = f'''<header class="hero"><div class="wrap"><h1>Padel racket materials: carbon, fibreglass, EVA and foam explained</h1>
+<p class="lead">Racket labels are full of words like 3K carbon, hard EVA and 3D rough face. Put in what the label says and see what it means for comfort, power and spin. Compare two rackets side by side.</p>
+{quick("A padel racket has a foam core (EVA rubber or softer foam) inside two face skins (fibreglass, carbon or a mix), with a hollow frame. Fibreglass faces and soft cores feel softer and more forgiving and suit most beginners. Carbon faces and hard EVA cores feel stiffer and give more power on fast swings but forgive less. Numbers like 3K, 12K and 18K only describe the carbon weave, usually of the outer layer, so don't choose by them.")}</div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="mt">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:8px">Racket label decoder</h2>
+<div class="dim-bar"><span class="muted" style="font-weight:600">Editing</span><div class="seg" id="mt-which" role="group" aria-label="Which racket you are editing"><button type="button" data-v="a" aria-pressed="true">Racket A</button><button type="button" data-v="b" aria-pressed="false">Racket B</button></div></div>
+<p class="muted" style="margin:10px 0 6px;font-size:.92rem">Read the shop page or the frame. If a word is missing, pick "Not stated".</p>
+{"".join(mtq(*x) for x in MTQ_RACKET)}
+<h2 style="font-size:1.3rem;margin:18px 0 4px">About you</h2>
+{"".join(mtq(*x) for x in MTQ_YOU)}
+<p class="muted" style="margin:0;font-size:.92rem">Bars are our rough guide from racket guides and shops, not lab tests. Shape, weight and balance change feel too. Your answers are saved on this device.</p>
+</div>
+<aside class="result" id="mt-out" aria-live="polite"><h2 id="mt-h">What the label means</h2><p id="mt-p"></p><div id="mt-bars"></div><ul class="b-why" id="mt-why"></ul><p id="mt-next"></p><p class="wr-src">Try a demo racket before you buy: feel beats any label.</p></aside>
+</div></section>
+<script>window.MTGO={json.dumps(MT_GO)};</script>
+{AD.format("materials-mid")}
+<section><div class="wrap"><div class="sh"><h2>What is a padel racket made of?</h2><p class="muted">Every padel racket is built in layers. There are no strings.</p></div>
+<div class="grid" style="align-items:start;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
+<div class="card" style="padding:14px">{MT_SVG}</div>
+<div class="card"><ul style="margin:0;padding-left:18px;line-height:1.7">
+<li><strong>Core:</strong> the thick middle, made of EVA rubber or a softer foam. It decides most of the soft or hard feel.</li>
+<li><strong>Face skins:</strong> thin sheets on both sides, made of fibreglass, carbon or both.</li>
+<li><strong>Surface:</strong> the top finish. Smooth, gritty (sand) or with raised 3D bumps for spin.</li>
+<li><strong>Frame:</strong> a hollow tube around the head and handle, often carbon.</li>
+<li><strong>Holes:</strong> they make the racket lighter and easier to swing.</li>
+</ul></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Carbon or fibreglass: which padel racket face is better?</h2><p class="muted">Neither is better for everyone. It depends on your level and your arm.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col"></th><th scope="col">Fibreglass</th><th scope="col">Fibreglass + carbon</th><th scope="col">Carbon</th></tr></thead><tbody>
+<tr><td>Feel</td><td>Softer, more flex</td><td>In between</td><td>Stiffer, more direct</td></tr>
+<tr><td>Forgives mis-hits</td><td>Most</td><td>Medium</td><td>Least</td></tr>
+<tr><td>Power on fast swings</td><td>Less</td><td>Medium</td><td>More</td></tr>
+<tr><td>Vibration to the arm</td><td>Less</td><td>Medium</td><td>More</td></tr>
+<tr><td>Wear</td><td>Can wear faster with heavy use</td><td>Medium</td><td>Usually lasts longer</td></tr>
+<tr><td>Price</td><td>Usually cheaper</td><td>Mid range</td><td>Usually costs more</td></tr>
+<tr><td>Often suits</td><td>Beginners, sore arms</td><td>Improving players</td><td>Experienced, hard hitters</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">Racket guides agree on the direction. How big the difference feels depends on the whole racket, especially the core.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What do 3K, 12K and 18K mean on a padel racket?</h2></div>
+<div class="grid">
+<div class="card"><span class="pill b">The number</span><h3 style="margin-top:10px">K means thousands of fibres</h3><p>Carbon is woven from bundles of very thin fibres. 3K means about 3,000 fibres per bundle, 12K about 12,000 and 18K about 18,000.</p></div>
+<div class="card"><span class="pill b">The layer</span><h3 style="margin-top:10px">Usually only the top sheet</h3><p>A racket face has several layers. The K number on the label usually names the outer, visible layer, not the whole face.</p></div>
+<div class="card"><span class="pill a">The catch</span><h3 style="margin-top:10px">Guides don't agree on feel</h3><p>Some shops say a higher K feels stiffer. Others say 18K feels softer and springier than 3K. A detailed tech guide says K on its own has little direct effect on play.</p></div>
+<div class="card"><span class="pill i">What to do</span><h3 style="margin-top:10px">Judge the whole racket</h3><p>Look at the core, shape, weight and balance first. Two 12K rackets can feel very different. A higher number is not a higher level.</p></div>
+</div>
+<div class="card" style="padding:8px 24px;overflow-x:auto;margin-top:16px"><table class="mt mt-plain"><thead><tr><th scope="col">Label</th><th scope="col">What it tells you</th><th scope="col">What it doesn't tell you</th></tr></thead><tbody>
+<tr><td>3K</td><td>Fine carbon weave, common on the outer layer</td><td>That the racket is soft or hard</td></tr>
+<tr><td>12K</td><td>A thicker weave, very common on mid and high-end rackets</td><td>How much carbon is inside</td></tr>
+<tr><td>18K</td><td>An even thicker weave</td><td>That it is better than 12K</td></tr>
+<tr><td>24K and up</td><td>The thickest weaves</td><td>That it is worth the higher price</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>EVA or foam: which core should I pick?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Core</th><th scope="col">How it feels</th><th scope="col">Good for</th><th scope="col">Watch out</th></tr></thead><tbody>
+<tr><td>Foam</td><td>Very soft, ball leaves easily</td><td>Beginners, sore arms, slow swings</td><td>Less punch on smashes; less common now</td></tr>
+<tr><td>Soft EVA</td><td>Soft and comfortable, absorbs shock</td><td>Most beginners and many improving players</td><td>Less control on very hard hits</td></tr>
+<tr><td>Medium EVA</td><td>A mix of comfort and firmness</td><td>Improving all-round players</td><td>Names like "medium" vary by brand</td></tr>
+<tr><td>Hard EVA</td><td>Firm, stiff, lively at high speed</td><td>Strong players with fast, clean swings</td><td>Forgives less; harder on the arm</td></tr>
+<tr><td>Two layers / mixed</td><td>Brands mix densities to blend comfort and power</td><td>Players who want a bit of both</td><td>Check reviews for the real feel</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">EVA and foam slowly compress with use, which is one reason an old racket can feel "dead". Test yours with the <a href="{href("racket-care.html")}">racket health check</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Does a rough padel racket give more spin?</h2></div><div class="grid">
+<div class="card"><span class="pill i">Yes, a little</span><h3 style="margin-top:10px">Grip on the ball</h3><p>A rough face holds the ball a fraction longer, which helps slice on bandejas, víboras and chiquitas. Technique still makes most of the spin.</p></div>
+<div class="card"><span class="pill b">Sand</span><h3 style="margin-top:10px">Gritty finish</h3><p>Sand or grit mixed into the top layer. It grips well when new. One racket shop notes the grit can wear smooth over time.</p></div>
+<div class="card"><span class="pill b">3D</span><h3 style="margin-top:10px">Raised bumps</h3><p>A pattern moulded into the face. The same shop says it keeps its texture longer than sand. Some rackets use both.</p></div>
+<div class="card"><span class="pill a">Smooth</span><h3 style="margin-top:10px">Clean contact</h3><p>Smooth faces favour flat, controlled shots. For a beginner learning to hit cleanly, smooth or a light texture is fine.</p></div>
+</div>
+<p class="muted" style="margin-top:14px">Learn the spin shots on <a href="{href("bandeja-vs-vibora.html")}">bandeja vs víbora</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which racket materials suit my level?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">You are</th><th scope="col">Face</th><th scope="col">Core</th><th scope="col">Surface</th></tr></thead><tbody>
+<tr><td>New to padel</td><td>Fibreglass</td><td>Soft EVA or foam</td><td>Any; smooth is fine</td></tr>
+<tr><td>Improving, playing every week</td><td>Fibreglass or a carbon mix</td><td>Soft or medium EVA</td><td>Light texture helps spin</td></tr>
+<tr><td>Advanced, attacking</td><td>Carbon</td><td>Medium or hard EVA</td><td>Rough for spin</td></tr>
+<tr><td>Sore elbow, wrist or shoulder</td><td>Fibreglass or soft carbon mix</td><td>Soft EVA or foam</td><td>Any</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">General advice from racket guides, in our own words. Match the shape and weight too with the <a href="{href("racket-finder.html")}">racket finder</a>.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Find your racket</h3><p>Answer five questions in the <a href="{href("racket-finder.html")}">racket finder</a> to get the shape, weight and balance for your game.</p></div>
+<div class="card"><h3>Read weight and balance</h3><p>Decode the grams and the balance point with the <a href="{href("racket-balance.html")}">weight and balance decoder</a>.</p></div>
+<div class="card"><h3>Ready to upgrade?</h3><p>See what changes from a first racket in the <a href="{href("intermediate-padel-racket.html")}">intermediate racket check</a>, or good value picks in <a href="{href("cheap-padel-rackets.html")}">cheap padel rackets</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Shop rackets by shape</h3><p>Pick a shape first, then check the face, core and surface in the product details against your result above.</p><ul class="aff-links"><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round rackets</a></li><li><a href="{go("padel-teardrop-rackets")}" {AFF_ATTR}>Teardrop rackets</a></li><li><a href="{go("padel-diamond-rackets")}" {AFF_ATTR}>Diamond rackets</a></li><li><a href="{go("padel-rackets")}" {AFF_ATTR}>All rackets</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-bags")}" {AFF_ATTR}>Bags</a></li></ul>{AFF_NOTE}</div>
+<p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 25 Nov 2026: Padel Browser "Padel racket carbon 3K, 12K, 18K explained" (16 Jun 2026: K = thousands of filaments per thread, describes the top sheet only, higher K is not always stiffer, core matters more than weave), Tennis Warehouse University "Carbon layup" (15 Jul 2025: K = filaments per tow, label usually names the visible layer, K has little direct effect on performance; frame is a carbon tube filled with foam), STIGA "How to choose a padel racket" (carbon stiffer and longer lasting, fibreglass softer, cheaper, can wear faster; soft vs hard EVA; EVA can compress; rough faces help spin, smooth for control), Justpadel "Difference between padel racket materials" (carbon stiffer, smaller sweet spot; fibreglass more elastic and forgiving; soft vs hard EVA; foam very soft, less durable, less common), Zona de Padel "Padel rackets with more roughness" (30 Jul 2024: roughness adds spin; multi-density EVA cores), Padel Racket ID "Sand, 3D and hybrid surfaces" (23 Aug 2023: sand texture wears, 3D relief lasts longer; single retailer, so labelled). The sources disagree on whether higher K feels stiffer or softer, so we say so and don't score it. Decoder bars are our own estimate.</p></div></section>'''
+mt_faq = [
+    ("Is carbon or fibreglass better for a padel racket?", "Neither is better for everyone. Fibreglass is softer, more forgiving and usually cheaper, which suits beginners and sore arms. Carbon is stiffer and gives more power on fast swings, which suits experienced players."),
+    ("What does 3K, 12K or 18K mean on a padel racket?", "It is the number of carbon fibres in each woven bundle: about 3,000, 12,000 or 18,000. It usually describes only the outer layer of the face, so it says little about how the whole racket plays."),
+    ("Is 18K carbon better than 12K or 3K?", "Not by itself. Racket guides disagree on whether a higher K feels stiffer or softer, and a detailed tech guide says the K number has little direct effect. The core, shape, weight and balance matter more."),
+    ("What is EVA in a padel racket?", "EVA is a rubbery foam used for the core of most padel rackets. Soft EVA feels comfortable and forgiving; hard EVA feels firm and gives more power to fast, clean swings."),
+    ("Is a soft or hard padel racket better for beginners?", "Soft. A soft EVA or foam core with a fibreglass face is easier on the arm and forgives mis-hits while you learn."),
+    ("Do rough padel rackets give more spin?", "A little. A rough or 3D face grips the ball slightly longer, which helps slice. Technique makes most of the spin. Sandy finishes can wear smoother over time."),
+    ("Which padel racket material is best for tennis elbow?", "Racket guides usually suggest a soft core (soft EVA or foam), a fibreglass or soft mixed face, a lighter weight and a low balance. See a doctor or physio if pain lasts."),
+]
+page("padel-racket-materials.html", "Padel Racket Materials: Carbon vs Fibreglass, 3K vs 12K vs 18K, EVA vs Foam | Padel Glass Box",
+     "What padel racket materials mean: carbon vs fibreglass faces, what 3K, 12K and 18K really tell you, soft vs hard EVA vs foam cores, rough faces and spin. Free label decoder to compare two rackets.",
+     mt, mt_faq, "Racket materials")
+
+
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "padel-racket-for-kids.html", "padel-court-cost.html", "padel-lessons.html", "padel-rankings.html", "padel-racket-materials.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

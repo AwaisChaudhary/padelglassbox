@@ -2178,4 +2178,70 @@
       rrender(); });
     rrender();
   }
+
+  /* ---------- racket materials label decoder ---------- */
+  var mtb = $("#mt");
+  if (mtb && window.MTGO) {
+    var mgr = $$("[data-mt]", mtb);
+    var RK_KEYS = ["face", "k", "core", "surf"];
+    var mdef = { which: "a", lvl: "new", arm: "no", a: { face: "glass", k: "none", core: "soft", surf: "smooth" }, b: { face: "carbon", k: "12", core: "hard", surf: "3d" } };
+    var mst = store.get("pp-mt", mdef);
+    if (!mst.a || !mst.b) mst = mdef;
+    var FACE = { glass: [20, 20, 5, -15], hybrid: [8, 8, 2, -5], carbon: [-12, -10, -5, 15], x: [0, 0, 0, 0] };
+    // [comfort, forgiveness, easy power at slow speed, power on fast swings]
+    var CORE = { foam: [30, 22, 30, -25], soft: [22, 15, 22, -12], med: [5, 5, 5, 5], hard: [-20, -15, -20, 25], multi: [10, 6, 10, 6], x: [0, 0, 0, 0] };
+    var SURF = { smooth: 20, sand: 70, "3d": 60, both: 75, x: 45 };
+    var MN = { glass: "fibreglass", hybrid: "fibreglass + carbon", carbon: "carbon", foam: "foam", soft: "soft EVA", med: "medium EVA", hard: "hard EVA", multi: "mixed core" };
+    var cl = function (n) { return Math.max(5, Math.min(95, n)); };
+    var score = function (r) {
+      var f = FACE[r.face] || FACE.x, c = CORE[r.core] || CORE.x;
+      return [cl(50 + f[0] + c[0]), cl(50 + f[1] + c[1]), cl(50 + f[2] + c[2]), cl(50 + f[3] + c[3]), SURF[r.surf] || 45];
+    };
+    var LAB = ["Comfort", "Forgives mis-hits", "Easy power, slow swings", "Power, fast swings", "Spin help"];
+    var mrender = function () {
+      store.set("pp-mt", mst);
+      var cur = mst[mst.which];
+      mgr.forEach(function (g) {
+        var k = g.dataset.mt, val = RK_KEYS.indexOf(k) > -1 ? cur[k] : mst[k];
+        $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === val ? "true" : "false"); });
+      });
+      $$("button", $("#mt-which")).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === mst.which ? "true" : "false"); });
+      var A = score(mst.a), B = score(mst.b);
+      $("#mt-bars").innerHTML = '<p style="margin:4px 0 8px;font-size:.88rem"><span style="color:#e8f84a;font-weight:700">A</span> yellow · <span style="color:#fff;font-weight:700">B</span> white</p><dl class="spec" style="grid-template-columns:1fr">' + LAB.map(function (l, i) {
+        return "<dt>" + l + '</dt><dd><div class="meter" aria-label="Racket A ' + A[i] + ' of 100"><i style="width:' + A[i] + '%"></i></div><div class="meter" aria-label="Racket B ' + B[i] + ' of 100"><i style="width:' + B[i] + '%;background:#fff"></i></div></dd>';
+      }).join("") + "</dl>";
+      var s = score(cur), why = [], L = mst.which.toUpperCase();
+      var desc = [cur.face !== "x" ? MN[cur.face] + " face" : "", cur.core !== "x" ? MN[cur.core] + " core" : ""].filter(Boolean).join(", ");
+      var h, p, cls = "";
+      if (s[0] >= 70 && s[1] >= 65) { h = "Racket " + L + ": soft and forgiving"; p = "Comfortable and easy to play, with easy power at slow speed. Less punch when you swing hard."; cls = " good"; }
+      else if (s[3] >= 70) { h = "Racket " + L + ": stiff and powerful"; p = "Lively when you swing fast and hit the middle. Less forgiving, and more vibration reaches the arm."; }
+      else { h = "Racket " + L + ": a middle feel"; p = "A mix of comfort and firmness. Shape, weight and balance will decide most of how it plays."; cls = " mid"; }
+      if (desc) p = desc.charAt(0).toUpperCase() + desc.slice(1) + ". " + p;
+      if (mst.arm === "yes" && s[0] < 55) { why.push("Your arm gets sore: this build is on the stiff side. A soft EVA or foam core and a fibreglass face are kinder."); cls = ""; }
+      if (mst.arm === "yes" && s[0] >= 55) why.push("Good for a sore arm. Keep the weight light and the balance low too.");
+      if (mst.lvl === "new" && (s[1] < 45 || s[3] >= 70)) why.push("For a new player this may feel hard and unforgiving. Most guides start beginners on fibreglass with a soft core.");
+      if (mst.lvl === "new" && s[1] >= 60) why.push("A forgiving build is a good match while you learn to hit cleanly.");
+      if (mst.lvl === "adv" && s[0] >= 70 && s[3] < 45) why.push("You may miss some punch on smashes. A medium or mixed core gives more without going fully hard.");
+      if (cur.k !== "none" && cur.k !== "x") why.push(cur.k + "K describes the carbon weave, usually of the outer layer only. It is not scored: guides disagree on what it changes.");
+      if (cur.k !== "none" && cur.face === "glass") why.push("A K number with a fibreglass face usually means some carbon in the frame or the top sheet. Check the full spec.");
+      if (cur.surf === "sand") why.push("A sandy finish grips well when new but can wear smoother over time.");
+      if (cur.surf === "smooth") why.push("Smooth face: fine for flat, controlled shots. Spin comes mostly from technique.");
+      if (cur.face === "x" || cur.core === "x") why.push("Some parts are not stated. Ask the shop or look for a review before you buy.");
+      var d = 0; for (var i = 0; i < 4; i++) d += Math.abs(A[i] - B[i]);
+      why.push(d < 25 ? "A and B are close in materials. Compare shape, weight and balance instead." : "Biggest gap between A and B: " + LAB[[0, 1, 2, 3].sort(function (x, y) { return Math.abs(B[y] - A[y]) - Math.abs(B[x] - A[x]); })[0]].toLowerCase() + ".");
+      var out = $("#mt-out"); out.className = "result" + cls;
+      $("#mt-h").textContent = h; $("#mt-p").textContent = p;
+      $("#mt-why").innerHTML = why.map(function (x) { return "<li>" + x + "</li>"; }).join("");
+      var lk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+      var shp = (s[0] >= 70 && s[1] >= 65) ? "round" : (s[3] >= 70 ? "diamond" : "teardrop");
+      if (mst.lvl === "new" || mst.arm === "yes") shp = "round";
+      $("#mt-next").innerHTML = "Next: " + lk("racket-finder", "match the shape") + " · " + lk("racket-balance", "check weight and balance") + " · " + '<a href="' + window.MTGO[shp] + '" rel="sponsored nofollow noopener" target="_blank" style="color:#e8f84a;font-weight:700">Browse ' + shp + " rackets</a> (affiliate link)";
+    };
+    mgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () {
+      var k = g.dataset.mt;
+      if (RK_KEYS.indexOf(k) > -1) mst[mst.which][k] = b.dataset.v; else mst[k] = b.dataset.v;
+      mrender(); }); }); });
+    $$("button", $("#mt-which")).forEach(function (b) { b.addEventListener("click", function () { mst.which = b.dataset.v; mrender(); }); });
+    mrender();
+  }
 })();
