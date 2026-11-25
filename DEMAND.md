@@ -1,9 +1,9 @@
 ## NEW CATEGORY: OTHER RACKET-SPORT COURTS + RULES (Keyword Planner, worldwide, 25 Nov 2026)
 "badminton court dimensions" 100k-1M LOW comp (+900% 3-month), "tennis court dimensions" 10k-100k, "badminton rules" 10k-100k, "table tennis rules" 10k-100k, "squash court dimensions" 1k-10k.
 R1. DONE 25 Nov /badminton-court-dimensions, /tennis-court-dimensions (scale SVG, m + ft, compared table).
-R2. OPEN /badminton-rules (serve height 1.15 m rule, scoring to 21, quiz) — BWF Laws.
-R3. OPEN /table-tennis-rules (serve toss 16 cm, scoring to 11, let) + /table-tennis-table-dimensions (2.74 x 1.525 m, net 15.25 cm) — ITTF.
-R4. OPEN /squash-court-dimensions (9.75 x 6.4 m, tin 0.48 m) — WSF.
+R2. DONE 25 Nov /badminton-rules (serve height 1.15 m rule, scoring to 21, quiz) — BWF Laws.
+R3. DONE 25 Nov (one page: /table-tennis-rules incl. table size) /table-tennis-rules (serve toss 16 cm, scoring to 11, let) + /table-tennis-table-dimensions (2.74 x 1.525 m, net 15.25 cm) — ITTF.
+R4. DONE 25 Nov /squash-court-dimensions (9.75 x 6.4 m, tin 0.48 m) — WSF.
 R5. OPEN /court-sizes-compared hub: every racket sport to scale, how many fit in a hall/tennis court.
 
 ## NEW CATEGORY: PICKLEBALL (Awais 25 Nov: add new topic areas where data shows demand) — Keyword Planner, US, 25 Nov 2026

@@ -28,10 +28,10 @@ def court_svg(L, W, lines, label, unit="m", net=None, zone=None, colour="#2f7d4f
 def dim_table(rows):
     return '<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Measurement</th><th scope="col">Metric</th><th scope="col">Imperial</th></tr></thead><tbody>' + "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in rows) + "</tbody></table></div>"
 def compare_card(file):
-    others = [("court-dimensions.html", "Padel court dimensions"), ("pickleball-court-dimensions.html", "Pickleball court dimensions"), ("badminton-court-dimensions.html", "Badminton court dimensions"), ("tennis-court-dimensions.html", "Tennis court dimensions"), ("pickleball-rules.html", "Pickleball rules"), ("padel-vs-tennis-vs-pickleball.html", "Padel vs tennis vs pickleball")]
+    others = [("court-dimensions.html", "Padel court dimensions"), ("pickleball-court-dimensions.html", "Pickleball court dimensions"), ("badminton-court-dimensions.html", "Badminton court dimensions"), ("tennis-court-dimensions.html", "Tennis court dimensions"), ("pickleball-rules.html", "Pickleball rules"), ("badminton-rules.html", "Badminton rules"), ("table-tennis-rules.html", "Table tennis rules and table size"), ("squash-court-dimensions.html", "Squash court dimensions"), ("padel-vs-tennis-vs-pickleball.html", "Padel vs tennis vs pickleball")]
     return '<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Other racket sports</h2></div><div class="card"><ul>' + "".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in others if f != file) + "</ul></div></div></section>"
 CMP = '''<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Court sizes compared</h2></div>''' + dim_table([
-    ("Badminton (doubles)", "13.40 × 6.10 m", "44 × 20 ft"), ("Pickleball", "13.41 × 6.10 m", "44 × 20 ft"), ("Padel (doubles)", "20 × 10 m", "65 ft 7 in × 32 ft 10 in"), ("Tennis (doubles)", "23.77 × 10.97 m", "78 × 36 ft")]) + '<p class="muted" style="margin-top:10px">Playing area inside the lines (padel: inside the walls). A badminton court and a pickleball court are almost exactly the same size, which is why many sports halls tape pickleball lines over badminton courts.</p></div></section>'
+    ("Table tennis table", "2.74 × 1.525 m", "9 × 5 ft"), ("Squash", "9.75 × 6.40 m", "32 × 21 ft"), ("Badminton (doubles)", "13.40 × 6.10 m", "44 × 20 ft"), ("Pickleball", "13.41 × 6.10 m", "44 × 20 ft"), ("Padel (doubles)", "20 × 10 m", "65 ft 7 in × 32 ft 10 in"), ("Tennis (doubles)", "23.77 × 10.97 m", "78 × 36 ft")]) + '<p class="muted" style="margin-top:10px">Playing area inside the lines (padel: inside the walls). A badminton court and a pickleball court are almost exactly the same size, which is why many sports halls tape pickleball lines over badminton courts.</p></div></section>'
 
 # ---- Pickleball court ----
 pb_lines = [(15, 0, 15, 20), (29, 0, 29, 20), (0, 10, 15, 10), (29, 10, 44, 10)]
@@ -139,4 +139,81 @@ pr_faq = [("What is the two-bounce rule in pickleball?", "The serve must bounce 
 page("pickleball-rules.html", "Pickleball Rules Explained Simply: Serve, Kitchen, Two-Bounce Rule + Scoring (Quiz) | Padel Glass Box",
      "Pickleball rules made simple: the underhand serve, the two-bounce rule, the kitchen (non-volley zone), faults and how scoring works, with a quick is-it-legal quiz.", pr, pr_faq, "Pickleball rules")
 
-COURT_PAGES = ["pickleball-court-dimensions.html", "badminton-court-dimensions.html", "tennis-court-dimensions.html", "pickleball-rules.html"]
+def quiz(qid, Q):
+    import json as _j
+    return (f'<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Quick quiz: is it legal?</h2></div><div class="card" id="{qid}"></div></div></section>'
+      f'<script>(function(){{var Q={_j.dumps(Q)},i=0,s=0,el=document.getElementById("{qid}");'
+      'function show(){if(i>=Q.length){el.innerHTML="<h3>You got "+s+" of "+Q.length+"</h3><button class=\\"btn\\" type=\\"button\\">Try again</button>";el.querySelector("button").onclick=function(){i=0;s=0;show()};return}'
+      'el.innerHTML="<p><strong>"+(i+1)+". "+Q[i][0]+"</strong></p><div class=\\"opts\\"><button class=\\"opt\\" type=\\"button\\" data-a=\\"1\\">Legal</button> <button class=\\"opt\\" type=\\"button\\" data-a=\\"0\\">Fault</button></div><p class=\\"qa-out\\" aria-live=\\"polite\\"></p>";'
+      'el.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){var ok=+b.dataset.a==Q[i][1];if(ok)s++;var o=el.querySelector(".qa-out");o.innerHTML=(ok?"✔ ":"✘ ")+Q[i][2]+" <button class=\\"btn\\" type=\\"button\\">Next</button>";el.querySelectorAll(".opt").forEach(function(x){x.disabled=true});o.querySelector("button").onclick=function(){i++;show()}}})}show()})();</script>')
+
+# ---- Badminton rules ----
+br = f"""<header class="hero"><div class="wrap"><h1>Badminton rules, explained simply</h1>
+<p class="lead">Scoring, the serve (including the 1.15 m rule), faults and lets, for singles and doubles, with a quick quiz.</p>
+{quick("A match is the best of three games. Each game is to 21 points with rally scoring (every rally wins a point); at 20-20 you need a 2-point lead, and at 29-29 the next point wins. Serve diagonally, hitting the shuttle below 1.15 m from the floor, from the right court when your score is even and the left when it's odd.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="grid">
+<div class="card"><h3>1. Scoring</h3><p>Rally scoring: whoever wins the rally scores and serves next. Games go to 21, win by 2, capped at 30 (the side reaching 30 at 29-all wins). Best of three games. There's a 60-second break when the leader reaches 11, and up to 2 minutes between games. Players change ends after each game, and in the third game when the leader reaches 11.</p></div>
+<div class="card"><h3>2. The serve</h3><p>Serve diagonally into the opposite service court. When the racket hits it, the whole shuttle must be below 1.15 m from the court surface, and the first contact must be on the base (cork). Both feet stay on the floor and inside the service court until the serve is made, without touching the lines.</p></div>
+<div class="card"><h3>3. Which side to serve from</h3><p>Serve from the right service court when the server's score is even (0, 2, 4…) and the left when it's odd. In doubles, only the side that wins a rally changes service courts; there is one serve per side, and the receiving pair don't swap places.</p></div>
+<div class="card"><h3>4. Faults</h3><p>A rally is lost if the shuttle lands outside the lines, goes through or under the net, hits the ceiling, walls or a person, is hit twice in a row by the same player (or by both partners in a row), or if a player touches the net or reaches over it to hit the shuttle. A shuttle landing on a line is in.</p></div>
+<div class="card"><h3>5. Lets</h3><p>A let replays the rally. Examples: the receiver wasn't ready when the serve was hit, the shuttle gets caught on the net after the serve, or there's outside interference such as a shuttle from another court.</p></div>
+<div class="card"><h3>6. Singles vs doubles lines</h3><p>Singles serves go long and narrow (to the back line, singles sidelines); doubles serves go short and wide (to the doubles long service line, outer sidelines). See the <a href="{href("badminton-court-dimensions.html")}">badminton court dimensions</a>.</p></div>
+</div><p class="muted" style="margin-top:14px">Based on the BWF Laws of Badminton. Club and school games often play shorter formats, such as a single game to 21 or to 15.</p></div></section>
+{AD.format("bd-rules")}""" + quiz("bdq", [["You serve with the shuttle hit at 1.10 m from the floor.", 1, "Legal. The whole shuttle must be below 1.15 m."], ["The shuttle lands on the sideline.", 1, "In. The lines are part of the court."], ["Your racket touches the net while you play a net shot.", 0, "Fault. You can't touch the net while the shuttle is in play."], ["At 20-20 you win the next rally.", 0, "Not over yet: at 20-all you need a 2-point lead, so it's 21-20 and play goes on."], ["In doubles, your partner and you hit the shuttle one after the other.", 0, "Fault. Each side gets one hit."], ["The shuttle clips the ceiling and lands in.", 0, "Fault. Touching the ceiling ends the rally."]]) + f"""
+{compare_card("badminton-rules.html")}"""
+br_faq = [("How many points is a badminton game?", "21, with rally scoring. At 20-20 you need a 2-point lead; at 29-29 the next point wins."),
+          ("What is the 1.15 m serve rule in badminton?", "When the server hits the shuttle, the whole shuttle must be below 1.15 m from the court surface."),
+          ("How many games in a badminton match?", "Best of three games."),
+          ("Can you touch the net in badminton?", "No. Touching the net with your racket, body or clothing while the shuttle is in play is a fault."),
+          ("Is the line in or out in badminton?", "In. A shuttle landing on a line counts as in.")]
+page("badminton-rules.html", "Badminton Rules Explained Simply: Scoring to 21, Serve Rules (1.15 m), Faults + Quiz | Padel Glass Box",
+     "Badminton rules made simple: rally scoring to 21, the 1.15 m serve rule, which side to serve from, faults, lets, and singles vs doubles, with a quick quiz.", br, br_faq, "Badminton rules")
+
+# ---- Table tennis ----
+tt_lines = [(0, 0.7625, 2.74, 0.7625)]
+tt = f"""<header class="hero"><div class="wrap"><h1>Table tennis rules and table size</h1>
+<p class="lead">The official table, net and ball sizes, then the rules of the serve, scoring and doubles, with a quick quiz.</p>
+{quick("A table tennis table is 2.74 m long, 1.525 m wide and 76 cm high (9 × 5 ft, 2 ft 6 in high), with a net 15.25 cm (6 in) high. Games go to 11, win by 2, and each player serves two points in turn (one each from 10-10). Toss the ball at least 16 cm straight up from an open palm and hit it so it bounces once on your side, then on your opponent's.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="card court-art">{court_svg(2.74, 1.525, tt_lines, "Table tennis table from above: 2.74 by 1.525 metres with the net across the middle and a centre line for doubles.", net=1.37, colour="#1f5fa8")}
+<p style="margin-top:8px;color:#d6e2f2">Drawn to scale. The centre line is only used for doubles serves.</p></div></div></section>
+<section><div class="wrap"><div class="sh"><h2>Table, net and ball sizes</h2><p class="muted">From the ITTF Laws of Table Tennis.</p></div>
+{dim_table([("Table length", "2.74 m", "9 ft"), ("Table width", "1.525 m", "5 ft"), ("Table height", "76 cm", "2 ft 6 in"), ("Net height", "15.25 cm", "6 in"), ("Net overhang past each side", "15.25 cm", "6 in"), ("White edge lines", "2 cm", "3/4 in"), ("Ball diameter", "40 mm", "1.57 in"), ("Ball weight", "2.7 g", "0.095 oz"), ("Room space recommended for play", "about 6 × 3 m minimum", "about 20 × 10 ft"), ("Competition playing area", "14 × 7 m", "46 × 23 ft")])}
+</div></section>
+{AD.format("tt-rules")}
+<section style="padding-top:0"><div class="wrap"><div class="grid">
+<div class="card"><h3>The serve</h3><p>Rest the ball on an open, flat palm behind the end line and above the table. Toss it nearly straight up at least 16 cm and hit it as it falls, so it bounces on your side then your opponent's. The ball must stay visible to the receiver: no hiding it with your body or free arm. If a serve clips the net and lands correctly, it's a let and you serve again.</p></div>
+<div class="card"><h3>Scoring</h3><p>Every rally scores a point. A game goes to 11, win by 2. Serve passes every two points, and every point from 10-10. Matches are best of three, five or seven games, and players change ends after each game (and at 5 points in the deciding game).</p></div>
+<div class="card"><h3>Losing a point</h3><p>You lose the point if you miss the ball, hit it into the net or off the table, let it bounce twice on your side, volley it before it bounces, move the table, touch the net or put your free hand on the table during a rally. A ball that touches the edge of the table is good; one off the side of the table is not.</p></div>
+<div class="card"><h3>Doubles</h3><p>The serve goes from the server's right half to the receiver's right half. Partners must hit in turn. Serve rotates so every player serves to and receives from each opponent.</p></div>
+</div></div></section>""" + quiz("ttq", [["Your serve clips the net and lands on your opponent's side.", 1, "Not a fault: it's a let, and you serve again."], ["You toss the ball 8 cm before serving.", 0, "Fault. The toss must be at least 16 cm."], ["The ball hits the top edge of the table.", 1, "Good. An edge ball is in play; a ball off the side face is not."], ["You put your free hand on the table during a rally.", 0, "Fault. Your free hand can't touch the playing surface."], ["At 10-10 you win one point.", 0, "Not yet: you need a 2-point lead."]]) + f"""
+{compare_card("table-tennis-rules.html")}"""
+tt_faq = [("What size is a table tennis table?", "2.74 m long, 1.525 m wide and 76 cm high (9 × 5 ft, 2 ft 6 in high)."),
+          ("How high is a table tennis net?", "15.25 cm (6 in)."),
+          ("How many points is a game of table tennis?", "11, win by 2. Serve changes every two points, and every point from 10-10."),
+          ("How high do you have to toss the ball to serve?", "At least 16 cm, nearly straight up, from an open palm."),
+          ("How much room do I need for a table tennis table?", "About 6 × 3 m for casual play; competition areas are 14 × 7 m.")]
+page("table-tennis-rules.html", "Table Tennis Rules + Table Size: Serve, Scoring to 11, Net Height (Quiz) | Padel Glass Box",
+     "Table tennis rules made simple: the 16 cm serve toss, scoring to 11, lets, doubles, plus the official table size (2.74 x 1.525 m, 76 cm high) and 15.25 cm net.", tt, tt_faq, "Table tennis rules")
+
+# ---- Squash court ----
+sq_lines = [(5.44, 0, 5.44, 6.4), (5.44, 3.2, 9.75, 3.2), (5.44, 1.6, 7.04, 1.6), (7.04, 0, 7.04, 1.6), (5.44, 4.8, 7.04, 4.8), (7.04, 4.8, 7.04, 6.4)]
+sq = f"""<header class="hero"><div class="wrap"><h1>Squash court dimensions</h1>
+<p class="lead">The floor, the wall lines and the tin of a regulation singles squash court, in metres and feet.</p>
+{quick("A singles squash court is 9.75 m long and 6.40 m wide (32 × 21 ft). On the front wall, the out line is 4.57 m high, the service line 1.78 m and the top of the tin 0.48 m. The back wall out line is 2.13 m high. The short line is 5.44 m from the front wall and the service boxes are 1.60 m square.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="card court-art">{court_svg(9.75, 6.4, sq_lines, "Squash court floor from above: 9.75 by 6.4 metres, with the short line 5.44 metres from the front wall, the half-court line to the back wall and two 1.6 metre service boxes.", colour="#b98a52", lc="#b3121b")}
+<p style="margin-top:8px;color:#d6e2f2">Drawn to scale. Front wall on the left. Floor lines are red and 50 mm wide.</p></div></div></section>
+<section><div class="wrap"><div class="sh"><h2>All the measurements</h2><p class="muted">World Squash singles court specification.</p></div>
+{dim_table([("Floor (inside the walls)", "9.75 × 6.40 m", "32 × 21 ft"), ("Front wall out line (height)", "4.57 m", "15 ft"), ("Back wall out line (height)", "2.13 m", "7 ft"), ("Service line on the front wall", "1.78 m", "5 ft 10 in"), ("Top of the tin", "0.48 m", "19 in"), ("Short line from the front wall", "5.44 m", "17 ft 10 in"), ("Service boxes", "1.60 × 1.60 m", "5 ft 3 in square"), ("Line width", "50 mm", "2 in"), ("Minimum clear height above the floor", "5.64 m", "18 ft 6 in")])}
+<p class="muted" style="margin-top:10px">The side wall out lines slope from the front wall line (4.57 m) down to the back wall line (2.13 m). Doubles courts are wider: 9.75 × 7.62 m.</p>
+</div></div></section>
+{AD.format("sq-court")}
+{CMP}{compare_card("squash-court-dimensions.html")}"""
+sq_faq = [("What are the dimensions of a squash court?", "9.75 m long and 6.40 m wide (32 × 21 ft) for singles."),
+          ("How high is the tin in squash?", "The top of the tin is 0.48 m (19 in) from the floor on a standard court."),
+          ("How high is the service line in squash?", "1.78 m (5 ft 10 in) on the front wall."),
+          ("How far is the short line from the front wall?", "5.44 m (17 ft 10 in)."),
+          ("How big is a squash service box?", "1.60 m square (about 5 ft 3 in), measured to the outside of the lines.")]
+page("squash-court-dimensions.html", "Squash Court Dimensions: Floor Size, Wall Lines and Tin Height (m + ft) | Padel Glass Box",
+     "Squash court dimensions on a scale diagram: 9.75 x 6.4 m floor, 4.57 m front wall line, 1.78 m service line, 0.48 m tin, short line and service boxes, in metres and feet.", sq, sq_faq, "Squash court dimensions")
+
+COURT_PAGES = ["badminton-rules.html", "table-tennis-rules.html", "squash-court-dimensions.html", "pickleball-court-dimensions.html", "badminton-court-dimensions.html", "tennis-court-dimensions.html", "pickleball-rules.html"]
