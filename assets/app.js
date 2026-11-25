@@ -2342,4 +2342,93 @@
     });
     pRender();
   }
+  /* ---------- fix my padel: problem fixer (26 Nov 2026) ---------- */
+  var fxw = $("#fx");
+  if (fxw && window.FIX) {
+    var FX = window.FIX, fst = store.get("fixp", { on: "glass", list: [] });
+    if (!FX[fst.on]) fst.on = "glass";
+    if (!Array.isArray(fst.list)) fst.list = [];
+    var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var flk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + esc(t) + "</a>"; };
+    var fxRender = function () {
+      var x = FX[fst.on];
+      $$("button", $("#fx-pick")).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === fst.on ? "true" : "false"); });
+      $("#fx-h").textContent = x.q;
+      $("#fx-c").innerHTML = "<strong>Likely cause:</strong> " + x.cause.map(esc).join(" Or: ");
+      $("#fx-f").innerHTML = x.fix.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("");
+      $("#fx-d").innerHTML = "<strong>Drill: " + esc(x.drill[0]) + ".</strong> " + esc(x.drill[1]) + " <strong>Reps: " + esc(x.drill[2]) + ".</strong>";
+      $("#fx-l").innerHTML = "Read next: " + x.links.map(function (l) { return flk(l[0], l[1]); }).join(" · ");
+      var inl = fst.list.indexOf(fst.on) > -1;
+      $("#fx-add").textContent = inl ? "On your practice list" : "Add to my practice list";
+      $("#fx-list").innerHTML = fst.list.filter(function (k) { return FX[k]; }).map(function (k) {
+        var y = FX[k];
+        return '<li><label><input type="checkbox" data-k="' + k + '"><span><strong>' + esc(y.drill[0]) + "</strong> (" + esc(y.drill[2]) + "): " + esc(y.fix[0]) + "</span></label></li>";
+      }).join("");
+      $("#fx-empty").style.display = fst.list.length ? "none" : "";
+      $$("input", $("#fx-list")).forEach(function (c) { c.addEventListener("change", function () {
+        if (c.checked) { fst.list = fst.list.filter(function (k) { return k !== c.dataset.k; }); store.set("fixp", fst); toast("Nice work. Removed from your list."); fxRender(); }
+      }); });
+      store.set("fixp", fst);
+    };
+    $$("button", $("#fx-pick")).forEach(function (b) { b.addEventListener("click", function () {
+      fst.on = b.dataset.v; fxRender();
+      if (window.innerWidth < 900) $("#fx-out").scrollIntoView({ behavior: "smooth", block: "start" });
+    }); });
+    $("#fx-add").addEventListener("click", function () { if (fst.list.indexOf(fst.on) < 0) { fst.list.push(fst.on); toast("Added to your practice list"); } fxRender(); });
+    $("#fx-clear").addEventListener("click", function () { fst.list = []; fxRender(); });
+    $("#fx-copy").addEventListener("click", function () {
+      var txt = "My padel practice list (padelglassbox.com/fix-my-padel)\n" + fst.list.map(function (k) { var y = FX[k]; return "- " + y.q + " Fix: " + y.fix[0] + " Drill: " + y.drill[0] + " (" + y.drill[2] + ")"; }).join("\n");
+      try { navigator.clipboard.writeText(txt).then(function () { toast("List copied"); }, function () { toast("Copy not allowed here"); }); } catch (e) { toast("Copy not allowed here"); }
+    });
+    fxRender();
+  }
+
+  /* ---------- which side quiz: left or right (26 Nov 2026) ---------- */
+  var sdw = $("#sd");
+  if (sdw) {
+    var sdg = $$("[data-sd]", sdw), sst = store.get("side", {});
+    var sdRender = function () {
+      sdg.forEach(function (g) {
+        var k = g.dataset.sd, on = $('button[aria-pressed="true"]', g);
+        if (sst[k] && $('button[data-v="' + sst[k] + '"]', g)) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === sst[k] ? "true" : "false"); }); }
+        else sst[k] = on ? on.dataset.v : $("button", g).dataset.v;
+      });
+      store.set("side", sst);
+      var me = sst.hand, ph = sst.ph, why = [], role = 0;
+      var midSide = me === "r" ? "left" : "right", otherSide = midSide === "left" ? "right" : "left";
+      var pt = function (v, n, a, b) { if (v === "me") { role += n; why.push(a); } else if (v === "p") { role -= n; why.push(b); } };
+      pt(sst.over, 2, "Your overhead is more reliable, and the middle-lob side needs it.", "Your partner's overhead is more reliable, so they should take the middle lobs.");
+      pt(sst.move, 1, "You move faster sideways and backwards, which the finishing side needs.", "Your partner moves faster, which suits the finishing side.");
+      if (sst.calm === "me") { role -= 1; why.push("You make fewer errors in long rallies: a strength for the building side."); }
+      else if (sst.calm === "p") { role += 1; why.push("Your partner is steadier in rallies, so they suit the building side."); }
+      if (sst.fh === "fh") { role += 1; why.push("Your forehand is your best shot, and on the " + midSide + " it covers the middle."); }
+      else if (sst.fh === "bh") { role -= 1; why.push("Your backhand is strong: on the " + otherSide + " you hit more backhands down the line."); }
+      if (sst.style === "f") { role += 1; why.push("You like to finish points."); } else if (sst.style === "b") { role -= 1; why.push("You like to build points patiently."); }
+      var side, conf;
+      if (ph !== "x" && ph !== me) {
+        side = me === "l" ? "right" : "left";
+        conf = "Clear: mixed-hand pair.";
+        why.unshift(me === "l" ? "You are left-handed with a right-handed partner. On the right, your forehand and overhead cover the middle, and so do your partner's on the left." : "Your partner is left-handed. They usually play the right, so you take the left and both forehands cover the middle.");
+        if (role <= -3) why.push("Your answers lean the other way, so try one set swapped, but most pairs keep this set-up.");
+      } else if (role >= 2) { side = midSide; conf = role >= 4 ? "Clear lean." : "Leaning this way."; }
+      else if (role <= -2) { side = otherSide; conf = role <= -4 ? "Clear lean." : "Leaning this way."; }
+      else { side = "either"; conf = "Toss-up: your answers are balanced."; }
+      if (ph === "x" && side !== "either" && ph !== me) conf += " With no fixed partner, ask your partner on the day which side they prefer.";
+      if (me === "l" && ph === "l") why.unshift("Two left-handers: roles are mirrored, so the player with the forehand in the middle is on the right.");
+      var sname = side === "left" ? "Left side (revés)" : side === "right" ? "Right side (drive)" : "Either side: play a set each way";
+      var fin = side === midSide;
+      $("#sd-h").textContent = sname;
+      $("#sd-conf").innerHTML = "<strong>" + conf + "</strong>" + (sst.lvl === "new" ? " You are new to padel, so swap sides often for now and repeat this quiz in a few months." : "");
+      $("#sd-why").innerHTML = (why.length ? why : ["Nothing in your answers points strongly either way."]).map(function (w) { return "<li>" + w + "</li>"; }).join("");
+      $("#sd-job").innerHTML = side === "either" ? "<strong>How to decide:</strong> play one set with each set-up, count unforced errors, and keep the one with fewer." :
+        (fin ? "<strong>Your job:</strong> finish the point. Take the middle balls on your forehand and the lobs down the middle with a bandeja, víbora or smash. Move a lot and stay ready." :
+               "<strong>Your job:</strong> build the point. Keep the ball low, deep and in play, return low cross-court, and set up your partner to finish. Patience wins.");
+      $("#sd-drill").innerHTML = side === "either" ? "" : (fin ? "<strong>Drill:</strong> partner feeds 15 lobs down the middle; play bandejas to the back corner. 3 sets, count the ones that land past the service line." :
+        "<strong>Drill:</strong> cross-court rally at medium pace, keeping every ball below the top of the net on their side. 3 sets of 20 in a row.");
+      var lk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+      $("#sd-next").innerHTML = "Next: " + (fin || side === "either" ? lk("bandeja-vs-vibora", "Bandeja vs víbora") + " · " : "") + lk("positioning", "Where to stand") + " · " + lk("fix-my-padel", "Fix my padel");
+    };
+    sdg.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { sst[g.dataset.sd] = b.dataset.v; sdRender(); }); }); });
+    sdRender();
+  }
 })();

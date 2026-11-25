@@ -620,3 +620,8 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 #csp-out svg { width: 100%; max-width: 640px; height: auto; display: block; margin-top: 12px; background: var(--deep); border-radius: 14px; }
 .pbs-call { font-family: var(--display); font-size: clamp(2rem, 9vw, 3.2rem); font-weight: 800; text-align: center; color: var(--ball); margin: 0 0 12px; font-variant-numeric: tabular-nums; }
 #pbs .score-top { justify-content: flex-start; }
+/* fix my padel (26 Nov 2026) */
+.fx-opts .opt { text-align: left; }
+.fx-d summary { cursor: pointer; list-style-position: outside; }
+.fx-d summary h3 { font-size: 1.05rem; }
+.fx-d ul, .fx-d ol { padding-left: 20px; display: grid; gap: 4px; }

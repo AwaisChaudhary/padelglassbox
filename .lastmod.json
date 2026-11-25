@@ -20,8 +20,8 @@
 "2026-11-25"
 ],
 "beginners.html": [
-"e0a6e1587e430d90",
-"2026-11-25"
+"61623bbdcc31cc9c",
+"2026-11-26"
 ],
 "cheap-padel-rackets.html": [
 "5becdb60bbe5980e",
@@ -36,12 +36,16 @@
 "2026-11-25"
 ],
 "drills.html": [
-"9bd1299daa99e360",
+"11fc1b27e6810954",
+"2026-11-26"
+],
+"fix-my-padel.html": [
+"aeba24cdba2617a4",
 "2026-11-25"
 ],
 "glossary.html": [
-"8a4fb706c9f1278a",
-"2026-11-25"
+"38fad5b3a00e292f",
+"2026-11-26"
 ],
 "golden-point-star-point.html": [
 "429161eed4a6a0aa",
@@ -144,8 +148,8 @@
 "2026-11-25"
 ],
 "positioning.html": [
-"7fda1e7173ff3386",
-"2026-11-25"
+"68a8a508e9fa6ffb",
+"2026-11-26"
 ],
 "privacy.html": [
 "ddf3b244cb975f6a",
@@ -180,8 +184,8 @@
 "2026-11-25"
 ],
 "shots.html": [
-"071874a17666872b",
-"2026-11-25"
+"5399d72524659df7",
+"2026-11-26"
 ],
 "squash-court-dimensions.html": [
 "11db81128c13f6d0",
@@ -205,6 +209,10 @@
 ],
 "warm-up.html": [
 "ce609c016210ee63",
+"2026-11-25"
+],
+"which-side-padel.html": [
+"70196c8a33c62693",
 "2026-11-25"
 ]
 }
