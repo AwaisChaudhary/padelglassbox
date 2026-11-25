@@ -599,3 +599,11 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 /* junior racket finder weight scale */
 .jr-scale { width: 100%; height: auto; margin: 6px 0 4px; display: block; }
 .jr-scale #jr-band { transition: x .25s, width .25s; }
+/* padel rankings points calculator */
+.rk-list { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 8px; }
+.rk-list li { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: rgba(23,71,201,.07); border: 1px solid rgba(23,71,201,.18); border-radius: 12px; padding: 8px 12px; font-size: .95rem; }
+.rk-list li.off { opacity: .55; }
+.rk-list span { flex: 1; }
+.rk-list b { font-family: var(--display); font-size: .9rem; white-space: nowrap; }
+.rk-list button { border: 0; background: transparent; color: var(--deep); font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 8px; }
+.rk-list button:hover { background: rgba(23,71,201,.12); }

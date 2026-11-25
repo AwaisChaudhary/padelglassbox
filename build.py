@@ -131,7 +131,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 </main>
 <footer><div class="wrap"><div class="fgrid">
 <div><a class="brand" href="{href("index.html")}" style="color:#fff">{LOGO}Padel <b style="color:#e8f84a">Glass Box</b></a><p style="margin-top:12px">Free padel tools and plain-English guides: find your racket, keep score, learn the rules and the shots.</p></div>
-<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("padel-court-cost.html")}">Padel court cost</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li></ul></div>
+<div><strong style="color:#fff">Tools and guides</strong><ul>{"".join(f'<li><a href="{href(f)}">{n}</a></li>' for f, n in NAV)}<li><a href="{href("glossary.html")}">Glossary</a></li><li><a href="{href("americano.html")}">Americano generator</a></li><li><a href="{href("court-dimensions.html")}">Court dimensions</a></li><li><a href="{href("padel-court-cost.html")}">Padel court cost</a></li><li><a href="{href("level-calculator.html")}">Level calculator</a></li><li><a href="{href("golden-point-star-point.html")}">Golden point vs Star Point</a></li><li><a href="{href("serve-rules.html")}">Serve rules and checker</a></li><li><a href="{href("positioning.html")}">Where to stand</a></li><li><a href="{href("warm-up.html")}">Warm-up timer</a></li><li><a href="{href("padel-balls.html")}">When to change balls</a></li><li><a href="{href("wall-rules.html")}">Wall and fence rules</a></li><li><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></li><li><a href="{href("racket-balance.html")}">Racket weight and balance</a></li><li><a href="{href("round-robin.html")}">Round robin generator</a></li><li><a href="{href("padel-shoes.html")}">Padel shoes guide</a></li><li><a href="{href("padel-calories.html")}">Padel calories calculator</a></li><li><a href="{href("ladder.html")}">Padel ladder tracker</a></li><li><a href="{href("net-rules.html")}">Net rules checker</a></li><li><a href="{href("racket-care.html")}">Racket care and health check</a></li><li><a href="{href("drills.html")}">Padel drills planner</a></li><li><a href="{href("king-of-the-court.html")}">King of the Court generator</a></li><li><a href="{href("tie-break.html")}">Tie-break rules and tracker</a></li><li><a href="{href("out-of-court-play.html")}">Out-of-court play rules</a></li><li><a href="{href("padel-injuries.html")}">Padel injuries and prevention</a></li><li><a href="{href("padel-grip.html")}">How to hold a padel racket</a></li><li><a href="{href("bandeja-vs-vibora.html")}">Bandeja vs víbora vs smash</a></li><li><a href="{href("padel-rankings.html")}">Padel world rankings</a></li></ul></div>
 <div><strong style="color:#fff">Buying</strong><ul><li><a href="{href("cheap-padel-rackets.html")}">Cheap padel rackets</a></li><li><a href="{href("intermediate-padel-racket.html")}">Intermediate rackets</a></li><li><a href="{href("padel-black-friday.html")}">Padel Black Friday 2026</a></li><li><a href="{href("padel-gifts.html")}">Padel gift ideas</a></li><li><a href="{href("padel-equipment.html")}">Padel equipment and what to wear</a></li><li><a href="{href("padel-racket-for-kids.html")}">Padel rackets for kids</a></li><li><a href="{href("padel-lessons.html")}">Padel lessons: cost and first lesson</a></li><li><a href="{href("racket-finder.html")}">Racket finder</a></li></ul></div>
 <div><strong style="color:#fff">Site</strong><ul><li><a href="{href("about.html")}">About and contact</a></li><li><a href="{href("privacy.html")}">Privacy policy</a></li></ul></div>
 </div>
@@ -716,7 +716,7 @@ lvl = f'''<header class="hero"><div class="wrap"><h1>What is my padel level?</h1
 <div class="card"><span class="pill b">3 to 3.5</span><h3 style="margin-top:10px">Improver</h3><p>You can rally, use the back glass on easy balls and move with your partner. Many tennis and squash players start around here.</p></div>
 <div class="card"><span class="pill i">4 to 4.5</span><h3 style="margin-top:10px">Intermediate</h3><p>You control the court, play a bandeja, defend the corners and think about tactics. This is a strong club player.</p></div>
 <div class="card"><span class="pill a">5 to 5.5</span><h3 style="margin-top:10px">Advanced</h3><p>You play tournaments, build points on purpose and rarely give away easy errors. Ranked players often sit at 5.5 and up.</p></div>
-<div class="card"><span class="pill a">6 to 7</span><h3 style="margin-top:10px">Elite</h3><p>Semi-professional and professional players. If this is you, you already know your ranking.</p></div>
+<div class="card"><span class="pill a">6 to 7</span><h3 style="margin-top:10px">Elite</h3><p>Semi-professional and professional players. Pros are rated by the FIP world ranking instead: see the <a href="{href("padel-rankings.html")}">padel rankings and how pro points work</a>.</p></div>
 </div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Why does your padel level matter?</h2></div><div class="grid">
 <div class="card"><h3>Better matches</h3><p>Games are most fun when all four players are close in level. Booking apps use levels to suggest open matches for you.</p></div>
@@ -1117,7 +1117,8 @@ WR_SVG = '''<svg viewBox="0 0 400 160" class="wr-court" role="img" aria-label="S
 <circle id="wr-ball" cx="70" cy="110" r="6" fill="#e8f84a" stroke="#0b1530" stroke-width="1.5"/>
 </svg>'''
 wall = f'''<header class="hero"><div class="wrap"><h1>Padel wall rules: was that ball in?</h1>
-<p class="lead">Glass, fence, net, ceiling: tap what your shot touched and see the call, with the ball path drawn on a side view of the court. Then read the wall and fence rules in plain English.</p></div></header>
+<p class="lead">Glass, fence, net, ceiling: tap what your shot touched and see the call, with the ball path drawn on a side view of the court. Then read the wall and fence rules in plain English.</p>
+{quick("Your shot must bounce on the other team's ground first. After that bounce it may hit their glass or metal fence and stay in play. If it hits their glass or fence before bouncing, you lose the point. On your own side you may play the ball into your own glass, but never into your own metal fence.")}</div></header>
 <section style="padding-top:10px"><div class="wrap"><div class="quiz" id="wr">
 <div>
 {_wq("first", "1. After you hit it, what did the ball touch first?", [("a", "Their ground (it bounced on their side)"), ("b", "Their glass or fence"), ("c", "My own glass"), ("d", "My own metal fence"), ("e", "The net"), ("f", "The ceiling or a light"), ("h", "An opponent"), ("g", "Me or my partner")])}
@@ -1129,7 +1130,7 @@ wall = f'''<header class="hero"><div class="wrap"><h1>Padel wall rules: was that
 <aside class="result" id="wr-out" aria-live="polite"><div class="wr-svg">{WR_SVG}</div><div id="wr-txt"><h2>Make the call</h2><p>Tap what the ball touched and the verdict appears here. These are rally rules; for the serve, use the <a href="{href("serve-rules.html")}" style="color:#e8f84a">serve checker</a>.</p></div></aside>
 </div></div></section>
 {AD.format("wall-mid")}
-<section><div class="wrap"><div class="sh"><h2>The wall rules in one minute</h2></div><div class="grid">
+<section><div class="wrap"><div class="sh"><h2>What are the wall rules in padel?</h2></div><div class="grid">
 <div class="card"><span class="pill b">The golden rule</span><h3 style="margin-top:10px">Ground first, then walls</h3><p>Your shot must cross the net and bounce on their ground before it touches anything else on their side. After that bounce, the glass and the fence are both part of the game.</p></div>
 <div class="card"><span class="pill b">Your side</span><h3 style="margin-top:10px">Your glass is a tool</h3><p>You can hit the ball into your own glass to send it back over the net. This is a normal shot in padel, often used when the ball gets past you into the corner.</p></div>
 <div class="card"><span class="pill b">Your side</span><h3 style="margin-top:10px">Your fence is not</h3><p>Hitting the ball into the metal mesh on your own side loses the point. Only the glass may be used to play the ball back.</p></div>
@@ -1137,7 +1138,7 @@ wall = f'''<header class="hero"><div class="wrap"><h1>Padel wall rules: was that
 <div class="card"><span class="pill b">Net</span><h3 style="margin-top:10px">Net cord is fine in a rally</h3><p>In a rally, a ball that clips the net and lands on their side is good. On the serve it is a let. Touching the net or the posts with your body or racket loses the point. More in the <a href="{href("net-rules.html")}">net rules checker</a>.</p></div>
 <div class="card"><span class="pill b">Outside</span><h3 style="margin-top:10px">Out of the court</h3><p>A ball that bounces on their side and then flies out of the court was a good shot. At clubs that allow it, they may run out and play it back. If not, you win the point.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Every wall and fence call</h2></div>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Is it in if the ball hits the glass or the fence?</h2></div>
 <div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Your shot</th><th scope="col">The call</th></tr></thead><tbody>
 <tr><td>Bounces on their side, then hits their glass</td><td>In play</td></tr>
 <tr><td>Bounces on their side, then hits their fence</td><td>In play</td></tr>
@@ -1155,10 +1156,20 @@ wall = f'''<header class="hero"><div class="wrap"><h1>Padel wall rules: was that
 </tbody></table></div>
 <p class="muted" style="margin-top:14px">These calls follow the International Padel Federation (FIP) rules in force from January 2026. Club and league formats can add local rules, for example about out-of-court play. See the rest of the game on our <a href="{href("rules.html")}">interactive rules court</a>.</p>
 </div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Out-of-court play, explained</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Can you play the ball outside the court in padel?</h2></div><div class="grid">
 <div class="card"><h3>What it is</h3><p>Sometimes a strong smash bounces on your side and flies out over the wall or through the door. At some courts you are allowed to run out of the court and hit the ball back before it bounces a second time. In Spanish this is called a salida de pista.</p></div>
 <div class="card"><h3>When it is allowed</h3><p>Only where the court is built for it: open door gaps and enough clear space outside. If the space isn't there, the club does not allow it, and a ball that bounces and leaves the court simply wins the point for the hitter.</p></div>
 <div class="card"><h3>How to play it</h3><p>Run out through the door, let the ball drop, and hit it back over the wall into the opponents' court. Your feet can be outside the court only when out-of-court play is allowed. Agree on the local rule before you start. Every out-of-court call is on our <a href="{href("out-of-court-play.html")}">out-of-court play checker</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Are the wall rules different on the serve?</h2></div><div class="grid">
+<div class="card"><h3>Glass after the bounce: fine</h3><p>A serve that bounces in the correct service box and then hits the glass is a good serve, just like in a rally.</p></div>
+<div class="card"><h3>Fence after the bounce: fault</h3><p>A serve that bounces in the box and then hits the metal fence before a second bounce is a fault. In a rally the fence would be fine, so this catches many new players out.</p></div>
+<div class="card"><h3>Net, then in: let</h3><p>A serve that clips the net and lands in the right box is a let and is played again, unless it then hits the fence. All serve calls are on the <a href="{href("serve-rules.html")}">serve rules checker</a>.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Learn to play off the glass</h3><p>Letting the ball come off the back glass is the big new skill. Practise it with the <a href="{href("drills.html")}">drills planner</a>.</p></div>
+<div class="card"><h3>Other calls</h3><p>Net touches and reaching over: the <a href="{href("net-rules.html")}">net rules checker</a>. Who serves and when: the <a href="{href("serve-rules.html")}">serve rules</a>.</p></div>
+<div class="card"><h3>Keep the score</h3><p>Settle the call, then track the match with the <a href="{href("score.html")}">score keeper</a>, including golden point.</p></div>
 </div></div></section>'''
 wall_faq = [
     ("Can you hit the ball off your own wall in padel?", "Yes, off your own glass. You can hit the ball into your glass so it rebounds over the net, as long as it then bounces on the other side before touching their walls. Hitting your own metal fence loses the point."),
@@ -1168,9 +1179,11 @@ wall_faq = [
     ("What if the ball gets stuck in the fence in padel?", "If it bounced on the opponents' side and then gets stuck in the mesh, goes out through a hole, or stays on top of the wall, the player who hit it wins the point."),
     ("Can you touch the net in padel?", "No. Touching the net, the posts or the opponents' court with your body, clothes or racket while the ball is in play loses the point."),
     ("What if the ball hits the ceiling in padel?", "If your shot hits the ceiling or a light before bouncing on the opponents' side, you lose the point."),
+    ("Can the serve hit the fence in padel?", "No. If the serve bounces in the service box and then hits the metal fence before bouncing again, it is a fault. Hitting the glass after the bounce is fine."),
+    ("Can the ball hit more than one wall in padel?", "Yes. After it bounces once on the opponents' side, it may hit the glass, the fence or both, as many times as it likes. They must play it before it touches the ground a second time."),
 ]
 page("wall-rules.html", "Padel Wall and Fence Rules: Was That Ball In? Free Checker | Padel Glass Box",
-     "Padel wall rules in plain English: glass, metal fence, net cord, ceiling and out-of-court play. Tap what the ball touched and get the call on a side-view court.", wall + f'<script>window.WR={json.dumps(WR)};</script>', wall_faq, "Wall and fence rules")
+     "Padel wall rules: the ball must bounce before it hits the glass or fence; you may use your own glass but not your own fence. Serve, net cord, ceiling and out-of-court calls, plus a free tap-through checker.", wall + f'<script>window.WR={json.dumps(WR)};</script>', wall_faq, "Wall and fence rules")
 
 # ---------------- PADEL VS TENNIS VS PICKLEBALL ----------------
 # Courts drawn to scale, 10 px per metre, centred on the net.
@@ -2593,6 +2606,7 @@ oh = f'''<header class="hero"><div class="wrap"><h1>Bandeja, víbora or smash: w
 <div class="card"><h3>See the ball paths</h3><p>Bandeja, víbora, bajada and chiquita drawn out in the <a href="{href("shots.html")}">shot library</a>.</p></div>
 <div class="card"><h3>Stand in the right place</h3><p>Where you and your partner go when you are lobbed at the net: <a href="{href("positioning.html")}">padel positioning</a>.</p></div>
 <div class="card"><h3>Check your level</h3><p>Picking the right overhead is a big step up. See where you are with the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div>
+<div class="card"><h3>Watch the best</h3><p>See who plays these shots best right now in the <a href="{href("padel-rankings.html")}">padel world rankings</a>.</p></div>
 </div></div></section>'''
 oh_faq = [
     ("What is the difference between a bandeja and a víbora?", "A bandeja is a slow, sliced overhead hit deep to keep your place at the net. A víbora is firmer and hit with side spin into the side glass or corner to attack. The bandeja is safer; the víbora can win points but is riskier."),
@@ -3162,7 +3176,99 @@ page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
 page("thanks.html", f"Check your inbox | {SITE}", "Confirm your email to get the free padel rules cheat sheet.", NL_THANKS)
 page("welcome.html", f"Your padel cheat sheet | {SITE}", "Download your free padel rules cheat sheet.", NL_WELCOME)
 
-urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "padel-racket-for-kids.html", "padel-court-cost.html", "padel-lessons.html", "about.html", "privacy.html"]
+# ---------------- PADEL RANKINGS (25 Nov 2026, RADAR P1 "best padel player in the world" / "padel rankings") ----------------
+RK_DATE = "23 Nov 2026"
+RK_MEN = [("1", "Arturo Coello", "Spain", 20211), ("1", "Agustín Tapia", "Argentina", 20211), ("3", "Alejandro Galán", "Spain", 14033), ("3", "Federico Chingotto", "Argentina", 14033),
+          ("5", "Juan Lebrón", "Spain", 8560), ("6", "Leandro Augsburger", "Argentina", 8483), ("7", "Franco Stupaczuk", "Argentina", 6180), ("8", "Jon Sanz", "Spain", 5243),
+          ("9", "Paquito Navarro", "Spain", 5241), ("10", "Martín Di Nenno", "Argentina", 4813)]
+RK_WOMEN = [("1", "Gemma Triay", "Spain", 15831), ("1", "Delfina Brea", "Argentina", 15831), ("3", "Bea González", "Spain", 13926), ("4", "Ariana Sánchez", "Spain", 12333),
+            ("5", "Claudia Fernández", "Spain", 12306), ("6", "Andrea Ustero", "Spain", 12096), ("7", "Paula Josemaría", "Spain", 11223), ("8", "Martina Calvo", "Spain", 8636),
+            ("9", "Claudia Jensen", "Argentina", 5548), ("10", "Sofía Araújo", "Portugal", 5423)]
+# Points per round. 2026: LTA Padel guide (17 Apr 2026) + "old" values on Premier Padel's 2027 table + Wikipedia copy of FIP table. 2027: Premier Padel (10 Jun 2026).
+RK_PTS = {
+    "2026": {"major": {"w": 2000, "f": 1200, "sf": 720, "qf": 360, "r16": 180, "r32": 90, "r64": 35},
+             "p1": {"w": 1000, "f": 600, "sf": 360, "qf": 180, "r16": 90, "r32": 45, "r64": 22},
+             "p2": {"w": 600, "f": 360, "sf": 180, "qf": 90, "r16": 45, "r32": 22}},
+    "2027": {"major": {"w": 2000, "f": 1200, "sf": 720, "qf": 380, "r16": 200, "r32": 100, "r64": 50},
+             "p1": {"w": 1000, "f": 600, "sf": 380, "qf": 200, "r16": 110, "r32": 55, "r64": 35},
+             "p2": {"w": 600, "f": 380, "sf": 200, "qf": 110, "r16": 55, "r32": 35}},
+}
+RK_RN = [("w", "Winner"), ("f", "Runner-up (lost the final)"), ("sf", "Semi-final"), ("qf", "Quarter-final"), ("r16", "Last 16"), ("r32", "Last 32"), ("r64", "Last 64 (first round)")]
+def _rk_table(rows):
+    return '<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Rank</th><th scope="col">Player</th><th scope="col">Country</th><th scope="col">FIP points</th></tr></thead><tbody>' + "".join(
+        f'<tr><td>{"=" + r if [x[0] for x in rows].count(r) > 1 else r}</td><td>{e(n)}</td><td>{e(c)}</td><td>{p:,}</td></tr>' for r, n, c, p in rows) + "</tbody></table></div>"
+def _rk_pts(y):
+    t = RK_PTS[y]
+    return '<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Round reached</th><th scope="col">Major</th><th scope="col">P1</th><th scope="col">P2</th></tr></thead><tbody>' + "".join(
+        f'<tr><td>{lab}</td>' + "".join(f'<td>{t[c][k]:,}</td>' if k in t[c] else '<td>No round</td>' for c in ("major", "p1", "p2")) + "</tr>" for k, lab in RK_RN) + "</tbody></table></div>"
+def rkq(name, title, opts, on):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="{"true" if val == on else "false"}">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-rk="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+RK_JS = {"pts": RK_PTS, "men": [[r, n, p] for r, n, c, p in RK_MEN], "women": [[r, n, p] for r, n, c, p in RK_WOMEN], "date": RK_DATE}
+rk = f'''<header class="hero"><div class="wrap"><h1>Padel rankings: the world top 10 and how FIP points work.</h1>
+<p class="lead">Who is the best padel player in the world right now? See the men's and women's FIP top 10, learn how ranking points are won and lost, and work out what a run of results is worth with our points calculator.</p>
+{quick(f"In the FIP ranking of {RK_DATE}, Arturo Coello and Agustín Tapia share men's number 1 with 20,211 points each. Gemma Triay and Delfina Brea share women's number 1 with 15,831 points each. The ranking adds up each player's best 22 results over the last 52 weeks. Winning a Major is worth 2,000 points, a P1 1,000 and a P2 600.")}</div></header>
+<section style="padding-top:10px"><div class="wrap"><div class="sh"><h2>Who is number 1 in padel right now?</h2><p class="muted">FIP world ranking of {RK_DATE}. It changes after each tournament week; the Mexico Major (23 to 29 Nov) and the season Finals in December will move it again.</p></div>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))">
+<div><h3 style="margin:0 0 10px">Men's top 10</h3>{_rk_table(RK_MEN)}</div>
+<div><h3 style="margin:0 0 10px">Women's top 10</h3>{_rk_table(RK_WOMEN)}</div>
+</div>
+<p class="muted" style="margin-top:12px">Players marked "=" share a place on the same points. Partners who play the same events together usually end up level, which is why both number 1 spots are shared.</p></div></section>
+{AD.format("rankings-mid")}
+<section style="padding-top:0"><div class="wrap quiz" id="rk">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:4px">Ranking points calculator</h2>
+<p class="muted" style="margin-top:0">Add tournament results one by one: the level and the round reached. See the points, the total from your best results, and where that total would sit against today's top 10.</p>
+{rkq("yr", "Which points table?", [("2026", "2026 (current)"), ("2027", "2027 (new table)")], "2026")}
+{rkq("cat", "Tournament level", [("major", "Major"), ("p1", "P1"), ("p2", "P2")], "p1")}
+{rkq("rd", "Round reached", [(k, lab.split(" (")[0]) for k, lab in RK_RN], "qf")}
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 14px"><button class="btn sm" type="button" id="rk-add">Add this result</button><button class="btn sm ghost" type="button" id="rk-demo">Try an example season</button><button class="btn sm ghost" type="button" id="rk-clear">Clear all</button></div>
+<ol id="rk-list" class="rk-list"></ol>
+<p class="muted" style="margin:0;font-size:.92rem">Only Major, P1 and P2 events are in the calculator. Real totals also include season Finals and CUPRA FIP Tour events, and points from a year ago drop off week by week. Your list is saved on this device only.</p>
+</div>
+<aside class="result" id="rk-out" aria-live="polite"><h2 id="rk-h">0 points</h2><p id="rk-p">Add a result to start.</p><dl class="spec" id="rk-spec"></dl><p id="rk-v"></p><p id="rk-next" class="wr-src"></p></aside>
+</div></section>
+<script>window.RK={json.dumps(RK_JS, ensure_ascii=False)};</script>
+<section><div class="wrap"><div class="sh"><h2>How does the padel world ranking work?</h2></div><div class="grid">
+<div class="card"><span class="pill b">Counting</span><h3 style="margin-top:10px">Best 22 results</h3><p>Each player's ranking is the total of their best 22 results in Premier Padel and CUPRA FIP Tour events. Weaker results beyond those 22 do not count.</p></div>
+<div class="card"><span class="pill b">Time</span><h3 style="margin-top:10px">A rolling 52 weeks</h3><p>Points stay for one year. When the same week comes round again, last year's points drop off and this year's result replaces them. To keep points, a player must match or beat what they did a year earlier.</p></div>
+<div class="card"><span class="pill b">Players</span><h3 style="margin-top:10px">Points belong to each player</h3><p>Padel is played in pairs, but the ranking is for individuals. If a player changes partner, they keep the points they have already won.</p></div>
+<div class="card"><span class="pill b">Race</span><h3 style="margin-top:10px">The Race is this year only</h3><p>The FIP Race counts only results from the current calendar year, again the best 22. The top 16 in the Race qualify for the season-ending Premier Padel Finals, held in Barcelona.</p></div>
+<div class="card"><span class="pill b">Levels</span><h3 style="margin-top:10px">Bigger events, more points</h3><p>The Premier Padel tour has four levels: Majors, P1, P2 and the Finals. Below it, the CUPRA FIP Tour has Platinum, Gold, Silver and Bronze events, worth far fewer points.</p></div>
+<div class="card"><span class="pill b">You</span><h3 style="margin-top:10px">Not the same as your club level</h3><p>The FIP ranking is only for players in pro tour events. Club and app levels, such as Playtomic's, are a separate system. Find yours with the <a href="{href("level-calculator.html")}">padel level calculator</a>.</p></div>
+</div>
+<p class="muted" style="margin-top:12px">The partner line is general background in our own words; the rest follows the FIP and LTA Padel explanations listed below.</p></div></section>
+<section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sh"><h2>How many points do you get for winning a padel tournament?</h2><p class="muted">FIP ranking points per player in 2026, by the round you reach.</p></div>
+{_rk_pts("2026")}
+<p class="muted" style="margin-top:12px">Winning the season-ending Premier Padel Finals is worth 1,500 points. A FIP Platinum title is worth 300 and a FIP Gold title 150. Some first-round and qualifying values differ between the men's and women's draws, so treat the last row as a guide.</p></div></section>
+<section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sh"><h2>What changes in the padel ranking in 2027?</h2><p class="muted">Agreed by Premier Padel and FIP and announced on 10 June 2026.</p></div>
+{_rk_pts("2027")}
+<div class="grid" style="margin-top:16px">
+<div class="card"><h3>More points for middle rounds</h3><p>Titles and finals keep the same points. Quarter-finals, last 16, last 32 and first rounds are worth more, so steady results count for a bit more.</p></div>
+<div class="card"><h3>21 results, not 22</h3><p>From 2027 the ranking counts each player's best 21 results instead of 22.</p></div>
+<div class="card"><h3>Top players out of small events</h3><p>Higher-ranked players can no longer enter the main draw of lower CUPRA FIP events (Gold, Silver, Bronze), leaving more room for rising players.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Play like the pros</h3><p>Learn the overheads you see on the tour in <a href="{href("bandeja-vs-vibora.html")}">bandeja vs víbora vs smash</a> and the <a href="{href("shots.html")}">shot library</a>.</p></div>
+<div class="card"><h3>Know your own level</h3><p>Answer a few questions in the <a href="{href("level-calculator.html")}">level calculator</a> to see where you sit on the 1 to 7 club scale.</p></div>
+<div class="card"><h3>Run your own ranking</h3><p>Keep a club or friends ranking with the <a href="{href("ladder.html")}">padel ladder tracker</a>, or run a social night with the <a href="{href("americano.html")}">Americano generator</a>.</p></div>
+</div>
+<p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 25 Nov 2026. Top 10 tables: FIP ranking of 23 Nov 2026 as published by Padel Addict ("Ranking FIP y RACE 2026", 23 Nov 2026) and Padel Speak ("FIP Ranking 2026", updated 23 Nov 2026); both list the same names and points. Ranking rules: FIP "Ranking System and Points Breakdown" (best 22 results, 52-week point defence, FIP Race), LTA Padel "Your guide to Premier Padel" (17 Apr 2026: points per round, Finals 1,500, best 22 in a rolling 52 weeks), Padel Addict and Padel Magazine (10 Nov 2026) for the Race and the top 16 going to the Finals in Barcelona. 2026 points table also matches the old values shown on Premier Padel's 2027 table. Platinum and Gold title points: FIP announcement of the 2025 ranking points (17 Jan 2025). 2027 changes: Premier Padel and FIP "2027 changes to support player welfare" (10 Jun 2026). We have no link with FIP or Premier Padel. Player names only; no photos.</p></div></section>'''
+rk_faq = [
+    ("Who is the best padel player in the world?", f"In the FIP ranking of {RK_DATE}, Arturo Coello and Agustín Tapia share men's number 1 with 20,211 points, and Gemma Triay and Delfina Brea share women's number 1 with 15,831 points."),
+    ("How does the padel ranking work?", "The FIP ranking adds up each player's best 22 results in Premier Padel and CUPRA FIP Tour events over a rolling 52 weeks. Points from a year ago drop off and are replaced by the result from the same week this year."),
+    ("How many points is a padel Major worth?", "Winning a Major is worth 2,000 FIP points. The runner-up gets 1,200, semi-finalists 720 and quarter-finalists 360 in 2026."),
+    ("How many points do you get for winning a P1 or P2?", "A P1 title is worth 1,000 points and a P2 title 600 points. The runners-up get 600 at a P1 and 360 at a P2."),
+    ("What is the FIP Race in padel?", "The Race counts only results from the current year, using each player's best 22. The top 16 in the Race qualify for the season-ending Premier Padel Finals."),
+    ("Why do padel partners have the same ranking points?", "Points are won by each player, but partners who play the same events together win the same points, so they often end up level and share a ranking place."),
+    ("Is the FIP ranking the same as a Playtomic level?", "No. The FIP ranking is for players in professional tour events. Playtomic and club levels are separate rating systems for everyday players."),
+    ("What changes in the padel ranking in 2027?", "From 2027 the ranking counts the best 21 results instead of 22, and quarter-finals and earlier rounds give more points. Titles and finals keep the same points."),
+]
+page("padel-rankings.html", "Padel Rankings 2026: World Top 10 and How FIP Points Work | Padel Glass Box",
+     f"Padel world rankings ({RK_DATE}): men's and women's FIP top 10 with points, how the ranking works (best 22 results, 52 weeks), points for a Major, P1 and P2, 2027 changes, and a free points calculator.",
+     rk, rk_faq, "Padel rankings")
+
+urls = ["index.html", "cheap-padel-rackets.html", "padel-black-friday.html", "racket-finder.html", "score.html", "rules.html", "shots.html", "beginners.html", "glossary.html", "americano.html", "court-dimensions.html", "level-calculator.html", "golden-point-star-point.html", "positioning.html", "serve-rules.html", "warm-up.html", "padel-balls.html", "wall-rules.html", "padel-vs-tennis-vs-pickleball.html", "racket-balance.html", "round-robin.html", "padel-shoes.html", "padel-calories.html", "ladder.html", "net-rules.html", "racket-care.html", "drills.html", "king-of-the-court.html", "tie-break.html", "out-of-court-play.html", "padel-injuries.html", "padel-grip.html", "bandeja-vs-vibora.html", "intermediate-padel-racket.html", "padel-gifts.html", "padel-equipment.html", "padel-racket-for-kids.html", "padel-court-cost.html", "padel-lessons.html", "padel-rankings.html", "about.html", "privacy.html"]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{canon(u)}</loc><lastmod>{UPDATED}</lastmod><changefreq>weekly</changefreq><priority>{'1.0' if u == 'index.html' else '0.8'}</priority></url>\n" for u in urls) + "</urlset>\n")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /go/\n\nSitemap: {DOMAIN}/sitemap.xml\n")

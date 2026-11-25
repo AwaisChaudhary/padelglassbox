@@ -2120,4 +2120,62 @@
     ["price", "court", "n", "disc"].forEach(function (k) { lin[k].addEventListener("input", lrender); lin[k].addEventListener("change", lrender); });
     lrender();
   }
+
+  /* ---------- padel rankings points calculator ---------- */
+  var rkb = $("#rk");
+  if (rkb && window.RK) {
+    var rgr = $$("[data-rk]", rkb);
+    var rst = store.get("pp-rk", { yr: "2026", cat: "p1", rd: "qf", list: [] });
+    if (!Array.isArray(rst.list)) rst.list = [];
+    var RCAT = { major: "Major", p1: "P1", p2: "P2" };
+    var RRD = { w: "won", f: "runner-up", sf: "semi-final", qf: "quarter-final", r16: "last 16", r32: "last 32", r64: "last 64" };
+    var rl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var fmt = function (n) { return n.toLocaleString("en-GB"); };
+    var ptsOf = function (r) { var t = window.RK.pts[rst.yr][r.cat]; return t && t[r.rd] ? t[r.rd] : 0; };
+    var place = function (tot, rows) {
+      for (var i = 0; i < rows.length; i++) { if (tot >= rows[i][2]) return i; }
+      return -1;
+    };
+    var rrender = function () {
+      store.set("pp-rk", rst);
+      rgr.forEach(function (g) { $$("button", g).forEach(function (b) {
+        b.setAttribute("aria-pressed", b.dataset.v === rst[g.dataset.rk] ? "true" : "false");
+        if (g.dataset.rk === "rd") b.disabled = b.dataset.v === "r64" && rst.cat === "p2";
+      }); });
+      var max = rst.yr === "2027" ? 21 : 22;
+      var scored = rst.list.map(function (r, i) { return { i: i, p: ptsOf(r) }; }).sort(function (a, b) { return b.p - a.p; });
+      var keep = {}; scored.slice(0, max).forEach(function (x) { keep[x.i] = 1; });
+      var tot = scored.slice(0, max).reduce(function (a, x) { return a + x.p; }, 0);
+      var ul = $("#rk-list"); ul.innerHTML = "";
+      rst.list.forEach(function (r, i) {
+        var li = document.createElement("li"); if (!keep[i]) li.className = "off";
+        li.innerHTML = "<span>" + (i + 1) + ". " + RCAT[r.cat] + ", " + RRD[r.rd] + (keep[i] ? "" : " (not counted)") + "</span><b>" + fmt(ptsOf(r)) + "</b>";
+        var x = document.createElement("button"); x.type = "button"; x.textContent = "Remove"; x.setAttribute("aria-label", "Remove result " + (i + 1));
+        x.addEventListener("click", function () { rst.list.splice(i, 1); rrender(); });
+        li.appendChild(x); ul.appendChild(li);
+      });
+      $("#rk-h").textContent = fmt(tot) + " points";
+      var n = rst.list.length;
+      $("#rk-p").textContent = n ? "From " + Math.min(n, max) + " counted result" + (Math.min(n, max) === 1 ? "" : "s") + " using the " + rst.yr + " table (best " + max + " count)." : "Add a result to start, or try the example season.";
+      var m = window.RK.men, w = window.RK.women, pm = place(tot, m), pw = place(tot, w);
+      $("#rk-spec").innerHTML = "<dt>Men's no. 1</dt><dd>" + fmt(m[0][2]) + "</dd><dt>Men's no. 10</dt><dd>" + fmt(m[9][2]) + "</dd><dt>Women's no. 1</dt><dd>" + fmt(w[0][2]) + "</dd><dt>Women's no. 10</dt><dd>" + fmt(w[9][2]) + "</dd>";
+      var say = function (p, rows, lab) {
+        if (p === 0) return "level with or above the " + lab + " number 1s";
+        if (p > 0) return "around number " + rows[p][0] + " in the " + lab + " top 10 (ahead of " + rows[p][1] + ")";
+        return fmt(rows[9][2] - tot) + " short of the " + lab + " top 10";
+      };
+      $("#rk-v").textContent = n ? "Against the FIP ranking of " + window.RK.date + ", that total would be " + say(pm, m, "men's") + ", and " + say(pw, w, "women's") + ". Real totals also include Finals and FIP Tour points." : "";
+      $("#rk-next").innerHTML = "Next: " + rl("level-calculator", "your own club level") + " · " + rl("ladder", "run a club ladder") + " · " + rl("bandeja-vs-vibora", "pro overheads");
+    };
+    rgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () {
+      rst[g.dataset.rk] = b.dataset.v;
+      if (rst.cat === "p2" && rst.rd === "r64") rst.rd = "r32";
+      rrender(); }); }); });
+    $("#rk-add").addEventListener("click", function () { if (rst.list.length < 40) rst.list.push({ cat: rst.cat, rd: rst.rd }); rrender(); });
+    $("#rk-clear").addEventListener("click", function () { rst.list = []; rrender(); });
+    $("#rk-demo").addEventListener("click", function () {
+      rst.list = [{ cat: "major", rd: "sf" }, { cat: "major", rd: "qf" }, { cat: "p1", rd: "w" }, { cat: "p1", rd: "f" }, { cat: "p1", rd: "qf" }, { cat: "p1", rd: "qf" }, { cat: "p1", rd: "r16" }, { cat: "p2", rd: "w" }, { cat: "p2", rd: "sf" }, { cat: "p2", rd: "qf" }];
+      rrender(); });
+    rrender();
+  }
 })();
