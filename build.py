@@ -73,6 +73,7 @@ AFF = {
 # ---- Affiliate links. Pages link to /go/<slug>; _redirects sends it to the store.
 # Until a programme approves us these are plain store URLs; when approved, replace the URL with the tracked link and rebuild.
 AFF_ATTR = 'rel="sponsored nofollow noopener" target="_blank"'
+AFF_TOP = '<div class="aff-disclosure" role="note"><div class="wrap"><strong>Affiliate disclosure:</strong> some links on this page are affiliate links. If you buy through them we may earn a small commission, at no extra cost to you. It never changes what we recommend. <a href="/about#affiliate">How we choose products</a>.</div></div>'
 AFF_NOTE = '<p class="aff-note">We may earn a commission if you buy through these links, at no extra cost to you.</p>'
 def go(slug): return "/go/" + slug
 # Quick answer box (standing AI-answers rule in README)
@@ -124,7 +125,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <ul class="nav" id="nav">{nav}</ul>
 </div></header>
 <main>
-{body}
+{AFF_TOP if '/go/' in body else ''}{body}
 {faq_html(faqs)}
 {signup(file)}
 {AD.format(file)}
@@ -2898,7 +2899,7 @@ page("padel-equipment.html", "Padel Equipment and What to Wear: Free Beginner Ki
      eq, eq_faq, "Padel equipment")
 
 page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
-     f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2>Contact</h2><p>Email <a href="mailto:awaiskaramat@hotmail.com">awaiskaramat@hotmail.com</a>.</p></div></section>')
+     f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2 id="affiliate">Affiliate links and how we choose products</h2><p>Some shop links on Padel Glass Box are affiliate links (for example through Awin with Padel Market). If you buy through one, we may earn a small commission at no extra cost to you. Pages with affiliate links say so at the top, and the racket finder says so above its shop button. Commissions never decide what we recommend: the finder picks a racket shape, weight and balance from your answers before any shop is involved, and our guides name the features to look for rather than paid placements.</p><h2>Contact</h2><p>Email <a href="mailto:awaiskaramat@hotmail.com">awaiskaramat@hotmail.com</a>.</p></div></section>')
 
 # ---- Buyer pages (23 Nov 2026, from Google Trends: "cheap padel racket" breakout US, "padel racket black friday" +110% UK) ----
 _budget = [

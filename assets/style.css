@@ -607,3 +607,8 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .rk-list b { font-family: var(--display); font-size: .9rem; white-space: nowrap; }
 .rk-list button { border: 0; background: transparent; color: var(--deep); font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 8px; }
 .rk-list button:hover { background: rgba(23,71,201,.12); }
+
+.aff-disclosure { background: #fff7d6; color: #3d3200; border-bottom: 1px solid #e8d27a; font-size: .9rem; line-height: 1.45; padding: 10px 0; }
+.aff-disclosure a { color: #3d3200; text-decoration: underline; }
+.aff-disclosure-inline { background: #fff7d6; color: #3d3200 !important; opacity: 1 !important; border: 1px solid #e8d27a; border-radius: 8px; font-size: .9rem; line-height: 1.45; padding: 10px 12px; margin: 12px 0; }
+.aff-disclosure-inline strong { color: #3d3200 !important; }
