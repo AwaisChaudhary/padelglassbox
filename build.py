@@ -3281,7 +3281,7 @@ rk_faq = [
     ("Is the FIP ranking the same as a Playtomic level?", "No. The FIP ranking is for players in professional tour events. Playtomic and club levels are separate rating systems for everyday players."),
     ("What changes in the padel ranking in 2027?", "From 2027 the ranking counts the best 21 results instead of 22, and quarter-finals and earlier rounds give more points. Titles and finals keep the same points."),
 ]
-page("padel-rankings.html", "Padel Rankings 2026: World Top 10 and How FIP Points Work | Padel Glass Box",
+page("padel-rankings.html", "Padel Rankings 2026: Best Padel Players in the World (FIP Top 10) | Padel Glass Box",
      f"Padel world rankings ({RK_DATE}): men's and women's FIP top 10 with points, how the ranking works (best 22 results, 52 weeks), points for a Major, P1 and P2, 2027 changes, and a free points calculator.",
      rk, rk_faq, "Padel rankings")
 
