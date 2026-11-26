@@ -3120,4 +3120,88 @@
     $$("[data-ht]", htb).forEach(function (g) { choose(g, function (v) { $$(".ht-i", htb).forEach(function (li) { li.hidden = !(v === "all" || li.dataset.era === v); }); }); });
   }
 
+  /* ---------- padel lob picker + facing a lob ---------- */
+  var lbl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+  var lpb = $("#lbp");
+  if (lpb) {
+    var lv = { opp: "net", bal: "set", opp2: "avg" };
+    var lrender = function () {
+      var h, p, t;
+      if (lv.opp === "back") {
+        h = "Don't lob: keep it low";
+        p = "Both opponents are already back, so a lob only hands them the net. Play a low, slow ball at their feet (a chiquita) and move forward together.";
+        t = "Next: " + lbl("shots", "padel shots") + " · " + lbl("padel-tactics", "tactics trainer");
+      } else if (lv.bal === "rush") {
+        h = "High defensive lob";
+        p = "You are in trouble, so go for height and safety, not speed. Aim cross-court and deep, past the service line, and use the time to get back into position.";
+        t = "Target: past the service line, before the back glass. Then recover: " + lbl("positioning", "where to stand");
+      } else if (lv.opp2 === "short" || (lv.opp === "mid" && lv.bal === "set")) {
+        h = "Attacking lob";
+        p = "You have time and a net player you can beat over the top. Play a lower, faster lob just over their reach" + (lv.opp === "mid" ? ", over the player at the net" : "") + ", cross-court. Follow it in and take the net as they turn.";
+        t = "Risk: too low and it is an easy smash. If unsure, add height.";
+      } else if (lv.opp2 === "tall") {
+        h = "Extra high, extra deep lob";
+        p = "Tall or quick smashers kill medium lobs. Go higher than feels normal and aim deep, so it lands well past the service line and dies near the back glass.";
+        t = "Mix in low balls at their feet so they cannot wait for the lob.";
+      } else {
+        h = "Deep cross-court lob";
+        p = (lv.bal === "glass" ? "Let the ball come off the back glass, stay low and lift it. " : "") + "Play a high lob cross-court, landing between the service line and the back glass. When they turn and run back, move up to the net with your partner.";
+        t = "Cross-court is the longest line: more room for error. Down the line is your surprise.";
+      }
+      $("#lbp-h").textContent = h; $("#lbp-p").textContent = p; $("#lbp-t").innerHTML = t;
+    };
+    $$("[data-lbp]", lpb).forEach(function (g) { choose(g, function (v) { lv[g.dataset.lbp] = v; lrender(); }); });
+    lrender();
+  }
+  var ldb = $("#lbd");
+  if (ldb) {
+    var dv = { dep: "mid", side: "fh" };
+    var LD = {
+      "short-fh": ["Smash it, flat or with a víbora", "A short lob on your forehand side is your chance to attack. Hit a flat smash to win the point, or a víbora with side spin into the side glass."],
+      "short-bh": ["Víbora or topspin smash", "On the backhand side you cannot swing a forehand flat smash easily. Turn sideways and play a víbora, or a topspin smash if you are confident."],
+      "mid-fh": ["Bandeja or aggressive víbora", "A middle lob is not short enough to put away safely. A bandeja keeps the net; a firmer víbora puts pressure on."],
+      "mid-bh": ["Bandeja, or a gancho if you have it", "Keep it simple: a controlled bandeja to the back corner so you keep the net. Advanced players use a gancho on this side."],
+      "deep-fh": ["Let it go onto the back glass", "A deep lob is hard to attack. Let it pass, play it off the back glass and lob back or hit a low ball, then win the net again."],
+      "deep-bh": ["Let it go, then lob back", "Turn and run back, let it come off the back glass and play a defensive lob. Trying to smash a deep lob on your backhand usually loses the net anyway."]
+    };
+    var drender = function () {
+      var a = LD[dv.dep + "-" + dv.side];
+      $("#lbd-h").textContent = a[0]; $("#lbd-p").textContent = a[1];
+      $("#lbd-t").innerHTML = "Left-handed? Swap the sides. Learn the shots: " + lbl("bandeja-vs-vibora", "bandeja vs víbora vs smash") + " · " + lbl("out-of-court-play", "out-of-court play");
+    };
+    $$("[data-lbd]", ldb).forEach(function (g) { choose(g, function (v) { dv[g.dataset.lbd] = v; drender(); }); });
+    drender();
+  }
+
+  /* ---------- overgrip change calculator + worn signs ---------- */
+  var ogb = $("#ogc");
+  if (ogb) {
+    var ov = { sweat: "1", clim: "1", lvl: "1" };
+    var orender = function () {
+      var n = parseFloat($("#og-n").value), len = parseFloat($("#og-len").value), price = parseFloat($("#og-p").value), cur = $("#og-cur").value;
+      if (isNaN(n) || n <= 0) { $("#og-h").textContent = "Add your sessions per week"; $("#og-p2").textContent = ""; $("#og-y").textContent = ""; return; }
+      var life = 10 * parseFloat(ov.sweat) * parseFloat(ov.clim) * parseFloat(ov.lvl);
+      var sess = Math.max(1, Math.round(life / len));
+      var days = Math.min(60, Math.round(sess / n * 7));
+      var perYear = Math.ceil(365 / Math.max(days, 1));
+      var when = days >= 56 ? "about every 2 months" : days >= 12 ? "about every " + Math.round(days / 7) + " weeks" : days >= 6 ? "about once a week" : "every few days";
+      $("#og-h").textContent = sess === 1 ? "Every session" : "Every " + sess + " sessions";
+      $("#og-p2").textContent = (sess === 1 ? "Fit a fresh one before each game" : "That is " + when) + " (about " + (Math.round(life * 10) / 10) + " hours of play per overgrip" + (days >= 60 ? ", capped at the two-month maximum" : "") + ").";
+      $("#og-y").textContent = "About " + perYear + " overgrips a year" + (!isNaN(price) && price > 0 ? ", roughly " + cur + Math.round(perYear * price) + " a year." : ".");
+      $("#og-tip").textContent = ov.sweat === "0.6" || ov.clim === "0.5" ? "Sweaty hands or humid courts: try an absorbent (dry) overgrip and keep a towel or wristband handy." : perYear >= 24 ? "Using 2 or more a month? A 12-pack usually costs less per grip." : "Change it sooner if it feels slippery when dry, whatever the calculator says.";
+    };
+    $$("[data-og]", ogb).forEach(function (g) { choose(g, function (v) { ov[g.dataset.og] = v; orender(); }); });
+    $$("input, select", ogb).forEach(function (i) { i.addEventListener("input", orender); i.addEventListener("change", orender); });
+    orender();
+  }
+  var ogsb = $("#ogs");
+  if (ogsb) {
+    var osr = function () {
+      var c = $$("[data-ogs]:checked", ogsb).length;
+      $("#ogs-out").textContent = c === 0 ? "No signs ticked: your overgrip is fine for now." : c === 1 ? "One sign: change it before your next match." : c + " signs: change it today. Your hand is working harder than it needs to.";
+    };
+    $$("[data-ogs]", ogsb).forEach(function (i) { i.addEventListener("change", osr); });
+    osr();
+  }
+
 })();

@@ -239,3 +239,10 @@
 - NEW /history-of-padel: filterable timeline (18 dated events, 1969-2026), who invented padel, why big in Spain/Argentina, why 'padel', 6 FAQs. Targets: history of padel, who invented padel, when was padel invented. Sources: LTA Padel history, FIP history (disagreements shown).
 - Links in: /beginners, /padel-cost, /padel-etiquette (booking apps); /glossary, /rules (history); footer both.
 - IndexNow pending https://padelglassbox.com/padel-booking-apps https://padelglassbox.com/history-of-padel
+
+## 27 Nov 2026 (early) — demand run 8
+- NEW /padel-lob: how to hit a lob (4 steps), where it should land, lob picker (opponents' position x balance x opponents' reach -> which lob), "facing a lob" picker (depth x side -> smash/víbora/bandeja/let it go), mistakes, when to lob, drill, 6 FAQs. Targets: padel lob, how to hit a lob in padel, how to deal with lobs. Sources: LTA Padel lobs page, The Padel School 'The padel lob' + 'How to deal with lobs'.
+- NEW /padel-overgrip: overgrip change calculator (sessions, length, sweat, climate, level -> change every N sessions, grips per year, yearly cost), worn-out signs checklist, overgrip vs base grip table, tacky vs dry, overgrip affiliate box (disclosure bar auto). Targets: how often to change padel overgrip, when to change overgrip. Sources: Padel USA (26 Oct 2026), Tienda Padel Point frequency guide, HEAD overgrip how-to, Zona de Padel (8 g).
+- CHANGED /racket-balance: new H2 'What padel racket weight is best for women?' (by strength/arm history/level, table, sources Justpadel 17 Jun 2026, Zona de Padel 2023, HEAD) + 2 FAQs (DEMAND H5).
+- Links in: /shots (lob), /padel-grip + /racket-care (overgrip), footer both.
+- IndexNow pending https://padelglassbox.com/padel-lob https://padelglassbox.com/padel-overgrip https://padelglassbox.com/racket-balance https://padelglassbox.com/shots https://padelglassbox.com/padel-grip https://padelglassbox.com/racket-care

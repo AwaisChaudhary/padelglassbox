@@ -131,3 +131,4 @@ page("history-of-padel.html", "History of Padel: Who Invented It + Interactive T
      ht, ht_faq, "History of padel")
 
 DEMAND_PAGES += ["padel-booking-apps.html", "history-of-padel.html"]
+exec((ROOT / "demand5.py").read_text())
