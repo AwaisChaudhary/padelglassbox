@@ -651,3 +651,14 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .tp-t { width: 100%; border-collapse: collapse; }
 .tp-t td { padding: 8px 6px; border-top: 1px solid var(--line); vertical-align: top; font-size: .95rem; }
 .tp-t td.num { white-space: nowrap; width: 4.5em; }
+/* serve tracker, tactics trainer, improvement guide (26 Nov 2026) */
+.sv-res { display: flex; flex-wrap: wrap; gap: 8px; }
+.sv-box { width: 100%; max-width: 360px; height: auto; color: var(--ink); }
+.tc-row { display: grid; grid-template-columns: 110px 1fr; gap: 14px; align-items: start; }
+.tc-svg { width: 110px; height: auto; display: block; }
+.tc-item { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.ig-p ol, .ig-p ul { padding-left: 20px; display: grid; gap: 4px; }
+.ig-tools { display: flex !important; flex-wrap: wrap; gap: 6px 18px; }
+@media (max-width: 560px) { .tc-row { grid-template-columns: 84px 1fr; gap: 10px; } .tc-svg { width: 84px; } }
+.ig-p[hidden] { display: none; }
+#sv-bars .mt-bar { grid-template-columns: 7.5em 1fr 5em; }

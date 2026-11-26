@@ -2625,4 +2625,89 @@
     $("#et-reset").addEventListener("click", function () { est = {}; etRender(); });
     etRender();
   }
+
+  /* ---------- serve practice tracker (26 Nov 2026) ---------- */
+  var svw = $("#sv");
+  if (svw && window.SERVE) {
+    var SV = window.SERVE, svCur = store.get("svcur", []), svHist = store.get("svhist", []), svT = "wide";
+    var svStats = function (arr) {
+      var o = { n: arr.length, inn: 0, hit: 0, by: {}, f: {} };
+      arr.forEach(function (x) {
+        var c = SV.r[x.r][1];
+        o.by[x.t] = o.by[x.t] || { n: 0, hit: 0, inn: 0 };
+        o.by[x.t].n++;
+        if (c === "in") { o.inn++; o.by[x.t].inn++; }
+        if (x.r === "hit") { o.hit++; o.by[x.t].hit++; }
+        if (c === "f") o.f[x.r] = (o.f[x.r] || 0) + 1;
+      });
+      return o;
+    };
+    var pct = function (a, b) { return b ? Math.round(a * 100 / b) : 0; };
+    var svText = "";
+    var svRender = function () {
+      var st = svStats(svCur);
+      $("#sv-sum").innerHTML = st.n ? "<strong>" + st.n + "</strong> serve" + (st.n === 1 ? "" : "s") + " · <strong>" + pct(st.inn, st.n) + "%</strong> in · <strong>" + pct(st.hit, st.n) + "%</strong> on target" : "No serves yet. Pick a target and tap what happened.";
+      $("#sv-bars").innerHTML = Object.keys(SV.t).map(function (k) {
+        var b = st.by[k] || { n: 0, hit: 0, inn: 0 };
+        return '<div class="mt-bar"><span>' + esc2(SV.t[k].split(" (")[0]) + '</span><span><i class="w" style="width:' + pct(b.hit, b.n) + '%"></i></span><b>' + (b.n ? pct(b.inn, b.n) + "% in" : "-") + "</b></div>";
+      }).join("") + (st.n ? '<p class="muted" style="color:#9fb0e0;font-size:.85rem;margin:6px 0 0">Bar = share on target. Right = share in the box.</p>' : "");
+      var worst = null; Object.keys(st.f).forEach(function (k) { if (!worst || st.f[k] > st.f[worst]) worst = k; });
+      var tip;
+      if (st.n < 5) tip = "Log at least 10 serves for a useful tip.";
+      else if (worst && st.f[worst] >= 2) tip = SV.tip[worst];
+      else if (pct(st.inn, st.n) >= 80) tip = "8 in 10 or better: well done. Now aim for the target more often, or add slice.";
+      else tip = "Slow down a little: aim to get 8 in 10 serves in before you add pace or spin.";
+      $("#sv-tip").textContent = tip;
+      var h = $("#sv-hist");
+      h.innerHTML = svHist.length ? '<table class="tp-t"><tbody>' + svHist.slice(-10).reverse().map(function (x) { return "<tr><td>" + esc2(x.d) + "</td><td>" + x.n + " serves</td><td>" + x.i + "% in</td><td>" + x.h + "% on target</td></tr>"; }).join("") + "</tbody></table>" : "";
+      $("#sv-hempty").hidden = svHist.length > 0;
+      svText = "Padel serve practice: " + st.n + " serves, " + pct(st.inn, st.n) + "% in, " + pct(st.hit, st.n) + "% on target. " + tip;
+      store.set("svcur", svCur); store.set("svhist", svHist);
+    };
+    $$("button", $("#sv-tgt")).forEach(function (b) { b.addEventListener("click", function () { svT = b.dataset.v; $$("button", $("#sv-tgt")).forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); }); });
+    $$("button[data-r]", $("#sv-res")).forEach(function (b) { b.addEventListener("click", function () { svCur.push({ t: svT, r: b.dataset.r }); svRender(); }); });
+    $("#sv-undo").addEventListener("click", function () { svCur.pop(); svRender(); });
+    $("#sv-reset").addEventListener("click", function () { svCur = []; svRender(); });
+    $("#sv-save").addEventListener("click", function () {
+      var st = svStats(svCur); if (!st.n) { toast("Log some serves first"); return; }
+      svHist.push({ d: new Date().toLocaleDateString(), n: st.n, i: pct(st.inn, st.n), h: pct(st.hit, st.n) });
+      svCur = []; svRender(); toast("Session saved");
+    });
+    $("#sv-copy").addEventListener("click", function () { copyTxt(svText, "Summary copied"); });
+    svRender();
+  }
+
+  /* ---------- padel tactics trainer (26 Nov 2026) ---------- */
+  var tcw = $("#tc");
+  if (tcw && window.TACQ) {
+    var TQ = window.TACQ, tst = store.get("tacq", {});
+    var tcRender = function () {
+      var n = 0, right = 0;
+      $("#tc-q").innerHTML = TQ.map(function (q, i) {
+        var a = tst[i], done = a !== undefined && q.o[a];
+        if (done) { n++; if (q.o[a][1]) right++; }
+        return '<div class="q tc-item"><div class="tc-row">' + q.svg + '<div><h3>' + (i + 1) + ". " + esc2(q.t) + '</h3><p class="muted" style="margin:0 0 10px">' + esc2(q.s) + '</p><div class="opts" role="group" aria-label="Scenario ' + (i + 1) + '">' + q.o.map(function (o, j) {
+          return '<button type="button" class="opt" data-q="' + i + '" data-v="' + j + '" aria-pressed="' + (a === j ? "true" : "false") + '">' + esc2(o[0]) + "</button>";
+        }).join("") + "</div>" + (done ? '<p class="et-fb ' + (q.o[a][1] ? "ok" : "no") + '">' + (q.o[a][1] ? "Good choice. " : "Not the best option. ") + esc2(q.w) + "</p>" : "") + "</div></div></div>";
+      }).join("");
+      $$("button[data-q]", $("#tc-q")).forEach(function (b) { b.addEventListener("click", function () { tst[b.dataset.q] = +b.dataset.v; tcRender(); }); });
+      $("#tc-s").innerHTML = "<strong>" + right + " of " + TQ.length + "</strong> best choices" + (n < TQ.length ? " · " + (TQ.length - n) + " left" : "");
+      $("#tc-m").textContent = n < TQ.length ? "Answer all ten to get your verdict." : right >= 9 ? "Excellent padel brain. Now make it happen on court." : right >= 6 ? "Good tactical sense. Read the rules below for the ones you missed." : "Read the tactics table and rules below, then try again.";
+      store.set("tacq", tst);
+    };
+    $("#tc-reset").addEventListener("click", function () { tst = {}; tcRender(); });
+    tcRender();
+  }
+
+  /* ---------- improvement guide level picker (26 Nov 2026) ---------- */
+  var igp = $("#ig-pick");
+  if (igp) {
+    var igSet = function (v) {
+      $$("button", igp).forEach(function (x) { x.setAttribute("aria-pressed", x.dataset.v === v ? "true" : "false"); });
+      $$(".ig-p").forEach(function (p) { p.hidden = p.dataset.lv !== v; });
+      store.set("iglv", v);
+    };
+    $$("button", igp).forEach(function (b) { b.addEventListener("click", function () { igSet(b.dataset.v); }); });
+    var igv = store.get("iglv", ""); if (igv) igSet(igv);
+  }
 })();

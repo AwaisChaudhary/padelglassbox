@@ -7,17 +7,24 @@ Tools in this repo: `seo_post.py` (runs at the end of build.py: sitemap = every 
 5. Links: only real editorial links via outreach batches Awais approves; build "linkable assets" (original data, free tools, maps) and list pitch targets in DEMAND for approval.
 6. Monthly: run seo_audit.py on the whole site and fix broken links, orphans, duplicate titles/descriptions, missing schema.
 
+## RADAR 26 Nov (demand-first build run 3; web search)
+T1. DONE 26 Nov https://padelglassbox.com/how-to-serve-padel — 'how to serve in padel', 'padel serve tips', 'padel serve drills': Red Bull 'padel how to serve beginners guide' (4 editions) + 'padel serve tips', HEAD 'how to serve in padel' (4 locales), LTA Padel serve page, Padel Browser, The Padel School (4+ serve posts), Tienda Padel Point serve-accuracy exercises x2. Built as 6 steps + serve practice tracker.
+T2. DONE 26 Nov https://padelglassbox.com/padel-tactics — 'padel tactics', 'how to win more padel points': The Padel School tactics hub + 'how to win a padel point', HEAD 'padel tactics' (4 locales), LTA Padel 'how to win more padel matches' (Mar 2026), bet365 (Apr 2026), Lidl. Built as 10-scenario trainer with own court drawings.
+T3. DONE 26 Nov https://padelglassbox.com/padel-improvement-guide — 'how to get better at padel', 'improve padel fast': Padel Browser, Bounce (9 Jun 2026), LTA training tips, The Padel School, Total Padel x2, Everything Padel x2, Red Bull, HEAD (6 locales), padelspeak.
+T4. OPEN 'padel elbow' (Decathlon, Tienda Padel Point x2, Justpadel, The Padel Paper, Esprit Padel x3): /padel-injuries already has an outer-elbow zone + 2 FAQs (NHS). Next: add a dedicated 'What is padel elbow?' H2 with racket/grip checklist (needs a 2nd readable source; Tienda + Padel Paper fetch failed this run).
+T5. WATCH Mexico Major 2026 results still not indexed (search returns 2025: Coello/Tapia, Bea Gonzalez/Claudia Fernandez); refresh /padel-rankings after Finals.
+
 ## DEMAND RADAR 26 Nov 06:45 (Google autocomplete US)
 P1. OPEN /padel-vs-racquetball + platform tennis / paddleball comparisons (autocomplete "padel vs racquetball/paddleball/platform tennis/squash"), one comparison page with a table.
 P2. OPEN "best padel racket for beginners" guide (we have /cheap-padel-rackets, /intermediate-padel-racket: add a beginner page or section), "best padel player in the world" (rankings, dated).
-P3. OPEN "how to serve in padel" step-by-step with a drill (we have /serve-rules = rules only) and "pickleball how to hold paddle".
+P3. PARTLY DONE 26 Nov (serve part: https://padelglassbox.com/how-to-serve-padel) "how to serve in padel" step-by-step with a drill (we have /serve-rules = rules only) and "pickleball how to hold paddle".
 
 ## RADAR 26 Nov (demand-first build run 2; web search)
 E1. DONE 26 Nov https://padelglassbox.com/padel-etiquette — 'padel etiquette' / 'padel unwritten rules': Red Bull article in 5 country editions (gb, us, ca, int, ph), Padel Browser (15 Apr 2026), Dummies cheat sheet, Jean Galea, club FAQ pages. Built as a 10-situation quiz + checklist + rule-vs-custom table.
 E2. DONE 26 Nov /padel-training-plan — 'padel training plan', 'weekly padel training routine': 8+ Tienda Padel Point guides, The Padel School pathways, padel-rules beginner 4-week and intermediate 8-week plans.
 E3. DONE 26 Nov /padel-match-tracker — 'padel match tracker / stats': 15+ App Store apps (PadelRatio, Pelota, Padel Stats Pro, RecordUp, PadelTick, Racketly) + 'padel match tracker' blog guides.
 E4. OPEN 'why is padel so expensive' / 'cost to start padel' — The Padel School post + podcast, Bounce blog (23 Jul 2026), Tienda Padel Point FAQ. Plan: H2 + cost calculator section on /padel-lessons or a /padel-cost page (court hire per person, racket, shoes, balls) with 2 sources per figure.
-E5. OPEN 'padel elbow' — The Padel School dedicated post; we have /padel-injuries: add a 'padel elbow' H2 + FAQ there (merge, not new page).
+E5. PARTLY (see T4) 'padel elbow' — The Padel School dedicated post; we have /padel-injuries: add a 'padel elbow' H2 + FAQ there (merge, not new page).
 E6. WATCH Premier Padel Mexico Major (Acapulco) 2026 results not yet indexed (search returns 2025 edition); refresh /padel-rankings after the Finals.
 
 ## TOP PRIORITY (Awais 26 Nov 01:00): "Don't just add dimensions or rules. Add something people will USE the site for: solve their problems, help them improve their padel game." Build these BEFORE any more reference pages (2-3 per run, tools first):
@@ -25,8 +32,8 @@ I1. DONE 26 Nov https://padelglassbox.com/fix-my-padel — ("why do I keep...": 
 I2. DONE 26 Nov https://padelglassbox.com/padel-training-plan — /padel-training-plan (generator): level (from /level-calculator), days per week, goal (net game, defence, fitness, matches) -> a 4-week plan with drills from /drills, warm-up, match play, rest; printable + copy.
 I3. DONE 26 Nov https://padelglassbox.com/padel-match-tracker — /padel-match-tracker: tap-to-log winners and errors by shot (serve, return, volley, bandeja, vibora, smash, lob, wall) during or after a match; shows where points are lost + the fix page for the worst shot; saves locally.
 I4. DONE 26 Nov https://padelglassbox.com/which-side-padel — ("left or right side?" quiz: forehand/backhand strengths, smash, lefty/righty, partner) -> recommended side and why, with what each side does.
-I5. OPEN /padel-tactics: interactive scenarios ("opponents at the net, you're at the back: what shot?") with answers and diagrams (own SVG), building on /positioning.
-I6. OPEN /padel-improvement-guide hub: "how to get better at padel" (level by level: what to learn next, which tools to use) linking I1-I5, drills, level calculator.
+I5. DONE 26 Nov https://padelglassbox.com/padel-tactics — /padel-tactics: interactive scenarios ("opponents at the net, you're at the back: what shot?") with answers and diagrams (own SVG), building on /positioning.
+I6. DONE 26 Nov https://padelglassbox.com/padel-improvement-guide — /padel-improvement-guide hub: "how to get better at padel" (level by level: what to learn next, which tools to use) linking I1-I5, drills, level calculator.
 I7. DONE (already built: Mexicano mode on https://padelglassbox.com/americano) /mexicano (generator) if /americano doesn't already do Mexicano pairing; otherwise add a Mexicano mode to /americano.
 Evidence: 'how to get better at padel', 'padel tips', 'padel drills', 'padel left or right side', 'padel tactics', 'how to improve padel' (Google autocomplete, People Also Ask). Re-check autocomplete each run.
 

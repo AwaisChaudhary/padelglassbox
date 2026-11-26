@@ -51,7 +51,7 @@ FIX = [
      "cause": ["Serving high and soft into the middle of the box.", "Rushing the serve.", "Staying at the back after serving."],
      "fix": ["Serve low over the net and aim near the side glass or at the receiver's backhand.", "Take a breath, bounce the ball, and use a smooth, short swing below the waist.", "Move to the net straight after the serve, together with your partner."],
      "drill": ["Serve targets", "Put two towels in the service box: one near the side glass, one near the centre line. Serve 10 at each.", "20 serves, count hits"],
-     "links": [("serve-rules.html", "Serve rules and checker"), ("positioning.html", "Where to stand after the serve")]},
+     "links": [("how-to-serve-padel.html", "How to serve + tracker"), ("serve-rules.html", "Serve rules and checker"), ("positioning.html", "Where to stand after the serve")]},
     {"id": "partner", "b": "My partner and I both go for the ball (or both leave it)",
      "q": "Who takes the middle ball in padel?",
      "cause": ["No plan for balls down the middle.", "Not calling the ball.", "Moving at different times, so a gap opens between you."],
@@ -124,6 +124,7 @@ fx = f'''<header class="hero"><div class="wrap"><h1>Fix my padel: why do I keep 
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do I get better at padel faster?</h2></div><div class="grid">
 <div class="card"><h3>Work on one thing at a time</h3><p>Not sure which is your biggest leak? Count it with the <a href="{href("padel-match-tracker.html")}">match tracker</a>. Practise its drill for a week or two, or build a <a href="{href("padel-training-plan.html")}">4-week training plan</a>. Changing five things at once rarely sticks.</p></div>
 <div class="card"><h3>Know your level</h3><p>The <a href="{href("level-calculator.html")}">level calculator</a> shows what players at your level usually work on next.</p></div>
+<div class="card"><h3>Think tactics</h3><p>Choose better shots in 10 drawn situations with the <a href="{href("padel-tactics.html")}">tactics trainer</a>, or see what to learn next in the <a href="{href("padel-improvement-guide.html")}">level-by-level improvement guide</a>.</p></div>
 <div class="card"><h3>Get eyes on your game</h3><p>A coach spots causes you cannot feel. See what <a href="{href("padel-lessons.html")}">padel lessons</a> cost and how to pick a coach.</p></div>
 </div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
