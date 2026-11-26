@@ -710,3 +710,11 @@ button.ko-t:hover:not(:disabled) { background: rgba(23,71,201,.07); }
 .bc-no::before { content: "✗"; color: #ff8f7a; }
 .bc-list b { color: #fff; }
 .gen-main, .gen-side { min-width: 0; }
+/* group stage generator */
+.gs-m { display: grid; grid-template-columns: minmax(0,1fr) 64px auto 64px minmax(0,1fr); gap: 8px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); }
+.gs-m span { overflow-wrap: anywhere; font-weight: 600; }
+.gs-m span:last-child { text-align: right; }
+.gs-m .search { margin: 0; padding: 8px; text-align: center; }
+.gs-m b { color: var(--muted); font-weight: 600; }
+.gs-tab { min-width: 360px; }
+.gs-tab tr.gs-q td:first-child { color: var(--turf); font-weight: 800; }

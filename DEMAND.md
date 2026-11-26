@@ -1,7 +1,15 @@
 ## SEO PLAYBOOK — standing rules for every run (Awais 26 Nov 01:35: "do SEO like the best SEO guy in the world for all sites")
 
+## RADAR 26 Nov late (demand-first build run 6; web search)
+G1. DONE 26 Nov https://padelglassbox.com/padel-group-stage-generator — closes B6 'groups then knockout' / 'padel tournament group stage generator': tournifyapp padel + flexible formats pages, turnierplan.eu, xporty padel, visu.network tools, Polimi Spring Games padel 'game formula' (groups then knockout), App Store 'Tennis & Padel Tournaments', 'Padel Master'. Sends qualifiers straight into /padel-tournament-bracket.
+G2. DONE 26 Nov https://padelglassbox.com/dupr-rating — closes R1 'pickleball how to get dupr rating' (autocomplete #3): DUPR's own guides (how to get a rating, how it works, how it is calculated Aug 2026, top 5 ways to improve Nov 2026, coach rating), Pickleheads DUPR guide (3 URLs), HEAD 'pickleball ratings', Volley help centre. Facts from DUPR pages only.
+G3. DONE 26 Nov https://padelglassbox.com/padel-vs-squash — closes B5 'padel vs squash': Red Bull padel vs tennis vs squash (5 editions), Bounce 'padel vs squash' (30 Jul 2026), The Padel School 'padel vs squash', squashchamps, Wilson 'difference between padel and other racket sports' (5 locales). Facts: FIP + WSF.
+G4. BLOCKED Premier Padel calendar hub (R2 'premier padel hoy', N4, competitor gap #4): Wikipedia 2026 pages disagree by 1-2 days on 10+ events, list Finals 7-13 Dec (premierpadel.com/tourfinals says 10-13 Dec) and have no results after Madrid; 2027 calendar not published (FIP opened 2027 applications Jul 2026). Build only from premierpadel.com/padelfip.com event pages; retry after the Finals.
+G5. OPEN 'padel booking app' / 'Playtomic alternatives' (Playtomic 'what is padel' pages in 4 locales, bookandgo.app sport guides, padelspeed 'joining a padel app' + 'how to find people to play padel with'): D3/R5 still open. Pair with a 'how to find padel partners' H2.
+G6. OPEN 'history of padel' / 'where does padel come from' (Red Bull history of padel x3 editions, Mexico News Daily 'the sport Acapulco gave the world', NBC News Oct 2025): merge as an H2 + timeline on /beginners or /glossary rather than a thin page.
+
 ## EVENING RADAR 26 Nov 18:45 PKT (Google autocomplete US + Trends past 24h)
-- R1 OPEN 'pickleball how to get dupr rating' (#3; 0 pages) — include in the pickleball section (E1) as its own explainer.
+- R1 DONE 26 Nov https://padelglassbox.com/dupr-rating 'pickleball how to get dupr rating' (#3; 0 pages) — include in the pickleball section (E1) as its own explainer.
 - R2 OPEN Trends rising 'premier padel hoy' (+80%, Spanish): Premier Padel calendar/results page should show today's/next event clearly at the top.
 
 ## NEW CATEGORY EXPANSION (Awais 26 Nov: when traffic plateaus, open new categories backed by Trends/searches; don't wait for input)
@@ -22,8 +30,8 @@ B1. DONE 26 Nov https://padelglassbox.com/padel-tournament-bracket — 'padel to
 B2. DONE 26 Nov (merged H2 + FAQ on https://padelglassbox.com/padel-tournament-bracket) 'how long does a padel match last': Zona de Padel, Esprit Padel (3 locales), Tienda Padel Point, padel-rules, bornlivingyoga; facts from Ungureanu et al. 2022 (sub-elite 53.7 min) + Courel-Ibáñez et al. 2017 (pro rally 9.4 s).
 B3. DONE 26 Nov https://padelglassbox.com/best-padel-racket-for-beginners — 'best padel racket for beginners (2026)': Padel Market (4 locales + 2026 post), Justpadel 2026, padelful, padelspeak, Zona de Padel Oct 2026, Central Sports UK 2026 x3. Built as a spec checker (not a picks list, to avoid duplicating /cheap-padel-rackets).
 B4. DONE 26 Nov https://padelglassbox.com/padel-vs-racquetball — closes P1 / D5 / P3 'padel vs racquetball / platform tennis': Bounce 'padel vs racquetball' (10 Jul 2026) + 'platform tennis vs padel' (1 Aug 2026), Wilson 'difference between padel and other racket sports' (4 locales). Facts: USA Racquetball rulebook, APTA rules.
-B5. OPEN 'padel vs squash' (Red Bull padel vs tennis vs squash, 4 editions): add squash column/H2 to /padel-vs-racquetball or /padel-vs-tennis-vs-pickleball (WSF facts already on /squash-court-dimensions).
-B6. OPEN 'groups then knockout' generator: round robin groups feeding the bracket automatically (natural upgrade of /padel-tournament-bracket).
+B5. DONE 26 Nov https://padelglassbox.com/padel-vs-squash 'padel vs squash' (Red Bull padel vs tennis vs squash, 4 editions): add squash column/H2 to /padel-vs-racquetball or /padel-vs-tennis-vs-pickleball (WSF facts already on /squash-court-dimensions).
+B6. DONE 26 Nov https://padelglassbox.com/padel-group-stage-generator 'groups then knockout' generator: round robin groups feeding the bracket automatically (natural upgrade of /padel-tournament-bracket).
 
 ## COMPETITOR WATCH 26 Nov 2026 (vs racketguide.com (2,500-racket database), Tennis Warehouse University padel, App Store padel apps: Padel Tracker, Learn Padel 21-Day Course, Padel Coach swing analysis)
 We have 63 pages incl. 12 tools (level calculator, racket finder, gift finder, score keeper, match tracker, Americano, round robin, ladder, king of the court, FIP points, training plan, fix-my-padel).

@@ -117,7 +117,7 @@ pr = f'''<header class="hero"><div class="wrap"><h1>Pickleball rules, explained 
 <div class="card"><h3>2. The two-bounce rule</h3><p>The return of serve must bounce, and then the serving side's next shot must bounce too. After those two bounces, either side can volley (hit the ball in the air) or play it off the bounce.</p></div>
 <div class="card"><h3>3. The kitchen</h3><p>The non-volley zone is the 7 ft area on each side of the net. You can't volley while touching it, including the line, and you can't let your momentum carry you into it after a volley. You can step in any time to play a ball that has bounced.</p></div>
 <div class="card"><h3>4. Faults</h3><p>A rally ends when the ball lands out, goes into the net, bounces twice, is volleyed from the kitchen, or a player touches the net. Balls landing on any line are in, except a serve on the kitchen line.</p></div>
-<div class="card"><h3>5. Scoring (traditional)</h3><p>Only the serving side scores. Games go to 11, win by 2. In doubles both partners serve before the serve passes to the other team, except at the start, when only one player serves; that's why the first score is called "0-0-2". Some leagues and events also use rally scoring, where every rally wins a point. Keep track with our <a href="{href("pickleball-score.html")}">pickleball score keeper</a>.</p></div>
+<div class="card"><h3>5. Scoring (traditional)</h3><p>Only the serving side scores. Games go to 11, win by 2. In doubles both partners serve before the serve passes to the other team, except at the start, when only one player serves; that's why the first score is called "0-0-2". Some leagues and events also use rally scoring, where every rally wins a point. Keep track with our <a href="{href("pickleball-score.html")}">pickleball score keeper</a>. Want a rating? See <a href="{href("dupr-rating.html")}">how to get a DUPR rating</a>.</p></div>
 <div class="card"><h3>6. Calling the score</h3><p>In doubles, call three numbers before serving: your score, the opponents' score, then 1 or 2 for which server you are. In singles, call two numbers, and serve from the right when your score is even and the left when it's odd.</p></div>
 </div></div></section>
 {AD.format("pb-rules")}
@@ -204,7 +204,7 @@ sq = f"""<header class="hero"><div class="wrap"><h1>Squash court dimensions</h1>
 <p style="margin-top:8px;color:#d6e2f2">Drawn to scale. Front wall on the left. Floor lines are red and 50 mm wide.</p></div></div></section>
 <section><div class="wrap"><div class="sh"><h2>All the measurements</h2><p class="muted">World Squash singles court specification.</p></div>
 {dim_table([("Floor (inside the walls)", "9.75 × 6.40 m", "32 × 21 ft"), ("Front wall out line (height)", "4.57 m", "15 ft"), ("Back wall out line (height)", "2.13 m", "7 ft"), ("Service line on the front wall", "1.78 m", "5 ft 10 in"), ("Top of the tin", "0.48 m", "19 in"), ("Short line from the front wall", "5.44 m", "17 ft 10 in"), ("Service boxes", "1.60 × 1.60 m", "5 ft 3 in square"), ("Line width", "50 mm", "2 in"), ("Minimum clear height above the floor", "5.64 m", "18 ft 6 in")])}
-<p class="muted" style="margin-top:10px">The side wall out lines slope from the front wall line (4.57 m) down to the back wall line (2.13 m). Doubles courts are wider: 9.75 × 7.62 m.</p>
+<p class="muted" style="margin-top:10px">The side wall out lines slope from the front wall line (4.57 m) down to the back wall line (2.13 m). Doubles courts are wider: 9.75 × 7.62 m. Coming from squash? See <a href="{href("padel-vs-squash.html")}">padel vs squash</a>.</p>
 </div></div></section>
 {AD.format("sq-court")}
 {CMP}{compare_card("squash-court-dimensions.html")}"""
@@ -319,6 +319,7 @@ pbs = f"""<header class="hero"><div class="wrap"><h1>Pickleball score keeper</h1
 </tbody></table></div><p class="muted" style="margin-top:10px">Calls are always the serving side's score first.</p></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
 <div class="card"><h3><a href="{href("pickleball-rules.html")}">Pickleball rules and quiz</a></h3><p>Serve, kitchen and the two-bounce rule.</p></div>
+<div class="card"><h3><a href="{href("dupr-rating.html")}">How to get a DUPR rating</a></h3><p>Free steps and a match checker: who DUPR expects to win.</p></div>
 <div class="card"><h3><a href="{href("pickleball-court-dimensions.html")}">Pickleball court dimensions</a></h3><p>20 × 44 ft, the kitchen and the net.</p></div>
 <div class="card"><h3><a href="{href("score.html")}">Padel score keeper</a></h3><p>Playing padel too? Tennis scoring with golden point and Star Point.</p></div>
 </div><p class="muted" style="margin-top:14px">Based on USA Pickleball's scoring and positioning guide and rulebook (rules 4 and 12), checked 25 Nov 2026. Rally scoring game-point rule: USA Pickleball rule 12.B.1.c.</p></div></section>

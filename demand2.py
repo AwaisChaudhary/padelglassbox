@@ -47,11 +47,11 @@ ko = f'''<header class="hero"><div class="wrap"><h1>Padel tournament bracket gen
 <div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Format</th><th scope="col">Teams</th><th scope="col">Best for</th><th scope="col">Downside</th></tr></thead><tbody>
 <tr><td>Knockout (this tool)</td><td>Fixed pairs</td><td>A clear winner fast, many pairs, few courts</td><td>Half the teams play only once</td></tr>
 <tr><td><a href="{href("round-robin.html")}">Round robin</a></td><td>Fixed pairs</td><td>Fair results, everyone plays everyone</td><td>Many matches if there are lots of pairs</td></tr>
-<tr><td>Groups then knockout</td><td>Fixed pairs</td><td>Bigger events: round robin groups of 3 or 4, then top 2 into a knockout</td><td>Needs more court time</td></tr>
+<tr><td><a href="{href("padel-group-stage-generator.html")}">Groups then knockout</a></td><td>Fixed pairs</td><td>Bigger events: round robin groups of 3 or 4, then top 2 into a knockout</td><td>Needs more court time</td></tr>
 <tr><td><a href="{href("americano.html")}">Americano / Mexicano</a></td><td>Partners change</td><td>Social nights, mixed levels</td><td>Individual winner, not a team</td></tr>
 <tr><td><a href="{href("king-of-the-court.html")}">King of the Court</a></td><td>Fixed pairs</td><td>Quick games on one court</td><td>Only one court</td></tr>
 </tbody></table></div>
-<p class="muted" style="margin-top:12px">Running groups first? Make each group in the <a href="{href("round-robin.html")}">round robin generator</a>, then type the qualifiers here in seed order (group winners first). Keep score on court with the <a href="{href("score.html")}">score keeper</a>.</p></div></section>'''
+<p class="muted" style="margin-top:12px">Running groups first? Use the <a href="{href("padel-group-stage-generator.html")}">group stage generator</a>: it makes the groups, keeps the tables and sends the qualifiers here in seed order. Keep score on court with the <a href="{href("score.html")}">score keeper</a>.</p></div></section>'''
 ko_faq = [
     ("How many matches are in a padel knockout tournament?", "One less than the number of pairs: 8 pairs play 7 matches, 16 pairs play 15. Add one if you play a 3rd-place match."),
     ("How do byes work in a padel bracket?", "If the number of pairs is not 4, 8, 16 or 32, some teams skip round 1. Byes fill the draw up to the next size and go to the top seeds. 12 pairs in a 16 draw means 4 byes."),
@@ -152,7 +152,7 @@ vr = f'''<header class="hero"><div class="wrap"><h1>Padel vs racquetball vs plat
 <div class="card"><h3>Court and walls</h3><p>A padel court is bigger (20 x 10 m) with glass back walls. A platform tennis court is 44 x 20 ft inside tight wire screens on a raised deck.</p></div>
 <div class="card"><h3>Serve and season</h3><p>Padel serves are underarm with 2 tries. Platform tennis allows an overarm serve, but only one in doubles. Platform tennis is mostly a winter outdoor game in the north-east US.</p></div>
 </div>
-<p class="muted" style="margin-top:12px">Comparing with other sports too? See <a href="{href("padel-vs-tennis-vs-pickleball.html")}">padel vs tennis vs pickleball</a>, <a href="{href("squash-court-dimensions.html")}">squash court dimensions</a> and <a href="{href("court-sizes-compared.html")}">all court sizes to scale</a>.</p></div></section>'''
+<p class="muted" style="margin-top:12px">Comparing with other sports too? See <a href="{href("padel-vs-squash.html")}">padel vs squash</a>, <a href="{href("padel-vs-tennis-vs-pickleball.html")}">padel vs tennis vs pickleball</a>, <a href="{href("squash-court-dimensions.html")}">squash court dimensions</a> and <a href="{href("court-sizes-compared.html")}">all court sizes to scale</a>.</p></div></section>'''
 vr_faq = [
     ("Is padel the same as racquetball?", "No. Padel is played over a net on a glass-walled court, mostly in doubles. Racquetball has no net: players hit the front wall of a closed room and every surface, including the ceiling, is in play."),
     ("Is platform tennis the same as padel?", "No, but they are close. Both are doubles with solid paddles, tennis scoring and walls or screens in play after the bounce. Platform tennis is on a smaller 44 x 20 ft court inside wire screens and has only one serve in doubles."),
@@ -165,3 +165,4 @@ page("padel-vs-racquetball.html", "Padel vs Racquetball vs Platform Tennis: Diff
      vr, vr_faq, "Padel vs racquetball")
 
 DEMAND_PAGES += ["padel-tournament-bracket.html", "best-padel-racket-for-beginners.html", "padel-vs-racquetball.html"]
+exec((ROOT / "demand3.py").read_text())

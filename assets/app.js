@@ -2874,6 +2874,8 @@
       var txt = "Padel knockout draw\n" + rows.map(function (ms, r) { return "\n" + rname(r, R - 1) + "\n" + ms.map(function (m) { return nm(m.a) + " v " + nm(m.b) + (m.w === 0 ? "  -> " + nm(m.a) : m.w === 1 ? "  -> " + nm(m.b) : ""); }).join("\n"); }).join("\n") + "\n\nMade with padelglassbox.com/padel-tournament-bracket";
       if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { toast("Draw copied"); }, function () { toast("Couldn't copy"); }); else toast("Couldn't copy");
     });
+    var kimp = store.get("pp-ko-import", null);
+    if (kimp && kimp.length) { store.set("pp-ko-import", null); kst = null; store.set("pp-ko", null); kn.value = kimp.join("\n"); kcount(); toast("Qualifiers added: check the order, then make the draw"); }
     if (kst && kst.names && kst.first) kshow();
   }
 
@@ -2921,4 +2923,135 @@
     $$("[data-vr]", vrb).forEach(function (g) { choose(g, function (v) { va[g.dataset.vr] = v; vrender(); }); });
     vrender();
   }
+  /* ---------- group stage generator (groups then knockout) ---------- */
+  var gsb = $("#gs");
+  if (gsb) {
+    var gst = store.get("pp-grp", null), gopt = { size: "4", q: "2", fmt: "30" };
+    var gn = $("#gs-names"), gesc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var gl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var glist = function () { return gn.value.split("\n").map(function (x) { return x.trim(); }).filter(Boolean); };
+    var gcount = function () { var n = glist().length; $("#gs-count").textContent = n ? n + " pair" + (n === 1 ? "" : "s") : ""; };
+    gn.addEventListener("input", gcount);
+    $$("[data-gs]", gsb).forEach(function (g) { choose(g, function (v) { gopt[g.dataset.gs] = v; }); });
+    var LET = "ABCDEFGH";
+    var rr = function (n) { var m = []; for (var i = 0; i < n; i++) for (var j = i + 1; j < n; j++) m.push([i, j]); return m; };
+    var order4 = function (ms, n) {
+      // spread matches so the same pair does not play twice in a row where possible
+      if (n === 4) return [[0, 3], [1, 2], [0, 2], [1, 3], [0, 1], [2, 3]];
+      if (n === 3) return [[0, 1], [1, 2], [0, 2]];
+      if (n === 5) return [[0, 1], [2, 3], [0, 4], [1, 2], [3, 4], [0, 2], [1, 3], [2, 4], [0, 3], [1, 4]];
+      return ms;
+    };
+    var table = function (g) {
+      var rows = g.teams.map(function (t) { return { t: t, p: 0, w: 0, gf: 0, ga: 0 }; });
+      g.m.forEach(function (m) {
+        var a = m.s[0], b = m.s[1];
+        if (a === "" || b === "" || a == null || b == null || a === b) return;
+        a = +a; b = +b;
+        var A = rows[m.p[0]], B = rows[m.p[1]];
+        A.p++; B.p++; A.gf += a; A.ga += b; B.gf += b; B.ga += a;
+        if (a > b) A.w++; else B.w++;
+      });
+      rows.sort(function (x, y) { return y.w - x.w || (y.gf - y.ga) - (x.gf - x.ga) || y.gf - x.gf || x.t - y.t; });
+      return rows;
+    };
+    var gtime = function () { var tot = gst.groups.reduce(function (s, g) { return s + g.m.length; }, 0); return { tot: tot, mins: Math.ceil(tot / gst.courts) * (gst.fmt + 5) }; };
+    var hm = function (mins) { return mins >= 60 ? Math.floor(mins / 60) + " h" + (mins % 60 ? " " + mins % 60 + " min" : "") : mins + " min"; };
+    var quals = function () {
+      var tabs = gst.groups.map(table), out = [];
+      for (var r = 0; r < gst.q; r++) { var lvl = tabs.map(function (t, i) { return { n: gst.names[t[r].t], g: i }; }); if (r % 2) lvl.reverse(); out = out.concat(lvl); }
+      return out;
+    };
+    var gboard = function () {
+      var t = gtime(), done = 0, tabs = gst.groups.map(table);
+      gst.groups.forEach(function (g) { g.m.forEach(function (m) { if (m.s[0] !== "" && m.s[1] !== "" && m.s[0] !== m.s[1]) done++; }); });
+      var all = done === t.tot, q = quals(), ko = q.length;
+      $("#gs-sum").textContent = gst.names.length + " pairs · " + gst.groups.length + " groups · " + t.tot + " group matches";
+      $("#gs-board").innerHTML = "<h2>" + (all ? "Groups finished" : "Your event") + '</h2><dl class="spec" style="display:grid;grid-template-columns:auto 1fr;gap:8px 16px"><dt>Groups</dt><dd>' + gst.groups.map(function (g, i) { return LET[i] + " (" + g.teams.length + ")"; }).join(", ") + "</dd><dt>Group matches</dt><dd>" + t.tot + " (" + done + " played)</dd><dt>Courts</dt><dd>" + gst.courts + "</dd><dt>Group stage</dt><dd>About " + hm(t.mins) + "</dd><dt>Qualifiers</dt><dd>" + ko + " (top " + gst.q + " per group)</dd><dt>Knockout</dt><dd>" + (ko - 1) + " matches</dd></dl>" +
+        "<p><b>" + (all ? "Qualified" : "Qualifying now") + ":</b><br>" + q.map(function (x, i) { return (i + 1) + ". " + gesc(x.n) + " (" + LET[x.g] + ")"; }).join("<br>") + "</p>" +
+        '<button class="btn lime sm" type="button" id="gs-send"' + (all ? "" : "") + ">Send to knockout bracket</button>" +
+        '<p style="font-size:.9rem;margin-top:10px">' + (all ? "Seed order: group winners first, then runners-up, so winners meet runners-up early." : "You can send the current order now, but finish the groups first for the final order.") + "</p><p>Next: " + gl("padel-tournament-bracket", "knockout bracket") + " · " + gl("score", "score keeper") + " · " + gl("americano", "Americano") + "</p>";
+      $("#gs-send").addEventListener("click", function () { store.set("pp-ko-import", q.map(function (x) { return x.n; })); location.href = location.protocol === "file:" ? "padel-tournament-bracket.html" : "/padel-tournament-bracket"; });
+      return tabs;
+    };
+    var grender = function () {
+      $("#gs-groups").innerHTML = gst.groups.map(function (g, gi) {
+        var nm = function (i) { return gesc(gst.names[g.teams[i]]); };
+        return '<div class="card" style="margin-bottom:14px"><h3>Group ' + LET[gi] + '</h3><div style="overflow-x:auto"><table class="mt gs-tab" id="gs-t' + gi + '"></table></div><h4 style="margin:14px 0 6px">Matches</h4>' +
+          g.m.map(function (m, mi) { return '<div class="gs-m"><span>' + nm(m.p[0]) + '</span><input class="search" type="number" min="0" max="99" inputmode="numeric" aria-label="Games won by ' + nm(m.p[0]) + '" data-g="' + gi + '" data-m="' + mi + '" data-s="0" value="' + gesc(m.s[0]) + '"><b>v</b><input class="search" type="number" min="0" max="99" inputmode="numeric" aria-label="Games won by ' + nm(m.p[1]) + '" data-g="' + gi + '" data-m="' + mi + '" data-s="1" value="' + gesc(m.s[1]) + '"><span>' + nm(m.p[1]) + "</span></div>"; }).join("") + "</div>";
+      }).join("");
+      $$(".gs-m input", gsb).forEach(function (inp) { inp.addEventListener("input", function () { gst.groups[+inp.dataset.g].m[+inp.dataset.m].s[+inp.dataset.s] = inp.value === "" ? "" : String(Math.max(0, Math.min(99, parseInt(inp.value, 10) || 0))); store.set("pp-grp", gst); gtables(); }); });
+      gtables();
+    };
+    var gtables = function () {
+      var tabs = gboard();
+      tabs.forEach(function (rows, gi) {
+        $("#gs-t" + gi).innerHTML = '<thead><tr><th scope="col">#</th><th scope="col">Pair</th><th scope="col">P</th><th scope="col">W</th><th scope="col">Games</th><th scope="col">+/-</th></tr></thead><tbody>' + rows.map(function (r, i) { var d = r.gf - r.ga; return "<tr" + (i < gst.q ? ' class="gs-q"' : "") + "><td>" + (i + 1) + "</td><td>" + gesc(gst.names[r.t]) + "</td><td>" + r.p + "</td><td>" + r.w + "</td><td>" + r.gf + "-" + r.ga + "</td><td>" + (d > 0 ? "+" : "") + d + "</td></tr>"; }).join("") + "</tbody>";
+      });
+    };
+    var gshow = function () { $("#gs-setup").hidden = true; $("#gs-live").hidden = false; gsb.classList.add("live"); grender(); };
+    $("#gs-start").addEventListener("click", function () {
+      var names = glist(), N = names.length, err = $("#gs-err"), size = +gopt.size; err.textContent = "";
+      if (N < 4) { err.textContent = "Add at least 4 pairs."; return; }
+      if (N > 32) { err.textContent = "Up to 32 pairs, please."; return; }
+      var G = Math.max(2, Math.round(N / size)); while (G > 2 && Math.ceil(N / G) < 3) G--; G = Math.min(G, 8);
+      if (Math.floor(N / G) < 2) G = Math.floor(N / 2);
+      var idx = names.map(function (_, i) { return i; });
+      if ($("#gs-draw").value === "rand") for (var i = idx.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = idx[i]; idx[i] = idx[j]; idx[j] = x; }
+      var groups = []; for (var g = 0; g < G; g++) groups.push({ teams: [] });
+      idx.forEach(function (t, k) { var row = Math.floor(k / G), pos = k % G; groups[row % 2 ? G - 1 - pos : pos].teams.push(t); });
+      groups.forEach(function (g) { g.m = order4(rr(g.teams.length), g.teams.length).map(function (p) { return { p: p, s: ["", ""] }; }); });
+      var q = Math.min(+gopt.q, Math.min.apply(null, groups.map(function (g) { return g.teams.length; })) - 1);
+      gst = { names: names, groups: groups, q: Math.max(1, q), fmt: +gopt.fmt, courts: Math.max(1, Math.min(16, +$("#gs-courts").value || 1)) };
+      store.set("pp-grp", gst); gshow();
+    });
+    $("#gs-demo").addEventListener("click", function () { gn.value = ["Sam & Priya", "Omar & Lucia", "Ben & Aisha", "Tom & Mia", "Leo & Sara", "Raj & Emma", "Dan & Noor", "Max & Ella", "Ali & Grace", "Jon & Ruth", "Kai & Zoe", "Ian & Fatima"].join("\n"); gcount(); });
+    $("#gs-new").addEventListener("click", function () { if (window.confirm("Start a new event? This clears the current groups and scores.")) { gn.value = gst.names.join("\n"); gcount(); gst = null; store.set("pp-grp", null); $("#gs-setup").hidden = false; $("#gs-live").hidden = true; gsb.classList.remove("live"); $("#gs-board").innerHTML = "<h2>Your event</h2><p>Make the groups to see the number of matches, how long the group stage takes, and who qualifies.</p>"; } });
+    $("#gs-copy").addEventListener("click", function () {
+      var txt = "Padel group stage\n" + gst.groups.map(function (g, gi) { var nm = function (i) { return gst.names[g.teams[i]]; }; return "\nGroup " + LET[gi] + "\n" + g.teams.map(function (t) { return "- " + gst.names[t]; }).join("\n") + "\nMatches:\n" + g.m.map(function (m) { return nm(m.p[0]) + " v " + nm(m.p[1]) + (m.s[0] !== "" && m.s[1] !== "" ? "  " + m.s[0] + "-" + m.s[1] : ""); }).join("\n"); }).join("\n") + "\n\nMade with padelglassbox.com/padel-group-stage-generator";
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { toast("Groups copied"); }, function () { toast("Couldn't copy"); }); else toast("Couldn't copy");
+    });
+    if (gst && gst.groups && gst.names) gshow();
+  }
+
+  /* ---------- DUPR match checker ---------- */
+  var dpb = $("#dp");
+  if (dpb) {
+    var dmode = "d";
+    var dv = function (id) { var x = parseFloat($("#dp-" + id).value); return isNaN(x) ? null : Math.max(2, Math.min(8, x)); };
+    var dl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var drender = function () {
+      $("#dp-a2w").hidden = $("#dp-b2w").hidden = dmode === "s";
+      var a1 = dv("a1"), a2 = dv("a2"), b1 = dv("b1"), b2 = dv("b2");
+      if (a1 === null || b1 === null || (dmode === "d" && (a2 === null || b2 === null))) { $("#dp-h").textContent = "Type the ratings"; $("#dp-p").textContent = "Use numbers from 2.000 to 8.000."; $("#dp-t").innerHTML = ""; return; }
+      var A = dmode === "d" ? (a1 + a2) / 2 : a1, B = dmode === "d" ? (b1 + b2) / 2 : b1, gap = A - B, ag = Math.abs(gap);
+      var h, p;
+      if (ag < 0.1) { h = "Even match"; p = "The teams are almost level. Win more points than them and your rating should go up; lose clearly and it should drop."; }
+      else if (gap > 0) { h = "You are the favourite by " + ag.toFixed(3); p = ag >= 0.5 ? "DUPR expects your team to win clearly. A narrow win could still lower your rating, and a loss would cost you more than usual." : "DUPR expects your team to win. Win comfortably to gain; a very tight win may barely move you."; }
+      else { h = "They are the favourite by " + ag.toFixed(3); p = ag >= 0.5 ? "DUPR expects you to lose. A close loss could still raise your rating, and a win would lift it a lot." : "DUPR expects a close loss. Take as many points as you can: a tight score or a win should move you up."; }
+      $("#dp-h").textContent = h;
+      $("#dp-p").textContent = p;
+      $("#dp-t").innerHTML = (dmode === "d" ? "Team averages: you " + A.toFixed(3) + " v them " + B.toFixed(3) + ". " : "") + "Next: " + dl("pickleball-score", "pickleball score keeper") + " · " + dl("pickleball-rules", "pickleball rules");
+    };
+    $$("[data-dp]", dpb).forEach(function (g) { choose(g, function (v) { dmode = v; drender(); }); });
+    $$("input", dpb).forEach(function (i) { i.addEventListener("input", drender); });
+    drender();
+  }
+
+  /* ---------- padel vs squash habit fixer ---------- */
+  var svb = $("#sv");
+  if (svb) {
+    var sl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var SV = {
+      back: ["Let the glass do the work", "In padel the ball must land on their side before it touches their walls, and hitting hard into the back glass only sends it back to them. Aim deep and low at their feet, or lob over them.", sl("wall-rules", "wall rules") + " · " + sl("padel-tactics", "tactics trainer")],
+      wrist: ["Lock your wrist", "Padel rackets are heavier and have no strings. A squash flick sends the ball long and strains the elbow. Keep the wrist firm and swing from the shoulder.", sl("padel-grip", "grip guide") + " · " + sl("padel-injuries", "elbow care")],
+      all: ["Move as a pair", "You only cover your half. Move up and back with your partner like you are tied by a rope, and leave the middle ball to the forehand on that side (agree this first).", sl("positioning", "where to stand") + " · " + sl("which-side-padel", "left or right side quiz")],
+      volley: ["Wait for the rebound", "At the back of the court, let the ball bounce and come off the glass: you get more time and an easier shot. Volley mainly when you are at the net.", sl("wall-rules", "playing off the glass") + " · " + sl("drills", "drills planner")],
+      drop: ["Swap boasts for lobs", "Drop shots can work, but the padel shot that wins most points is the lob that pushes the net team back. Your soft hands make a great lob.", sl("shots", "shot library") + " · " + sl("bandeja-vs-vibora", "bandeja vs víbora")],
+      serve: ["Serve underarm", "Padel serves are underarm: bounce the ball behind the line and hit it at or below your waist, diagonally into the box. You get 2 tries.", sl("how-to-serve-padel", "how to serve") + " · " + sl("serve-rules", "serve rules checker")]
+    };
+    $$("[data-sv]", svb).forEach(function (g) { choose(g, function (v) { var r = SV[v]; $("#sv-h").textContent = r[0]; $("#sv-p").textContent = r[1]; $("#sv-next").innerHTML = "Next: " + r[2]; }); });
+    var r0 = SV.back; $("#sv-h").textContent = r0[0]; $("#sv-p").textContent = r0[1]; $("#sv-next").innerHTML = "Next: " + r0[2];
+  }
+
 })();
