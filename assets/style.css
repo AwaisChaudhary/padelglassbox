@@ -662,3 +662,24 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 @media (max-width: 560px) { .tc-row { grid-template-columns: 84px 1fr; gap: 10px; } .tc-svg { width: 84px; } }
 .ig-p[hidden] { display: none; }
 #sv-bars .mt-bar { grid-template-columns: 7.5em 1fr 5em; }
+
+/* padel cost calculator */
+.pc-bars { display: grid; gap: 7px; margin: 10px 0 14px; }
+.pc-row { display: grid; grid-template-columns: 92px 1fr auto; gap: 10px; align-items: center; font-size: .9rem; color: #d6e0fb; }
+.pc-bar { height: 9px; background: rgba(255,255,255,.1); border-radius: 99px; overflow: hidden; }
+.pc-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--turf), var(--ball)); border-radius: 99px; }
+.pc-row b { color: #fff; }
+/* 30-day beginner plan */
+.bp-head { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.bp-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.bp-wk { font-size: 1.1rem; margin: 18px 0 8px; }
+.bp-wk:first-child { margin-top: 0; }
+.bp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.bp-day { display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.bp-day p { margin: 4px 0 0; }
+.bp-day.done { opacity: .62; }
+.bp-day.done b { text-decoration: line-through; }
+.bp-day.next { border-color: var(--turf); box-shadow: 0 0 0 2px rgba(31,95,209,.18); }
+.bp-top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.bp-tick input { width: 22px; height: 22px; accent-color: var(--turf); margin-top: 2px; }
+.bp-links { font-size: .9rem; }

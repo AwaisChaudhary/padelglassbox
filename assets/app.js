@@ -2710,4 +2710,82 @@
     $$("button", igp).forEach(function (b) { b.addEventListener("click", function () { igSet(b.dataset.v); }); });
     var igv = store.get("iglv", ""); if (igv) igSet(igv);
   }
+  /* ---------- padel cost calculator ---------- */
+  var pcb = $("#pc");
+  if (pcb && window.PCDEF) {
+    var pgr = $$("[data-pc]", pcb);
+    var PK = ["court", "n", "rent", "can", "racket", "shoes", "lesson", "mem", "disc"];
+    var pin = {}; PK.forEach(function (k) { pin[k] = $("#pc-" + k); }); pin.life = $("#pc-life");
+    var pst = store.get("pp-pc", null);
+    var load = function (reg) { var d = window.PCDEF[reg]; var o = { reg: reg, len: "60", wk: "4", life: "12", n: 4 }; PK.forEach(function (k) { if (k !== "n") o[k] = d[k]; }); return o; };
+    if (!pst || !window.PCDEF[pst.reg]) pst = load("uk");
+    PK.forEach(function (k) { pin[k].value = pst[k]; }); pin.life.value = pst.life;
+    var pl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var pg = function (k, t) { return '<a href="' + window.PCGO[k] + '" rel="sponsored nofollow noopener" target="_blank" style="color:#e8f84a">' + t + "</a> (affiliate link)"; };
+    var pm = function (v) { var c = window.PCDEF[pst.reg].cur; v = Math.round(v * 100) / 100; return c + (v >= 100 ? Math.round(v).toLocaleString("en-GB") : v.toFixed(2).replace(/\.00$/, "")); };
+    var prender = function () {
+      PK.forEach(function (k) { pst[k] = Math.max(0, +pin[k].value || 0); });
+      pst.n = Math.max(1, Math.min(8, Math.round(pst.n || 1))); pst.disc = Math.min(100, pst.disc); pst.life = pin.life.value;
+      store.set("pp-pc", pst);
+      pgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === pst[g.dataset.pc] ? "true" : "false"); }); });
+      var per = +pst.wk, n = pst.n, life = +pst.life;
+      var courtEach = pst.court / n, courtMem = courtEach * (1 - pst.disc / 100);
+      var balls = pst.can / 4 / n;
+      var session = (pst.mem ? courtMem : courtEach) + pst.rent + balls;
+      var kitM = (pst.racket + pst.shoes) / life;
+      var month = session * per + pst.lesson + pst.mem + kitM;
+      var play = session * per;
+      $("#pc-h").textContent = pm(session) + " a game";
+      $("#pc-p").textContent = "Your share of a " + pst.len + "-minute booking split " + n + " way" + (n === 1 ? "" : "s") + ", playing " + per + " times a month.";
+      $("#pc-spec").innerHTML = "<dt>Per month</dt><dd>" + pm(month) + "</dd><dt>Per year</dt><dd>" + pm(month * 12) + "</dd><dt>First kit</dt><dd>" + pm(pst.racket + pst.shoes) + " up front" + (pst.racket + pst.shoes ? ", spread over " + (life / 12 === 1 ? "1 year" : life / 12 + " years") : "") + "</dd><dt>Per hour each</dt><dd>" + pm(session * 60 / +pst.len) + "</dd>";
+      var parts = [["Court", (pst.mem ? courtMem : courtEach) * per], ["Racket hire", pst.rent * per], ["Balls", balls * per], ["Kit", kitM], ["Lessons", pst.lesson], ["Membership", pst.mem]];
+      var mx = Math.max.apply(null, parts.map(function (x) { return x[1]; })) || 1;
+      $("#pc-bars").innerHTML = parts.filter(function (x) { return x[1] > 0; }).map(function (x) { return '<div class="pc-row"><span>' + x[0] + '</span><div class="pc-bar"><i style="width:' + Math.max(3, x[1] / mx * 100) + '%"></i></div><b>' + pm(x[1]) + "</b></div>"; }).join("") + '<p class="muted" style="color:#9fb0e0;margin:6px 0 0;font-size:.85rem">Monthly cost by item</p>';
+      var mt;
+      if (pst.mem && pst.disc) {
+        var save = (courtEach - courtMem) * per, be = (courtEach - courtMem) > 0 ? Math.ceil(pst.mem / (courtEach - courtMem)) : 0;
+        mt = "Membership check: you save " + pm(save) + " a month on courts for a " + pm(pst.mem) + " fee. It pays off at " + be + " games a month" + (per >= be ? " - you play enough." : " - you play " + per + ", so it costs you " + pm(pst.mem - save) + " more than paying per game.");
+      } else if (pst.mem) mt = "Add the member discount on court hire to see if the membership pays.";
+      else mt = "Thinking of a membership? Enter its monthly fee and the member discount to see how many games a month it needs.";
+      $("#pc-memo").textContent = mt;
+      var tip;
+      if (n < 4) tip = "Tip: fill the court. With 4 players your share would be " + pm(pst.court / 4) + " instead of " + pm(courtEach) + ".";
+      else if (pst.rent && per >= 4) tip = "Tip: you hire a racket " + per + " times a month (" + pm(pst.rent * per) + "). A beginner racket would pay for itself in about " + Math.max(1, Math.round((window.PCDEF[pst.reg].racket || pst.rent * 10) / (pst.rent * per))) + " months.";
+      else if (pst.court / n * 60 / +pst.len > (pst.reg === "us" ? 15 : pst.reg === "uk" ? 20 : pst.reg === "qa" ? 75 : 999)) tip = "Tip: your court share is above the published typical range. Try off-peak slots or another club.";
+      else tip = "Tip: off-peak slots are usually the cheapest way to play more.";
+      $("#pc-tip").textContent = tip;
+      $("#pc-next").innerHTML = "Next: " + pl("padel-lessons", "lesson prices") + " · " + pl("padel-beginner-plan", "30-day beginner plan") + " · Shop: " + pg("padel-round-rackets", "round rackets");
+    };
+    pgr.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () {
+      if (g.dataset.pc === "reg") { var keep = { len: pst.len, wk: pst.wk, life: pst.life, n: pst.n }; pst = load(b.dataset.v); pst.len = keep.len; pst.wk = keep.wk; pst.life = keep.life; pst.n = keep.n; PK.forEach(function (k) { pin[k].value = pst[k]; }); pin.life.value = pst.life; }
+      else pst[g.dataset.pc] = b.dataset.v;
+      prender(); }); }); });
+    PK.concat(["life"]).forEach(function (k) { pin[k].addEventListener("input", prender); pin[k].addEventListener("change", prender); });
+    prender();
+  }
+
+  /* ---------- 30-day beginner plan ---------- */
+  var bpb = $("#bp");
+  if (bpb) {
+    var days = $$(".bp-day", bpb), bdone = store.get("pp-bp", {}), bfil = "all";
+    var bupd = function () {
+      var n = 0, next = null;
+      days.forEach(function (li) {
+        var d = li.dataset.day, on = !!bdone[d]; li.querySelector("input").checked = on; li.classList.toggle("done", on);
+        if (on) n++; else if (!next) next = li;
+        li.hidden = bfil === "all" ? false : bfil === "todo" ? on : li.dataset.kind !== bfil && !(bfil === "home" && li.dataset.kind === "rest");
+        li.classList.remove("next");
+      });
+      if (next) next.classList.add("next");
+      $("#bp-bar").style.width = (n / days.length * 100) + "%";
+      $("#bp-count").textContent = n + " of " + days.length + " days done";
+      $("#bp-today").textContent = next ? "Next up: " + next.querySelector("b").textContent + "." : "All 30 days done. Well played! Make a plan for month two below.";
+      store.set("pp-bp", bdone);
+    };
+    days.forEach(function (li) { li.querySelector("input").addEventListener("change", function (ev) { bdone[li.dataset.day] = ev.target.checked; bupd(); }); });
+    $("#bp-next").addEventListener("click", function () { var x = $(".bp-day.next", bpb); if (x) { if (x.hidden) { bfil = "all"; $$("#bp-filter button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === "all" ? "true" : "false"); }); bupd(); } x.scrollIntoView({ behavior: "smooth", block: "center" }); } });
+    $("#bp-reset").addEventListener("click", function () { if (window.confirm("Clear all your ticks and start the plan again?")) { bdone = {}; bupd(); toast("Plan reset"); } });
+    choose($("#bp-filter"), function (v) { bfil = v; bupd(); });
+    bupd();
+  }
 })();

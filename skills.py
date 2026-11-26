@@ -289,6 +289,7 @@ ig = f'''<header class="hero"><div class="wrap"><h1>How to get better at padel: 
 <div class="card"><h3>Know your level</h3><p>Get a number from 1 to 7 with the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div>
 <div class="card"><h3>Right racket for your level</h3><p>Answer 6 questions in the <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
 <div class="card"><h3>Pick your side</h3><p>Left or right? The <a href="{href("which-side-padel.html")}">side quiz</a> takes one minute.</p></div>
+<div class="card"><h3>Brand new?</h3><p>Start with the <a href="{href("padel-beginner-plan.html")}">30-day padel beginner plan</a>: one task a day.</p></div>
 </div></div></section>
 <section><div class="wrap"><p class="muted" style="font-size:.9rem">Checked 26 Nov 2026 against: The Padel School "The power of repetition: how to improve padel fast"; LTA "Training tips to improve your padel skills"; Padel Browser "How to get better at padel". Level bands follow our <a href="{href("level-calculator.html")}">level calculator</a>. Priorities, timings and wording are general coaching advice in our own words.</p></div></section>'''
 ig_faq = [

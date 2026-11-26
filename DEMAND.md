@@ -11,10 +11,17 @@ Tools in this repo: `seo_post.py` (runs at the end of build.py: sitemap = every 
 We have 63 pages incl. 12 tools (level calculator, racket finder, gift finder, score keeper, match tracker, Americano, round robin, ladder, king of the court, FIP points, training plan, fix-my-padel).
 1. GAP: racket database + compare (open since 25 Nov): racketguide lists ~2,500 rackets with filters and side-by-side compare; we have a quiz + 3 guide pages. Plan: /padel-rackets table from maker spec pages (start 60 current models), filters (shape, weight, balance, hardness, level) + compare 2-3, 'similar to my racket'. Biggest affiliate value.
 2. GAP: Mexicano mode (Playtomic and every tournament app have it; still open from 24 Nov). Plan: Mexicano toggle on /americano (re-pair by standings each round).
-3. GAP: structured beginner course: the 'Learn Padel - 21 Day Course' app sells a day-by-day plan. We have /padel-training-plan + /drills. Plan BETTER: free '21-day padel starter plan' page that ticks off each day in the browser (progress saved on device), each day linking our drills/shots pages.
+3. DONE 26 Nov https://padelglassbox.com/padel-beginner-plan GAP: structured beginner course: the 'Learn Padel - 21 Day Course' app sells a day-by-day plan. We have /padel-training-plan + /drills. Plan BETTER: free '21-day padel starter plan' page that ticks off each day in the browser (progress saved on device), each day linking our drills/shots pages.
 4. GAP: Premier Padel 2027 calendar + results hub (open since 24 Nov). Plan: /premier-padel-2027 with official dates only.
 5. GAP: video swing analysis apps (Padel Coach). Plan: not worth building now; instead a 'film yourself' checklist on /fix-my-padel (what angle, what to look for per shot).
 6. BETTER-THAN-THEM: 'Padel night planner': pick players + courts + time, get Americano/Mexicano rounds, court rotation, cost split per player and a share link for WhatsApp. Apps need everyone to install; ours works in one link.
+
+## RADAR 26 Nov (demand-first build run 4; web search)
+C1. DONE 26 Nov https://padelglassbox.com/padel-cost — 'how much does padel cost', 'padel court hire price per hour', 'why is padel so expensive', 'padel membership worth it': Time Out London price map (Mar 2025), City AM court-rental-cost story, Padel Browser US cost (Jun 2026) + US membership cost (Oct 2026), Bounce 'why is padel so expensive' (Jul 2026), Qatar Living costs (Aug 2026), Bannatyne/club padel FAQs, Tienda Padel Point cost FAQ. Built as cost calculator (per game/month/year, membership break-even) = E4.
+C2. DONE 26 Nov https://padelglassbox.com/padel-beginner-plan — '30 day padel beginner plan', 'padel for beginners plan': The Padel Passport 30-day beginner plans for 5+ cities, Learn Padel 21-Day Course app (competitor watch 26 Nov #3), Selkirk 30-day pickleball challenge, Tienda weekly beginner routine. Built as day-by-day tickable checklist.
+C3. DONE 26 Nov (merged H2 + FAQ on https://padelglassbox.com/padel-rankings) 'Premier Padel Finals 2026 dates': premierpadel.com/tourfinals + Palau Sant Jordi page: 10-13 Dec 2026, Barcelona. Covers part of D4/N4 (event hub still open for results after 13 Dec).
+C4. OPEN 'padel membership cost' / 'is padel membership worth it' (Padel Browser Oct 2026 membership guide, Playtomic club membership pages): calculator now on /padel-cost; a dedicated UK membership comparison needs 2 UK sources.
+C5. OPEN 'padel in Qatar / Doha' (Qatar Living Aug 2026: courts, costs, booking): Middle East where-to-play page only with 2+ sources (check Qatar federation / Visit Qatar).
 
 ## RADAR 26 Nov (demand-first build run 3; web search)
 T1. DONE 26 Nov https://padelglassbox.com/how-to-serve-padel — 'how to serve in padel', 'padel serve tips', 'padel serve drills': Red Bull 'padel how to serve beginners guide' (4 editions) + 'padel serve tips', HEAD 'how to serve in padel' (4 locales), LTA Padel serve page, Padel Browser, The Padel School (4+ serve posts), Tienda Padel Point serve-accuracy exercises x2. Built as 6 steps + serve practice tracker.
@@ -32,7 +39,7 @@ P3. PARTLY DONE 26 Nov (serve part: https://padelglassbox.com/how-to-serve-padel
 E1. DONE 26 Nov https://padelglassbox.com/padel-etiquette — 'padel etiquette' / 'padel unwritten rules': Red Bull article in 5 country editions (gb, us, ca, int, ph), Padel Browser (15 Apr 2026), Dummies cheat sheet, Jean Galea, club FAQ pages. Built as a 10-situation quiz + checklist + rule-vs-custom table.
 E2. DONE 26 Nov /padel-training-plan — 'padel training plan', 'weekly padel training routine': 8+ Tienda Padel Point guides, The Padel School pathways, padel-rules beginner 4-week and intermediate 8-week plans.
 E3. DONE 26 Nov /padel-match-tracker — 'padel match tracker / stats': 15+ App Store apps (PadelRatio, Pelota, Padel Stats Pro, RecordUp, PadelTick, Racketly) + 'padel match tracker' blog guides.
-E4. OPEN 'why is padel so expensive' / 'cost to start padel' — The Padel School post + podcast, Bounce blog (23 Jul 2026), Tienda Padel Point FAQ. Plan: H2 + cost calculator section on /padel-lessons or a /padel-cost page (court hire per person, racket, shoes, balls) with 2 sources per figure.
+E4. DONE 26 Nov https://padelglassbox.com/padel-cost 'why is padel so expensive' / 'cost to start padel' — The Padel School post + podcast, Bounce blog (23 Jul 2026), Tienda Padel Point FAQ. Plan: H2 + cost calculator section on /padel-lessons or a /padel-cost page (court hire per person, racket, shoes, balls) with 2 sources per figure.
 E5. PARTLY (see T4) 'padel elbow' — The Padel School dedicated post; we have /padel-injuries: add a 'padel elbow' H2 + FAQ there (merge, not new page).
 E6. WATCH Premier Padel Mexico Major (Acapulco) 2026 results not yet indexed (search returns 2025 edition); refresh /padel-rankings after the Finals.
 
@@ -56,7 +63,7 @@ N4. OPEN Premier Padel Mexico Major (Acapulco, late Nov) + Finals Barcelona Dec:
 D1. DONE 25 Nov /court-sizes-compared — 'how many padel courts fit on a tennis court' and 'how many pickleball courts fit on a tennis court' return many dedicated articles (Sportmaster, Selkirk, PB5star, Alibaba, LTA guidance) = clear demand.
 D2. DONE 25 Nov /pickleball-score — many App Store score-keeper apps (Pickleball ScoreKeeper, PicklePoints, DinkTally, My PickleBall Scoreboard) + guides on 'how to call the score 0-0-2' (pickleball.com, AARP, Wilson).
 D3. OPEN /padel-booking-apps — 'padel booking platforms', 'Playtomic alternatives': Bounce, Padel Browser (US 2026), Cal.com, Capterra lists. Facts only, 2 sources each.
-D4. OPEN Premier Padel Finals 2026 (Barcelona, December) + Mexico Major: event hub with official dates only (padelfip.com, premierpadel.com/tourfinals).
+D4. PARTLY DONE 26 Nov (dates on /padel-rankings) Premier Padel Finals 2026 (Barcelona, December) + Mexico Major: event hub with official dates only (padelfip.com, premierpadel.com/tourfinals).
 D5. BLOCKED this run: P3 platform tennis / racquetball facts (APTA, USA Racquetball, Wikipedia fetches timed out) — retry next run.
 
 ## NEW CATEGORY: OTHER RACKET-SPORT COURTS + RULES (Keyword Planner, worldwide, 25 Nov 2026)
