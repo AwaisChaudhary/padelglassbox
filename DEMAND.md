@@ -7,6 +7,15 @@ Tools in this repo: `seo_post.py` (runs at the end of build.py: sitemap = every 
 5. Links: only real editorial links via outreach batches Awais approves; build "linkable assets" (original data, free tools, maps) and list pitch targets in DEMAND for approval.
 6. Monthly: run seo_audit.py on the whole site and fix broken links, orphans, duplicate titles/descriptions, missing schema.
 
+## COMPETITOR WATCH 26 Nov 2026 (vs racketguide.com (2,500-racket database), Tennis Warehouse University padel, App Store padel apps: Padel Tracker, Learn Padel 21-Day Course, Padel Coach swing analysis)
+We have 63 pages incl. 12 tools (level calculator, racket finder, gift finder, score keeper, match tracker, Americano, round robin, ladder, king of the court, FIP points, training plan, fix-my-padel).
+1. GAP: racket database + compare (open since 25 Nov): racketguide lists ~2,500 rackets with filters and side-by-side compare; we have a quiz + 3 guide pages. Plan: /padel-rackets table from maker spec pages (start 60 current models), filters (shape, weight, balance, hardness, level) + compare 2-3, 'similar to my racket'. Biggest affiliate value.
+2. GAP: Mexicano mode (Playtomic and every tournament app have it; still open from 24 Nov). Plan: Mexicano toggle on /americano (re-pair by standings each round).
+3. GAP: structured beginner course: the 'Learn Padel - 21 Day Course' app sells a day-by-day plan. We have /padel-training-plan + /drills. Plan BETTER: free '21-day padel starter plan' page that ticks off each day in the browser (progress saved on device), each day linking our drills/shots pages.
+4. GAP: Premier Padel 2027 calendar + results hub (open since 24 Nov). Plan: /premier-padel-2027 with official dates only.
+5. GAP: video swing analysis apps (Padel Coach). Plan: not worth building now; instead a 'film yourself' checklist on /fix-my-padel (what angle, what to look for per shot).
+6. BETTER-THAN-THEM: 'Padel night planner': pick players + courts + time, get Americano/Mexicano rounds, court rotation, cost split per player and a share link for WhatsApp. Apps need everyone to install; ours works in one link.
+
 ## RADAR 26 Nov (demand-first build run 3; web search)
 T1. DONE 26 Nov https://padelglassbox.com/how-to-serve-padel — 'how to serve in padel', 'padel serve tips', 'padel serve drills': Red Bull 'padel how to serve beginners guide' (4 editions) + 'padel serve tips', HEAD 'how to serve in padel' (4 locales), LTA Padel serve page, Padel Browser, The Padel School (4+ serve posts), Tienda Padel Point serve-accuracy exercises x2. Built as 6 steps + serve practice tracker.
 T2. DONE 26 Nov https://padelglassbox.com/padel-tactics — 'padel tactics', 'how to win more padel points': The Padel School tactics hub + 'how to win a padel point', HEAD 'padel tactics' (4 locales), LTA Padel 'how to win more padel matches' (Mar 2026), bet365 (Apr 2026), Lidl. Built as 10-scenario trainer with own court drawings.
