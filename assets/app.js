@@ -2788,4 +2788,137 @@
     choose($("#bp-filter"), function (v) { bfil = v; bupd(); });
     bupd();
   }
+
+  /* ---------- knockout bracket generator ---------- */
+  var kob = $("#ko");
+  if (kob) {
+    var kst = store.get("pp-ko", null), kopt = { seed: "seed", fmt: "30" };
+    var kn = $("#ko-names"), kcount = function () { var n = kn.value.split("\n").map(function (x) { return x.trim(); }).filter(Boolean).length; $("#ko-count").textContent = n ? n + " pair" + (n === 1 ? "" : "s") : ""; };
+    kn.addEventListener("input", kcount);
+    $$("[data-ko]", kob).forEach(function (g) { choose(g, function (v) { kopt[g.dataset.ko] = v; }); });
+    var kl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var order = function (size) { var s = [1, 2]; while (s.length < size) { var m = s.length * 2 + 1, nx = []; s.forEach(function (x) { nx.push(x, m - x); }); s = nx; } return s; };
+    var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var rname = function (r, R) { var left = R - r; return left === 0 ? "Final" : left === 1 ? "Semi-finals" : left === 2 ? "Quarter-finals" : "Round " + (r + 1); };
+    // resolve: build each round's slots from round-1 + winners; auto-advance byes
+    var resolve = function () {
+      var R = kst.rounds.length, rows = [];
+      var cur = kst.first.slice();
+      for (var r = 0; r < R; r++) {
+        var ms = [], nxt = [];
+        for (var i = 0; i < cur.length; i += 2) {
+          var a = cur[i], b = cur[i + 1], w = kst.win[r + "-" + (i / 2)];
+          if (a === -1 && b === -1) w = undefined;
+          else if (a === -1 && b !== null) w = 1;
+          else if (b === -1 && a !== null) w = 0;
+          else if (a === null || b === null) w = undefined;
+          ms.push({ a: a, b: b, w: w, bye: a === -1 || b === -1 });
+          nxt.push(w === 0 ? a : w === 1 ? b : (a === -1 && b === -1 ? -1 : null));
+        }
+        rows.push(ms); cur = nxt;
+      }
+      return rows;
+    };
+    var kslots = function (rows) { var t = 0, per = []; rows.forEach(function (ms) { var real = ms.filter(function (m) { return !m.bye; }).length; per.push(real); t += Math.ceil(real / kst.courts); }); return { slots: t, per: per }; };
+    var krender = function () {
+      var rows = resolve(), R = rows.length, N = kst.names.length;
+      var html = rows.map(function (ms, r) {
+        return '<div class="ko-col"><h3>' + rname(r, R - 1) + '</h3><div class="ko-ms">' + ms.map(function (m, i) {
+          var team = function (x, side) {
+            if (x === -1) return '<span class="ko-t bye">Bye</span>';
+            if (x === null) return '<span class="ko-t tbd">Winner of ' + (r ? rname(r - 1, R - 1).replace(/s$/, "") + " " + (i * 2 + side + 1) : "") + "</span>";
+            var on = m.w === side, can = !m.bye && m.a !== null && m.b !== null;
+            return '<button type="button" class="ko-t' + (on ? " win" : m.w === 1 - side ? " out" : "") + '"' + (can ? "" : " disabled") + ' data-r="' + r + '" data-i="' + i + '" data-s="' + side + '"><i>' + (kst.seeded ? (x + 1) : "") + "</i>" + esc(kst.names[x]) + "</button>";
+          };
+          return '<div class="ko-m' + (m.bye ? " is-bye" : "") + '">' + team(m.a, 0) + team(m.b, 1) + "</div>";
+        }).join("") + "</div></div>";
+      }).join("");
+      var fin = rows[R - 1][0], champ = fin.w === 0 ? fin.a : fin.w === 1 ? fin.b : null;
+      var third = "";
+      if (kst.third && R >= 2) {
+        var sf = rows[R - 2], losers = sf.map(function (m) { return m.w === 0 ? m.b : m.w === 1 ? m.a : null; });
+        var tw = kst.win["3rd"], ok = losers[0] !== null && losers[1] !== null && losers[0] !== -1 && losers[1] !== -1;
+        third = '<div class="ko-col"><h3>3rd place</h3><div class="ko-ms"><div class="ko-m">' + [0, 1].map(function (s) { var x = losers[s]; if (x === null || x === -1) return '<span class="ko-t tbd">Semi-final loser</span>'; return '<button type="button" class="ko-t' + (tw === s ? " win" : tw === 1 - s ? " out" : "") + '"' + (ok ? "" : " disabled") + ' data-third="' + s + '"><i>' + (kst.seeded ? x + 1 : "") + "</i>" + esc(kst.names[x]) + "</button>"; }).join("") + "</div></div></div>";
+      }
+      html += third + '<div class="ko-col ko-champ"><h3>Champions</h3><div class="ko-ms"><div class="ko-m"><span class="ko-t' + (champ !== null ? " win" : " tbd") + '">' + (champ !== null ? esc(kst.names[champ]) : "To be decided") + "</span></div></div></div>";
+      $("#ko-bk").innerHTML = html;
+      $$(".ko-t[data-r]", kob).forEach(function (b) { b.addEventListener("click", function () {
+        var r = +b.dataset.r, i = +b.dataset.i, s = +b.dataset.s, k = r + "-" + i;
+        if (kst.win[k] === s) delete kst.win[k]; else kst.win[k] = s;
+        // clear later results that may now be invalid
+        for (var rr = r + 1; rr < R; rr++) { var ii = Math.floor(i / Math.pow(2, rr - r)); delete kst.win[rr + "-" + ii]; }
+        if (r >= R - 2) delete kst.win["3rd"];
+        store.set("pp-ko", kst); krender(); }); });
+      $$(".ko-t[data-third]", kob).forEach(function (b) { b.addEventListener("click", function () { var s = +b.dataset.third; if (kst.win["3rd"] === s) delete kst.win["3rd"]; else kst.win["3rd"] = s; store.set("pp-ko", kst); krender(); }); });
+      var sl = kslots(rows), matches = N - 1 + (kst.third && R >= 2 ? 1 : 0), byes = kst.first.length - N;
+      var slots = sl.slots, mins = slots * (kst.fmt + 5);
+      var done = Object.keys(kst.win).length;
+      $("#ko-sum").textContent = N + " pairs · " + matches + " matches · " + R + " rounds";
+      $("#ko-board").innerHTML = "<h2>" + (champ !== null ? esc(kst.names[champ]) + " win!" : "Your event") + '</h2><dl class="spec" style="display:grid;grid-template-columns:auto 1fr;gap:8px 16px"><dt>Pairs</dt><dd>' + N + "</dd><dt>Matches</dt><dd>" + matches + "</dd><dt>Rounds</dt><dd>" + R + "</dd><dt>Byes</dt><dd>" + byes + (byes ? " (to the top " + (kst.seeded ? "seeds" : "drawn teams") + ")" : "") + "</dd><dt>Courts</dt><dd>" + kst.courts + "</dd><dt>Est. time</dt><dd>About " + (mins >= 60 ? Math.floor(mins / 60) + " h " + (mins % 60 ? mins % 60 + " min" : "") : mins + " min") + "</dd></dl><p>" + sl.per.map(function (n, r) { return rname(r, R - 1) + ": " + n + " match" + (n === 1 ? "" : "es") + (n ? ", " + Math.ceil(n / kst.courts) + " slot" + (Math.ceil(n / kst.courts) === 1 ? "" : "s") : ""); }).join("<br>") + (kst.third && R >= 2 ? "<br>3rd place: 1 match, played next to the final" : "") + '</p><p style="font-size:.9rem">Time = match slots x (' + kst.fmt + " min + 5 min changeover). Results entered: " + done + ".</p><p>Next: " + kl("score", "score keeper") + " · " + kl("round-robin", "round robin groups") + " · " + kl("americano", "Americano") + "</p>";
+    };
+    var kstart = function (names) {
+      var N = names.length, err = $("#ko-err"); err.textContent = "";
+      if (N < 3 || N > 32) { err.textContent = "Add between 3 and 32 pairs, one per line."; return; }
+      if (kopt.seed === "rand") { names = names.slice(); for (var i = names.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = names[i]; names[i] = names[j]; names[j] = x; } }
+      var size = Math.pow(2, Math.ceil(Math.log2(N))), R = Math.log2(size);
+      var first = order(size).map(function (sd) { return sd <= N ? sd - 1 : -1; });
+      kst = { names: names, first: first, rounds: new Array(R), win: {}, courts: Math.max(1, Math.min(16, +$("#ko-courts").value || 1)), third: $("#ko-third").value === "1", fmt: +kopt.fmt, seeded: kopt.seed === "seed" };
+      store.set("pp-ko", kst); kshow();
+    };
+    var kshow = function () { $("#ko-setup").hidden = true; $("#ko-live").hidden = false; kob.classList.add("live"); kst.rounds = new Array(Math.log2(kst.first.length)); krender(); };
+    $("#ko-start").addEventListener("click", function () { kstart(kn.value.split("\n").map(function (x) { return x.trim(); }).filter(Boolean)); });
+    $("#ko-demo").addEventListener("click", function () { kn.value = ["Sam & Priya", "Omar & Lucia", "Ben & Aisha", "Tom & Mia", "Leo & Sara", "Raj & Emma", "Dan & Noor", "Max & Ella", "Ali & Grace", "Jon & Ruth", "Kai & Zoe", "Ian & Fatima"].join("\n"); kcount(); });
+    $("#ko-new").addEventListener("click", function () { if (window.confirm("Start a new draw? This clears the current results.")) { kn.value = kst.names.join("\n"); kcount(); kst = null; store.set("pp-ko", null); $("#ko-setup").hidden = false; $("#ko-live").hidden = true; kob.classList.remove("live"); $("#ko-board").innerHTML = "<h2>Your event</h2><p>Make the draw to see the number of matches, rounds and how long it will take.</p>"; } });
+    $("#ko-copy").addEventListener("click", function () {
+      var rows = resolve(), R = rows.length, nm = function (x) { return x === -1 ? "Bye" : x === null ? "TBD" : kst.names[x]; };
+      var txt = "Padel knockout draw\n" + rows.map(function (ms, r) { return "\n" + rname(r, R - 1) + "\n" + ms.map(function (m) { return nm(m.a) + " v " + nm(m.b) + (m.w === 0 ? "  -> " + nm(m.a) : m.w === 1 ? "  -> " + nm(m.b) : ""); }).join("\n"); }).join("\n") + "\n\nMade with padelglassbox.com/padel-tournament-bracket";
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { toast("Draw copied"); }, function () { toast("Couldn't copy"); }); else toast("Couldn't copy");
+    });
+    if (kst && kst.names && kst.first) kshow();
+  }
+
+  /* ---------- beginner racket checker ---------- */
+  var bcb = $("#bc");
+  if (bcb && window.BCGO) {
+    var bs = store.get("pp-bc", { shape: "round", bal: "low", core: "soft", face: "glass", arm: "n", who: "adult", w: 360 });
+    var bw = $("#bc-w"); bw.value = bs.w;
+    var bl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var bgo = function (k, t) { return '<a href="' + window.BCGO[k] + '" rel="sponsored nofollow noopener" target="_blank" style="color:#e8f84a">' + t + "</a> (affiliate link)"; };
+    var brender = function () {
+      bs.w = +bw.value || 0; store.set("pp-bc", bs);
+      $$("[data-bc]", bcb).forEach(function (g) { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === bs[g.dataset.bc] ? "true" : "false"); }); });
+      var out = [], score = 0, max = 0, zeros = 0, add = function (lvl, label, txt) { max += 2; score += lvl; if (!lvl) zeros++; out.push('<li class="bc-' + (lvl === 2 ? "ok" : lvl === 1 ? "mid" : "no") + '"><b>' + label + ":</b> " + txt + "</li>"); };
+      var lo = bs.who === "adult" ? (bs.arm === "y" ? 340 : 350) : 330, hi = bs.who === "adult" ? (bs.arm === "y" ? 360 : 370) : 355;
+      if (bs.who === "kid") { $("#bc-h").textContent = "Look at a junior racket"; $("#bc-p").textContent = "Children under about 12 usually need a shorter, lighter junior racket, not an adult one."; $("#bc-list").innerHTML = ""; $("#bc-next").innerHTML = "Next: " + bl("padel-racket-for-kids", "padel rackets for kids by age") + " · " + bl("padel-beginner-plan", "30-day beginner plan"); return; }
+      add(bs.shape === "round" ? 2 : bs.shape === "tear" ? 1 : bs.shape === "x" ? 1 : 0, "Shape", bs.shape === "round" ? "Round is the best beginner shape: big, low sweet spot." : bs.shape === "tear" ? "Teardrop is OK if you already play tennis or squash, but round is more forgiving." : bs.shape === "x" ? "Check it: a round head (widest near the middle) is what you want." : "Diamond puts the sweet spot high and is hard to control. Not a beginner racket.");
+      var w = bs.w;
+      add(w >= lo && w <= hi ? 2 : (w >= lo - 10 && w <= hi + 10) ? 1 : 0, "Weight", w ? (w >= lo && w <= hi ? w + " g is in the sweet range (" + lo + "-" + hi + " g) for you." : w > hi ? w + " g is on the heavy side for you; aim for " + lo + "-" + hi + " g." : w + " g is light; fine for control, but it may feel unstable. " + lo + "-" + hi + " g suits most.") : "Enter the weight; aim for " + lo + "-" + hi + " g.");
+      add(bs.bal === "low" ? 2 : bs.bal === "even" ? 2 : bs.bal === "x" ? 1 : 0, "Balance", bs.bal === "high" ? "Head-heavy gives power but is slow at the net and harder on the elbow." : bs.bal === "x" ? "Look for low or even balance. Round rackets are usually low." : "Low or even balance is quick and easy to handle.");
+      add(bs.core === "soft" ? 2 : bs.core === "med" ? (bs.arm === "y" ? 1 : 2) : bs.core === "x" ? 1 : 0, "Core", bs.core === "hard" ? "A hard core needs a fast swing to get depth and passes more shock to the arm." : bs.core === "med" ? (bs.arm === "y" ? "Medium is OK, but with arm pain a soft core is kinder." : "Medium is a fine all-round choice.") : bs.core === "x" ? "Look for soft EVA or foam." : "Soft gives easy depth and comfort.");
+      add(bs.face === "glass" || bs.face === "hyb" ? 2 : bs.face === "x" ? 1 : (bs.arm === "y" ? 0 : 1), "Face", bs.face === "carbon" ? "Carbon is stiffer and pricier. A low-K (3K) carbon face can work; high-K carbon is for fast swings." : bs.face === "x" ? "Fibreglass or a fibreglass-carbon mix is the beginner pick." : "Fibreglass-based faces are flexible and forgiving.");
+      var pct = score / max; if (bs.shape === "diamond" || zeros >= 2) pct = Math.min(pct, 0.5); else if (zeros === 1) pct = Math.min(pct, 0.8);
+      $("#bc-h").textContent = pct >= 0.85 ? "Great beginner racket" : pct >= 0.6 ? "OK for a beginner, with a catch" : "Not ideal for a beginner";
+      $("#bc-p").textContent = "Score " + score + " of " + max + ". " + (pct >= 0.85 ? "This spec is forgiving and easy on the arm." : pct >= 0.6 ? "It will work, but see the amber points below." : "It is built for faster, more advanced players. Look for the green specs below.") + (bs.arm === "y" ? " With arm pain, also see a doctor or physio if it keeps coming back." : "");
+      $("#bc-list").innerHTML = out.join("");
+      $("#bc-next").innerHTML = "Next: " + bl("racket-finder", "full racket finder") + " · " + bl("cheap-padel-rackets", "cheap rackets that pass") + " · Shop: " + bgo("padel-round-rackets", "round rackets");
+    };
+    $$("[data-bc]", bcb).forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { bs[g.dataset.bc] = b.dataset.v; brender(); }); }); });
+    bw.addEventListener("input", brender);
+    brender();
+  }
+
+  /* ---------- padel vs racquetball quiz ---------- */
+  var vrb = $("#vr");
+  if (vrb) {
+    var va = { a: "p", b: "p", c: "p" };
+    var vl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var VR = {
+      p: ["Try padel", "Doubles, long rallies and a gentle underarm serve: most people play a proper game in their first hour.", vl("beginners", "first match checklist") + " · " + vl("padel-beginner-plan", "30-day beginner plan") + " · " + vl("padel-cost", "what it costs")],
+      r: ["Try racquetball", "Fast, every surface in play and easy to book for two. If you like that intensity, padel's walls will feel familiar later.", vl("squash-court-dimensions", "squash court size") + " · " + vl("padel-vs-tennis-vs-pickleball", "padel vs tennis vs pickleball")],
+      t: ["Try platform tennis", "Outdoor doubles through the winter, very close to padel. Padel is the easy switch in the warmer months.", vl("rules", "padel rules") + " · " + vl("court-sizes-compared", "court sizes compared")]
+    };
+    var vrender = function () { var c = { p: 0, r: 0, t: 0 }; Object.keys(va).forEach(function (k) { c[va[k]]++; }); var best = c.r > c.p && c.r >= c.t ? "r" : c.t > c.p && c.t > c.r ? "t" : "p"; $("#vr-h").textContent = VR[best][0]; $("#vr-p").textContent = VR[best][1]; $("#vr-next").innerHTML = "Next: " + VR[best][2]; };
+    $$("[data-vr]", vrb).forEach(function (g) { choose(g, function (v) { va[g.dataset.vr] = v; vrender(); }); });
+    vrender();
+  }
 })();

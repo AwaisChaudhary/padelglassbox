@@ -683,3 +683,30 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .bp-top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .bp-tick input { width: 22px; height: 22px; accent-color: var(--turf); margin-top: 2px; }
 .bp-links { font-size: .9rem; }
+
+/* knockout bracket */
+.ko-wrap { overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+.ko-bk { display: flex; gap: 14px; align-items: stretch; min-width: min-content; }
+.ko-col { display: flex; flex-direction: column; width: 200px; flex: 0 0 200px; }
+.ko-ms { flex: 1; display: flex; flex-direction: column; justify-content: space-around; gap: 12px; }
+.ko-col h3 { font-size: .95rem; margin: 0 0 10px; }
+.ko-m { background: var(--card, #fff); border: 1px solid rgba(14,36,104,.14); border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(14,36,104,.06); }
+.ko-m.is-bye { opacity: .7; }
+.ko-t { display: flex; gap: 8px; align-items: center; width: 100%; text-align: left; font: inherit; font-size: .92rem; padding: 10px 12px; border: 0; background: transparent; color: inherit; min-height: 44px; overflow-wrap: anywhere; }
+.ko-m .ko-t + .ko-t { border-top: 1px solid rgba(14,36,104,.1); }
+button.ko-t { cursor: pointer; }
+button.ko-t:hover:not(:disabled) { background: rgba(23,71,201,.07); }
+.ko-t i { font-style: normal; font-weight: 700; color: #6b7aa6; font-size: .78rem; min-width: 1.2em; }
+.ko-t.win { background: #e8f84a; color: #0e2468; font-weight: 700; }
+.ko-t.out { color: #8a94b3; text-decoration: line-through; }
+.ko-t.tbd, .ko-t.bye { color: #8a94b3; font-style: italic; font-size: .85rem; }
+.ko-champ .ko-t.win { font-family: var(--display); }
+/* beginner racket checker */
+.bc-list { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 8px; }
+.bc-list li { padding: 10px 12px 10px 36px; border-radius: 12px; background: rgba(255,255,255,.07); position: relative; color: #d6e0fb; }
+.bc-list li::before { position: absolute; left: 12px; top: 10px; font-weight: 800; }
+.bc-ok::before { content: "✓"; color: #e8f84a; }
+.bc-mid::before { content: "~"; color: #ffc46b; }
+.bc-no::before { content: "✗"; color: #ff8f7a; }
+.bc-list b { color: #fff; }
+.gen-main, .gen-side { min-width: 0; }

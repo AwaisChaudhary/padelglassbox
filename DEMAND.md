@@ -7,6 +7,14 @@ Tools in this repo: `seo_post.py` (runs at the end of build.py: sitemap = every 
 5. Links: only real editorial links via outreach batches Awais approves; build "linkable assets" (original data, free tools, maps) and list pitch targets in DEMAND for approval.
 6. Monthly: run seo_audit.py on the whole site and fix broken links, orphans, duplicate titles/descriptions, missing schema.
 
+## RADAR 26 Nov (demand-first build run 5; web search)
+B1. DONE 26 Nov https://padelglassbox.com/padel-tournament-bracket — 'padel tournament bracket generator', 'padel knockout draw': bracketmaker.app padel generator pages, App Store 'Tennis & Padel Tournaments' + 'Padel Master', visu.network sports tournament tools, padelrumors 'free tournament bracket generator' list. Built as seeded/random knockout with byes, tap-to-advance, 3rd-place match, time estimate.
+B2. DONE 26 Nov (merged H2 + FAQ on https://padelglassbox.com/padel-tournament-bracket) 'how long does a padel match last': Zona de Padel, Esprit Padel (3 locales), Tienda Padel Point, padel-rules, bornlivingyoga; facts from Ungureanu et al. 2022 (sub-elite 53.7 min) + Courel-Ibáñez et al. 2017 (pro rally 9.4 s).
+B3. DONE 26 Nov https://padelglassbox.com/best-padel-racket-for-beginners — 'best padel racket for beginners (2026)': Padel Market (4 locales + 2026 post), Justpadel 2026, padelful, padelspeak, Zona de Padel Oct 2026, Central Sports UK 2026 x3. Built as a spec checker (not a picks list, to avoid duplicating /cheap-padel-rackets).
+B4. DONE 26 Nov https://padelglassbox.com/padel-vs-racquetball — closes P1 / D5 / P3 'padel vs racquetball / platform tennis': Bounce 'padel vs racquetball' (10 Jul 2026) + 'platform tennis vs padel' (1 Aug 2026), Wilson 'difference between padel and other racket sports' (4 locales). Facts: USA Racquetball rulebook, APTA rules.
+B5. OPEN 'padel vs squash' (Red Bull padel vs tennis vs squash, 4 editions): add squash column/H2 to /padel-vs-racquetball or /padel-vs-tennis-vs-pickleball (WSF facts already on /squash-court-dimensions).
+B6. OPEN 'groups then knockout' generator: round robin groups feeding the bracket automatically (natural upgrade of /padel-tournament-bracket).
+
 ## COMPETITOR WATCH 26 Nov 2026 (vs racketguide.com (2,500-racket database), Tennis Warehouse University padel, App Store padel apps: Padel Tracker, Learn Padel 21-Day Course, Padel Coach swing analysis)
 We have 63 pages incl. 12 tools (level calculator, racket finder, gift finder, score keeper, match tracker, Americano, round robin, ladder, king of the court, FIP points, training plan, fix-my-padel).
 1. GAP: racket database + compare (open since 25 Nov): racketguide lists ~2,500 rackets with filters and side-by-side compare; we have a quiz + 3 guide pages. Plan: /padel-rackets table from maker spec pages (start 60 current models), filters (shape, weight, balance, hardness, level) + compare 2-3, 'similar to my racket'. Biggest affiliate value.
@@ -31,8 +39,8 @@ T4. OPEN 'padel elbow' (Decathlon, Tienda Padel Point x2, Justpadel, The Padel P
 T5. WATCH Mexico Major 2026 results still not indexed (search returns 2025: Coello/Tapia, Bea Gonzalez/Claudia Fernandez); refresh /padel-rankings after Finals.
 
 ## DEMAND RADAR 26 Nov 06:45 (Google autocomplete US)
-P1. OPEN /padel-vs-racquetball + platform tennis / paddleball comparisons (autocomplete "padel vs racquetball/paddleball/platform tennis/squash"), one comparison page with a table.
-P2. OPEN "best padel racket for beginners" guide (we have /cheap-padel-rackets, /intermediate-padel-racket: add a beginner page or section), "best padel player in the world" (rankings, dated).
+P1. DONE 26 Nov https://padelglassbox.com/padel-vs-racquetball /padel-vs-racquetball + platform tennis / paddleball comparisons (autocomplete "padel vs racquetball/paddleball/platform tennis/squash"), one comparison page with a table.
+P2. PARTLY DONE 26 Nov (beginner part: https://padelglassbox.com/best-padel-racket-for-beginners) "best padel racket for beginners" guide (we have /cheap-padel-rackets, /intermediate-padel-racket: add a beginner page or section), "best padel player in the world" (rankings, dated).
 P3. PARTLY DONE 26 Nov (serve part: https://padelglassbox.com/how-to-serve-padel) "how to serve in padel" step-by-step with a drill (we have /serve-rules = rules only) and "pickleball how to hold paddle".
 
 ## RADAR 26 Nov (demand-first build run 2; web search)
@@ -64,7 +72,7 @@ D1. DONE 25 Nov /court-sizes-compared — 'how many padel courts fit on a tennis
 D2. DONE 25 Nov /pickleball-score — many App Store score-keeper apps (Pickleball ScoreKeeper, PicklePoints, DinkTally, My PickleBall Scoreboard) + guides on 'how to call the score 0-0-2' (pickleball.com, AARP, Wilson).
 D3. OPEN /padel-booking-apps — 'padel booking platforms', 'Playtomic alternatives': Bounce, Padel Browser (US 2026), Cal.com, Capterra lists. Facts only, 2 sources each.
 D4. PARTLY DONE 26 Nov (dates on /padel-rankings) Premier Padel Finals 2026 (Barcelona, December) + Mexico Major: event hub with official dates only (padelfip.com, premierpadel.com/tourfinals).
-D5. BLOCKED this run: P3 platform tennis / racquetball facts (APTA, USA Racquetball, Wikipedia fetches timed out) — retry next run.
+D5. DONE 26 Nov (https://padelglassbox.com/padel-vs-racquetball) was BLOCKED: P3 platform tennis / racquetball facts (APTA, USA Racquetball, Wikipedia fetches timed out) — retry next run.
 
 ## NEW CATEGORY: OTHER RACKET-SPORT COURTS + RULES (Keyword Planner, worldwide, 25 Nov 2026)
 "badminton court dimensions" 100k-1M LOW comp (+900% 3-month), "tennis court dimensions" 10k-100k, "badminton rules" 10k-100k, "table tennis rules" 10k-100k, "squash court dimensions" 1k-10k.

@@ -270,7 +270,7 @@ cs = f"""<header class="hero"><div class="wrap"><h1>Court sizes compared</h1>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
 <div class="card"><h3><a href="{href("court-dimensions.html")}">Padel court dimensions</a></h3><p>Every line, wall and the net, to scale.</p></div>
 <div class="card"><h3><a href="{href("padel-court-cost.html")}">Padel court cost planner</a></h3><p>What building one or more courts costs.</p></div>
-<div class="card"><h3><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></h3><p>How the games differ, not just the courts.</p></div>
+<div class="card"><h3><a href="{href("padel-vs-tennis-vs-pickleball.html")}">Padel vs tennis vs pickleball</a></h3><p>How the games differ, not just the courts.</p></div><div class="card"><h3><a href="{href("padel-vs-racquetball.html")}">Padel vs racquetball vs platform tennis</a></h3><p>The wall and screen sports side by side.</p></div>
 </div><p class="muted" style="margin-top:14px">Sizes from the FIP Rules of Padel, ITF Rules of Tennis, USA Pickleball rulebook, BWF Laws of Badminton, World Squash and ITTF rules (see each court page). Padel spacing and heights: LTA Padel guidance note. Pickleball area per court: Sportmaster and Selkirk guides.</p></div></section>
 {compare_card("court-sizes-compared.html")}"""
 cs_faq = [("How many padel courts fit on a tennis court?", "One, on a standard tennis plot with run-off (36.6 × 18.3 m), using the LTA's spacing. Padel needs 20.8 m of width, so a plot widened by about 2.5 m (20.8 × 36.6 m) takes three courts side by side."),

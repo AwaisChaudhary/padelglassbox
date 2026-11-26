@@ -182,3 +182,4 @@ page("padel-beginner-plan.html", "30-Day Padel Beginner Plan: Day-by-Day Checkli
      bp, bp_faq, "30-day beginner plan")
 
 DEMAND_PAGES = ["padel-cost.html", "padel-beginner-plan.html"]
+exec((ROOT / "demand2.py").read_text())
