@@ -1,5 +1,9 @@
 ## SEO PLAYBOOK — standing rules for every run (Awais 26 Nov 01:35: "do SEO like the best SEO guy in the world for all sites")
 
+## EVENING RADAR 26 Nov 18:45 PKT (Google autocomplete US + Trends past 24h)
+- R1 OPEN 'pickleball how to get dupr rating' (#3; 0 pages) — include in the pickleball section (E1) as its own explainer.
+- R2 OPEN Trends rising 'premier padel hoy' (+80%, Spanish): Premier Padel calendar/results page should show today's/next event clearly at the top.
+
 ## NEW CATEGORY EXPANSION (Awais 26 Nov: when traffic plateaus, open new categories backed by Trends/searches; don't wait for input)
 Evidence = Google autocomplete 26 Nov 18:10 PKT. Each is a CATEGORY: build a hub page first, then 1-2 child pages per run. Skip if it already exists.
 - E1 OPEN Pickleball section: rules (doubles, singles, beginners), court size, scoring tool — 'pickleball rules doubles|singles|for beginners'.
