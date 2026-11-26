@@ -7,6 +7,11 @@ Tools in this repo: `seo_post.py` (runs at the end of build.py: sitemap = every 
 5. Links: only real editorial links via outreach batches Awais approves; build "linkable assets" (original data, free tools, maps) and list pitch targets in DEMAND for approval.
 6. Monthly: run seo_audit.py on the whole site and fix broken links, orphans, duplicate titles/descriptions, missing schema.
 
+## DEMAND RADAR 26 Nov 06:45 (Google autocomplete US)
+P1. OPEN /padel-vs-racquetball + platform tennis / paddleball comparisons (autocomplete "padel vs racquetball/paddleball/platform tennis/squash"), one comparison page with a table.
+P2. OPEN "best padel racket for beginners" guide (we have /cheap-padel-rackets, /intermediate-padel-racket: add a beginner page or section), "best padel player in the world" (rankings, dated).
+P3. OPEN "how to serve in padel" step-by-step with a drill (we have /serve-rules = rules only) and "pickleball how to hold paddle".
+
 ## RADAR 26 Nov (demand-first build run 2; web search)
 E1. DONE 26 Nov https://padelglassbox.com/padel-etiquette — 'padel etiquette' / 'padel unwritten rules': Red Bull article in 5 country editions (gb, us, ca, int, ph), Padel Browser (15 Apr 2026), Dummies cheat sheet, Jean Galea, club FAQ pages. Built as a 10-situation quiz + checklist + rule-vs-custom table.
 E2. DONE 26 Nov /padel-training-plan — 'padel training plan', 'weekly padel training routine': 8+ Tienda Padel Point guides, The Padel School pathways, padel-rules beginner 4-week and intermediate 8-week plans.
