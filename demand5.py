@@ -123,3 +123,4 @@ page("padel-overgrip.html", "How Often to Change a Padel Overgrip: Calculator + 
      og, og_faq, "Padel overgrip")
 
 DEMAND_PAGES += ["padel-lob.html", "padel-overgrip.html"]
+exec((ROOT / "demand6.py").read_text())

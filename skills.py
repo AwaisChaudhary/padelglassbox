@@ -79,7 +79,7 @@ sv = f'''<header class="hero"><div class="wrap"><h1>How to serve in padel: 6 ste
 <div class="card"><h3>3. Drop, don't toss</h3><p>Drop the ball beside your body, just in front of your front foot. Let it bounce once. Do not throw it up: the ball must bounce before you hit it.</p></div>
 <div class="card"><h3>4. Hit at or below the waist</h3><p>Wait for the ball to start falling, around knee to thigh height. Contact must be at or below your waist, with at least one foot on the ground.</p></div>
 <div class="card"><h3>5. Short swing, low to high</h3><p>A compact swing that moves from low to high. Power comes from moving your weight from the back foot to the front foot, not from a big arm swing.</p></div>
-<div class="card"><h3>6. Move to the net</h3><p>Follow the serve forward to your volley spot, about 2 to 2.5 m from the net. The serve is your way to take the net, where most points are won.</p></div>
+<div class="card"><h3>6. Move to the net</h3><p>Follow the serve forward to your volley spot, about 2 to 2.5 m from the net. The serve is your way to take the net, where most points are won. Then: <a href="{href("padel-volley.html")}">how to volley</a>.</p></div>
 </div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Where should you aim your padel serve?</h2><p class="muted">Aim deep, into the back third of the box. Then pick one of three targets.</p></div>
 <div class="grid" style="align-items:center"><div class="card" style="text-align:center">{box_svg()}</div>

@@ -3204,4 +3204,89 @@
     osr();
   }
 
+
+  /* ---------- volley picker + volley fault finder ---------- */
+  var vpb = $("#vop");
+  if (vpb) {
+    var vv = { spd: "med", ht: "chest", opp: "back" };
+    var vrender = function () {
+      var h, p, t = "";
+      if (vv.ht === "high") {
+        if (vv.spd === "slow") { h = "Finish it: firm volley or smash"; p = "A slow, high ball is your chance. Step in and play a firm volley " + (vv.opp === "net" ? "at the feet of the nearest opponent or through the middle." : "into the back corner, at the double glass, or a smash if it is above your head."); }
+        else { h = "High block, deep"; p = "Fast and high is hard to control. Keep the racket in front of your head, block it firmly and send it deep down the middle. If it is over your head, a bandeja is safer."; t = lbl("bandeja-vs-vibora", "Bandeja vs víbora vs smash"); }
+      } else if (vv.ht === "low") {
+        h = "Low volley: slow and deep";
+        p = "You are below the net, so you cannot attack. Bend your knees, open the face a little and play it slow" + (vv.opp === "back" ? " and deep, past the service line." : vv.opp === "mid" ? " and low at the feet of the player coming in." : ", soft, back down the middle, then get ready for the next ball.");
+        t = "Keep the racket head up: bend the legs, not the wrist.";
+      } else if (vv.spd === "fast") {
+        h = "Block volley";
+        p = "Hold the racket firm in front of you and do not swing. Let the ball's speed send it back, deep and through the middle" + (vv.opp === "net" ? ", or softly at their feet if they are both very close." : ".");
+        t = "Short backswing, firm wrist, step in.";
+      } else if (vv.spd === "slow") {
+        h = vv.opp === "back" ? "Slice volley into the corner" : "Attacking volley at the feet";
+        p = vv.opp === "back" ? "A slow ball at chest height can hurt them. Cut under it for backspin and send it deep into the corner, so it stays low after the back glass." : "Step in and play it firmly down at the feet of the player " + (vv.opp === "mid" ? "coming in." : "nearest you, or through the middle between them.");
+        t = "If it is not clearly easy, play a deep push instead.";
+      } else {
+        h = vv.opp === "mid" ? "Volley at the feet of the player coming in" : vv.opp === "net" ? "Low, soft volley down the middle" : "Deep push volley";
+        p = vv.opp === "mid" ? "One opponent is moving forward. A low volley at their feet makes them hit up to you." : vv.opp === "net" ? "All four at the net: keep it low so they must hit up. Down the middle makes them think about who takes it." : "Push it deep, past the service line and through the middle. Keep them back and wait for an easier ball. Or play a setup volley into the corner.";
+      }
+      $("#vop-h").textContent = h; $("#vop-p").textContent = p; $("#vop-t").innerHTML = t;
+    };
+    $$("[data-vop]", vpb).forEach(function (g) { choose(g, function (v) { vv[g.dataset.vop] = v; vrender(); }); });
+    vrender();
+  }
+  var vfs = $("#vof-s");
+  if (vfs) {
+    var VF = {
+      up: ["Racket face too open, or you were late.", "Get the racket ready earlier, meet the ball in front of you and keep the face a little more closed. Use a continental grip, not a flat one.", "Drill: partner feeds 20 balls at chest height; every volley must land past the service line."],
+      net: ["Trying to attack a difficult ball.", "On low or fast balls, play a softer block and aim higher over the net. Only attack balls above the net.", "Bend your knees on low balls instead of dropping the racket head."],
+      long: ["Swinging too much.", "Shorten the swing to a short punch and stop the racket after contact. Let the step give you power, not the arm.", "Aim for the ball to bounce before the back glass, past the service line."],
+      late: ["Racket too low in the ready position.", "Keep the racket up and in front of your body all the time at the net, even when you run in after the serve.", "Split step every time an opponent hits."],
+      lob: ["Standing too close to the net.", "Stand about two to three metres from the net and step forward into each volley. Then you have time to go back for the lob.", "See the lob guide for how to answer lobs."],
+      weak: ["Arm only, no step or shoulder turn.", "Turn your shoulders and step towards the ball with the opposite foot as you hit. On easy balls you may use a slightly longer swing.", "Power comes from the legs and the step."],
+      bh: ["Wrist and grip, usually.", "Keep the continental grip (do not turn to a forehand grip), turn the shoulders more and lead with the step of the right foot (right-hander). Keep the racket head above the wrist.", "Practise 10 backhand blocks against a wall, then with a partner."]
+    };
+    var vfr = function () { var a = VF[vfs.value]; $("#vof-c").textContent = a[0]; $("#vof-f").textContent = a[1]; $("#vof-d").innerHTML = a[2] + (vfs.value === "lob" ? " " + lbl("padel-lob", "Padel lob guide") : " More problems: " + lbl("fix-my-padel", "fix my padel")); };
+    vfs.addEventListener("change", vfr);
+    vfr();
+  }
+
+  /* ---------- return of serve picker ---------- */
+  var rpb = $("#rtp");
+  if (rpb) {
+    var rv = { tgt: "glass", spin: "flat", srv: "net" };
+    var rrender = function () {
+      var stand = { flat: "one step behind the service line, near the side glass", side: "a little further from the side glass, so the ball can come in to you", slice: "a little closer to the glass, knees bent early, ready for a low ball", fast: "a little deeper than usual, racket back early" }[rv.spin];
+      var h, p;
+      if (rv.tgt === "glass") { h = "Let it off the glass, then block it back"; p = "A good serve into the side glass is hard to attack. Let it come off the glass, then play a simple, controlled return deep to the server" + (rv.srv === "net" ? ", or low at their feet as they come in." : "."); }
+      else if (rv.tgt === "t") { h = "Lob, to buy time"; p = "A serve down the middle gives you little angle. A high lob over the net player is the safest return" + (rv.srv === "net" ? ". Better players can also play a soft ball at the server's feet." : ". The server stayed back, so you can also play low and deep and come in."); }
+      else if (rv.tgt === "body") { h = "Step aside and block"; p = "Move your feet out of the way first, then play a short, firm block deep down the middle. Do not try a big swing at a ball into your body."; }
+      else { h = "Attack it and take the net"; p = rv.srv === "net" ? "An easy serve is your chance. Step in and play low at the feet of the server coming in (a chiquita), or lob over the net player, then move up to the net with your partner." : "An easy serve and nobody at the net: play deep and come in, so your pair takes the net first."; }
+      if (rv.spin === "slice") p += " With slice, keep it slow and deep, or lob: do not hit a low ball hard.";
+      if (rv.spin === "fast") p += " Speed does not change direction, only time: prepare early.";
+      $("#rtp-h").textContent = h; $("#rtp-p").textContent = p;
+      $("#rtp-t").innerHTML = "Stand " + stand + ". Remember: the serve must bounce first. Rules: " + lbl("serve-rules", "serve rules checker");
+    };
+    $$("[data-rtp]", rpb).forEach(function (g) { choose(g, function (v) { rv[g.dataset.rtp] = v; rrender(); }); });
+    rrender();
+  }
+
+  /* ---------- back glass rebound picker ---------- */
+  var bgb = $("#bgp");
+  if (bgb) {
+    var bv = { spd: "med", ht: "mid", wall: "back", opp: "net" };
+    var brender = function () {
+      var where = { fast: "Stand well away from the glass: a fast, flat ball comes out a long way.", med: "Stand about a big step and a half from the glass and adjust with small steps.", slow: "Move in closer: a slow lob drops near the wall." }[bv.spd];
+      if (bv.wall === "sb") where += " Side then back glass: it will come out towards the middle, so check who takes it with your partner.";
+      if (bv.wall === "bs") where += " Back then side glass: it runs along the side wall towards the net. Follow it.";
+      var h, p;
+      if (bv.ht === "high" && bv.wall === "back") { h = bv.opp === "net" ? "Bajada: attack it low" : "Bajada, deep"; p = "The ball comes off high, so you can attack. Take it on the way down at about shoulder height with a compact swing and drive it " + (bv.opp === "net" ? "low, at the feet of the net player or through the middle. Then move up." : "deep through the middle, then take the net."); }
+      else if (bv.ht === "low" || bv.wall !== "back") { h = "Safe lift: high lob"; p = (bv.ht === "low" ? "A low rebound is a defensive ball. Get down early and lift it " : "Double-wall balls are awkward, so keep it simple: lift it ") + (bv.opp === "net" ? "into a high, deep lob over the net pair, cross-court." : "high and deep, back into a neutral rally."); }
+      else { h = bv.opp === "net" ? "Lob or low ball at the feet" : "Deep, steady drive"; p = bv.opp === "net" ? "At waist height you have a choice. The lob is the safer shot and moves them back. If they are very close to the net, a low, slow ball at their feet can work." : "They are back too, so a lob only gives them the net. Play a steady ball deep through the middle and look to come in."; }
+      $("#bgp-h").textContent = h; $("#bgp-p").textContent = p; $("#bgp-t").textContent = where;
+    };
+    $$("[data-bgp]", bgb).forEach(function (g) { choose(g, function (v) { bv[g.dataset.bgp] = v; brender(); }); });
+    brender();
+  }
+
 })();

@@ -1,9 +1,17 @@
 ## SEO PLAYBOOK — standing rules for every run (Awais 26 Nov 01:35: "do SEO like the best SEO guy in the world for all sites")
 
+## RADAR 27 Nov midday (demand-first build run 9; web search)
+J1. DONE 27 Nov https://padelglassbox.com/padel-volley — 'padel volley technique', 'how to volley in padel', 'why does my volley go up': LTA Padel volleys page, The Padel School 12+ volley URLs (the padel volley, biggest mistakes, first volley, setup volley, backhand volleys, forehand volley accuracy), Decathlon NL volley tips, Nox drive volley, Ely Padel Club (ClubSpark) volley training.
+J2. DONE 27 Nov https://padelglassbox.com/padel-return-of-serve — 'how to return serve in padel', 'where to stand to return serve', 'padel return rules': The Padel School 8 return URLs (fix common problems, the padel return, where to hit the return, essential return rules, dominate an easy serve), HEAD + Red Bull serve tips (multi-locale). No return page existed.
+J3. DONE 27 Nov https://padelglassbox.com/padel-back-glass — 'how to play off the back glass/back wall padel', 'bajada padel': LTA Padel back-glass page, Padel Browser (18 Jun 2026), Tennis Warehouse 'using the walls', Nox bajada/salida de pared (3 URLs), The Padel School 'hit against the back glass'.
+J4. OPEN 'chiquita padel' (The Padel School x5 chiquita URLs, Nox, Tienda Padel Point guide, Padel USA blog, HEAD beginners shots in 8 locales): dedicated chiquita how-to + 'when to play it' picker, or a big H2 on /shots.
+J5. OPEN 'junior padel' / 'youth padel competitions' / 'how to start a junior padel program' (LTA youth competitions + LTA Padel Youth Tour support page, Padel USA junior program PDF May/Jun 2026, Park Sports junior courses): junior padel hub linking /padel-racket-for-kids.
+J6. NOTE Premier Padel Mexico Major search results still show 2025 (Coello/Tapia, Bea/Claudia); 2026 results not yet indexed. Keep I4/N4 open; refresh /padel-rankings after Finals.
+
 ## RADAR 27 Nov early (demand-first build run 8; web search)
 I1. DONE 27 Nov https://padelglassbox.com/padel-lob — 'padel lob how to', 'how to hit a lob in padel', 'how to deal with lobs': Red Bull 'padel lob how to master the shot' in 6+ locales, LTA Padel lobs page, The Padel School (5 lob URLs incl. 'how to deal with lobs', 'tactics against lobbers'), Padel School podcast 'why your lob is holding you back', HEAD beginners shots guide. No lob page existed.
 I2. DONE 27 Nov https://padelglassbox.com/padel-overgrip — 'how often change padel overgrip', 'when to change overgrip': Tienda Padel Point has 12+ separate URLs for this one question (strong demand signal), Padel USA (26 Oct 2026), HEAD overgrip how-to (multiple locales).
-I3. OPEN 'padel backhand volley' / 'how to fix backhand grip' (The Padel School x6 backhand/volley URLs, LTA Padel volleys + forehands/backhands pages, Wilson tips, Nox): dedicated volley technique page + 'volley fault finder'.
+I3. DONE 27 Nov https://padelglassbox.com/padel-volley — 'padel backhand volley' / 'how to fix backhand grip' (The Padel School x6 backhand/volley URLs, LTA Padel volleys + forehands/backhands pages, Wilson tips, Nox): dedicated volley technique page + 'volley fault finder'.
 I4. OPEN Premier Padel Mexico Major 2026 (Acapulco, Padel Addict draw/streaming pages; Red Bull '2026 season so far' in 8 locales): refresh /padel-rankings after Finals (Dec), check padelfip.com + 1 more.
 
 ## RADAR 26 Nov night (demand-first build run 7; web search)
