@@ -1,4 +1,10 @@
 ## SEO PLAYBOOK — standing rules for every run (Awais 26 Nov 01:35: "do SEO like the best SEO guy in the world for all sites")
+
+## NEW CATEGORY EXPANSION (Awais 26 Nov: when traffic plateaus, open new categories backed by Trends/searches; don't wait for input)
+Evidence = Google autocomplete 26 Nov 18:10 PKT. Each is a CATEGORY: build a hub page first, then 1-2 child pages per run. Skip if it already exists.
+- E1 OPEN Pickleball section: rules (doubles, singles, beginners), court size, scoring tool — 'pickleball rules doubles|singles|for beginners'.
+- E2 OPEN Padel vs tennis vs pickleball comparison: ball, shoes, court size ('tennis vs padel vs pickleball|ball|shoes|court size').
+- E3 OPEN Padel court cost: per hour (UK/London), cost to build (UK, India) — calculator with clearly labelled estimate ranges.
 Tools in this repo: `seo_post.py` (runs at the end of build.py: sitemap = every indexable page; lastmod changes ONLY when visible content changes; image sitemap entries) and `seo_audit.py` (`python3 seo_audit.py . <https://domain>`: titles, descriptions, canonicals, H1, JSON-LD, broken links, orphans, sitemap gaps, thin pages).
 1. EVERY NEW PAGE: one main query (Keyword Planner / autocomplete / People Also Ask). Title: the query first, under ~60 characters where possible. Meta description 140-160 chars that contains the answer. One H1. A quick answer to the query in the first 100 words. FAQ from real PAA questions. Link IN from at least 3 relevant existing pages (not just nav) and OUT to 3+ related pages. An original image where it helps (our own diagrams/maps/screens, descriptive alt text). Then run seo_audit.py and fix anything it flags for that page.
 2. AFTER DEPLOY: IndexNow ping (key in README/OPERATIONS) + Search Console URL Inspection > Request indexing for the 2-5 most important new URLs (max ~10/day per property; account ocrial@gmail.com = authuser=1).
