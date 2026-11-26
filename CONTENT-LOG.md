@@ -233,3 +233,9 @@
 - Sources: DUPR 'How to get a pickleball rating' (9 Jul 2024), 'How it works', 'How your DUPR rating is calculated' (7 Aug 2026), 'Top 5 ways to improve your DUPR rating' (4 Nov 2026), 'Get rated by a DUPR coach' (22 Apr 2025), DUPR+ page; Pickleheads 'How to get a DUPR rating' (9 May 2025). Squash: WSF rules/court spec (same as /squash-court-dimensions). Padel: FIP rules (existing pages). Tie-break order: common club practice, labelled as such.
 - Not built: Premier Padel calendar hub (sources disagree; see DEMAND G4).
 - IndexNow pending https://padelglassbox.com/padel-group-stage-generator https://padelglassbox.com/dupr-rating https://padelglassbox.com/padel-vs-squash https://padelglassbox.com/padel-tournament-bracket https://padelglassbox.com/padel-vs-racquetball https://padelglassbox.com/pickleball-score https://padelglassbox.com/pickleball-rules https://padelglassbox.com/squash-court-dimensions
+
+## 26 Nov 2026 (night) — demand run 7
+- NEW /padel-booking-apps: app chooser (where you play x what you need), apps compared table (Playtomic, PlayByPoint, CourtReserve, OpenCourt, MATCHi, ClubSpark), WhatsApp game invite maker with 4-way court price split, 'how do I find people to play padel with', 'how to book a padel court for the first time', 6 FAQs. Targets: padel booking app, Playtomic alternatives, how to find padel partners. Sources: LTA Padel, Padel Browser (Sep + Aug 2026), Padelspeed (Mar + May 2026), Bounce (Jul 2026), LTA ClubSpark pages.
+- NEW /history-of-padel: filterable timeline (18 dated events, 1969-2026), who invented padel, why big in Spain/Argentina, why 'padel', 6 FAQs. Targets: history of padel, who invented padel, when was padel invented. Sources: LTA Padel history, FIP history (disagreements shown).
+- Links in: /beginners, /padel-cost, /padel-etiquette (booking apps); /glossary, /rules (history); footer both.
+- IndexNow pending https://padelglassbox.com/padel-booking-apps https://padelglassbox.com/history-of-padel

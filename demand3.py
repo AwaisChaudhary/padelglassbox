@@ -170,3 +170,4 @@ page("padel-vs-squash.html", "Padel vs Squash: Differences + Squash-to-Padel Fix
      sv, sv_faq, "Padel vs squash")
 
 DEMAND_PAGES += ["padel-group-stage-generator.html", "dupr-rating.html", "padel-vs-squash.html"]
+exec((ROOT / "demand4.py").read_text())

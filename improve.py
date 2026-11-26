@@ -397,6 +397,7 @@ et = f'''<header class="hero"><div class="wrap"><h1>Padel etiquette: the unwritt
 <div class="card"><h3>Learn the rules</h3><p>The <a href="{href("rules.html")}">padel rules</a> in plain English, with a tappable court.</p></div>
 <div class="card"><h3>New to padel?</h3><p>Start with the <a href="{href("beginners.html")}">beginner's guide</a> and the <a href="{href("padel-equipment.html")}">kit checklist</a>.</p></div>
 <div class="card"><h3>Keep the score</h3><p>Say the score before each serve, or use the <a href="{href("score.html")}">score keeper</a>.</p></div>
+<div class="card"><h3>Need players?</h3><p>Find a game and send a clear invite with the <a href="{href("padel-booking-apps.html")}">booking apps guide and invite maker</a>.</p></div>
 </div></div></section>
 <section><div class="wrap"><div class="aff-box"><h3>Bring the right kit</h3><p>Proper padel shoes protect the court surface and your ankles, and it is good manners to bring new balls when it is your turn.</p><ul class="aff-links"><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li></ul>{AFF_NOTE}</div>
 <p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 26 Nov 2026: Padel Browser "Padel court etiquette: the unwritten rules" (15 Apr 2026); FIP Rules of Padel (ball touching a player, net touch, change of ends after odd games). Customs are written in our own words.</p></div></section>'''

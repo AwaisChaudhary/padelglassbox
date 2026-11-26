@@ -3054,4 +3054,70 @@
     var r0 = SV.back; $("#sv-h").textContent = r0[0]; $("#sv-p").textContent = r0[1]; $("#sv-next").innerHTML = "Next: " + r0[2];
   }
 
+  /* ---------- padel booking app chooser ---------- */
+  var bkb = $("#bk");
+  if (bkb) {
+    var bl = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var bw = "uk", bn = "book";
+    var BW = {
+      uk: ["ClubSpark, Playtomic or MATCHi", "In the UK, many LTA registered venues take bookings through ClubSpark, and many padel-only clubs use Playtomic or MATCHi. Use the booking link on your club's website."],
+      eu: ["Playtomic first", "Playtomic is the most widely used padel app in Spain and across Europe. MATCHi is common at some venues. Your club's website shows which one it uses."],
+      us: ["Check your club: Playtomic, PlayByPoint, CourtReserve or OpenCourt", "In the US, Playtomic and PlayByPoint are the two most used systems at padel clubs, then CourtReserve. Clubs often show PlayByPoint, CourtReserve or OpenCourt under their own app name."],
+      me: ["Start with Playtomic, then check the club", "Playtomic is used in many countries, including the Middle East, but some clubs use their own app or WhatsApp booking. Check the club's website or social pages."],
+      x: ["Ask the club which system it uses", "Playtomic is the most widely used padel app worldwide, but many clubs use their own booking page. Look for the book link on the club's website."]
+    };
+    var BN = {
+      book: ["Tip:", "Book 60 or 90 minutes for 4 players, a few days ahead for evenings. Then use the invite maker below to fill the court and split the price."],
+      find: ["Tip:", "Open matches are the fastest way: Playtomic lets you join games at your level (0 to 7). Club apps like PlayByPoint and CourtReserve list clinics and socials more than partner matches, so join those and the club WhatsApp group."],
+      learn: ["Tip:", "Club apps list lessons, clinics and leagues. In the UK, the LTA has coach and competition finders, and Grade 5 and 4 events suit beginners to intermediates."]
+    };
+    var brender = function () {
+      var a = BW[bw], b = BN[bn];
+      $("#bk-h").textContent = a[0];
+      $("#bk-p").textContent = a[1] + " " + b[0] + " " + b[1];
+      $("#bk-next").innerHTML = "Next: " + (bn === "find" ? bl("level-calculator", "check your level") + " · " + bl("americano", "Americano nights") : bn === "learn" ? bl("padel-lessons", "padel lessons") + " · " + bl("padel-beginner-plan", "30-day plan") : bl("padel-cost", "court prices") + " · " + bl("padel-etiquette", "etiquette"));
+    };
+    $$("[data-bk]", bkb).forEach(function (g) { choose(g, function (v) { if (g.dataset.bk === "where") bw = v; else bn = v; brender(); }); });
+    brender();
+  }
+
+  /* ---------- padel game invite maker ---------- */
+  var pib = $("#pinv");
+  if (pib) {
+    var pv = { lvl: "Improver (2-3)", need: "1", type: "Friendly, rotate partners" };
+    var pmsg = "";
+    var prender = function () {
+      var day = $("#pi-day").value.trim() || "[day]", tm = $("#pi-time").value || "[time]", club = $("#pi-club").value.trim() || "[club]";
+      var len = $("#pi-len").value, cur = $("#pi-cur").value, price = parseFloat($("#pi-price").value);
+      var each = isNaN(price) || price <= 0 ? "" : cur + (Math.round(price / 4 * 100) / 100).toFixed(2).replace(/\.00$/, "");
+      var n = parseInt(pv.need, 10);
+      pmsg = "Padel game: " + n + " player" + (n === 1 ? "" : "s") + " needed\n" +
+        "When: " + day + ", " + tm + " (" + len + " min)\n" +
+        "Where: " + club + "\n" +
+        "Level: " + pv.lvl + "\n" +
+        "Game: " + pv.type + "\n" +
+        (each ? "Cost: " + each + " each (court split 4 ways)\n" : "") +
+        ($("#pi-balls").checked ? "Balls: I'm bringing new ones\n" : "Balls: please bring a can if you have one\n") +
+        "Reply here to grab a spot. First come, first served.";
+      $("#pi-msg").textContent = pmsg;
+      $("#pi-each").textContent = each ? "Each player pays " + each + " for " + len + " minutes." : "Add the court price to split it.";
+      $("#pi-wa").href = "https://wa.me/?text=" + encodeURIComponent(pmsg);
+    };
+    $$("[data-pi]", pib).forEach(function (g) { choose(g, function (v) { pv[g.dataset.pi] = v; prender(); }); });
+    $$("input, select", pib).forEach(function (i) { i.addEventListener("input", prender); i.addEventListener("change", prender); });
+    $("#pi-copy").addEventListener("click", function () {
+      if (navigator.clipboard) navigator.clipboard.writeText(pmsg).then(function () { toast("Invite copied"); }, function () { toast("Select the text to copy"); });
+      else toast("Select the text to copy");
+    });
+    prender();
+  }
+
+  /* ---------- history of padel timeline filter ---------- */
+  var htb = $("#ht");
+  if (htb) {
+    var yrs = new Date().getFullYear() - 1969;
+    $("#ht-age").textContent = "Padel is " + yrs + " years old this year. Tap a theme to filter.";
+    $$("[data-ht]", htb).forEach(function (g) { choose(g, function (v) { $$(".ht-i", htb).forEach(function (li) { li.hidden = !(v === "all" || li.dataset.era === v); }); }); });
+  }
+
 })();
