@@ -126,7 +126,7 @@ sv_faq = [
     ("What is a good first-serve percentage in padel?", "Aim to get at least 8 in 10 first serves in. Missing first serves gives away free pressure on your second serve."),
 ]
 page("how-to-serve-padel.html", "How to Serve in Padel: 6 Steps + Serve Practice Tracker | Padel Glass Box",
-     "How to serve in padel: stand sideways, drop and bounce, hit below the waist with a short low-to-high swing, aim deep (wide, body or T) and move to the net. Free serve tracker.",
+     "How to serve in padel: stand sideways, bounce, hit below the waist with a low-to-high swing, aim deep and move to the net. Plus a free serve tracker.",
      sv, sv_faq, "How to serve")
 
 # ---------- 2. PADEL TACTICS TRAINER ----------
@@ -232,8 +232,8 @@ tc_faq = [
     ("Should both padel players be at the net?", "Ideally yes, together. Move up and back as a pair about 3 m apart, so no gap opens down the middle."),
     ("How do you beat better padel players?", "Cut your errors, lob a lot to keep them off the net, play to the weaker player's backhand, and keep the ball low and in the middle. Make them hit one more ball."),
 ]
-page("padel-tactics.html", "Padel Tactics: What Shot Should I Play? (10-Scenario Trainer) | Padel Glass Box",
-     "Padel tactics trainer: 10 match situations drawn on a court. When both opponents are at the net, lob or hit at their feet; finish only easy balls; use the middle; move as a pair.",
+page("padel-tactics.html", "Padel Tactics: What Shot Should I Play? 10-Scenario Trainer",
+     "Padel tactics trainer: 10 match situations drawn on a court. Learn when to lob or hit at their feet, what to finish, using the middle and moving as a pair.",
      tc, tc_faq, "Padel tactics")
 
 # ---------- 3. HOW TO GET BETTER AT PADEL: level-by-level guide (hub) ----------
@@ -300,7 +300,7 @@ ig_faq = [
     ("Is it better to take padel lessons or just play?", "Both. Matches teach decisions; lessons and drills fix technique faster than matches alone. A lesson every few weeks plus regular games works well for most players."),
 ]
 page("padel-improvement-guide.html", "How to Get Better at Padel: Level-by-Level Guide | Padel Glass Box",
-     "How to get better at padel: pick your level and see the 3 things to work on next, which free tools to use and how often to play. Beginner, improver, club and strong players.",
+     "How to get better at padel: pick your level and see the 3 things to work on next, which free tools to use and how often to play, from beginner to club level.",
      ig, ig_faq, "Improvement guide")
 
 SKILL_PAGES = ["how-to-serve-padel.html", "padel-tactics.html", "padel-improvement-guide.html"]

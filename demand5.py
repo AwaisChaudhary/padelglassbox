@@ -61,7 +61,7 @@ lb_faq = [
     ("Why do my lobs go out?", "Usually you lift your whole body, swing too hard, or hit while off balance. Stay low, use your legs, slow the swing and aim higher rather than longer."),
 ]
 page("padel-lob.html", "How to Hit a Lob in Padel + Lob Picker and Lob Answer Tool | Padel Glass Box",
-     "How to hit a padel lob step by step, where it should land, common mistakes, a free picker for which lob to play, and which shot to hit when you face a lob (bandeja, víbora, smash or off the glass).",
+     "How to hit a padel lob step by step: where it should land, common mistakes, a picker for which lob to play, and how to answer a lob from your opponents.",
      lb, lb_faq, "Padel lob")
 
 # ---------- 2. PADEL OVERGRIP: WHEN TO CHANGE IT (CALCULATOR) ----------
@@ -118,8 +118,8 @@ og_faq = [
     ("Can I put two overgrips on a padel racket?", "Yes. Two make the handle clearly thicker. Each adds about 8 g at the handle."),
     ("How often should I change the base grip?", "About every 2 to 3 months if you play several times a week, or once a season if you play now and then, or when it goes flat or hard."),
 ]
-page("padel-overgrip.html", "How Often to Change a Padel Overgrip: Free Calculator + Signs | Padel Glass Box",
-     "How often to change your padel overgrip (about every 8 to 12 hours of play), a free calculator for your sessions, sweat and climate with grips per year and cost, worn-out signs, and overgrip vs replacement grip.",
+page("padel-overgrip.html", "How Often to Change a Padel Overgrip: Calculator + Signs",
+     "How often to change a padel overgrip (about every 8 to 12 hours of play): a free calculator for your sessions, sweat and climate, plus worn-out signs.",
      og, og_faq, "Padel overgrip")
 
 DEMAND_PAGES += ["padel-lob.html", "padel-overgrip.html"]

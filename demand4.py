@@ -70,8 +70,8 @@ bk_faq = [
     ("Can I play padel on my own?", "Yes. Join an open match in your club's app, a beginner social or an Americano night: you are paired with other players."),
     ("Do I need an app to play padel?", "Not always. Some clubs take bookings by phone or on their website, but most use an app or online booking page. Check the club's website for its booking link."),
 ]
-page("padel-booking-apps.html", "Padel Booking Apps Compared + Find Players (Free Invite Maker) | Padel Glass Box",
-     "Which padel booking app to use: Playtomic, PlayByPoint, CourtReserve, MATCHi, ClubSpark and more, how to find people to play padel with, and a free WhatsApp game invite maker.",
+page("padel-booking-apps.html", "Padel Booking Apps Compared + How to Find Players",
+     "Which padel booking app to use: Playtomic, PlayByPoint, CourtReserve, MATCHi, ClubSpark and more, how to find players, and a free WhatsApp invite maker.",
      bk, bk_faq, "Padel booking apps")
 
 # ---------- 2. HISTORY OF PADEL: INTERACTIVE TIMELINE ----------
@@ -127,7 +127,7 @@ ht_faq = [
     ("How many people play padel?", "FIP says about 35 million amateur players in more than 150 countries (2026). LTA says Britain had over 230,000 players at the end of 2024."),
 ]
 page("history-of-padel.html", "History of Padel: Who Invented It + Interactive Timeline | Padel Glass Box",
-     "Padel was invented in 1969 by Enrique Corcuera in Acapulco, Mexico. Interactive timeline: Spain, Argentina, the first federation, World Championships, pro tours and padel in the UK.",
+     "Padel was invented in 1969 by Enrique Corcuera in Acapulco, Mexico. Interactive timeline from Spain and Argentina to pro tours and padel in the UK.",
      ht, ht_faq, "History of padel")
 
 DEMAND_PAGES += ["padel-booking-apps.html", "history-of-padel.html"]

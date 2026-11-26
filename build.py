@@ -86,6 +86,7 @@ def write_redirects(root):
 
 
 def page(file, title, desc, body, faqs=None, crumb=None):
+    if len(title) > 60 and title.endswith(" | " + SITE): title = title[:-len(" | " + SITE)]  # Google shows the site name anyway; keep titles <=60
     _og = og_image(file, title, DOMAIN)
     url = canon(file)
     ld = [{"@context": "https://schema.org", "@type": "WebPage", "name": title, "description": desc, "url": url, "dateModified": UPDATED,
@@ -97,6 +98,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
         ld.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]})
     ga = (f'<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag("js",new Date());gtag("config","{GA_ID}");</script>' if GA_ID else "")
+    crumbs_html = (f'<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><ol><li><a href="{href("index.html")}">Home</a></li><li aria-current="page">{e(crumb)}</li></ol></div></nav>' if crumb else "")
     nav = "".join(f'<li><a href="{href(f)}"{" aria-current=\"page\"" if f == file else ""}>{n}</a></li>' for f, n in NAV)
     doc = f'''<!DOCTYPE html>
 <html lang="en">
@@ -125,7 +127,7 @@ def page(file, title, desc, body, faqs=None, crumb=None):
 <ul class="nav" id="nav">{nav}</ul>
 </div></header>
 <main>
-{AFF_TOP if '/go/' in body else ''}{body}
+{crumbs_html}{AFF_TOP if '/go/' in body else ''}{body}
 {faq_html(faqs)}
 {signup(file)}
 {AD.format(file)}
@@ -377,8 +379,8 @@ rules_faq = [
     ("When do you change ends in padel?", "After the 1st, 3rd and every odd game of a set, and after every 6 points in a tie-break."),
     ("Is a net cord in play during a padel rally?", "Yes. In a rally a ball that touches the net and lands on the other side is in play. Only on the serve does a net touch mean a let."),
 ]
-page("rules.html", "Padel Rules (Padel Tennis) Explained Simply: Scoring, Serve, Walls | Padel Glass Box",
-     "Padel rules in plain English: the underhand serve, walls, net, faults, scoring, tie-breaks and changing ends, plus an interactive court you can tap to learn each part.", rules, rules_faq, "Rules")
+page("rules.html", "Padel Rules (Padel Tennis) Explained: Scoring, Serve, Walls",
+     "Padel rules in plain English: the underhand serve, walls, net, faults, scoring, tie-breaks and changing ends, plus an interactive court to tap and learn.", rules, rules_faq, "Rules")
 
 # ---------------- SHOTS ----------------
 PATHS = {
@@ -427,7 +429,7 @@ shots_faq = [
     ("Is the smash or the bandeja better in padel?", "Most of the time the bandeja. A smash that is not a clear winner often comes back off the glass, while a bandeja keeps your team at the net."),
 ]
 page("shots.html", "Padel Shots Explained: Bandeja, Víbora, Chiquita and More | Padel Glass Box",
-     "Every key padel shot explained simply, with animated ball paths and the order to learn them: volley, lob, bandeja, chiquita, contrapared, víbora, rulo, bajada and smash.", shots, shots_faq, "Shots")
+     "Every key padel shot explained simply with animated ball paths: volley, lob, bandeja, chiquita, contrapared, víbora, rulo, bajada and smash.", shots, shots_faq, "Shots")
 
 # ---------------- BEGINNERS ----------------
 kit = ["A padel racket (a round one is easiest to start with)", "Padel balls, not tennis balls (they have less pressure)", "Court shoes with good grip for artificial grass", "A wrist strap on your racket, and wear it", "Comfortable sports clothes and water", "A booked court and three other players"]
@@ -526,7 +528,7 @@ glos_faq = [
     ("What are drive and revés in padel?", "Drive is the player on the right side of the court and revés is the player on the left. In Spanish the words also mean forehand and backhand."),
 ]
 page("glossary.html", "Padel Glossary: Terms, Spanish Pronunciation and Meanings | Padel Glass Box",
-     "Padel terms explained in plain English, with how to say the Spanish words: bandeja, víbora, chiquita, bajada, malla, golden point, drive, revés and more. Searchable and free.", glos, glos_faq, "Glossary")
+     "Padel terms explained in plain English, with how to say the Spanish words: bandeja, víbora, chiquita, bajada, malla, golden point and more. Searchable.", glos, glos_faq, "Glossary")
 
 # ---------------- AMERICANO / MEXICANO GENERATOR ----------------
 def pts_opts():
@@ -596,8 +598,8 @@ amer_faq = [
     ("Who wins a padel Americano?", "The player with the most points in total after the last round. If players have played a different number of matches because of rests, compare points per match."),
     ("How long does a padel Americano take?", "It depends on the points per match and the number of rounds. Seven rounds of 24 points usually fits a two-hour court booking, with short breaks to change partners."),
 ]
-page("americano.html", "Padel Americano and Mexicano Generator: Free Draw and Leaderboard | Padel Glass Box",
-     "Free padel Americano and Mexicano generator for 4 to 24 players. Get every round with partners and courts, enter the points, see a live leaderboard. Plus how Mexicano pairs players and which format to pick.", amer, amer_faq, "Americano generator")
+page("americano.html", "Padel Americano and Mexicano Generator: Draw + Leaderboard",
+     "Free padel Americano and Mexicano generator for 4 to 24 players: every round with partners and courts, points entry, a live leaderboard and format tips.", amer, amer_faq, "Americano generator")
 
 # ---------------- COURT DIMENSIONS ----------------
 def dt(m, x, y, extra=""):
@@ -769,7 +771,7 @@ lvl_faq = [
     ("How do I move up a level?", "Fix the weakest part of your game first, as it costs you the most points. For most players that means getting comfortable with the back glass and learning the bandeja."),
 ]
 page("level-calculator.html", "Padel Level Calculator: What Is My Padel Level (1 to 7)? | Padel Glass Box",
-     "What is my padel level? Answer 7 quick questions for your estimated level from 1 to 7, what each level means, how the Playtomic level and reliability work, and what to practise next.", lvl, lvl_faq, "Level calculator")
+     "What is my padel level? Answer 7 quick questions for an estimated level from 1 to 7, what each level means, how Playtomic levels work and what to practise.", lvl, lvl_faq, "Level calculator")
 
 # ---------------- GOLDEN POINT vs STAR POINT ----------------
 deuce = f'''<header class="hero"><div class="wrap"><h1>Golden point, Star Point or advantage?</h1>
@@ -888,7 +890,7 @@ pos_faq = [
     ("Should both padel players be at the net?", "Yes, when you can. Most points are won at the net, so move forward together after a good lob or a deep ball, and go back together when you are lobbed."),
 ]
 page("positioning.html", "Padel Positioning: Where to Stand on Court (Interactive) | Padel Glass Box",
-     "Where to stand in padel: about 2 to 2.5 m from the net, about 1 m off the back glass, moving as a pair. Tap an interactive court for serving, receiving, net, back and lob positions.", pos, pos_faq, "Positioning")
+     "Where to stand in padel: about 2 to 2.5 m from the net or 1 m off the back glass, moving as a pair. Tap the court for serve, return, net and lob positions.", pos, pos_faq, "Positioning")
 
 # ---------------- SERVE RULES + CHECKER ----------------
 def _q(qid, label, opts):
@@ -968,7 +970,7 @@ serve_faq = [
     ("Which side do you serve from first in padel?", "From the right-hand side. The server then switches sides after every point for the rest of the game."),
 ]
 page("serve-rules.html", "Padel Serve Rules: Is My Serve Legal? Free Serve Checker | Padel Glass Box",
-     "Padel serve rules in plain English (FIP 2026): stand behind the line, bounce, hit at or below the waist, land it diagonally. Faults, lets, who serves first, and a free serve checker.", serve, serve_faq, "Serve rules")
+     "Padel serve rules in plain English (FIP 2026): behind the line, bounce, hit at or below the waist, land it diagonally. Faults, lets and a serve checker.", serve, serve_faq, "Serve rules")
 
 # ---------------- WARM-UP TIMER ----------------
 # Each step: (seconds quick, seconds full, phase, name, how). 0 seconds = step left out of that routine.
@@ -1044,7 +1046,7 @@ warm_faq = [
     ("Does the timer work without internet?", "Once the page has loaded, the timer runs in your browser. Keep the screen on, because some phones pause timers when the screen locks."),
 ]
 page("warm-up.html", "Padel Warm-Up Routine With Free Timer (10 or 15 Minutes) | Padel Glass Box",
-     "Free padel warm-up timer: a 10 or 15 minute routine step by step, from jogging and moving stretches to volleys, lobs and serves, plus why warming up helps prevent padel injuries.", warm, warm_faq, "Warm-up timer")
+     "Free padel warm-up timer: a 10 or 15 minute routine step by step, from jogging and moving stretches to volleys, lobs and serves, to help prevent injuries.", warm, warm_faq, "Warm-up timer")
 
 # ---------------- PADEL BALLS ----------------
 def _bq(qid, label, opts):
@@ -1106,7 +1108,7 @@ balls_faq = [
     ("Can I play padel with old balls?", "Yes, for warm-ups, drills and relaxed practice. For a match, open a fresh can: old balls bounce low and die off the glass, which changes how the game plays."),
 ]
 page("padel-balls.html", "When to Change Padel Balls: Free Dead Ball Checker | Padel Glass Box",
-     "How long do padel balls last? About 3 to 5 social sessions per can. Use the free 6-step dead ball checker, compare padel vs tennis balls (size, pressure, bounce) and learn how to make balls last longer.", balls, balls_faq, "Padel balls")
+     "How long do padel balls last? About 3 to 5 social sessions per can. Run the free 6-step dead ball checker and compare padel vs tennis balls.", balls, balls_faq, "Padel balls")
 
 # ---------------- ABOUT / PRIVACY / 404 ----------------
 # ---------------- WALL AND FENCE RULES ----------------
@@ -1213,7 +1215,7 @@ wall_faq = [
     ("Can the ball hit more than one wall in padel?", "Yes. After it bounces once on the opponents' side, it may hit the glass, the fence or both, as many times as it likes. They must play it before it touches the ground a second time."),
 ]
 page("wall-rules.html", "Padel Wall and Fence Rules: Was That Ball In? Free Checker | Padel Glass Box",
-     "Padel wall rules: the ball must bounce before it hits the glass or fence; you may use your own glass but not your own fence. Serve, net cord, ceiling and out-of-court calls, plus a free tap-through checker.", wall + f'<script>window.WR={json.dumps(WR)};</script>', wall_faq, "Wall and fence rules")
+     "Padel wall rules: the ball must bounce before hitting the glass or fence; use your own glass but not your own fence. Plus a free tap-through call checker.", wall + f'<script>window.WR={json.dumps(WR)};</script>', wall_faq, "Wall and fence rules")
 
 # ---------------- PADEL VS TENNIS VS PICKLEBALL ----------------
 # Courts drawn to scale, 10 px per metre, centred on the net.
@@ -1315,8 +1317,8 @@ vs_faq = [
     ("Can you use a tennis racket or pickleball paddle for padel?", "No. Padel rackets are solid with holes and no strings, and the FIP rules set their size. Each sport has its own racket and ball."),
     ("Which is the best workout: padel, tennis or pickleball?", "Tennis usually means the most running. Padel is lots of short, quick movements and bending. Pickleball is the lowest impact of the three. Any of them is good exercise if you play regularly."),
 ]
-page("padel-vs-tennis-vs-pickleball.html", "Padel vs Tennis vs Pickleball: Differences, Courts to Scale and Quiz | Padel Glass Box",
-     "Padel vs tennis vs pickleball: the differences in court size (20 × 10 m vs 23.77 × 10.97 m vs 44 × 20 ft), walls, serve, scoring and kit side by side, the three courts drawn to scale, and a quiz to pick your sport.",
+page("padel-vs-tennis-vs-pickleball.html", "Padel vs Tennis vs Pickleball: Differences + Courts to Scale",
+     "Padel vs tennis vs pickleball: court size, walls, serve, scoring and kit side by side, the three courts drawn to scale, and a quiz to pick your sport.",
      vs + f'<script>window.VS={json.dumps({"c": VS, "q": VSQ, "why": VSWHY})};</script>', vs_faq, "Padel vs tennis vs pickleball")
 
 # ---------------- RACKET WEIGHT AND BALANCE ----------------
@@ -1417,7 +1419,7 @@ rb_faq = [
 ]
 RB_PRE = {"round": [355, 255, "round"], "teardrop": [362, 265, "teardrop"], "diamond": [368, 275, "diamond"]}
 page("racket-balance.html", "Padel Racket Weight and Balance Explained: Free Spec Decoder | Padel Glass Box",
-     "What is a good padel racket weight and balance? Low, medium and high balance in mm, weight bands in grams, and a free decoder: enter grams and balance in mm to see the balance point on a to-scale racket, compare two rackets, and learn to measure balance at home.",
+     "What is a good padel racket weight and balance? Balance in mm, weight bands in grams, and a free decoder that shows the balance point on a to-scale racket.",
      rb + f'<script>window.RB={json.dumps(RB_PRE)};</script>', rb_faq, "Racket weight and balance")
 
 # ---------------- ROUND ROBIN (FIXED PAIRS) ----------------
@@ -1475,7 +1477,7 @@ rr_faq = [
     ("What if we have an odd number of pairs?", "One pair sits out each round. Every pair rests once, so everyone still plays the same number of matches."),
     ("Can we play everyone twice?", "Yes. Choose 'Twice' and the tool repeats the schedule, so each pair meets every other pair two times, like a home and away league."),
 ]
-page("round-robin.html", "Padel Round Robin Generator for Fixed Pairs: Free Schedule and Table | Padel Glass Box",
+page("round-robin.html", "Padel Round Robin Generator for Fixed Pairs: Schedule, Table",
      "Free padel round robin generator for fixed pairs. Enter 3 to 16 teams and your courts to get every round, then enter the games for a live standings table.",
      rr, rr_faq, "Round robin generator")
 
@@ -1548,7 +1550,7 @@ shoes_faq = [
     ("What is the difference between omni and herringbone soles?", "Herringbone has zig-zag grooves that let sand pass, so it grips on sandy courts. Omni has many small studs and grips better on courts with little sand."),
 ]
 page("padel-shoes.html", "Padel Shoes Guide: Which Sole Do You Need? Free Shoe Finder | Padel Glass Box",
-     "Which padel shoes do you need? Answer four questions to get your sole type (herringbone, omni or hybrid), then compare padel vs tennis vs running shoes, check fit and see when to replace them.",
+     "Which padel shoes do you need? Answer four questions to get your sole type (herringbone, omni or hybrid), compare with tennis shoes and check the fit.",
      shoes + '<script>window.SOLES=' + json.dumps({k: v.replace('id="sc', 'id="sm').replace('url(#sc', 'url(#sm') for k, v in SOLE_SVG.items()}) + ';</script>', shoes_faq, "Padel shoes")
 
 # ---------------- PADEL CALORIES CALCULATOR ----------------
@@ -1611,8 +1613,8 @@ cal_faq = [
     ("Is padel moderate or vigorous exercise?", "A relaxed game is about 5 METs, which is moderate. A normal or hard match is about 7 to 8 METs, which counts as vigorous under the CDC definition (6 METs or more)."),
     ("How accurate is this padel calorie calculator?", "It gives a fair estimate, not a measurement. It uses published METs for tennis because padel has no entry in the Compendium of Physical Activities. Your real number can be 20 to 30% higher or lower."),
 ]
-page("padel-calories.html", "Padel Calories Calculator: How Many Calories Does Padel Burn? | Padel Glass Box",
-     "Free padel calories calculator. Enter your weight, time and effort to see how many calories padel burns per session, per hour and per week, and how it counts toward the weekly activity target.",
+page("padel-calories.html", "Padel Calories Calculator: How Many Calories Does It Burn?",
+     "Free padel calories calculator: enter your weight, time and effort to see how many calories padel burns per session, per hour and per week.",
      cal, cal_faq, "Padel calories calculator")
 
 # ---------------- PADEL COURT COST (senior SEO pass 25 Nov 2026; KP: "padel court cost"/"price" 100-1k medium, "padel court" 10k-100k) ----------------
@@ -1660,7 +1662,7 @@ cc_faq = [
     ("Can you build a padel court on a tennis court?", "Often, yes, if the old base is flat, sound and drains well. Reusing it can save most of the ground work cost; ask an installer to check it first."),
     ("How long does padel court turf last?", "Plan to replace sand-filled artificial turf every 5 to 10 years, depending on how much the court is used and how well it is brushed and topped up."),
 ]
-page("padel-court-cost.html", "How Much Does a Padel Court Cost? UK and US Prices + Budget Planner | Padel Glass Box",
+page("padel-court-cost.html", "How Much Does a Padel Court Cost? UK and US Prices",
      "A padel court costs about £45,000–£80,000 in the UK and $25,000–$65,000 in the US. See published price ranges, what changes the cost, and a free budget planner.",
      cc, cc_faq, "Padel court cost")
 
@@ -1733,8 +1735,8 @@ lad_faq = [
     ("What is the difference between a ladder and a box league?", "In a ladder you challenge people above you whenever you like. In a box league you play everyone in a small group over a few weeks, then the top moves up a box and the bottom moves down."),
     ("Where is the ladder saved?", "On this device, in your browser. Use 'Copy ladder' to share the rankings in a group chat, and keep updating it on the same phone or computer."),
 ]
-page("ladder.html", "Padel Ladder Tracker: Free Challenge Ladder for Pairs or Players | Padel Glass Box",
-     "Free padel ladder tracker. Add your pairs or players, record challenges and the ladder updates itself, with records, movement and history. Plus ladder rules to agree.",
+page("ladder.html", "Padel Ladder Tracker: Free Challenge Ladder for Pairs",
+     "Free padel ladder tracker: add pairs or players, record challenges and the ladder updates itself, with records, movement, history and ladder rules.",
      lad, lad_faq, "Padel ladder tracker")
 
 # ---------------- NET RULES CHECKER ----------------
@@ -1826,8 +1828,8 @@ net_faq = [
     ("Is it a fault to touch the net after the point is over?", "The FIP net rule applies while the ball is in play, so a touch after the point has ended does not change the result. Make sure the point is really over first."),
     ("What if the ball hits you at the net before bouncing?", "Your team loses the point, even if you think the ball was going out."),
 ]
-page("net-rules.html", "Padel Net Rules: Can You Touch the Net? Free Net Call Checker | Padel Glass Box",
-     "Padel net rules in plain English: touching the net, reaching over, follow-through, balls that spin back, net cords in a rally and on the serve. Tap what happened and get the FIP call.",
+page("net-rules.html", "Padel Net Rules: Can You Touch the Net? Free Call Checker",
+     "Padel net rules in plain English: touching the net, reaching over, follow-through and net cords on the serve. Tap what happened and get the FIP call.",
      net + f'<script>window.NT={json.dumps(NET)};</script>', net_faq, "Net rules")
 
 # ---------------- RACKET CARE ----------------
@@ -1899,7 +1901,7 @@ rcare_faq = [
     ("How often should you change your padel overgrip?", "When it gets slippery, shiny or torn. That can be every few matches if you play a lot and sweat a lot, or every month or two if you play less."),
     ("How do I know if my padel racket is broken?", "Look for cracks in the frame or face, listen for a rattle inside, and notice dead spots, odd vibrations or a loss of power. If you find these, ask the shop or brand to check it."),
 ]
-page("racket-care.html", "Padel Racket Care: Heat, Cold, Protector Tape and a Free Health Check | Padel Glass Box",
+page("racket-care.html", "Padel Racket Care: Heat, Cold, Protector Tape, Health Check",
      "How to look after a padel racket: a 2-minute racket health check, cleaning, storage, heat and cold, protector tape, overgrips and the habits that crack frames.",
      rcare, rcare_faq, "Racket care")
 
@@ -1995,7 +1997,7 @@ drills_faq = [
     ("What is the yellow card, red card padel drill?", "A game where your first mistake in a game is a yellow card and your second is a red card, which loses you that game. It rewards keeping the ball in play."),
 ]
 page("drills.html", "Padel Drills Session Planner: Free Practice Plan and Timer | Padel Glass Box",
-     "Free padel drills planner. Pick players, time, level and focus to get a timed practice session, with 13 drills for one, two or four players and a place to log your records.",
+     "Free padel drills planner: pick players, time, level and focus to get a timed practice session from 13 drills for one, two or four players.",
      drills, drills_faq, "Padel drills")
 
 # ---------------- KING OF THE COURT ----------------
@@ -2064,8 +2066,8 @@ kotc_faq = [
     ("Who wins King of the Court?", "It depends on the rule you agree: the player with the most rounds on court 1, the pair that wins court 1 in the last round, or the most wins overall. The generator tracks all three."),
     ("What happens to the winners on court 1?", "They stay on court 1. Losers on the bottom court also stay where they are. Everyone else moves one court up or down."),
 ]
-page("king-of-the-court.html", "King of the Court Padel Generator: Free Rounds, Courts and Table | Padel Glass Box",
-     "Free King of the Court padel generator. Enter 8 to 28 players, tap the winners and get the next round: winners up, losers down, new partners. Round timer and live table.",
+page("king-of-the-court.html", "King of the Court Padel Generator: Rounds, Courts, Table",
+     "Free King of the Court padel generator for 8 to 28 players: tap the winners for the next round, winners up and losers down, with a timer and live table.",
      kotc, kotc_faq, "King of the Court")
 
 # ---------------- TIE-BREAK ----------------
@@ -2164,8 +2166,8 @@ tb_faq = [
     ("Is there a golden point in a padel tie-break?", "No. Golden point and Star Point are ways to settle 40-40 in a normal game. In a tie-break you need to win by 2 points."),
     ("What is the score of a set won on a tie-break?", "7-6. The tie-break counts as the deciding game of the set."),
 ]
-page("tie-break.html", "Padel Tie-Break Rules: Who Serves and When to Change Ends (Free Tracker) | Padel Glass Box",
-     "Padel tie-break rules made simple: first to 7, 2 clear, serve order 1 then 2 each, change ends every 6 points. Free tracker for set and 10-point match tie-breaks.", tb, tb_faq, "Tie-break rules")
+page("tie-break.html", "Padel Tie-Break Rules: Who Serves and When to Change Ends",
+     "Padel tie-break rules made simple: first to 7, 2 clear, serve order and changing ends every 6 points. Free tracker for set and match tie-breaks.", tb, tb_faq, "Tie-break rules")
 
 # ---------------- OUT-OF-COURT PLAY ----------------
 # Calls follow the FIP Rules of Padel PDF (in force 01.01.2026): rule 16, 12.3, 13.1(b)(d)(e)(g)(p), 14.1(a)(j), 7.1(f), 10.1, 11, plus the Court section
@@ -2271,8 +2273,8 @@ ocp_faq = [
     ("What is salida de pista in padel?", "Salida de pista is Spanish for leaving the court. It means running out of the court through the door to play a ball that has bounced and gone out, on courts where this is allowed."),
     ("Is it a let if a ball from another court rolls onto ours?", "Yes. If an object such as another ball comes onto your court during the point, it's a let and you replay the point. Call it straight away, or you lose the right to the let."),
 ]
-page("out-of-court-play.html", "Padel Out-of-Court Play Rules: When Can You Leave the Court? (Free Checker) | Padel Glass Box",
-     "Padel out-of-court play (salida de pista) explained: when you can run out to play the ball, what space a court needs, door and serve calls, and lets. Free FIP call checker.",
+page("out-of-court-play.html", "Padel Out-of-Court Play Rules: When Can You Leave the Court?",
+     "Padel out-of-court play (salida de pista) explained: when you can run out to play the ball, door and serve calls, lets, plus a free FIP call checker.",
      ocp + f'<script>window.OC={json.dumps(OC)};</script>', ocp_faq, "Out-of-court play")
 
 # ---------------- PADEL INJURIES ----------------
@@ -2414,8 +2416,8 @@ inj_faq = [
     ("How can I prevent padel injuries?", "Warm up for 10 to 15 minutes, build up playing time slowly, wear court shoes, keep a fresh grip and relaxed hold, get coaching on technique, take rest days and stop when you feel pain."),
     ("Is padel more dangerous than tennis?", "There is not enough research to say. The 2023 review found about 3 injuries per 1,000 hours of padel training, but its authors say comparisons with other racket sports should be made carefully."),
 ]
-page("padel-injuries.html", "Padel Injuries: Elbow, Knee, Back and How to Prevent Them (Free Check) | Padel Glass Box",
-     "The most common padel injuries, from padel elbow to knee, shoulder and back pain: tap a body area to see what studies report and what helps, and run a free injury prevention check.",
+page("padel-injuries.html", "Padel Injuries: Elbow, Knee, Back and How to Prevent Them",
+     "The most common padel injuries, from padel elbow to knee, shoulder and back pain: tap a body area to see what helps, then run a free injury prevention check.",
      inj, inj_faq, "Padel injuries")
 
 # ---------------- PADEL GRIP: HOW TO HOLD A PADEL RACKET ----------------
@@ -2552,8 +2554,8 @@ grip_faq = [
     ("Is the padel grip the same as in tennis?", "The continental grip is the same one tennis players use to serve and volley. Many tennis players use a different grip for forehands, but in padel the continental is used for nearly everything."),
     ("Is the grip different for left-handed players?", "It is the same continental grip, just mirrored. If a coach tells you to turn one bevel for a forehand, a left-hander turns the other way."),
 ]
-page("padel-grip.html", "How to Hold a Padel Racket: Continental Grip Guide and Free Grip Check | Padel Glass Box",
-     "How to hold a padel racket: find the continental grip in 6 steps, tap any shot to see its grip, check your grip size and overgrip, and fix the grip mistakes new players make.",
+page("padel-grip.html", "How to Hold a Padel Racket: Continental Grip Guide",
+     "How to hold a padel racket: find the continental grip in 6 steps, see the grip for every shot, check your grip size and fix common new-player grip mistakes.",
      grip, grip_faq, "Padel grip")
 
 # ---------------- OVERHEADS: BANDEJA vs VIBORA vs SMASH ----------------
@@ -2660,8 +2662,8 @@ oh_faq = [
     ("What grip do you use for a bandeja?", "The continental grip, the same one you use for volleys and serves. The víbora and smash use it too."),
     ("What should I do if the lob goes over my head?", "Turn, follow the ball to your back glass, let it bounce and come off the glass, then lob it back deep. Running backwards to force an overhead is a common mistake."),
 ]
-page("bandeja-vs-vibora.html", "Bandeja vs Víbora vs Smash: Which Padel Overhead? (Free Shot Chooser) | Padel Glass Box",
-     "Bandeja, víbora or smash? Answer 4 questions and see which padel overhead to play, how to hit it and where to aim on a court drawing, plus a side-by-side table and the overhead mistakes new players make.",
+page("bandeja-vs-vibora.html", "Bandeja vs Víbora vs Smash: Which Padel Overhead to Play?",
+     "Bandeja, víbora or smash? Answer 4 questions to see which padel overhead to play, how to hit it and where to aim, plus the overhead mistakes to avoid.",
      oh, oh_faq, "Bandeja vs víbora")
 
 # ---------------- INTERMEDIATE RACKET UPGRADE CHECK ----------------
@@ -2750,8 +2752,8 @@ ir_faq = [
     ("Soft or hard core for an intermediate padel racket?", "Soft or medium. A soft core gives easier power and comfort; a firm core suits fast, clean swings and is usually for advanced players."),
     ("Is a more expensive padel racket better?", "Not by itself. Higher prices often mean carbon and firmer cores, which suit advanced players. The right shape, weight and balance for your game matter more than the price."),
 ]
-page("intermediate-padel-racket.html", "Padel Racket for Intermediate Players: Free Upgrade Check (Shape, Weight, Balance) | Padel Glass Box",
-     "Which padel racket should an intermediate player use? Enter your current racket and your game to see which specs to keep or change: shape, weight, balance, core and face, with reasons.",
+page("intermediate-padel-racket.html", "Padel Racket for Intermediate Players: Free Upgrade Check",
+     "Which padel racket should an intermediate player use? Enter your racket and game to see which specs to keep or change: shape, weight, balance and core.",
      ir, ir_faq, "Intermediate padel racket")
 
 # ---------------- PADEL GIFT FINDER (24 Nov 2026, DEMAND R1 "padel gifts") ----------------
@@ -2838,7 +2840,7 @@ gf_faq = [
     ("Are padel shoes a good gift?", "Yes, if you know their size in that brand and choose the right sole, usually herringbone. Keep the gift receipt in case they need another size."),
 ]
 page("padel-gifts.html", "Padel Gifts: Free Gift Finder by Budget + Printable Voucher | Padel Glass Box",
-     "What to buy a padel player: answer 6 questions for padel gift ideas that suit their level and your budget, what to check before buying a racket or shoes, and a free printable padel gift voucher.",
+     "What to buy a padel player: answer 6 questions for gift ideas that suit their level and your budget, what to check before buying, and a printable voucher.",
      gf, gf_faq, "Padel gifts")
 
 # ---------------- PADEL EQUIPMENT + WHAT TO WEAR (24 Nov 2026, DEMAND R4 "padel equipment", 4 "padel outfits") ----------------
@@ -2921,12 +2923,12 @@ eq_faq = [
     ("Do I need to buy a racket to start padel?", "No. Many clubs rent rackets. Rent or borrow for a few games, then buy a round, light, forgiving racket when you know you'll keep playing."),
     ("What should I wear for padel in winter?", "Outdoors in the cold: a base layer, a light top, full-length leggings or joggers and a windproof jacket for the warm-up, with cushioned sports socks. Take layers off as you warm up."),
 ]
-page("padel-equipment.html", "Padel Equipment and What to Wear: Free Beginner Kit Checklist | Padel Glass Box",
-     "What do you need to play padel and what should you wear? Get a packing list for your game (must bring, good to have, skip for now), plus a clothing guide, dress code and what not to wear.",
+page("padel-equipment.html", "Padel Equipment and What to Wear: Beginner Kit Checklist",
+     "What do you need to play padel and what should you wear? A packing list for your game (must bring, nice to have, skip), plus a clothing and dress code guide.",
      eq, eq_faq, "Padel equipment")
 
-page("about.html", f"About {SITE}", f"About {SITE}, a free set of padel tools and guides, and how to contact us.",
-     f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2 id="affiliate">Affiliate links and how we choose products</h2><p>Some shop links on Padel Glass Box are affiliate links (for example through Awin with Padel Market). If you buy through one, we may earn a small commission at no extra cost to you. Pages with affiliate links say so at the top, and the racket finder says so above its shop button. Commissions never decide what we recommend: the finder picks a racket shape, weight and balance from your answers before any shop is involved, and our guides name the features to look for rather than paid placements.</p><h2>Contact</h2><p>Email <a href="mailto:awaiskaramat@hotmail.com">awaiskaramat@hotmail.com</a>.</p></div></section>')
+page("about.html", f"About {SITE}: Free Padel Tools and Guides", f"About {SITE}, a free set of padel tools and plain-English guides to rackets, rules, scoring and shots, and how to get in touch with us.",
+     f'<section><div class="wrap" style="max-width:760px"><h1>About {SITE}</h1><p>{SITE} makes free, simple padel tools: a racket finder, a score keeper, an interactive rules court and a shot library.</p><h2>How we check facts</h2><p>Rules follow the International Padel Federation (FIP). Equipment advice is general guidance checked against several trusted guides; we don\'t take payment to recommend gear.</p><h2 id="affiliate">Affiliate links and how we choose products</h2><p>Some shop links on Padel Glass Box are affiliate links (for example through Awin with Padel Market). If you buy through one, we may earn a small commission at no extra cost to you. Pages with affiliate links say so at the top, and the racket finder says so above its shop button. Commissions never decide what we recommend: the finder picks a racket shape, weight and balance from your answers before any shop is involved, and our guides name the features to look for rather than paid placements.</p><h2>Contact</h2><p>Email <a href="mailto:awaiskaramat@hotmail.com">awaiskaramat@hotmail.com</a>.</p></div></section>', crumb="About")
 
 # ---- Buyer pages (23 Nov 2026, from Google Trends: "cheap padel racket" breakout US, "padel racket black friday" +110% UK) ----
 _budget = [
@@ -2969,7 +2971,7 @@ cheap_faq = [
     ("What is the best padel racket under $100?", "Reviewers' budget favourites include the Adidas Match 2026, Siux Beat Hybrid 2026, Head Bolt 2026, Dunlop Megamax 2026 and Babolat Air Origin. Pick a round one if you are new."),
     ("Are cheap padel rackets bad for your elbow?", "Not if you choose a light racket with a soft core. Heavy, stiff, head-heavy rackets are the ones that strain the elbow."),
 ]
-page("cheap-padel-rackets.html", "Cheap Padel Rackets: 8 Good Ones Under $100 / £100 and What to Look For | Padel Glass Box",
+page("cheap-padel-rackets.html", "Cheap Padel Rackets: 8 Good Ones Under $100 / £100",
      "Best cheap padel rackets under $100 / £100: what a good budget racket looks like (round, 355-370 g, soft EVA), 8 picks reviewers rate, and what you give up.",
      cheap, cheap_faq, "Cheap padel rackets")
 
@@ -3008,7 +3010,7 @@ bf_faq = [
     ("Is there a Padel Market discount code for Black Friday?", "Padel Market is offering 15% off a selection of products with the code BLACK15. It only applies to items in their Black Friday collection and can't be combined with other codes."),
     ("Should I buy padel shoes on Black Friday?", "If you know your size and the sole type you need, yes, but buy early: popular sizes sell out first."),
 ]
-page("padel-black-friday.html", "Padel Black Friday 2026: Racket Deals, BLACK15 Code and What's Worth Buying | Padel Glass Box",
+page("padel-black-friday.html", "Padel Black Friday 2026: Racket Deals and BLACK15 Code",
      "Padel Black Friday 2026 is 27 November (Cyber Monday 30 Nov). Live padel deals, Padel Market's 15% BLACK15 code, a discount calculator and what's worth buying.",
      bf, bf_faq, "Padel Black Friday")
 
@@ -3099,7 +3101,7 @@ jr_faq = [
     ("Are junior padel rackets shorter than adult rackets?", "Only a little. Older junior rackets are often about a finger shorter than an adult racket. The main difference is a lighter weight and a thinner handle."),
 ]
 page("padel-racket-for-kids.html", "Padel Racket for Kids: Junior Size and Weight Finder by Age | Padel Glass Box",
-     "Which padel racket for a child? Junior racket weight by age and height (3 to 14), the right shape and core, signs a racket is too heavy, and when kids can move to an adult racket. Free size finder.",
+     "Which padel racket for a child? Junior racket weight by age and height (3 to 14), shape and core, signs it is too heavy, and a free junior size finder.",
      jr, jr_faq, "Padel racket for kids")
 
 # ---------------- PADEL LESSONS (25 Nov 2026, DEMAND R3 "padel lessons") ----------------
@@ -3208,12 +3210,12 @@ ls_faq = [
     ("Do I need my own racket for a padel lesson?", "Not for a first lesson. Intro sessions and clinics usually lend rackets and balls. Ask the club when you book."),
     ("How many padel lessons do I need as a beginner?", "There is no fixed number. One intro session before your first match, then two or three more hours of coaching or clinics, is a common way to start. After that many players book a 4 to 6 week course."),
 ]
-page("padel-lessons.html", "Padel Lessons: Cost (UK and US), First Lesson and Free Cost Checker | Padel Glass Box",
-     "How much do padel lessons cost? Private lessons about £40 to £80 or $50 to $160 an hour, groups £10 to £30 or $20 to $60 each. What a first lesson covers, how to find a coach, and a free lesson cost checker.",
+page("padel-lessons.html", "Padel Lessons: UK and US Cost, First Lesson, Cost Checker",
+     "How much do padel lessons cost? Private about £40-£80 or $50-$160 an hour, groups less. What a first lesson covers, finding a coach, and a cost checker.",
      ls, ls_faq, "Padel lessons")
 
-page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy covering cookies, Google AdSense, Google Analytics and affiliate links.",
-     f'<section><div class="wrap" style="max-width:760px"><h1>Privacy policy</h1><p>Last updated: {e(UPDATED)}.</p><h2>What we collect</h2><p>Your score, checklist ticks and quiz answers are saved only in your own browser. If you join our email list, we keep your email address with our email provider, Kit (kit.com), to send you the cheat sheet and our updates. Every email has an unsubscribe link, and you can ask us to delete your address at any time.</p><h2>Analytics</h2><p>We use Google Analytics to count visits and see which pages are popular. It uses cookies and collects details like pages viewed, approximate location and device type.</p><h2>Advertising</h2><p>This site uses Google AdSense. Google and its partners use cookies to show ads based on your visits to this and other websites. You can turn off personalised ads at <a href="https://adssettings.google.com">Google Ads Settings</a>. Learn more at <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.</p><h2>Affiliate links</h2><p>Some links may be affiliate links. If you buy through them, we may earn a small fee at no extra cost to you.</p><h2>Contact</h2><p>Email <a href="mailto:awaiskaramat@hotmail.com">awaiskaramat@hotmail.com</a>.</p></div></section>')
+page("privacy.html", f"Privacy Policy | {SITE}", f"{SITE} privacy policy: how we use cookies, Google AdSense, Google Analytics and affiliate links, what data is stored and how to opt out.",
+     f'<section><div class="wrap" style="max-width:760px"><h1>Privacy policy</h1><p>Last updated: {e(UPDATED)}.</p><h2>What we collect</h2><p>Your score, checklist ticks and quiz answers are saved only in your own browser. If you join our email list, we keep your email address with our email provider, Kit (kit.com), to send you the cheat sheet and our updates. Every email has an unsubscribe link, and you can ask us to delete your address at any time.</p><h2>Analytics</h2><p>We use Google Analytics to count visits and see which pages are popular. It uses cookies and collects details like pages viewed, approximate location and device type.</p><h2>Advertising</h2><p>This site uses Google AdSense. Google and its partners use cookies to show ads based on your visits to this and other websites. You can turn off personalised ads at <a href="https://adssettings.google.com">Google Ads Settings</a>. Learn more at <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.</p><h2>Affiliate links</h2><p>Some links may be affiliate links. If you buy through them, we may earn a small fee at no extra cost to you.</p><h2>Contact</h2><p>Email <a href="mailto:awaiskaramat@hotmail.com">awaiskaramat@hotmail.com</a>.</p></div></section>', crumb="Privacy policy")
 page("404.html", f"Page not found | {SITE}", "This page doesn't exist.",
      f'<section><div class="wrap"><h1>That one went out.</h1><p class="lead">This page doesn\'t exist.</p><a class="btn lime" href="{href("index.html")}">Back to the home page</a></div></section>')
 
@@ -3313,8 +3315,8 @@ rk_faq = [
     ("When are the Premier Padel Finals 2026?", "The 2026 Premier Padel Finals are on 10 to 13 December 2026 at the Palau Sant Jordi in Barcelona, with the top 16 in the FIP Race playing."),
     ("What changes in the padel ranking in 2027?", "From 2027 the ranking counts the best 21 results instead of 22, and quarter-finals and earlier rounds give more points. Titles and finals keep the same points."),
 ]
-page("padel-rankings.html", "Padel Rankings 2026: Best Padel Players in the World (FIP Top 10) | Padel Glass Box",
-     f"Padel world rankings ({RK_DATE}): men's and women's FIP top 10 with points, how the ranking works (best 22 results, 52 weeks), points for a Major, P1 and P2, 2027 changes, and a free points calculator.",
+page("padel-rankings.html", "Padel Rankings 2026: Best Padel Players in the World",
+     f"Padel world rankings ({RK_DATE}): men's and women's FIP top 10 with points, how the ranking works, points per event and a free points calculator.",
      rk, rk_faq, "Padel rankings")
 
 # ---------------- PADEL RACKET MATERIALS + LABEL DECODER (25 Nov 2026, competitor watch item 5) ----------------
@@ -3445,8 +3447,8 @@ mt_faq = [
     ("Do rough padel rackets give more spin?", "A little. A rough or 3D face grips the ball slightly longer, which helps slice. Technique makes most of the spin. Sandy finishes can wear smoother over time."),
     ("Which padel racket material is best for tennis elbow?", "Racket guides usually suggest a soft core (soft EVA or foam), a fibreglass or soft mixed face, a lighter weight and a low balance. See a doctor or physio if pain lasts."),
 ]
-page("padel-racket-materials.html", "Padel Racket Materials: Carbon vs Fibreglass, 3K vs 12K vs 18K, EVA vs Foam | Padel Glass Box",
-     "What padel racket materials mean: carbon vs fibreglass faces, what 3K, 12K and 18K really tell you, soft vs hard EVA vs foam cores, rough faces and spin. Free label decoder to compare two rackets.",
+page("padel-racket-materials.html", "Padel Racket Materials: Carbon vs Fibreglass, 3K to 18K",
+     "Padel racket materials explained: carbon vs fibreglass faces, what 3K, 12K and 18K mean, soft vs hard EVA vs foam cores, and a free label decoder.",
      mt, mt_faq, "Racket materials")
 
 

@@ -55,8 +55,8 @@ pb_faq = [("What are the dimensions of a pickleball court?", "20 ft wide by 44 f
           ("How high is a pickleball net?", "36 in at the sidelines and 34 in in the centre."),
           ("How much space do I need for a pickleball court?", "At least 30 × 60 ft in total; 34 × 64 ft is recommended so players can move around the court."),
           ("Is a pickleball court the same size as a badminton court?", "Almost exactly: a badminton doubles court is 13.40 × 6.10 m, a pickleball court 13.41 × 6.10 m. The kitchen line and net height differ.")]
-page("pickleball-court-dimensions.html", "Pickleball Court Dimensions: Size, Kitchen and Net Height (Diagram, ft + m) | Padel Glass Box",
-     "Pickleball court dimensions on a scale diagram: 20 x 44 ft court, 7 ft kitchen, 36 in net (34 in centre), service courts and total playing area, in feet and metres.", pb, pb_faq, "Pickleball court dimensions")
+page("pickleball-court-dimensions.html", "Pickleball Court Dimensions: Size, Kitchen and Net Height",
+     "Pickleball court dimensions on a scale diagram: 20 x 44 ft court, 7 ft kitchen, 36 in net (34 in centre) and total playing area, in feet and metres.", pb, pb_faq, "Pickleball court dimensions")
 
 # ---- Badminton court ----
 bd_lines = [(0, 0.46, 13.4, 0.46), (0, 5.64, 13.4, 5.64), (4.72, 0, 4.72, 6.1), (8.68, 0, 8.68, 6.1), (0.76, 0, 0.76, 6.1), (12.64, 0, 12.64, 6.1), (0, 3.05, 4.72, 3.05), (8.68, 3.05, 13.4, 3.05)]
@@ -80,8 +80,8 @@ bd_faq = [("What are the dimensions of a badminton court?", "13.40 m long and 6.
           ("How far is the short service line from the net?", "1.98 m (6 ft 6 in) on each side."),
           ("What is the doubles long service line?", "A line 0.76 m inside the back boundary. In doubles the serve must land in front of it; after the serve the full length is in play."),
           ("How much ceiling height does badminton need?", "International events use at least 12 m over the court; club halls are often 7 to 9 m. More height is better for high serves and clears.")]
-page("badminton-court-dimensions.html", "Badminton Court Dimensions: Singles and Doubles Size, Lines and Net Height (m + ft) | Padel Glass Box",
-     "Badminton court dimensions on a scale diagram: 13.4 x 6.1 m doubles, 5.18 m singles, 1.98 m short service line, 0.76 m doubles long service line and 1.524 m net, in metres and feet.", bd, bd_faq, "Badminton court dimensions")
+page("badminton-court-dimensions.html", "Badminton Court Dimensions: Singles, Doubles and Net Height",
+     "Badminton court dimensions on a scale diagram: 13.4 x 6.1 m doubles, 5.18 m singles, service lines and the 1.524 m net, in metres and feet.", bd, bd_faq, "Badminton court dimensions")
 
 # ---- Tennis court ----
 tn_lines = [(0, 1.37, 23.77, 1.37), (0, 9.6, 23.77, 9.6), (5.485, 1.37, 5.485, 9.6), (18.285, 1.37, 18.285, 9.6), (5.485, 5.485, 18.285, 5.485), (0, 5.485, 0.1, 5.485), (23.67, 5.485, 23.77, 5.485)]
@@ -105,8 +105,8 @@ tn_faq = [("What are the dimensions of a tennis court?", "78 ft long (23.77 m); 
           ("How far is the service line from the net?", "21 ft (6.40 m). The service line is 18 ft (5.49 m) from the baseline."),
           ("How much space do I need for a tennis court?", "About 120 × 60 ft (36.6 × 18.3 m) including the recommended run-off around the lines."),
           ("How wide is the doubles alley?", "4 ft 6 in (1.37 m) on each side.")]
-page("tennis-court-dimensions.html", "Tennis Court Dimensions: Size in Feet and Metres, Service Box, Net Height + Run-off | Padel Glass Box",
-     "Tennis court dimensions on a scale diagram: 78 x 36 ft doubles, 27 ft singles, 21 ft service line, 3 ft net, and the 120 x 60 ft total area with run-off, in feet and metres.", tn, tn_faq, "Tennis court dimensions")
+page("tennis-court-dimensions.html", "Tennis Court Dimensions: Size in Feet and Metres, Net Height",
+     "Tennis court dimensions on a scale diagram: 78 x 36 ft doubles, 27 ft singles, 21 ft service line, 3 ft net and run-off area, in feet and metres.", tn, tn_faq, "Tennis court dimensions")
 
 # ---- Pickleball rules ----
 pr = f'''<header class="hero"><div class="wrap"><h1>Pickleball rules, explained simply</h1>
@@ -136,8 +136,8 @@ pr_faq = [("What is the two-bounce rule in pickleball?", "The serve must bounce 
           ("Can you go in the kitchen in pickleball?", "Yes, any time, as long as you don't volley there. Stepping in to play a ball that has bounced is legal."),
           ("How do you score in pickleball?", "In traditional scoring only the serving side scores. Games go to 11, win by 2. Some events use rally scoring, where every rally scores."),
           ("Why do you say 0-0-2 at the start?", "In doubles only one player on the first serving team serves at the start, so the game begins as if that player were the second server.")]
-page("pickleball-rules.html", "Pickleball Rules Explained Simply: Serve, Kitchen, Two-Bounce Rule + Scoring (Quiz) | Padel Glass Box",
-     "Pickleball rules made simple: the underhand serve, the two-bounce rule, the kitchen (non-volley zone), faults and how scoring works, with a quick is-it-legal quiz.", pr, pr_faq, "Pickleball rules")
+page("pickleball-rules.html", "Pickleball Rules Explained: Serve, Kitchen, Two-Bounce Rule",
+     "Pickleball rules made simple: the underhand serve, the two-bounce rule, the kitchen (non-volley zone), faults and scoring, with an is-it-legal quiz.", pr, pr_faq, "Pickleball rules")
 
 def quiz(qid, Q):
     import json as _j
@@ -166,7 +166,7 @@ br_faq = [("How many points is a badminton game?", "21, with rally scoring. At 2
           ("How many games in a badminton match?", "Best of three games."),
           ("Can you touch the net in badminton?", "No. Touching the net with your racket, body or clothing while the shuttle is in play is a fault."),
           ("Is the line in or out in badminton?", "In. A shuttle landing on a line counts as in.")]
-page("badminton-rules.html", "Badminton Rules Explained Simply: Scoring to 21, Serve Rules (1.15 m), Faults + Quiz | Padel Glass Box",
+page("badminton-rules.html", "Badminton Rules Explained: Scoring to 21, Serve and Faults",
      "Badminton rules made simple: rally scoring to 21, the 1.15 m serve rule, which side to serve from, faults, lets, and singles vs doubles, with a quick quiz.", br, br_faq, "Badminton rules")
 
 # ---- Table tennis ----
@@ -192,7 +192,7 @@ tt_faq = [("What size is a table tennis table?", "2.74 m long, 1.525 m wide and 
           ("How many points is a game of table tennis?", "11, win by 2. Serve changes every two points, and every point from 10-10."),
           ("How high do you have to toss the ball to serve?", "At least 16 cm, nearly straight up, from an open palm."),
           ("How much room do I need for a table tennis table?", "About 6 × 3 m for casual play; competition areas are 14 × 7 m.")]
-page("table-tennis-rules.html", "Table Tennis Rules + Table Size: Serve, Scoring to 11, Net Height (Quiz) | Padel Glass Box",
+page("table-tennis-rules.html", "Table Tennis Rules and Table Size: Serve, Scoring, Net",
      "Table tennis rules made simple: the 16 cm serve toss, scoring to 11, lets, doubles, plus the official table size (2.74 x 1.525 m, 76 cm high) and 15.25 cm net.", tt, tt_faq, "Table tennis rules")
 
 # ---- Squash court ----
@@ -213,8 +213,8 @@ sq_faq = [("What are the dimensions of a squash court?", "9.75 m long and 6.40 m
           ("How high is the service line in squash?", "1.78 m (5 ft 10 in) on the front wall."),
           ("How far is the short line from the front wall?", "5.44 m (17 ft 10 in)."),
           ("How big is a squash service box?", "1.60 m square (about 5 ft 3 in), measured to the outside of the lines.")]
-page("squash-court-dimensions.html", "Squash Court Dimensions: Floor Size, Wall Lines and Tin Height (m + ft) | Padel Glass Box",
-     "Squash court dimensions on a scale diagram: 9.75 x 6.4 m floor, 4.57 m front wall line, 1.78 m service line, 0.48 m tin, short line and service boxes, in metres and feet.", sq, sq_faq, "Squash court dimensions")
+page("squash-court-dimensions.html", "Squash Court Dimensions: Floor, Wall Lines and Tin Height",
+     "Squash court dimensions on a scale diagram: 9.75 x 6.4 m floor, 4.57 m front wall line, 1.78 m service line, 0.48 m tin, in metres and feet.", sq, sq_faq, "Squash court dimensions")
 
 # ---- Court sizes compared + court space planner (DEMAND R5; 'how many padel/pickleball courts fit on a tennis court') ----
 # Footprints: padel LTA guidance note (1 court 20.80 x 10.80 m, 1.5 m between courts: 3 courts 20.80 x 33.8 m);
@@ -279,8 +279,8 @@ cs_faq = [("How many padel courts fit on a tennis court?", "One, on a standard t
           ("Which is bigger, a padel court or a tennis court?", "A tennis doubles court: 23.77 × 10.97 m (about 261 m²) against padel's 20 × 10 m (200 m²). Tennis also needs much more run-off."),
           ("How much space do you need for a padel court?", "20.8 × 10.8 m for one court with the LTA's margin, plus 1.5 m between courts. Three courts side by side need 20.8 × 33.8 m."),
           ("Are pickleball and badminton courts the same size?", "Almost: both are about 44 × 20 ft. The kitchen line and the net height differ.")]
-page("court-sizes-compared.html", "Court Sizes Compared: Padel, Tennis, Pickleball, Badminton (to Scale) + How Many Fit | Padel Glass Box",
-     "Racket sport court sizes compared to scale, with a planner: how many padel, pickleball, badminton or tennis courts fit in your space. 1 padel or 4 pickleball courts per tennis court.", cs, cs_faq, "Court sizes compared")
+page("court-sizes-compared.html", "Court Sizes Compared: Padel, Tennis, Pickleball, Badminton",
+     "Racket sport court sizes compared to scale, plus a planner for how many padel, pickleball, badminton or tennis courts fit in your space.", cs, cs_faq, "Court sizes compared")
 
 # ---- Pickleball score keeper (DEMAND K3) ----
 pbs = f"""<header class="hero"><div class="wrap"><h1>Pickleball score keeper</h1>
@@ -330,7 +330,7 @@ pbs_faq = [("How do you call the score in pickleball doubles?", "Three numbers: 
            ("What score do you play to in pickleball?", "Usually 11, win by 2. Some events play to 15 or 21."),
            ("Which side do you serve from in pickleball?", "From the right when the serving side's score is even, and from the left when it's odd."),
            ("What is a side-out in pickleball?", "When the serving side loses the serve to the other side: after both servers have lost a rally in doubles (or the first server at 0-0-2), or after one lost rally in singles.")]
-page("pickleball-score.html", "Pickleball Score Keeper: Free Scoreboard for Doubles + Rally Scoring (0-0-2 Explained) | Padel Glass Box",
-     "Free pickleball score keeper: tap who won the rally and it calls the score (0-0-2), tracks server 1 and 2, side-outs and serve side, for doubles, singles and rally scoring.", pbs, pbs_faq, "Pickleball score keeper")
+page("pickleball-score.html", "Pickleball Score Keeper: Free Scoreboard (0-0-2 Explained)",
+     "Free pickleball score keeper: tap who won the rally and it calls the score (0-0-2), tracks server 1 and 2, side-outs and serve side for any format.", pbs, pbs_faq, "Pickleball score keeper")
 
 COURT_PAGES = ["court-sizes-compared.html", "pickleball-score.html", "badminton-rules.html", "table-tennis-rules.html", "squash-court-dimensions.html", "pickleball-court-dimensions.html", "badminton-court-dimensions.html", "tennis-court-dimensions.html", "pickleball-rules.html"]

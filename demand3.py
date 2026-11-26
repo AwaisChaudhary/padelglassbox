@@ -59,7 +59,7 @@ gs_faq = [
     ("How many pairs should go through from each group?", "Take enough to fill a knockout of 4, 8 or 16 if you can. With 4 groups, the top 2 make a quarter-final. With 3 groups, the top 2 make 6 qualifiers and the 2 best group winners get a bye."),
 ]
 page("padel-group-stage-generator.html", "Padel Group Stage Generator: Groups + Knockout (Free) | Padel Glass Box",
-     "Free padel group stage generator: balanced groups of 3, 4 or 5, every match listed, live tables with game difference, then send the top pairs to a knockout bracket.",
+     "Free padel group stage generator: balanced groups of 3, 4 or 5, every match listed, live tables with game difference, then a knockout for the top pairs.",
      gs, gs_faq, "Group stage generator")
 
 # ---------- 2. DUPR RATING: HOW TO GET ONE + MATCH CHECKER ----------
@@ -119,7 +119,7 @@ dp_faq = [
     ("Why did my DUPR go down after a win?", "DUPR compares the score with what was expected. If you beat lower-rated players by less than expected, your rating can drop even though you won."),
 ]
 page("dupr-rating.html", "How to Get a DUPR Rating: Free Steps + Match Checker | Padel Glass Box",
-     "How to get a DUPR rating for pickleball: free account, one submitted match or a coach rating. Scale 2.000-8.000, how it moves, how to raise it, plus a match checker.",
+     "How to get a DUPR rating for pickleball: a free account and one submitted match or a coach rating. The 2.000-8.000 scale, how it moves and a match checker.",
      dp, dp_faq, "DUPR rating")
 
 # ---------- 3. PADEL VS SQUASH ----------
@@ -166,7 +166,7 @@ sv_faq = [
     ("How is squash scored compared with padel?", "Squash scores a point on every rally and games go to 11, win by 2. Padel uses tennis scoring: 15, 30, 40, game, with sets to 6 games."),
 ]
 page("padel-vs-squash.html", "Padel vs Squash: Differences + Squash-to-Padel Fixer | Padel Glass Box",
-     "Padel vs squash side by side: court, net, walls, racket, ball, serve and scoring from the official rules, which is easier, and how squash players switch to padel.",
+     "Padel vs squash side by side: court, walls, racket, ball, serve and scoring from the official rules, which is easier, and how squash players switch.",
      sv, sv_faq, "Padel vs squash")
 
 DEMAND_PAGES += ["padel-group-stage-generator.html", "dupr-rating.html", "padel-vs-squash.html"]

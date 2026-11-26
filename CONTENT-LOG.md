@@ -246,3 +246,9 @@
 - CHANGED /racket-balance: new H2 'What padel racket weight is best for women?' (by strength/arm history/level, table, sources Justpadel 17 Jun 2026, Zona de Padel 2023, HEAD) + 2 FAQs (DEMAND H5).
 - Links in: /shots (lob), /padel-grip + /racket-care (overgrip), footer both.
 - IndexNow pending https://padelglassbox.com/padel-lob https://padelglassbox.com/padel-overgrip https://padelglassbox.com/racket-balance https://padelglassbox.com/shots https://padelglassbox.com/padel-grip https://padelglassbox.com/racket-care
+
+## 2026-11-27 AUDIT (daily technical SEO pass)
+- Found: 69 titles >60 chars (most only due to the " | Padel Glass Box" suffix), 1 short title (about, 21 chars), 59 meta descriptions outside 120-160 chars, 2 pages without BreadcrumbList (about, privacy), no visible breadcrumbs sitewide. Clean already: canonicals (clean URLs), H1s, JSON-LD validity, FAQ JSON-LD matches visible FAQs, img alt/width/height, robots.txt, sitemap.xml, no stray noindex, no broken links/orphans, every page >=3 inbound links, no duplicate titles/descriptions.
+- Fixed: page() now drops the brand suffix when a title would exceed 60 chars; hand-rewrote the 35 titles still >60 (keyword first) and the about title; rewrote 59 descriptions at source (build.py, courts.py, skills.py, improve.py, demand*.py) to 120-160 chars; added crumb to about/privacy; added a visible Home › Page breadcrumb nav (from the existing crumb arg) on every page with BreadcrumbList.
+- Remaining: none (seo_audit + extended audit clean). Google verification file excluded by design.
+- IndexNow pending: all 72 sitemap URLs (titles/descriptions/breadcrumbs changed sitewide) — https://padelglassbox.com/ and every URL in sitemap.xml.

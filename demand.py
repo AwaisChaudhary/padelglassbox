@@ -88,7 +88,7 @@ pc_faq = [
     ("Do I need to buy padel balls?", "Someone brings a can of three to each game, and it is usual to share the cost. A can lasts a few social sessions before the bounce goes."),
 ]
 page("padel-cost.html", "How Much Does Padel Cost? Free Padel Cost Calculator | Padel Glass Box",
-     "How much does padel cost? Court hire is about £20-£80 or $20-$60 an hour, split 4 ways. See UK, US and Qatar prices and work out your cost per game, month and year.",
+     "How much does padel cost? Court hire is about £20-£80 or $20-$60 an hour, split 4 ways. See UK, US and Qatar prices and your cost per game and month.",
      pc, pc_faq, "Padel cost")
 
 # ---------- 2. 30-DAY PADEL BEGINNER PLAN ----------
@@ -178,7 +178,7 @@ bp_faq = [
     ("Can I learn padel in 30 days?", "You can learn the basics and play proper games in 30 days. Getting good takes longer: steady club level usually takes a year or two."),
 ]
 page("padel-beginner-plan.html", "30-Day Padel Beginner Plan: Day-by-Day Checklist | Padel Glass Box",
-     f"A free 30-day padel beginner plan: one short task a day, {n_court} court sessions, home tasks and rest days. Tick off each day, see your progress and know what to do next.",
+     f"A free 30-day padel beginner plan: one short task a day, {n_court} court sessions, home tasks and rest days. Tick off each day and see your progress.",
      bp, bp_faq, "30-day beginner plan")
 
 DEMAND_PAGES = ["padel-cost.html", "padel-beginner-plan.html"]

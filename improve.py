@@ -143,8 +143,8 @@ fx_faq = [
     ("How do I get better at padel quickly?", "Work on one problem at a time with a simple drill, play regular matches at your level, and take a lesson now and then so a coach can spot the cause of your errors."),
     ("Why does my elbow hurt after playing padel?", "Common reasons are gripping too tightly, a racket that is too heavy, head-heavy or hard, and a sudden increase in how much you play. See a doctor or physio if it lasts, and do not play through pain."),
 ]
-page("fix-my-padel.html", "Fix My Padel: Common Padel Mistakes and How to Fix Them (Free Problem Fixer) | Padel Glass Box",
-     "Why do I keep hitting the glass, losing at the net or missing lobs? Pick your padel problem and get the cause, three fixes and a drill with reps. Common padel mistakes, fixed.",
+page("fix-my-padel.html", "Fix My Padel: Common Padel Mistakes and How to Fix Them",
+     "Hitting the glass, losing at the net or missing lobs? Pick your padel problem and get the cause, three fixes and a drill with reps. Common mistakes, fixed.",
      fx, fx_faq, "Fix my padel")
 
 # ---------------- WHICH SIDE: left or right (I4) ----------------
@@ -212,7 +212,7 @@ sd_faq = [
     ("What is the drive and revés side in padel?", "Drive is the right side and revés is the left side, seen from your own back glass. The names come from Spanish for forehand (drive) and backhand (revés)."),
 ]
 page("which-side-padel.html", "Which Side Should I Play in Padel? Left or Right Side Quiz | Padel Glass Box",
-     "Left (revés) or right (drive) side in padel? Take the free 8-question quiz with your partner: get your side, why, what your job is and a drill. Left-handers, middle balls and beginners explained.",
+     "Left (revés) or right (drive) side in padel? Take the free 8-question quiz with your partner to get your side, your job on court and a drill to practise.",
      sd, sd_faq, "Which side to play")
 
 # ---------------- MATCH TRACKER (I3, 26 Nov 2026) ----------------
@@ -278,7 +278,7 @@ mt_faq = [
     ("Can I track my partner's stats too?", "Yes. Switch 'Who hit the last shot?' to 'My partner' before you tap. The summary shows both of you and the pair total."),
 ]
 page("padel-match-tracker.html", "Padel Match Tracker: Free Stats App for Winners and Errors | Padel Glass Box",
-     "Free padel match tracker: tap the shot that ended each point (serve, volley, bandeja, smash, lob, glass) to log winners and errors. Find your weakest shot and get the fix. No app.",
+     "Free padel match tracker: tap the shot that ended each point to log winners and errors, find your weakest shot and get the fix. Works in your browser, no app.",
      mt, mt_faq, "Match tracker")
 
 # ---------------- TRAINING PLAN GENERATOR (I2, 26 Nov 2026) ----------------
@@ -343,7 +343,7 @@ tp_faq = [
     ("Is the padel training plan free?", "Yes. It is free, needs no login, and you can print it or copy it to your phone."),
 ]
 page("padel-training-plan.html", "Padel Training Plan Generator: Free 4-Week Plan | Padel Glass Box",
-     "Free padel training plan generator: choose level, sessions per week, length and goal. Get a 4-week plan with warm-up, drills, reps and game play. Print or copy it. For beginners to club players.",
+     "Free padel training plan generator: choose level, sessions, length and goal for a 4-week plan with warm-up, drills, reps and game play. Print or copy it.",
      tp, tp_faq, "Training plan")
 
 # ---------------- ETIQUETTE (26 Nov 2026) ----------------
@@ -410,7 +410,7 @@ et_faq = [
     ("What shoes should I wear for padel?", "Padel shoes or clay/omni-court tennis shoes with a herringbone sole. Running shoes slip on the sand-filled turf and can damage it."),
 ]
 page("padel-etiquette.html", "Padel Etiquette: 10 Unwritten Rules of the Court (Quiz) | Padel Glass Box",
-     "Padel etiquette explained: warm-up manners, calling your own double bounces, returning balls, lets from other courts, changing ends and thanking players. Take the 10-question etiquette quiz.",
+     "Padel etiquette: warm-up manners, calling your own double bounces, returning balls, lets from other courts and changing ends. Take the 10-question quiz",
      et, et_faq, "Padel etiquette")
 
 IMPROVE_PAGES = ["fix-my-padel.html", "which-side-padel.html", "padel-match-tracker.html", "padel-training-plan.html", "padel-etiquette.html"]

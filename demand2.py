@@ -60,7 +60,7 @@ ko_faq = [
     ("Should I seed a padel tournament?", "Seed if you know the levels, so the two strongest pairs can only meet in the final. Use a random draw for social events or when no one knows the levels."),
 ]
 page("padel-tournament-bracket.html", "Padel Tournament Bracket Generator: Free Knockout Draw | Padel Glass Box",
-     "Free padel tournament bracket generator: type your pairs, get a knockout draw with seeds and byes, tap winners to move on, and see how long the event takes. No app.",
+     "Free padel tournament bracket generator: type your pairs and get a knockout draw with seeds and byes, tap winners to move on and see the event length.",
      ko, ko_faq, "Tournament bracket generator")
 
 # ---------- 2. BEST PADEL RACKET FOR BEGINNERS: SPEC CHECKER ----------
@@ -112,7 +112,7 @@ bc_faq = [
     ("Round, teardrop or diamond for beginners?", "Round. It has the biggest, lowest sweet spot. Teardrop is the usual second racket; diamond is for advanced, attacking players."),
 ]
 page("best-padel-racket-for-beginners.html", "Best Padel Racket for Beginners: Free Spec Checker (2026) | Padel Glass Box",
-     "Best padel racket for beginners: round, 355-370 g, low balance, soft core, fibreglass face. Check any racket's specs in 30 seconds and see if it suits a beginner.",
+     "Best padel racket for beginners: round, 355-370 g, low balance, soft core, fibreglass face. Check any racket's specs in 30 seconds with our free checker.",
      bc, bc_faq, "Best beginner padel racket")
 
 # ---------- 3. PADEL VS RACQUETBALL VS PLATFORM TENNIS ----------
@@ -161,7 +161,7 @@ vr_faq = [
     ("How big is a platform tennis court?", "The playing court is 44 x 20 ft on a 60 x 30 ft deck, surrounded by 12 ft wire screens (APTA rules)."),
 ]
 page("padel-vs-racquetball.html", "Padel vs Racquetball vs Platform Tennis: Differences | Padel Glass Box",
-     "Padel vs racquetball vs platform tennis: court size, walls, net, racket, ball, serve and scoring side by side from official rules, plus a quick quiz on which to try.",
+     "Padel vs racquetball vs platform tennis: court size, walls, net, racket, ball, serve and scoring side by side, plus a quick quiz on which one to try.",
      vr, vr_faq, "Padel vs racquetball")
 
 DEMAND_PAGES += ["padel-tournament-bracket.html", "best-padel-racket-for-beginners.html", "padel-vs-racquetball.html"]
