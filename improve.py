@@ -122,7 +122,7 @@ fx = f'''<header class="hero"><div class="wrap"><h1>Fix my padel: why do I keep 
 <section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sh"><h2>All problems and fixes</h2><p class="muted">The same advice as the fixer, open any one.</p></div>
 <div style="display:grid;gap:12px">{"".join(_fix_card(x) for x in FIX)}</div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do I get better at padel faster?</h2></div><div class="grid">
-<div class="card"><h3>Work on one thing at a time</h3><p>Pick your biggest leak above, practise its drill for a week or two, then test it in a match. Changing five things at once rarely sticks.</p></div>
+<div class="card"><h3>Work on one thing at a time</h3><p>Not sure which is your biggest leak? Count it with the <a href="{href("padel-match-tracker.html")}">match tracker</a>. Practise its drill for a week or two, or build a <a href="{href("padel-training-plan.html")}">4-week training plan</a>. Changing five things at once rarely sticks.</p></div>
 <div class="card"><h3>Know your level</h3><p>The <a href="{href("level-calculator.html")}">level calculator</a> shows what players at your level usually work on next.</p></div>
 <div class="card"><h3>Get eyes on your game</h3><p>A coach spots causes you cannot feel. See what <a href="{href("padel-lessons.html")}">padel lessons</a> cost and how to pick a coach.</p></div>
 </div></div></section>
@@ -214,4 +214,201 @@ page("which-side-padel.html", "Which Side Should I Play in Padel? Left or Right 
      "Left (revés) or right (drive) side in padel? Take the free 8-question quiz with your partner: get your side, why, what your job is and a drill. Left-handers, middle balls and beginners explained.",
      sd, sd_faq, "Which side to play")
 
-IMPROVE_PAGES = ["fix-my-padel.html", "which-side-padel.html"]
+# ---------------- MATCH TRACKER (I3, 26 Nov 2026) ----------------
+# Demand: 'padel stats tracker' / 'padel match tracker': 15+ App Store apps (PadelRatio, Padel Stats Pro, Pelota, RecordUp, PadelTick, Racketly).
+# Research fact: Conde-Ripoll et al., Biology of Sport 2024;41(4) — winning pairs made fewer unforced errors than losing pairs in every context (WPT 2016-2022).
+MT_SHOTS = [("serve", "Serve", "serve-rules.html#", "fix-my-padel.html"), ("ret", "Return", "fix-my-padel.html", ""), ("ground", "Groundstroke from the back", "fix-my-padel.html", ""),
+            ("glass", "Off the back glass", "wall-rules.html", ""), ("volley", "Volley", "positioning.html", ""), ("lob", "Lob", "shots.html", ""),
+            ("bandeja", "Bandeja", "bandeja-vs-vibora.html", ""), ("vibora", "Víbora", "bandeja-vs-vibora.html", ""), ("smash", "Smash", "bandeja-vs-vibora.html", ""), ("drop", "Drop shot / chiquita", "shots.html", "")]
+MT_FIX = {"serve": ("fix-my-padel", "Fix a weak serve"), "ret": ("fix-my-padel", "Fix missed returns"), "ground": ("fix-my-padel", "Fix balls hitting the back glass"),
+          "glass": ("wall-rules", "Playing off the glass"), "volley": ("positioning", "Where to stand at the net"), "lob": ("shots", "How to lob"),
+          "bandeja": ("bandeja-vs-vibora", "Bandeja technique"), "vibora": ("bandeja-vs-vibora", "Víbora technique"), "smash": ("bandeja-vs-vibora", "When to smash (and when not)"), "drop": ("shots", "Drop shots")}
+MT_DRILL = {"serve": "serve", "ret": "serve", "ground": "cross", "glass": "feeds", "volley": "volley", "lob": "lob", "bandeja": "lob", "vibora": "lob", "smash": "lob", "drop": "netback"}
+mt_js = {"shots": [[a, b] for a, b, c, d in MT_SHOTS], "fix": MT_FIX, "drill": MT_DRILL}
+mt_rows = "".join(f'<div class="mt-row" data-s="{a}"><span class="mt-n">{e(b)}</span><button type="button" class="btn sm mt-w" data-s="{a}" data-t="w" aria-label="{e(b)} winner">+ Winner</button><button type="button" class="btn ghost sm mt-e" data-s="{a}" data-t="e" aria-label="{e(b)} error">− Error</button><span class="mt-c" id="mt-c-{a}">0 / 0</span></div>' for a, b, c, d in MT_SHOTS)
+mt = f'''<header class="hero"><div class="wrap"><h1>Padel match tracker: count your winners and errors.</h1>
+<p class="lead">Tap a shot each time a point ends with your winner or your error. See which shot loses you the most points, and get the fix and a drill for it. Free, no app, no login.</p>
+{quick("To find out why you lose padel matches, count how each point ends: your winners, your unforced errors, and the opponents' winners and errors. Log the shot that ended the point (serve, return, volley, bandeja, smash, lob, off the glass). After one or two matches, the shot with the most errors is the one to practise first. In pro padel, the pair that won the set made fewer unforced errors in every context studied.")}
+<p class="muted" style="margin-top:8px;font-size:.9rem">Last updated 26 Nov 2026. Everything is saved on this device only.</p></div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="mt">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:4px">Log a point</h2>
+<div class="q"><h3>Who hit the last shot?</h3><div class="opts" id="mt-who" role="group" aria-label="Who hit the last shot"><button class="opt" type="button" data-v="me" aria-pressed="true">Me</button><button class="opt" type="button" data-v="pa" aria-pressed="false">My partner</button></div></div>
+<div class="mt-grid" id="mt-grid">{mt_rows}</div>
+<div class="q" style="margin-top:14px"><h3>Point ended by the opponents?</h3><div class="btns" style="margin:0"><button class="btn sm" type="button" id="mt-oe">Their error (our point)</button><button class="btn ghost sm" type="button" id="mt-ow">Their winner (their point)</button></div></div>
+<div class="btns" style="margin:14px 0 0"><button class="btn ghost sm" type="button" id="mt-undo">Undo last</button><button class="btn lime sm" type="button" id="mt-save">Finish and save match</button><button class="btn ghost sm" type="button" id="mt-reset">Clear this match</button></div>
+<p class="muted" style="margin:12px 0 0;font-size:.92rem">Tip: log between points or at each changeover, or ask a friend to log for you. Only count errors you made without real pressure (unforced). Numbers show winners / errors.</p>
+</div>
+<aside class="result" id="mt-out" aria-live="polite"><h2 id="mt-h">This match</h2><p id="mt-pts"></p><p id="mt-sum"></p><div id="mt-bars"></div><p id="mt-tip"></p><p id="mt-next" class="wr-src"></p>
+<div class="btns" style="margin:10px 0 0"><button class="btn sm" type="button" id="mt-copy">Copy summary</button></div></aside>
+</div></section>
+<section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="card"><h2 style="font-size:1.3rem;margin-top:0">My saved matches</h2><div id="mt-hist"></div><p class="muted" id="mt-hempty">No saved matches yet. Tap "Finish and save match" after a match.</p><p class="muted" id="mt-trend" style="margin-bottom:0"></p></div></div></section>
+<script>window.MTRK={json.dumps(mt_js, ensure_ascii=False)};window.MTDR={DR_JSON};</script>
+{AD.format("mt-mid")}
+<section><div class="wrap"><div class="sh"><h2>What should I track in a padel match?</h2><p class="muted">Four ways a point can end. You only need to tap one button per point.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">How the point ended</th><th scope="col">Example</th><th scope="col">Button</th></tr></thead><tbody>
+<tr><td>Your winner</td><td>Your smash bounces out of the court; your volley is too fast to reach</td><td>+ Winner on that shot</td></tr>
+<tr><td>Your unforced error</td><td>An easy volley into the net; a return that hits the back glass on the full</td><td>− Error on that shot</td></tr>
+<tr><td>Opponents' error</td><td>They hit a bandeja into the net</td><td>Their error</td></tr>
+<tr><td>Opponents' winner</td><td>Their víbora wins the point off the side glass</td><td>Their winner</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:12px">A forced error (you just got a racket on a great shot) counts as their winner, not your error. If in doubt, ask: "Would I make that shot nine times out of ten in practice?" If yes, it was unforced.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How do I use my padel stats to improve?</h2></div><div class="grid">
+<div class="card"><h3>1. Find the biggest leak</h3><p>The shot with the most errors costs the most points. Errors usually matter more than winners: most points at club level end with a mistake, not a winner.</p></div>
+<div class="card"><h3>2. Practise that one shot</h3><p>Use the drill the tracker suggests for 2 to 3 sessions. Build them into a <a href="{href("padel-training-plan.html")}">4-week training plan</a>.</p></div>
+<div class="card"><h3>3. Track again</h3><p>Log the next match and compare. If errors on that shot fall, move on to the next leak. Your saved matches show the trend.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Do pros make many unforced errors?</h2></div>
+<div class="card"><p>Yes. A 2024 study in <em>Biology of Sport</em> (Conde-Ripoll and colleagues) looked at 2,567 professional sets from the World Padel Tour, 2016 to 2022. The main findings:</p>
+<ul><li>The pair that won the set made fewer unforced errors than the losing pair, in every context the study looked at.</li><li>Average unforced errors per set were about 6 for men and 7 to 8 for women (for example 6.1 and 7.5 in first sets).</li><li>Unforced errors per set fell season by season for both men and women.</li></ul>
+<p class="muted" style="margin-bottom:0">So the lesson for club players is simple: cutting errors wins more sets than hitting more winners.</p></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Fix the leak</h3><p>Get causes, fixes and a drill in the <a href="{href("fix-my-padel.html")}">padel problem fixer</a>.</p></div>
+<div class="card"><h3>Keep the score too</h3><p>Use the <a href="{href("score.html")}">padel score keeper</a> on the same phone, in another tab.</p></div>
+<div class="card"><h3>Check your level</h3><p>See what players at your level work on next with the <a href="{href("level-calculator.html")}">level calculator</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><p class="muted" style="font-size:.9rem">Sources, checked 26 Nov 2026: Conde-Ripoll R, Muñoz D, Sánchez-Alcaraz BJ, Escudero-Tena A. "Analysis and prediction of unforced errors in men's and women's professional padel", Biology of Sport 2024;41(4):3-9 (WPT final draws 2016-2022). Shot names follow our <a href="{href("shots.html")}">shot library</a>. How to log and what to practise is general coaching advice in our own words.</p></div></section>'''
+mt_faq = [
+    ("How do I track my padel stats?", "Count how each point ends: your winner, your unforced error, or the opponents' winner or error, and note the shot. This page does it with one tap per point and saves your matches on your phone."),
+    ("What is an unforced error in padel?", "A mistake on a ball you would normally get back, such as an easy volley into the net or a ball that hits the back glass on the full. If you were under real pressure, it is a forced error and counts as the opponents' winner."),
+    ("Is there a free padel stats app?", "This tracker is free and works in your phone's browser with no app or login. Add it to your home screen to open it like an app. Your data stays on your device."),
+    ("Do winners or errors matter more in padel?", "Errors usually matter more. In a study of professional sets, the pair that won made fewer unforced errors in every context. At club level, most points end with a mistake."),
+    ("How many unforced errors do pro padel players make?", "A 2024 study of World Padel Tour sets found about 6 unforced errors per set for men and 7 to 8 for women on average."),
+    ("Can I track my partner's stats too?", "Yes. Switch 'Who hit the last shot?' to 'My partner' before you tap. The summary shows both of you and the pair total."),
+]
+page("padel-match-tracker.html", "Padel Match Tracker: Free Stats App for Winners and Errors | Padel Glass Box",
+     "Free padel match tracker: tap the shot that ended each point (serve, volley, bandeja, smash, lob, glass) to log winners and errors. Find your weakest shot and get the fix. No app.",
+     mt, mt_faq, "Match tracker")
+
+# ---------------- TRAINING PLAN GENERATOR (I2, 26 Nov 2026) ----------------
+# Demand: 'padel training plan', 'weekly padel training', 'padel training routine' (Tienda Padel Point x8 guides, The Padel School pathways, padel-rules beginner/intermediate plans).
+TPQ = [
+    ("lvl", "Your level", [("new", "New (under 6 months)"), ("imp", "Improver"), ("club", "Club player"), ("adv", "Strong (4+)")], "imp"),
+    ("days", "Padel sessions per week", [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4")], "2"),
+    ("len", "Session length", [("45", "45 min"), ("60", "60 min"), ("90", "90 min")], "60"),
+    ("who", "Who do you train with?", [("1", "On my own"), ("2", "A partner"), ("4", "Four players")], "2"),
+    ("goal", "Main goal", [("cons", "Fewer errors"), ("net", "Win at the net"), ("wall", "Play off the glass"), ("over", "Lobs and overheads"), ("serve", "Serve and return"), ("game", "Win more matches")], "cons"),
+]
+def tpq(name, title, opts, on):
+    b = "".join(f'<button type="button" class="opt" data-v="{val}" aria-pressed="{"true" if val == on else "false"}">{e(lab)}</button>' for val, lab in opts)
+    return f'<div class="q"><h3>{e(title)}</h3><div class="opts" data-tp="{name}" role="group" aria-label="{e(title)}">{b}</div></div>'
+tp = f'''<header class="hero"><div class="wrap"><h1>Padel training plan generator: your next 4 weeks.</h1>
+<p class="lead">Pick your level, how often you play, how long and your goal. Get a 4-week plan with a warm-up, drills, game play and reps for every session. Print it or copy it to your phone.</p>
+{quick("A good padel training plan for amateurs is 2 or 3 sessions a week, with a rest day between hard sessions. Each session: 10 minutes of warm-up, 20 to 40 minutes of drills on one main goal, then game play to test it, and 5 minutes to cool down. Keep the same goal for 4 weeks: learn it (week 1), repeat it and count (week 2), add pressure (week 3), and test it in matches (week 4).")}
+<p class="muted" style="margin-top:8px;font-size:.9rem">Last updated 26 Nov 2026. General coaching advice, not a medical or fitness programme. Stop if you feel pain.</p></div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="tp">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:4px">Build my plan</h2>
+<p class="muted" style="margin-top:0">Not sure of your level? Take the <a href="{href("level-calculator.html")}">level calculator</a> first. Not sure of your goal? Count your errors with the <a href="{href("padel-match-tracker.html")}">match tracker</a>.</p>
+{"".join(tpq(*x) for x in TPQ)}
+<p class="muted" style="margin:0;font-size:.92rem">Drills come from our <a href="{href("drills.html")}">drills planner</a>. Your choices are saved on this device only.</p>
+</div>
+<aside class="result" id="tp-out" aria-live="polite"><h2 id="tp-h">Your 4-week plan</h2><p id="tp-sum"></p><ul id="tp-wk" style="padding-left:20px;color:#d6e0fb;display:grid;gap:6px"></ul>
+<div class="btns" style="margin:10px 0 0"><button class="btn lime sm" type="button" id="tp-print">Print plan</button><button class="btn sm" type="button" id="tp-copy">Copy plan</button></div></aside>
+</div></section>
+<section style="padding-top:0"><div class="wrap"><div id="tp-plan" class="tp-plan"></div></div></section>
+<script>window.TPDR={DR_JSON};</script>
+{AD.format("tp-mid")}
+<section><div class="wrap"><div class="sh"><h2>How often should I train padel?</h2><p class="muted">Rules of thumb for amateurs. Your body and your diary decide in the end.</p></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Sessions a week</th><th scope="col">What to expect</th><th scope="col">Good split</th></tr></thead><tbody>
+<tr><td>1</td><td>Keeps your level; slow progress</td><td>One mixed session: 1 drill on your goal, then games</td></tr>
+<tr><td>2</td><td>Steady progress for most players</td><td>1 drill session + 1 match session</td></tr>
+<tr><td>3</td><td>Fast progress if you rest well</td><td>2 drill sessions + 1 match session, not on 3 days in a row</td></tr>
+<tr><td>4</td><td>For keen club and strong players</td><td>2 drill sessions, 1 mixed, 1 match; take at least 1 full rest day a week</td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What should a padel training session look like?</h2></div><div class="grid">
+<div class="card"><h3>Warm-up: 10 min</h3><p>Raise the heart rate, move the joints, then soft rallies. Use the <a href="{href("warm-up.html")}">padel warm-up timer</a>.</p></div>
+<div class="card"><h3>Drills: 20 to 40 min</h3><p>One or two drills on your main goal. Count something (a streak, targets hit) so you can see progress week by week.</p></div>
+<div class="card"><h3>Game play: 15 to 40 min</h3><p>Play points or games where your goal matters, for example "only points won at the net count double".</p></div>
+<div class="card"><h3>Cool-down: 5 min</h3><p>Walk, easy stretches for calves, hips, shoulders and forearms, and drink water.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Why a 4-week plan?</h2></div>
+<div class="card"><p>Four weeks is long enough to turn a new habit into a reliable shot, and short enough to stay motivated. Each week has a job:</p>
+<ol><li><strong>Week 1, learn:</strong> slow, easy feeds; get the movement right.</li><li><strong>Week 2, repeat:</strong> the same drills, now counting your streak or targets.</li><li><strong>Week 3, pressure:</strong> faster feeds, moving first, or points that count.</li><li><strong>Week 4, test:</strong> fewer drills, more match play; log a match with the <a href="{href("padel-match-tracker.html")}">tracker</a> and compare.</li></ol>
+<p class="muted" style="margin-bottom:0">Then pick the next goal and build a new plan.</p></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Run a session now</h3><p>The <a href="{href("drills.html")}">drills planner</a> has a timer for each block.</p></div>
+<div class="card"><h3>Fix one problem</h3><p>Know your weak spot? Get three fixes in the <a href="{href("fix-my-padel.html")}">problem fixer</a>.</p></div>
+<div class="card"><h3>Get a coach's eye</h3><p>A lesson every few weeks speeds things up. See <a href="{href("padel-lessons.html")}">padel lesson costs</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Training gear</h3><p>A tube of fresh balls for drills and a new overgrip every few weeks make practice better.</p><ul class="aff-links"><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li><li><a href="{go("padel-overgrips")}" {AFF_ATTR}>Overgrips</a></li><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li></ul>{AFF_NOTE}</div>
+<p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 26 Nov 2026: drills from LTA Padel training tips and Padel Browser (see our <a href="{href("drills.html")}">drills planner</a>). Session shape (warm-up, technical block, game play, cool-down) and 2 to 3 sessions a week for amateurs agree across Tienda Padel Point's training guides and The Padel School's player pathways. The plan logic and minutes are our own, labelled as general advice.</p></div></section>'''
+tp_faq = [
+    ("How many times a week should I play padel to improve?", "Two or three times a week is enough for steady progress for most amateurs, with a rest day between hard sessions. One session a week keeps your level but progress is slow."),
+    ("What should a padel training session include?", "A 10-minute warm-up, 20 to 40 minutes of drills on one goal, game play that tests that goal, and a 5-minute cool-down."),
+    ("How long does it take to get better at padel?", "Most players see a clear change in one shot after about 4 weeks of focused practice, 2 to 3 sessions a week. Moving up a full level usually takes months."),
+    ("Can I train padel on my own?", "Yes. Back-glass rallies, tap-ups, volleys against a wall, serve targets and footwork all work alone. Choose 'On my own' in the plan generator."),
+    ("Should beginners follow a padel training plan?", "A simple one helps: one main goal, like keeping the ball in play, and mostly game play. Choose 'New' and the plan keeps drills short and easy."),
+    ("Is the padel training plan free?", "Yes. It is free, needs no login, and you can print it or copy it to your phone."),
+]
+page("padel-training-plan.html", "Padel Training Plan Generator: Free 4-Week Plan | Padel Glass Box",
+     "Free padel training plan generator: choose level, sessions per week, length and goal. Get a 4-week plan with warm-up, drills, reps and game play. Print or copy it. For beginners to club players.",
+     tp, tp_faq, "Training plan")
+
+# ---------------- ETIQUETTE (26 Nov 2026) ----------------
+# Demand: 'padel etiquette' / 'padel unwritten rules': Red Bull article in 5 country editions, Padel Browser (15 Apr 2026), Dummies cheat sheet, Jean Galea, club FAQ pages.
+ET = [
+    ("You are warming up with the other pair. A juicy high ball comes to you at the net.", [("Smash it, it's only the warm-up", 0), ("Play it back softly so they can hit again", 1)], "In the warm-up you help each other find rhythm. Smashing in the warm-up is the most common bad habit, often from tennis players."),
+    ("You think the ball may have bounced twice before you hit it. Nobody else is sure.", [("Keep playing: not my problem", 0), ("Call it and give the point to them", 1)], "With no umpire, you call your own double bounces and touches. If in doubt, the point goes to the other pair."),
+    ("The ball touched your clothes or body before going out.", [("Say nothing", 0), ("Call it: their point", 1)], "If the ball touches you or your clothes, you lose the point (FIP rules). In social games you call it yourself."),
+    ("The point is over and a spare ball is near you. The server is on the other side.", [("Hit it hard over the net", 0), ("Roll it or lob it gently to the server", 1)], "Send balls back gently, by rolling them or with a soft underhand toss, so nobody gets hit."),
+    ("You are about to serve. The receiver is still fixing a shoe.", [("Serve: they should be ready", 0), ("Wait for them to look ready", 1)], "Make sure the receiver is ready before you serve. A quick look is enough."),
+    ("Your opponent misses an easy volley into the net.", [("Celebrate loudly", 0), ("Play on; save the celebration for your good shots", 1)], "Celebrate your own good shots, not the other pair's mistakes."),
+    ("A ball from the next court rolls onto yours in the middle of a point.", [("Ignore it and finish the point", 0), ("Stop and play a let", 1)], "A ball on court is a safety risk. Stop, replay the point (a let), and send the ball back when their point is over."),
+    ("You finish your booked hour. The next group is waiting at the door.", [("Finish the set, they can wait", 0), ("Stop on time, collect your things and leave quickly", 1)], "Courts are booked by the hour. Arrive a few minutes early and leave on time."),
+    ("Odd number of games played: 3-2.", [("Stay on our side", 0), ("Change ends now, quickly", 1)], "Pairs change ends after the first, third and every following odd game. Have a quick drink and go; long breaks keep others waiting."),
+    ("The match is over.", [("Walk off", 0), ("Tap rackets or shake hands with all three and say thanks", 1)], "Thank your partner and both opponents at the net. Thank the organiser of a social game too."),
+]
+et_js = [{"q": q, "o": [[t, v] for t, v in o], "w": w} for q, o, w in ET]
+et = f'''<header class="hero"><div class="wrap"><h1>Padel etiquette: the unwritten rules of the court.</h1>
+<p class="lead">What to do (and not do) in the warm-up, during points, between points and after the match. Test yourself with 10 real situations.</p>
+{quick("The main padel etiquette rules: arrive a few minutes early and leave the court on time; feed easy balls in the warm-up and don't smash; check the receiver is ready before you serve; call your own double bounces and touches, and give the point away if in doubt; roll or toss spare balls gently to the server; stop for a let if a ball rolls on from another court; change ends quickly after odd games; don't celebrate the other pair's mistakes; and tap rackets with all three players at the end.")}
+<p class="muted" style="margin-top:8px;font-size:.9rem">Last updated 26 Nov 2026.</p></div></header>
+<section style="padding-top:10px"><div class="wrap quiz" id="et">
+<div class="card">
+<h2 style="font-size:1.3rem;margin-bottom:4px">What would you do?</h2>
+<p class="muted" style="margin-top:0">Pick an answer for each situation. Your score shows on the right.</p>
+<div id="et-q"></div>
+</div>
+<aside class="result" id="et-out" aria-live="polite"><h2 id="et-h">Your etiquette score</h2><p id="et-s"></p><p id="et-m"></p><p class="wr-src">Next: <a href="{href("rules.html")}" style="color:#e8f84a">Padel rules</a> · <a href="{href("beginners.html")}" style="color:#e8f84a">Beginner's guide</a> · <a href="{href("padel-equipment.html")}" style="color:#e8f84a">What to wear</a></p>
+<div class="btns" style="margin:10px 0 0"><button class="btn ghost sm" type="button" id="et-reset">Start again</button></div></aside>
+</div></section>
+<script>window.ETQ={json.dumps(et_js, ensure_ascii=False)};</script>
+{AD.format("et-mid")}
+<section><div class="wrap"><div class="sh"><h2>Padel etiquette checklist</h2><p class="muted">The same rules, by moment of the game.</p></div><div class="grid">
+<div class="card"><h3>Before you play</h3><ul><li>Arrive about 5 minutes early so you start on time.</li><li>Wear padel or clay/omni shoes, not running shoes. See <a href="{href("padel-shoes.html")}">padel shoes</a>.</li><li>Take off watches and jewellery that could hurt someone.</li><li>Take turns bringing a new tube of balls.</li></ul></div>
+<div class="card"><h3>In the warm-up</h3><ul><li>Hit easy balls to where the other player can reach them.</li><li>No smashes or winners.</li><li>Share the time: swap net and back after a few minutes.</li></ul></div>
+<div class="card"><h3>During points</h3><ul><li>Check the receiver is ready before you serve.</li><li>Call your own double bounces, touches and net touches.</li><li>If in doubt, the point goes to the other pair.</li><li>Call "mine" or "yours" early with your partner.</li></ul></div>
+<div class="card"><h3>Between points</h3><ul><li>Roll or gently toss balls to the server.</li><li>Don't rush or slow the game down.</li><li>Change ends quickly after odd games.</li><li>Say the score before you serve.</li></ul></div>
+<div class="card"><h3>After the match</h3><ul><li>Tap rackets or shake hands with all three players.</li><li>Collect your balls, bottles and rubbish.</li><li>Leave on time for the next booking.</li><li>Thank the organiser.</li></ul></div>
+<div class="card"><h3>Safety first</h3><ul><li>Stop for a let if a ball from another court comes onto yours.</li><li>Never hit the ball hard at a player who is not ready.</li><li>Keep the court door closed during play.</li></ul></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Which etiquette points are real rules?</h2></div>
+<div class="card" style="padding:8px 24px;overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Situation</th><th scope="col">Rule or custom?</th><th scope="col">More</th></tr></thead><tbody>
+<tr><td>Ball touches your body or clothes</td><td>Rule: you lose the point</td><td><a href="{href("rules.html")}">Rules</a></td></tr>
+<tr><td>Touching the net during a point</td><td>Rule: you lose the point</td><td><a href="{href("net-rules.html")}">Net rules</a></td></tr>
+<tr><td>Changing ends after odd games</td><td>Rule</td><td><a href="{href("rules.html")}">Rules</a></td></tr>
+<tr><td>Giving the point away when unsure</td><td>Custom (no umpire in social play)</td><td></td></tr>
+<tr><td>No smashing in the warm-up</td><td>Custom</td><td><a href="{href("warm-up.html")}">Warm-up</a></td></tr>
+<tr><td>Tapping rackets at the end</td><td>Custom</td><td></td></tr>
+</tbody></table></div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Learn the rules</h3><p>The <a href="{href("rules.html")}">padel rules</a> in plain English, with a tappable court.</p></div>
+<div class="card"><h3>New to padel?</h3><p>Start with the <a href="{href("beginners.html")}">beginner's guide</a> and the <a href="{href("padel-equipment.html")}">kit checklist</a>.</p></div>
+<div class="card"><h3>Keep the score</h3><p>Say the score before each serve, or use the <a href="{href("score.html")}">score keeper</a>.</p></div>
+</div></div></section>
+<section><div class="wrap"><div class="aff-box"><h3>Bring the right kit</h3><p>Proper padel shoes protect the court surface and your ankles, and it is good manners to bring new balls when it is your turn.</p><ul class="aff-links"><li><a href="{go("padel-shoes")}" {AFF_ATTR}>Padel shoes</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Padel balls</a></li></ul>{AFF_NOTE}</div>
+<p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 26 Nov 2026: Padel Browser "Padel court etiquette: the unwritten rules" (15 Apr 2026); FIP Rules of Padel (ball touching a player, net touch, change of ends after odd games). Customs are written in our own words.</p></div></section>'''
+et_faq = [
+    ("What are the unwritten rules of padel?", "Arrive early and leave on time, play easy balls in the warm-up, check the receiver is ready, call your own double bounces and touches, return balls gently, change ends quickly, don't celebrate opponents' errors, and thank all three players at the end."),
+    ("Can you smash in the padel warm-up?", "It is poor etiquette. The warm-up is for both pairs to find rhythm, so hit easy balls the other player can return."),
+    ("Who calls double bounces in padel?", "In social games with no umpire, the player who hit the ball calls it. If nobody is sure, the custom is to give the point to the other pair."),
+    ("What happens if a ball from another court comes onto yours?", "Stop and play a let (replay the point). It is a safety risk to keep playing. Send the ball back when the other court's point is over."),
+    ("Do you shake hands after padel?", "Yes. Tap rackets or shake hands at the net with your partner and both opponents, and thank the organiser."),
+    ("What shoes should I wear for padel?", "Padel shoes or clay/omni-court tennis shoes with a herringbone sole. Running shoes slip on the sand-filled turf and can damage it."),
+]
+page("padel-etiquette.html", "Padel Etiquette: 10 Unwritten Rules of the Court (Quiz) | Padel Glass Box",
+     "Padel etiquette explained: warm-up manners, calling your own double bounces, returning balls, lets from other courts, changing ends and thanking players. Take the 10-question etiquette quiz.",
+     et, et_faq, "Padel etiquette")
+
+IMPROVE_PAGES = ["fix-my-padel.html", "which-side-padel.html", "padel-match-tracker.html", "padel-training-plan.html", "padel-etiquette.html"]

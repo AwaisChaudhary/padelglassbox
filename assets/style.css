@@ -625,3 +625,29 @@ footer ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6
 .fx-d summary { cursor: pointer; list-style-position: outside; }
 .fx-d summary h3 { font-size: 1.05rem; }
 .fx-d ul, .fx-d ol { padding-left: 20px; display: grid; gap: 4px; }
+/* match tracker, training plan, etiquette quiz (26 Nov 2026) */
+.mt-grid { display: grid; gap: 8px; margin-top: 8px; }
+.mt-row { display: grid; grid-template-columns: 1fr auto auto 56px; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid rgba(11,21,48,.1); border-radius: 12px; }
+.mt-n { font-weight: 600; }
+.mt-c { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
+.mt-bar { display: grid; grid-template-columns: 7.5em 1fr 3.5em; gap: 8px; align-items: center; font-size: .9rem; color: #d6e0fb; margin: 4px 0; }
+.mt-bar i { display: inline-block; height: 10px; border-radius: 5px; vertical-align: middle; }
+.mt-bar i.w { background: var(--ball); margin-right: 3px; }
+.mt-bar i.e { background: #ff9b78; }
+.mt-bar > span:nth-child(1) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mt-bar b { text-align: right; color: #fff; }
+.tp-plan { display: grid; gap: 14px; }
+.tp-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.tp-day h3 { font-size: 1rem; margin: 0 0 6px; }
+.tp-day td.num { white-space: nowrap; vertical-align: top; }
+.et-fb { margin: 8px 0 0; font-size: .95rem; padding: 8px 12px; border-radius: 10px; }
+.et-fb.ok { background: rgba(212,245,60,.25); }
+.et-fb.no { background: rgba(255,155,120,.22); }
+@media (max-width: 560px) { .mt-row { grid-template-columns: 1fr auto auto; } .mt-row .mt-c { grid-column: 1 / -1; text-align: left; font-size: .85rem; } }
+@media print {
+  body.print-tp { background: #fff; }
+  body.print-tp header, body.print-tp footer, body.print-tp .head, body.print-tp section:not(:has(#tp-plan)), body.print-tp ins, body.print-tp .aff-disclosure { display: none !important; }
+}
+.tp-t { width: 100%; border-collapse: collapse; }
+.tp-t td { padding: 8px 6px; border-top: 1px solid var(--line); vertical-align: top; font-size: .95rem; }
+.tp-t td.num { white-space: nowrap; width: 4.5em; }

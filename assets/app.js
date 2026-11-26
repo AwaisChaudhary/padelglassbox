@@ -2431,4 +2431,198 @@
     sdg.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { sst[g.dataset.sd] = b.dataset.v; sdRender(); }); }); });
     sdRender();
   }
+
+  /* ---------- shared helpers for 26 Nov tools ---------- */
+  var esc2 = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var lk2 = function (f, t) { var h = f.split("#"); return '<a href="' + (location.protocol === "file:" ? h[0] + ".html" : "/" + h[0]) + (h[1] ? "#" + h[1] : "") + '" style="color:#e8f84a">' + esc2(t) + "</a>"; };
+  var copyTxt = function (txt, ok) { try { navigator.clipboard.writeText(txt).then(function () { toast(ok); }, function () { toast("Copy not allowed here"); }); } catch (e) { toast("Copy not allowed here"); } };
+
+  /* ---------- padel match tracker (26 Nov 2026) ---------- */
+  var mtw = $("#mt");
+  if (mtw && window.MTRK) {
+    var MK = window.MTRK, MDR = {}, mst = store.get("mtrk", { who: "me", log: [], hist: [] });
+    (window.MTDR || []).forEach(function (d) { MDR[d.id] = d; });
+    if (!Array.isArray(mst.log)) mst.log = [];
+    if (!Array.isArray(mst.hist)) mst.hist = [];
+    var SN = {}; MK.shots.forEach(function (s) { SN[s[0]] = s[1]; });
+    var mtCount = function (log) {
+      var c = { w: 0, e: 0, ow: 0, oe: 0, by: {}, me: { w: 0, e: 0 }, pa: { w: 0, e: 0 } };
+      MK.shots.forEach(function (s) { c.by[s[0]] = { w: 0, e: 0 }; });
+      log.forEach(function (x) {
+        if (x.t === "ow" || x.t === "oe") { c[x.t]++; return; }
+        if (!c.by[x.s]) return;
+        c.by[x.s][x.t]++; c[x.t]++; c[x.p === "pa" ? "pa" : "me"][x.t]++;
+      });
+      c.won = c.w + c.oe; c.lost = c.e + c.ow;
+      var worst = null;
+      MK.shots.forEach(function (s) { var b = c.by[s[0]]; if (b.e > 0 && (!worst || b.e > c.by[worst].e || (b.e === c.by[worst].e && b.w < c.by[worst].w))) worst = s[0]; });
+      c.worst = worst;
+      var best = null;
+      MK.shots.forEach(function (s) { var b = c.by[s[0]]; if (b.w > 0 && (!best || b.w - b.e > c.by[best].w - c.by[best].e)) best = s[0]; });
+      c.best = best;
+      return c;
+    };
+    var mtRender = function () {
+      $$("button", $("#mt-who")).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === mst.who ? "true" : "false"); });
+      var c = mtCount(mst.log), tot = c.won + c.lost;
+      MK.shots.forEach(function (s) { var el = $("#mt-c-" + s[0]); if (el) el.textContent = c.by[s[0]].w + " / " + c.by[s[0]].e; });
+      $("#mt-pts").innerHTML = "<strong>Points logged: " + tot + "</strong> · won " + c.won + ", lost " + c.lost;
+      $("#mt-sum").innerHTML = tot ? "Our winners " + c.w + " (me " + c.me.w + ", partner " + c.pa.w + ") · our errors " + c.e + " (me " + c.me.e + ", partner " + c.pa.e + ") · their winners " + c.ow + " · their errors " + c.oe + "." : "Tap a button on the left when a point ends.";
+      var mx = 1; MK.shots.forEach(function (s) { var b = c.by[s[0]]; mx = Math.max(mx, b.w, b.e); });
+      $("#mt-bars").innerHTML = tot ? MK.shots.filter(function (s) { var b = c.by[s[0]]; return b.w || b.e; }).map(function (s) {
+        var b = c.by[s[0]];
+        return '<div class="mt-bar"><span>' + esc2(s[1]) + '</span><i class="w" style="width:' + (b.w / mx * 45) + '%"></i><i class="e" style="width:' + (b.e / mx * 45) + '%"></i><b>' + b.w + " / " + b.e + "</b></div>";
+      }).join("") : "";
+      if (c.worst) {
+        var f = MK.fix[c.worst], d = MDR[MK.drill[c.worst]];
+        $("#mt-h").textContent = "Biggest leak: " + SN[c.worst];
+        $("#mt-tip").innerHTML = "<strong>" + c.by[c.worst].e + " errors on the " + esc2(SN[c.worst].toLowerCase()) + ".</strong>" + (c.e && tot ? " Your errors gave away " + Math.round(c.e / tot * 100) + "% of all points." : "") + (d ? " <strong>Drill:</strong> " + esc2(d.n) + ". " + esc2(d.d) : "") + (c.best ? " Best shot so far: " + esc2(SN[c.best].toLowerCase()) + "." : "");
+        $("#mt-next").innerHTML = "Fix it: " + lk2(f[0], f[1]) + " · " + lk2("padel-training-plan", "4-week training plan") + " · " + lk2("drills", "Drills planner");
+      } else {
+        $("#mt-h").textContent = "This match";
+        $("#mt-tip").innerHTML = c.w ? "No errors logged yet. Nice." : "";
+        $("#mt-next").innerHTML = "Next: " + lk2("score", "Score keeper") + " · " + lk2("fix-my-padel", "Fix my padel");
+      }
+      var h = mst.hist.slice(-10).reverse();
+      $("#mt-hempty").style.display = h.length ? "none" : "";
+      $("#mt-hist").innerHTML = h.length ? '<div style="overflow-x:auto"><table class="mt"><thead><tr><th scope="col">Date</th><th scope="col">Points won / lost</th><th scope="col">Our winners</th><th scope="col">Our errors</th><th scope="col">Biggest leak</th></tr></thead><tbody>' + h.map(function (m) {
+        return "<tr><td>" + esc2(m.d) + "</td><td>" + m.won + " / " + m.lost + "</td><td>" + m.w + "</td><td>" + m.e + "</td><td>" + esc2(m.worst ? SN[m.worst] || "-" : "-") + "</td></tr>";
+      }).join("") + "</tbody></table></div>" : "";
+      if (mst.hist.length >= 2) {
+        var a = mst.hist[mst.hist.length - 2], z = mst.hist[mst.hist.length - 1];
+        var ra = a.won + a.lost ? a.e / (a.won + a.lost) : 0, rz = z.won + z.lost ? z.e / (z.won + z.lost) : 0;
+        $("#mt-trend").textContent = "Trend: your errors were " + Math.round(rz * 100) + "% of points in the last match, " + (rz < ra ? "down" : rz > ra ? "up" : "same as") + " from " + Math.round(ra * 100) + "% the match before.";
+      } else $("#mt-trend").textContent = "";
+      store.set("mtrk", mst);
+    };
+    $$("button", $("#mt-who")).forEach(function (b) { b.addEventListener("click", function () { mst.who = b.dataset.v; mtRender(); }); });
+    $$("button[data-s]", $("#mt-grid")).forEach(function (b) { b.addEventListener("click", function () {
+      mst.log.push({ s: b.dataset.s, t: b.dataset.t, p: mst.who }); mtRender();
+      toast((b.dataset.t === "w" ? "Winner: " : "Error: ") + SN[b.dataset.s] + (mst.who === "pa" ? " (partner)" : ""));
+    }); });
+    $("#mt-oe").addEventListener("click", function () { mst.log.push({ t: "oe" }); mtRender(); toast("Their error: our point"); });
+    $("#mt-ow").addEventListener("click", function () { mst.log.push({ t: "ow" }); mtRender(); toast("Their winner: their point"); });
+    $("#mt-undo").addEventListener("click", function () { if (mst.log.length) { mst.log.pop(); toast("Last point removed"); } mtRender(); });
+    $("#mt-reset").addEventListener("click", function () { if (!mst.log.length || window.confirm("Clear the points logged for this match?")) { mst.log = []; mtRender(); } });
+    $("#mt-save").addEventListener("click", function () {
+      if (!mst.log.length) { toast("Log some points first"); return; }
+      var c = mtCount(mst.log), dt = new Date();
+      mst.hist.push({ d: dt.toISOString().slice(0, 10), won: c.won, lost: c.lost, w: c.w, e: c.e, worst: c.worst });
+      if (mst.hist.length > 50) mst.hist = mst.hist.slice(-50);
+      mst.log = []; mtRender(); toast("Match saved");
+    });
+    $("#mt-copy").addEventListener("click", function () {
+      var c = mtCount(mst.log);
+      var lines = ["My padel match stats (padelglassbox.com/padel-match-tracker)", "Points won " + c.won + ", lost " + c.lost, "Our winners " + c.w + ", our errors " + c.e + ", their winners " + c.ow + ", their errors " + c.oe];
+      MK.shots.forEach(function (s) { var b = c.by[s[0]]; if (b.w || b.e) lines.push("- " + s[1] + ": " + b.w + " winners, " + b.e + " errors"); });
+      if (c.worst) lines.push("Biggest leak: " + SN[c.worst]);
+      copyTxt(lines.join("\n"), "Summary copied");
+    });
+    mtRender();
+  }
+
+  /* ---------- padel training plan generator (26 Nov 2026) ---------- */
+  var tpw = $("#tp");
+  if (tpw && window.TPDR) {
+    var TD = window.TPDR, tpg = $$("[data-tp]", tpw), tst = store.get("tplan", {}), tpText = "";
+    var GN = { cons: "fewer errors", net: "winning at the net", wall: "playing off the glass", over: "lobs and overheads", serve: "serve and return", game: "winning more matches" };
+    var SEC = { cons: "net", net: "over", wall: "cons", over: "net", serve: "cons", game: "cons" };
+    var WK = [["Learn", "slow, easy feeds; get the movement right"], ["Repeat", "same drills, now count your streak or targets and write it down"], ["Pressure", "faster feeds, start each ball on the move, or points that count"], ["Test", "shorter drills, more games; log a match with the tracker"]];
+    var r5 = function (x) { return Math.max(5, Math.round(x / 5) * 5); };
+    var pick = function (tag, who, skip) {
+      var l = TD.filter(function (d) { return d.f.indexOf(tag) > -1 && d.who.indexOf(who) > -1 && skip.indexOf(d.id) < 0; });
+      if (!l.length) l = TD.filter(function (d) { return d.who.indexOf(who) > -1 && skip.indexOf(d.id) < 0; });
+      return l[0];
+    };
+    var tpRender = function () {
+      tpg.forEach(function (g) {
+        var k = g.dataset.tp;
+        if (!tst[k] || !$('button[data-v="' + tst[k] + '"]', g)) { var on = $('button[aria-pressed="true"]', g); tst[k] = on ? on.dataset.v : $("button", g).dataset.v; }
+        $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === tst[k] ? "true" : "false"); });
+      });
+      store.set("tplan", tst);
+      var lvl = tst.lvl, days = +tst.days, len = +tst.len, who = +tst.who, goal = tst.goal;
+      var main = goal === "game" ? "cons" : goal, sec = SEC[goal];
+      var d1 = pick(main, who, []), d2 = pick(main, who, [d1 && d1.id]) , d3 = pick(sec, who, [d1 && d1.id, d2 && d2.id]);
+      var gameD = TD.filter(function (d) { return d.id === "cards"; })[0];
+      var canGame = who > 1;
+      var core = len - 15;
+      var sessions = [];
+      var techn = function (wk) {
+        var gm = canGame ? r5(core * (wk === 3 ? 0.5 : lvl === "new" ? 0.4 : 0.3)) : 0, rest = core - gm;
+        var b = [["Warm-up", 10, "Joints, short sprints, then easy rallies (warm-up timer)."], [d1.n, r5(rest * 0.55), d1.d], [d2 && d2.id !== d1.id ? d2.n : d1.n + " (again, harder)", rest - r5(rest * 0.55), d2 ? d2.d : d1.d]];
+        if (gm) b.push([goal === "game" ? "Yellow card, red card games" : "Games: points from your goal count double", gm, gameD ? gameD.d : "Play normal games."]);
+        b.push(["Cool-down", 5, "Walk, easy stretches, water."]);
+        return { t: "Drill session: " + GN[goal], b: b };
+      };
+      var mixed = function (wk) {
+        var gm = canGame ? r5(core * 0.45) : 0, rest = core - gm;
+        var b = [["Warm-up", 10, "Joints, short sprints, then easy rallies."], [d3 ? d3.n : d1.n, r5(rest * 0.5), d3 ? d3.d : d1.d], [d1.n, rest - r5(rest * 0.5), d1.d]];
+        if (gm) b.push(["Games", gm, "Play games or a short set. Focus on your goal."]);
+        b.push(["Cool-down", 5, "Walk, easy stretches, water."]);
+        return { t: canGame ? "Mixed session" : "Second skill session", b: b };
+      };
+      var match = function (wk) {
+        if (!canGame) return { t: "Solo session: footwork and control", b: [["Warm-up", 10, "Joints and short sprints."], ["Footwork and split step", r5(core * 0.4), (TD.filter(function (d) { return d.id === "feet"; })[0] || {}).d || ""], [d1.n, core - r5(core * 0.4), d1.d], ["Cool-down", 5, "Walk, easy stretches, water."]] };
+        return { t: "Match session", b: [["Warm-up", 10, "Easy rallies, volleys, a few lobs and serves. No smashing at the other pair."], ["Match play", core, wk === 3 ? "Play a full match and log it with the match tracker. Compare your errors with week 1." : "Play sets. After each set, ask: did I use what I practised?"], ["Cool-down", 5, "Walk, easy stretches, water."]] };
+      };
+      var plan = [];
+      for (var wk = 0; wk < 4; wk++) {
+        var s = [];
+        if (days === 1) s = [mixed(wk)];
+        else if (days === 2) s = [techn(wk), wk === 3 ? match(wk) : (lvl === "new" ? mixed(wk) : match(wk))];
+        else if (days === 3) s = [techn(wk), wk === 3 ? mixed(wk) : techn(wk), match(wk)];
+        else s = [techn(wk), mixed(wk), wk === 3 ? match(wk) : techn(wk), match(wk)];
+        plan.push(s);
+      }
+      var dayName = { 1: ["Day 1"], 2: ["Day 1", "Day 3 or 4"], 3: ["Day 1", "Day 3", "Day 5"], 4: ["Day 1", "Day 2", "Day 4", "Day 6"] }[days];
+      var lvTxt = { new: "Keep feeds slow and easy, and stop a drill while it still feels good.", imp: "Count every drill so you can see progress.", club: "Feed faster from week 2 and make your partner move you.", adv: "From week 3, start every drill ball on the move and add targets." }[lvl];
+      $("#tp-h").textContent = "4 weeks: " + GN[goal];
+      $("#tp-sum").innerHTML = "<strong>" + days + " session" + (days > 1 ? "s" : "") + " a week, " + len + " minutes each.</strong> " + lvTxt + (days >= 3 ? " Rest at least one day between drill days." : "") + (who === 1 ? " Training alone: book a match with friends when you can, to test what you practise." : "");
+      $("#tp-wk").innerHTML = WK.map(function (w, i) { return "<li><strong>Week " + (i + 1) + ", " + w[0].toLowerCase() + ":</strong> " + w[1] + ".</li>"; }).join("");
+      var txt = ["My 4-week padel training plan (padelglassbox.com/padel-training-plan)", "Goal: " + GN[goal] + " · " + days + " x " + len + " min a week"];
+      var html = "";
+      plan.forEach(function (s, wi) {
+        txt.push("", "WEEK " + (wi + 1) + " (" + WK[wi][0] + ": " + WK[wi][1] + ")");
+        html += '<div class="card tp-week"><h2 style="font-size:1.25rem;margin-top:0">Week ' + (wi + 1) + ": " + WK[wi][0] + '</h2><p class="muted" style="margin-top:0">' + esc2(WK[wi][1]) + '.</p><div class="tp-days">';
+        s.forEach(function (ss, di) {
+          txt.push(dayName[di] + " - " + ss.t);
+          html += '<div class="tp-day"><h3>' + esc2(dayName[di]) + ": " + esc2(ss.t) + '</h3><table class="tp-t"><tbody>' + ss.b.map(function (b) {
+            txt.push("  " + b[1] + " min  " + b[0]);
+            return '<tr><td class="num"><b>' + b[1] + " min</b></td><td><strong>" + esc2(b[0]) + "</strong><br><span class=\"muted\">" + esc2(b[2]) + "</span></td></tr>";
+          }).join("") + "</tbody></table></div>";
+        });
+        html += "</div></div>";
+      });
+      html += '<p class="muted">Want a timer? Run any session block by block in the ' + lk2("drills", "drills planner").replace(' style="color:#e8f84a"', "") + ". Log your week 4 match with the " + lk2("padel-match-tracker", "match tracker").replace(' style="color:#e8f84a"', "") + ".</p>";
+      $("#tp-plan").innerHTML = html;
+      tpText = txt.join("\n");
+    };
+    tpg.forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { tst[g.dataset.tp] = b.dataset.v; tpRender(); }); }); });
+    $("#tp-copy").addEventListener("click", function () { copyTxt(tpText, "Plan copied"); });
+    $("#tp-print").addEventListener("click", function () { document.body.classList.add("print-tp"); window.print(); setTimeout(function () { document.body.classList.remove("print-tp"); }, 500); });
+    tpRender();
+  }
+
+  /* ---------- padel etiquette quiz (26 Nov 2026) ---------- */
+  var etw = $("#et");
+  if (etw && window.ETQ) {
+    var EQ = window.ETQ, est = store.get("etq", {});
+    var etRender = function () {
+      var n = 0, right = 0;
+      $("#et-q").innerHTML = EQ.map(function (q, i) {
+        var a = est[i], done = a !== undefined && q.o[a];
+        if (done) { n++; if (q.o[a][1]) right++; }
+        return '<div class="q"><h3>' + (i + 1) + ". " + esc2(q.q) + '</h3><div class="opts" role="group" aria-label="Situation ' + (i + 1) + '">' + q.o.map(function (o, j) {
+          return '<button type="button" class="opt" data-q="' + i + '" data-v="' + j + '" aria-pressed="' + (a === j ? "true" : "false") + '">' + esc2(o[0]) + "</button>";
+        }).join("") + "</div>" + (done ? '<p class="et-fb ' + (q.o[a][1] ? "ok" : "no") + '">' + (q.o[a][1] ? "Good call. " : "Not quite. ") + esc2(q.w) + "</p>" : "") + "</div>";
+      }).join("");
+      $$("button[data-q]", $("#et-q")).forEach(function (b) { b.addEventListener("click", function () { est[b.dataset.q] = +b.dataset.v; etRender(); }); });
+      $("#et-s").innerHTML = "<strong>" + right + " of " + EQ.length + "</strong> right" + (n < EQ.length ? " · " + (EQ.length - n) + " left to answer" : "");
+      $("#et-m").textContent = n < EQ.length ? "Answer all ten to get your verdict." : right === EQ.length ? "Perfect. Everyone wants to play with you." : right >= 8 ? "Great court manners. Check the ones you missed below." : right >= 5 ? "Not bad. Read the checklist below before your next game." : "Read the checklist below before your next game. Your partners will thank you.";
+      store.set("etq", est);
+    };
+    $("#et-reset").addEventListener("click", function () { est = {}; etRender(); });
+    etRender();
+  }
 })();
