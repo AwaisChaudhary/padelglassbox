@@ -223,3 +223,4 @@
 - NEW /padel-vs-racquetball: padel vs racquetball vs platform tennis table + 'which to try' quiz. Sources: FIP rules (padel), USA Racquetball rulebook (court 40x20x20 ft, 22 in racquet, games to 15, server scores, 11-pt tiebreaker), APTA rules (44x20 ft on 60x30 deck, 12 ft screens, net 34/37 in, one serve in doubles); Bounce for season/heaters.
 - Links in: Americano page (formats cards + table), King of the Court/round robin format tables, racket finder/gifts/equipment/budget cards, padel vs tennis vs pickleball, court sizes compared, footer.
 - IndexNow pending https://padelglassbox.com/padel-tournament-bracket https://padelglassbox.com/best-padel-racket-for-beginners https://padelglassbox.com/padel-vs-racquetball
+- 2026-11-26 18:10 PKT IndexNow FLUSHED (Chrome back): today's new pages + NeonCoast SEO-changed pages, HTTP 200.
