@@ -134,7 +134,7 @@ jp_faq = [
     ("What balls should kids use for padel?", "Foam or low-compression balls for young beginners, because they bounce slower and lower. Move to normal padel balls once rallies last."),
 ]
 page("junior-padel.html", "Junior Padel: Parents' Guide, Ages, Kit and Competitions",
-     "Junior padel for parents: what age kids can start, racket weight by age, softer balls, session length, and junior competitions (LTA Youth Tour, USPA, FIP), with a free starter planner.",
+     "Junior padel for parents: what age kids can start, racket weight by age, softer balls, session length, junior competitions and a free starter planner.",
      jp, jp_faq, "Junior padel")
 
 DEMAND_PAGES += ["padel-rules-quiz.html", "junior-padel.html"]

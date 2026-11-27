@@ -229,7 +229,7 @@ mx_faq = [
     ("What comes after the Mexico Major?", "The Premier Padel Finals in Barcelona, 10 to 13 December 2026, for the top eight pairs of the season."),
 ]
 page("premier-padel-mexico-major.html", "Premier Padel Mexico Major 2026: Dates, How to Watch",
-     "Premier Padel Mexico Major 2026 in Acapulco, 23-29 November: finals on Sunday 29 Nov, how to watch on Red Bull TV and YouTube, 2,000 points and last year's winners.",
+     "Premier Padel Mexico Major 2026 in Acapulco, 23-29 November: finals on Sunday 29 Nov, how to watch on Red Bull TV and YouTube, and last year's winners.",
      mx, mx_faq, "Mexico Major 2026")
 
 DEMAND_PAGES += ["premier-padel-mexico-major.html"]

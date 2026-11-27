@@ -312,3 +312,10 @@
 - New generic step timer in app.js (pgbStepTimer) reused by both tools. Links: footer (2), /drills What next -> solo practice, /padel-injuries What next -> workout, solo <-> workout, workout -> warm-up, cool-down, calories, injuries, elbow.
 - IndexNow pending https://padelglassbox.com/padel-solo-practice https://padelglassbox.com/padel-workout https://padelglassbox.com/premier-padel-mexico-major https://padelglassbox.com/drills https://padelglassbox.com/padel-injuries
 - Fixed seo_post.py: brand-new pages now get today's lastmod (they were inheriting the old 25 Nov build date); /padel-court-surfaces lastmod corrected to 28 Nov.
+
+## 2026-11-28 AUDIT (daily technical SEO pass)
+- Found (seo_audit.py + extended checks, 90 pages): /junior-padel description 184 chars, /premier-padel-mexico-major description 164 and only 1 inbound link (/padel-rankings), /padel-volley title 62. Everything else clean (links, canonicals, breadcrumbs, FAQ JSON-LD, images, robots, sitemap 90 URLs).
+- Fixed at source: descriptions in demand10.py (150) and demand9.py (151); title in demand6.py (59). Internal links to /premier-padel-mexico-major added from /history-of-padel (padel was invented in Acapulco) and /golden-point-star-point (Star Point used on Premier Padel). Re-audit clean.
+- Remaining: none. Note the Mexico Major ends 29 Nov; the page will need a results update after the finals.
+- Checked 390px render: /history-of-padel, /golden-point-star-point: no JS errors, no overflow.
+- IndexNow pending: https://padelglassbox.com/junior-padel https://padelglassbox.com/padel-volley https://padelglassbox.com/premier-padel-mexico-major https://padelglassbox.com/history-of-padel https://padelglassbox.com/golden-point-star-point

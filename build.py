@@ -835,7 +835,7 @@ deuce = f'''<header class="hero"><div class="wrap"><h1>Golden point, Star Point 
 <tr><td>Where you see it</td><td>Classic matches and some leagues</td><td>Many clubs and social games</td><td>Pro tours and many sanctioned events since 2026</td></tr>
 </tbody></table></div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Who uses which</h2></div><div class="grid">
-<div class="card"><h3>Professional padel</h3><p>The International Padel Federation (FIP) approved Star Point in late 2025. From 2026 it is used on Premier Padel, the FIP Tour, FIP Promises and the FIP Beyond amateur events.</p></div>
+<div class="card"><h3>Professional padel</h3><p>The International Padel Federation (FIP) approved Star Point in late 2025. From 2026 it is used on Premier Padel, the FIP Tour, FIP Promises and the FIP Beyond amateur events. You can see it at the <a href="{href("premier-padel-mexico-major.html")}">Mexico Major 2026</a>.</p></div>
 <div class="card"><h3>National events</h3><p>Some federations follow the pro tours. In the US, USPA-sanctioned tournaments use Star Point from January 2026. Always check the event's own rules.</p></div>
 <div class="card"><h3>Your club game</h3><p>Friendly games can use any of the three. Golden point keeps games short when court time is tight. Agree on one before the first serve, so nobody argues at 40-40.</p></div>
 <div class="card"><h3>Tie-breaks</h3><p>None of this changes the tie-break. At 6-6 you play to 7 points with a two-point lead. See who serves each point on our <a href="{href("tie-break.html")}">tie-break page</a>.</p></div>

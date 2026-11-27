@@ -69,7 +69,7 @@ vo_faq = [
     ("How far from the net should I stand to volley?", "About two to three metres, not touching distance. Too close and any lob goes over you; a small step back gives you time, and you step forward into each volley."),
     ("Should I swing on a padel volley?", "No. A volley is a block or a short push. The power comes from your step and the ball's speed. A bigger swing only for a slow, high ball you can attack."),
 ]
-page("padel-volley.html", "How to Volley in Padel: Technique, Volley Picker, Fault Finder",
+page("padel-volley.html", "How to Volley in Padel: Technique, Picker and Fault Finder",
      "How to volley in padel: six basics, the types of volley, where to aim, a picker for the right volley for each ball, and a fault finder for common errors.",
      vo, vo_faq, "Padel volley")
 
