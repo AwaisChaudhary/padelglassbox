@@ -49,6 +49,7 @@ G6. DONE 26 Nov https://padelglassbox.com/history-of-padel (filterable timeline 
 
 ## NEW CATEGORY EXPANSION (Awais 26 Nov: when traffic plateaus, open new categories backed by Trends/searches; don't wait for input)
 Evidence = Google autocomplete 26 Nov 18:10 PKT. Each is a CATEGORY: build a hub page first, then 1-2 child pages per run. Skip if it already exists.
+- E4 OPEN (27 Nov growth review) 'Where to play padel' category for the US: one hub 'Padel in the USA' with a city list (NYC, Chicago, Miami, Seattle, NJ...) of clubs verified on 2+ sources (club sites/Playtomic), no thin per-city doorway pages until a city has 5+ verified clubs. Autocomplete 'padel courts in' -> nyc, the us, chicago, manhattan, seattle, nj; 'padel club near' -> me, padel lessons near me.
 - E1 OPEN Pickleball section: rules (doubles, singles, beginners), court size, scoring tool — 'pickleball rules doubles|singles|for beginners'.
 - E2 OPEN Padel vs tennis vs pickleball comparison: ball, shoes, court size ('tennis vs padel vs pickleball|ball|shoes|court size').
 - E3 OPEN Padel court cost: per hour (UK/London), cost to build (UK, India) — calculator with clearly labelled estimate ranges.
