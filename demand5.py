@@ -49,7 +49,7 @@ lb = f'''<header class="hero"><div class="wrap"><h1>How to hit a lob in padel, a
 <div class="card"><h3>When both opponents are at the net</h3><p>The lob is the main way to move them back so your pair can take the net. Learn the rest of the plan in <a href="{href("padel-tactics.html")}">padel tactics</a>.</p></div>
 <div class="card"><h3>When you need time</h3><p>A high defensive lob buys time to get back into position after a hard ball. See <a href="{href("positioning.html")}">where to stand</a>.</p></div>
 <div class="card"><h3>Against tired or slow players</h3><p>Lobs make the net pair turn and run back again and again. Over a match, that tires them out.</p></div>
-<div class="card"><h3>Not when they are both back</h3><p>If both opponents are already at the back, a lob just gives them the net. Play a low ball or a chiquita at their feet instead. See <a href="{href("shots.html")}">padel shots</a>.</p></div>
+<div class="card"><h3>Not when they are both back</h3><p>If both opponents are already at the back, a lob just gives them the net. Play a low ball or a <a href="{href("padel-chiquita.html")}">chiquita</a> at their feet instead. See <a href="{href("shots.html")}">padel shots</a>.</p></div>
 </div>
 <p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 27 Nov 2026: LTA Padel "Tips to play and improve padel lobs" (technique, target past the service line and before the back glass, height, cross-court margin, the two up two back drill); The Padel School "The Padel Lob" (low preparation, high finish, errors: off balance and lifting the body) and "How to deal with lobs" (recognise early, turn sideways, shot by depth and side). Advice in our own words.</p></div></section>'''
 lb_faq = [

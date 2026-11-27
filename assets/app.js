@@ -3289,4 +3289,44 @@
     brender();
   }
 
+  /* ---------- smash or not: lob picker ---------- */
+  var smb = $("#smp");
+  if (smb) {
+    var sv = { dep: "mid", ht: "high", bal: "fwd", out: "n" };
+    var srender = function () {
+      var h, p, t;
+      if (sv.ht === "head" || sv.bal === "back") {
+        if (sv.dep === "deep") { h = "Let it come off the glass"; p = "A deep lob you can only reach while moving back is not an overhead. Turn, run back, let it bounce and come off the back glass, then lob or play a low ball."; t = lbl("padel-back-glass", "How to play off the back glass"); }
+        else { h = sv.bal === "back" ? "Bandeja" : "Víbora or bandeja"; p = sv.bal === "back" ? "Moving backwards, a smash is a gamble. Play a controlled bandeja deep into the corner and keep the net." : "At head height you cannot hit down hard. A bandeja is the safe choice; a víbora adds side spin and pace if you are comfortable."; t = lbl("bandeja-vs-vibora", "Bandeja vs víbora vs smash"); }
+      } else if (sv.dep === "short") {
+        if (sv.out === "y") { h = "Smash: flat at the feet or an angle"; p = "A short, high lob is the one to finish. On a court where they can run outside, an x3 or x4 can be chased, so a flat smash at a player's feet or a sharp angle is often safer."; }
+        else { h = "Smash: x3 is on"; p = "Short, high and you are moving forward: the best ball for an x3. Topspin it to bounce about a metre before their service line, so it flies out over the side wall. Or play a flat smash at their feet."; }
+        t = "After the smash, move straight back to the net.";
+      } else if (sv.dep === "mid") {
+        h = "Kick smash or bandeja"; p = "Around the service line you can smash, but an x3 is hard from here. A kick smash with heavy topspin keeps them back; a bandeja is the safer option if you are not sure."; t = lbl("bandeja-vs-vibora", "Compare overheads");
+      } else {
+        h = "Bandeja, deep"; p = "Too deep to smash, even above your head. A smash from here usually comes back off their glass. Play a bandeja into the corner and hold the net."; t = lbl("bandeja-vs-vibora", "Bandeja vs víbora vs smash");
+      }
+      $("#smp-h").textContent = h; $("#smp-p").textContent = p; $("#smp-t").innerHTML = t;
+    };
+    $$("[data-smp]", smb).forEach(function (g) { choose(g, function (v) { sv[g.dataset.smp] = v; srender(); }); });
+    srender();
+  }
+
+  /* ---------- chiquita or lob picker ---------- */
+  var cqb = $("#cqp");
+  if (cqb) {
+    var cv = { pos: "mid", opp: "normal", ball: "easy" };
+    var crender = function () {
+      var h, p, t = "Mix it with lobs so they never know which is coming.";
+      if (cv.pos === "back" || cv.ball === "hard") { h = "Lob"; p = cv.pos === "back" ? "Pinned near the back glass you cannot get forward after a chiquita. Play a high, deep lob, cross-court, and wait for the next chance." : "On a fast or awkward ball a soft chiquita is hard to control. Lift it into a high, deep lob."; t = lbl("padel-lob", "How to hit a lob"); }
+      else if (cv.opp === "close") { h = "Lob over them"; p = "They are very close to the net, so a chiquita gives them an easy volley down. A lob over their heads is the better ball, then come forward."; t = lbl("padel-lob", "How to hit a lob"); }
+      else if (cv.pos === "glass") { h = cv.opp === "back" ? "Chiquita or bajada" : "Bajada or chiquita"; p = "A high rebound off the glass gives you time. Drive it low with a bajada, or take pace off and drop a chiquita at their feet, then move in."; t = lbl("padel-back-glass", "Playing off the back glass"); }
+      else { h = "Chiquita"; p = cv.opp === "back" ? "They are stepping back for your lob. Catch them out: a soft, low ball at their feet, then move in with your partner." : "A good chance. Play it soft and low at the feet of the net player or through the middle, then move forward at once."; }
+      $("#cqp-h").textContent = h; $("#cqp-p").textContent = p; $("#cqp-t").innerHTML = t;
+    };
+    $$("[data-cqp]", cqb).forEach(function (g) { choose(g, function (v) { cv[g.dataset.cqp] = v; crender(); }); });
+    crender();
+  }
+
 })();

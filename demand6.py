@@ -175,3 +175,5 @@ page("padel-back-glass.html", "How to Play Off the Back Glass in Padel + Rebound
      bg, bg_faq, "Back glass")
 
 DEMAND_PAGES += ["padel-volley.html", "padel-return-of-serve.html", "padel-back-glass.html"]
+
+exec((ROOT / "demand7.py").read_text())
