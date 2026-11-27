@@ -1,4 +1,10 @@
 ## RADAR 27 Nov late night (demand-first build run 13; web search: 'padel bandeja how to hit', 'padel juniors how to start kids', 'padel junior tour LTA youth 2026', 'padel quiz rules test yourself', 'padel heat hydration', 'kick smash por tres', 'Premier Padel Finals Barcelona 2026')
+
+## EVENING RADAR 27 Nov 2026 (18:40 PKT)
+E1. OPEN: 'padel how to' -> pronounce, say (#2-3 autocomplete), no page: short /how-to-pronounce-padel (PAH-del, Spanish origin, why not 'paddle'), 2+ sources.
+E2. OPEN: Trends 'padel deals' +100%, 'esprit padel shop' +110%, 'french padel shop' +60% (Black Friday): /padel-black-friday title/H2 should say 'padel deals'.
+E3. WATCH: 'federazione italiana tennis e padel' Breakout (Italian news, not a page for us).
+
 N1. DONE 27 Nov https://padelglassbox.com/padel-rules-quiz — 'padel rules quiz', 'padel trivia', 'test your padel knowledge': LTA Padel 'Quiz: how well do you know the rules of padel' (Aug 2025, 2 URLs), QuestionPro 'padel trivia questions' templates (3 locales), triviaquestions 'padel game quiz', USA Pickleball 'player rules test' shows the format works in the sister sport.
 N2. DONE 27 Nov https://padelglassbox.com/junior-padel — closes J5 'junior padel', 'padel for kids', 'how to start a junior padel program', 'what age can kids start padel': Padel USA junior program PDF (May + Jun 2026), LTA Padel youth competitions + LTA support 'Youth Tour', LTA Junior Nationals Derby (4 Nov 2026), Tienda Padel Point 'age to start padel', David Lloyd, Padel Browser parents' guide, padelspeed 'ages 4-10', HEAD 'padel racquet for kids' (8 locales).
 N3. DONE 27 Nov https://padelglassbox.com/bandeja-vs-vibora#how-to-hit-a-bandeja — closes M4 'how to hit a bandeja' (The Padel School 8+ URLs, LTA Padel overheads, Padel Browser, Tienda Padel Point technical guide, pelotista): merged as step-by-step H2 + bandeja fault fixer + 2 FAQs (no new thin page).
