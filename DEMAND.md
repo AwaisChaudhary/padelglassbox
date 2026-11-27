@@ -1,5 +1,9 @@
 ## SEO PLAYBOOK — standing rules for every run (Awais 26 Nov 01:35: "do SEO like the best SEO guy in the world for all sites")
 
+## DAILY RADAR 27 Nov 06:45 PKT (Google autocomplete US)
+- P4 OPEN 'padel racket for kids / women / tennis player / intermediate men' ('padel racket for' #3-7; women 0 pages): one 'padel racket by player type' guide or H2s on the racket finder (general advice; AFF boxes).
+- P5 OPEN 'padel levels' ('padel c level', 'padel d level', Playtomic level): levels explained page with a self-rating quiz (check existing level content first).
+- P6 OPEN 'pickleball shoes' ('pickleball ' #5; 0 pages) + 'pickleball court dimensions' (#6): in the pickleball section (E1).
 ## RADAR 27 Nov midday (demand-first build run 9; web search)
 J1. DONE 27 Nov https://padelglassbox.com/padel-volley — 'padel volley technique', 'how to volley in padel', 'why does my volley go up': LTA Padel volleys page, The Padel School 12+ volley URLs (the padel volley, biggest mistakes, first volley, setup volley, backhand volleys, forehand volley accuracy), Decathlon NL volley tips, Nox drive volley, Ely Padel Club (ClubSpark) volley training.
 J2. DONE 27 Nov https://padelglassbox.com/padel-return-of-serve — 'how to return serve in padel', 'where to stand to return serve', 'padel return rules': The Padel School 8 return URLs (fix common problems, the padel return, where to hit the return, essential return rules, dominate an easy serve), HEAD + Red Bull serve tips (multi-locale). No return page existed.
