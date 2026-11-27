@@ -266,3 +266,5 @@
 - CHANGED /best-padel-racket-for-beginners: H2 'What is the best padel racket for tennis players?' (spec table: shape, weight, balance, core, sore elbow) + 2 FAQs. Sources: Padel USA (26 Apr 2025), Padel Browser (27 May 2026). No brands.
 - Links in: /shots (chiquita, smash, bajada), /bandeja-vs-vibora (smash; also the x3 card), /padel-lob (chiquita), footer both.
 - IndexNow pending https://padelglassbox.com/padel-smash https://padelglassbox.com/padel-chiquita https://padelglassbox.com/best-padel-racket-for-beginners https://padelglassbox.com/shots https://padelglassbox.com/bandeja-vs-vibora https://padelglassbox.com/padel-lob
+
+- 2026-11-27 09:50 PKT IndexNow FLUSHED 33 URLs (200) incl. all pages added in the last 30 h.
