@@ -282,3 +282,10 @@
 - Links: footer (3), racket-balance What next -> compare; positioning + padel-tactics What next -> communication; drills What next -> footwork.
 - IndexNow pending https://padelglassbox.com/compare-padel-rackets https://padelglassbox.com/padel-footwork https://padelglassbox.com/padel-communication
 - 2026-11-27 16:05 PKT afternoon push: NEW /premier-padel-mexico-major (Trends rising 'Mexico Major Premier Padel'; Red Bull + padelspeak + FIP + Outlook), linked from /padel-rankings. IndexNow FLUSHED 23 URLs (200): all pages added since 27 Nov 00:00 PKT plus every earlier 'IndexNow pending' line.
+
+## 27 Nov 2026 late night: demand run 13
+- NEW /padel-rules-quiz (15-question interactive rules quiz with per-answer explanation, links to the full rule, final score + "read again" list, copy score). Targets 'padel rules quiz', 'padel trivia', 'test your padel knowledge'. Evidence: LTA Padel rules quiz article, QuestionPro padel trivia templates. Facts from our FIP-based rules pages (serve, wall, net, golden point, tie-break, out-of-court).
+- NEW /junior-padel (parents' guide + junior starter planner: racket, ball, session, group size, scoring, frequency, next competition step by age/experience/goal/country). Targets 'junior padel', 'padel for kids', 'what age can kids start padel', 'junior padel tournaments UK'. Sources: USPA 'How to start a junior padel program' 2026, LTA Padel youth competitions, LTA support centre Youth Tour, LTA Padel news 4 Nov 2026 (Junior Nationals Derby), David Lloyd Clubs. Affiliate box with disclosure.
+- CHANGED /bandeja-vs-vibora: new H2 'How do you hit a bandeja, step by step?' (6 steps), bandeja fault fixer tool, 2 FAQs, meta description. Source: LTA Padel overheads page. Targets 'how to hit a bandeja'.
+- Links: footer (rules quiz, junior padel), /rules -> quiz, /padel-racket-for-kids -> junior padel, junior padel <-> quiz.
+- IndexNow pending https://padelglassbox.com/padel-rules-quiz https://padelglassbox.com/junior-padel https://padelglassbox.com/bandeja-vs-vibora

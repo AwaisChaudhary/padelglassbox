@@ -233,3 +233,4 @@ page("premier-padel-mexico-major.html", "Premier Padel Mexico Major 2026: Dates,
      mx, mx_faq, "Mexico Major 2026")
 
 DEMAND_PAGES += ["premier-padel-mexico-major.html"]
+exec((ROOT / "demand10.py").read_text())

@@ -3543,4 +3543,113 @@
     pcrender();
   }
 
+  /* ---------- padel rules quiz ---------- */
+  var rqb = $("#rq");
+  if (rqb) {
+    var rlk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var qs = $$(".rq-q", rqb), cur = 0, right = 0, done = 0, wrong = [];
+    var rqshow = function () {
+      $("#rq-h").textContent = right + " / " + done;
+      $("#rq-bar").style.width = Math.round(done / qs.length * 100) + "%";
+    };
+    qs.forEach(function (q, i) {
+      $$("button", q).forEach(function (b) {
+        b.addEventListener("click", function () {
+          if (q.dataset.done) return;
+          q.dataset.done = "1"; done++;
+          var c = q.dataset.c, ok = b.dataset.v === c;
+          $$("button", q).forEach(function (x) {
+            x.disabled = true;
+            x.style.opacity = "1"; x.style.cursor = "default"; if (x.dataset.v === c) { x.style.background = "#eef9b8"; x.style.borderColor = "#9fb400"; x.style.color = "#0b1530"; x.textContent = "✓ " + x.textContent; }
+            else if (x === b) { x.textContent = "✗ " + x.textContent; x.style.borderColor = "#ff9b78"; }
+          });
+          if (ok) right++; else wrong.push(q.dataset.l);
+          var why = $(".rq-why", q); why.hidden = false;
+          why.innerHTML = "<strong>" + (ok ? "Right." : "Not quite.") + "</strong> " + why.textContent;
+          $("#rq-p").textContent = ok ? "Correct. Read why, then go on." : "That one catches a lot of players. Read why, then go on.";
+          $("#rq-t").innerHTML = "Full rule: " + rlk(q.dataset.l, q.dataset.l.replace(/-/g, " "));
+          rqshow();
+          if (i < qs.length - 1) { $("#rq-next").hidden = false; $("#rq-next").focus(); }
+          else {
+            var pct = right / qs.length, msg;
+            if (pct === 1) msg = "Perfect. You could referee your club's next tournament.";
+            else if (pct >= 0.8) msg = "Very good. You know the rules better than most club players.";
+            else if (pct >= 0.5) msg = "Not bad. A few rules still trip you up: worth a quick read before your next match.";
+            else msg = "Plenty to learn, and that is normal for new players. Start with the rules page below.";
+            $("#rq-pill").textContent = "Final score";
+            $("#rq-p").textContent = msg;
+            var seen = {}, rev = wrong.filter(function (x) { if (seen[x]) return false; seen[x] = 1; return true; });
+            $("#rq-t").innerHTML = rev.length ? "Read again: " + rev.map(function (x) { return rlk(x, x.replace(/-/g, " ")); }).join(" · ") : "Next: " + rlk("rules", "all padel rules") + " · " + rlk("golden-point-star-point", "golden point and Star Point");
+            $("#rq-copy").hidden = false; $("#rq-again").hidden = false;
+          }
+        });
+      });
+    });
+    $("#rq-next").addEventListener("click", function () {
+      qs[cur].hidden = true; cur++; qs[cur].hidden = false; $("#rq-next").hidden = true;
+      var f = $("button", qs[cur]); if (f) f.focus();
+    });
+    $("#rq-again").addEventListener("click", function () { location.reload(); });
+    $("#rq-copy").addEventListener("click", function () {
+      var txt = "I scored " + right + "/" + qs.length + " on the padel rules quiz. Can you beat it? " + location.href.split("#")[0];
+      try { navigator.clipboard.writeText(txt).then(function () { toast("Score copied"); }, function () { toast(txt); }); } catch (e) { toast(txt); }
+    });
+    rqshow();
+  }
+
+  /* ---------- junior padel planner ---------- */
+  var jpb = $("#jp-out");
+  if (jpb) {
+    var jlk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var jv = store.get("pgb-jp", { age: "u12", exp: "new", goal: "fun", where: "uk" });
+    var jprender = function () {
+      var A = jv.age, X = jv.exp, G = jv.goal, W = jv.where;
+      var rk = { u8: "Lightest junior racket, well under 300 g", u12: "About 260 to 330 g, round, soft core", u14: "About 300 to 355 g, round or teardrop", u18: "Light adult racket, about 340 to 360 g" }[A];
+      var ball = (A === "u8" || (A === "u12" && X === "new")) ? "Foam or low-compression balls" : (A === "u12" ? "Low-compression, moving to normal balls" : "Normal padel balls");
+      var sess = A === "u8" ? "30 to 45 minutes" : (A === "u18" && X === "reg" && G !== "fun" ? "60 to 90 minutes" : "About 60 minutes");
+      var score = X === "new" ? "Rally scoring, double bounce allowed at first" : (X === "some" ? "Short games to 7 or 11, then normal scoring" : "Normal padel scoring with golden point");
+      var freq = G === "fun" ? "Once a week, with friends" : (G === "better" ? "One group lesson plus one play session a week" : "Two or more sessions a week, plus matches");
+      var comp;
+      if (W === "uk") comp = (X === "new" || G === "fun") ? "LTA Team Challenge at your local venue: fun team matches" : (A === "u8" ? "Club games first; UK junior nationals start at 12U" : "LTA Youth Tour (half-day events, LTA ranking points), then the Junior National Championships (12U to 18U)");
+      else if (W === "us") comp = (X === "new" || G === "fun") ? "A club junior programme or clinic" : "USPA junior tournaments once they are match-play ready";
+      else comp = (X === "new" || G === "fun") ? "A club junior group" : "Your national federation's junior events; FIP runs international junior tournaments";
+      var head = { u8: "Play first, rules later", u12: "Build the rallies", u14: "Learn the walls and the net", u18: "Ready for the full game" }[A];
+      var intro = { u8: "At 5 to 7, short, game-based sessions with soft balls matter more than technique.", u12: "At 8 to 11, small groups and mini-rallies build skills fast.", u14: "At 12 to 13, most children can play the full court and start learning the walls.", u18: "At 14 to 17, teenagers can play with adults and enter age-group events." }[A];
+      if (G === "comp" && X === "new") intro += " Give them a few months of regular play before the first tournament.";
+      $("#jp-h").textContent = head; $("#jp-p").textContent = intro;
+      var rows = [["Racket", rk], ["Ball", ball], ["Session", sess], ["Group", "4 to 8 children per coach"], ["Scoring", score], ["How often", freq], ["Next step", comp]];
+      $("#jp-spec").innerHTML = rows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("");
+      $("#jp-t").innerHTML = "Exact racket weight: " + jlk("padel-racket-for-kids", "junior racket finder") + " · Learn the rules: " + jlk("padel-rules-quiz", "rules quiz");
+      store.set("pgb-jp", jv);
+    };
+    $$("[data-jp]").forEach(function (g) {
+      $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === jv[g.dataset.jp] ? "true" : "false"); });
+      choose(g, function (v) { jv[g.dataset.jp] = v; jprender(); });
+    });
+    $("#jp-copy").addEventListener("click", function () {
+      var txt = $("#jp-h").textContent + "\n" + $$("#jp-spec dt").map(function (d) { return d.textContent + ": " + d.nextSibling.textContent; }).join("\n");
+      try { navigator.clipboard.writeText(txt).then(function () { toast("Plan copied"); }, function () { toast("Copy failed"); }); } catch (e) { toast("Copy failed"); }
+    });
+    jprender();
+  }
+
+  /* ---------- bandeja fault fixer ---------- */
+  var bjb = $("#bjf");
+  if (bjb) {
+    var BJ = {
+      net: ["Ball into the net", "You let it drop too low, or swung straight down like a smash.", "Hit it higher, about eye height, in front of you. Swing forward and across your body, not down."],
+      long: ["Ball flies long into their back glass hard", "Too much pace, or the racket face is open and flat.", "Slow the swing, slice under the ball and aim just past their service line. The bandeja is not meant to win the point."],
+      short: ["Ball sits up short in the middle", "Hit too softly, or contact too far behind your head.", "Turn sideways earlier so the ball stays in front, and push through towards the target. Aim deep, past the service line."],
+      late: ["Always late, ball behind my head", "You face the net and step back too late.", "Turn your body side-on the moment you see the lob, racket up like holding a tray, and move back with side steps."],
+      stuck: ["I stay back after the shot", "You watch the ball instead of moving.", "Let the swing carry your weight forward and walk back up to the net, level with your partner."],
+      arm: ["It hurts my shoulder or elbow", "You are muscling it with the arm only.", "Use the body turn and keep the swing smooth and slow. If pain lasts, rest and see a physio; check the arm-load tips on padel elbow."]
+    };
+    var bjrender = function (k) {
+      var r = BJ[k];
+      $("#bjf-h").textContent = r[0]; $("#bjf-p").innerHTML = "<strong>Why:</strong> " + r[1] + "<br><strong>Fix:</strong> " + r[2];
+    };
+    choose($("[data-bjf]"), bjrender);
+    bjrender("net");
+  }
+
 })();
