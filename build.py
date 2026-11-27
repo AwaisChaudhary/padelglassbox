@@ -3297,7 +3297,7 @@ rk = f'''<header class="hero"><div class="wrap"><h1>Padel rankings: the world to
 <div class="card"><h3>21 results, not 22</h3><p>From 2027 the ranking counts each player's best 21 results instead of 22.</p></div>
 <div class="card"><h3>Top players out of small events</h3><p>Higher-ranked players can no longer enter the main draw of lower CUPRA FIP events (Gold, Silver, Bronze), leaving more room for rising players.</p></div>
 </div></div></section>
-<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid"><div class="card"><h3>On this week</h3><p>The last Major of 2026 is in Acapulco, 23 to 29 November. Dates, how to watch and last year's winners: <a href="{href("premier-padel-mexico-major.html")}">Premier Padel Mexico Major 2026</a>.</p></div>
 <div class="card"><h3>Play like the pros</h3><p>Learn the overheads you see on the tour in <a href="{href("bandeja-vs-vibora.html")}">bandeja vs víbora vs smash</a> and the <a href="{href("shots.html")}">shot library</a>.</p></div>
 <div class="card"><h3>Know your own level</h3><p>Answer a few questions in the <a href="{href("level-calculator.html")}">level calculator</a> to see where you sit on the 1 to 7 club scale.</p></div>
 <div class="card"><h3>Run your own ranking</h3><p>Keep a club or friends ranking with the <a href="{href("ladder.html")}">padel ladder tracker</a>, or run a social night with the <a href="{href("americano.html")}">Americano generator</a>.</p></div>

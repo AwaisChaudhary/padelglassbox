@@ -188,3 +188,48 @@ page("padel-communication.html", "Who Takes the Middle Ball in Padel? Partner Ca
      pc, pc_faq, "Partner communication")
 
 DEMAND_PAGES += ["compare-padel-rackets.html", "padel-footwork.html", "padel-communication.html"]
+
+# ---------- 4. PREMIER PADEL MEXICO MAJOR 2026 (Trends 27 Nov: "Mexico Major Premier Padel" rising) ----------
+# Sources checked 27 Nov 2026: Red Bull (event page + 2026 calendar + 2026 FAQ: dates 23-29 Nov, QF-final on Red Bull TV, earlier rounds on Premier Padel YouTube, Major = 2,000 pts, Finals Barcelona 7-13 Dec);
+# padelspeak (dates, Acapulco, finals Sunday 29 Nov, 2,000 pts, Barcelona Finals next); 2025 champions: FIP (padelfip.com), Outlook India, Red Bull.
+mx = f'''<header class="hero"><div class="wrap"><h1>Premier Padel Mexico Major 2026 in Acapulco.</h1>
+<p class="lead">Dates, how to watch, what is at stake and who won last year. This is the last Major of the season and the last big chance to qualify for the Barcelona Finals.</p>
+{quick("The GNP Mexico Major runs from <strong>Monday 23 to Sunday 29 November 2026</strong> in <strong>Acapulco, Mexico</strong>. The men's and women's finals are on <strong>Sunday 29 November</strong>. Quarter-finals to finals are live on <strong>Red Bull TV</strong>; earlier rounds are on Premier Padel's YouTube channel. Winners get 2,000 ranking points. Last year Coello and Tapia won the men's title, and Bea González and Claudia Fernández the women's.", "2026-11-27")}</div></header>
+<section><div class="wrap"><div class="sh"><h2>Mexico Major 2026 at a glance</h2></div>
+<div class="tbl"><table><tbody>
+<tr><th>Dates</th><td>23 to 29 November 2026</td></tr>
+<tr><th>Where</th><td>Acapulco, Guerrero, Mexico</td></tr>
+<tr><th>Category</th><td>Major (the top tier of Premier Padel, four a season)</td></tr>
+<tr><th>Ranking points for the winners</th><td>2,000</td></tr>
+<tr><th>Finals day</th><td>Sunday 29 November 2026</td></tr>
+<tr><th>Next on the tour</th><td>Premier Padel Finals, Barcelona, 7 to 13 December 2026</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">Acapulco is on Mexico City time (UTC-6), so evening matches there are played overnight in Europe and in the early morning in the UK.</p></div></section>
+{AD.format("mx-mid")}
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How to watch the Mexico Major</h2></div>
+<div class="grid">
+<div class="card"><h3>Quarter-finals to finals</h3><p>Live on Red Bull TV, which covers every 2026 Premier Padel event from the quarter-finals on, for both the men's and women's draws. The app works on phones and smart TVs.</p></div>
+<div class="card"><h3>Earlier rounds</h3><p>The rounds before the quarter-finals are streamed on Premier Padel's own YouTube channel.</p></div>
+<div class="card"><h3>Not shown where you are?</h3><p>Red Bull TV's live stream is not available in every country. Where it is blocked, highlights are posted worldwide in English and Spanish after the event.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Who won the Mexico Major last year?</h2></div>
+<div class="tbl"><table><thead><tr><th>Draw</th><th>2025 champions</th><th>Beat in the final</th></tr></thead><tbody>
+<tr><td>Men</td><td>Arturo Coello and Agustín Tapia</td><td>Federico Chingotto and Ale Galán</td></tr>
+<tr><td>Women</td><td>Bea González and Claudia Fernández</td><td>Gemma Triay and Delfina Brea</td></tr>
+</tbody></table></div>
+<p class="muted" style="margin-top:14px">It was González and Fernández's first Major as a pair. Coello and Tapia's win in Acapulco sealed their place as the year-end world No. 1 pair.</p></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Why this week matters</h2></div>
+<p>Only the top eight men's and top eight women's pairs of the season play the <strong>Premier Padel Finals in Barcelona (7 to 13 December)</strong>. As the last Major, Acapulco carries the most points of the closing weeks, so it can decide who makes it. See how the points work in <a href="{href("padel-rankings.html")}">padel rankings explained</a>, and how matches are scored, including the golden point, in <a href="{href("golden-point-star-point.html")}">golden point and star point</a>.</p>
+<p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 27 Nov 2026: Red Bull (GNP Mexico Major event page, 2026 Premier Padel calendar and 2026 FAQ), padelspeak (Mexico Major 2026 guide), FIP and Outlook India (2025 finals). We will add the 2026 results after the finals.</p></div></section>'''
+mx_faq = [
+    ("When is the Mexico Major 2026?", "From 23 to 29 November 2026 in Acapulco. The men's and women's finals are on Sunday 29 November."),
+    ("Where can I watch the Premier Padel Mexico Major?", "Quarter-finals, semi-finals and finals are live on Red Bull TV. Earlier rounds are on Premier Padel's YouTube channel. Red Bull TV's live stream is not available in every country."),
+    ("Who won the Mexico Major 2025?", "Arturo Coello and Agustín Tapia won the men's title against Chingotto and Galán. Bea González and Claudia Fernández won the women's title against Gemma Triay and Delfina Brea."),
+    ("How many points is a Premier Padel Major worth?", "2,000 ranking points for the winning pair, the most of any regular tour event."),
+    ("What comes after the Mexico Major?", "The Premier Padel Finals in Barcelona, 7 to 13 December 2026, for the top eight pairs of the season."),
+]
+page("premier-padel-mexico-major.html", "Premier Padel Mexico Major 2026: Dates, How to Watch",
+     "Premier Padel Mexico Major 2026 in Acapulco, 23-29 November: finals on Sunday 29 Nov, how to watch on Red Bull TV and YouTube, 2,000 points and last year's winners.",
+     mx, mx_faq, "Mexico Major 2026")
+
+DEMAND_PAGES += ["premier-padel-mexico-major.html"]
