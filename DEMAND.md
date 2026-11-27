@@ -1,3 +1,10 @@
+## COMPETITOR WATCH 27 Nov 2026 (vs padelful (racket DB + compare + API), racketguide (AI recommender, price compare), Playtomic blog levels, padel-magazine calendars)
+We have 82 pages incl. racket finder, level calculator, tournament bracket, rankings.
+1. GAP: Premier Padel 2027 calendar / tournament calendar page: padel-magazine has an agenda; we have 0. Facts known so far: FIP Hexagon World Series 2027 Madrid 21-24 Jan, Abu Dhabi finale 21-24 Oct; Premier Padel 2027 only partly announced. Plan: /padel-calendar-2027 with confirmed dates only (2 sources), 'TBC' rows, times in visitor zone, filled as dates land.
+2. GAP: racket compare side-by-side (padelful, racketguide). We have the racket finder only. Plan: /compare-padel-rackets from our own racket data with shape/balance/weight/level columns.
+3. GAP: Playtomic 0-7 level chart; our /level-calculator covers it but P5 (padel levels C/D, MATCHi) still open.
+4. BETTER-THAN-THEM (own): 'Racket match from your tennis racket' - enter the tennis racket you use (weight, head size) and get the padel shape/balance that feels closest. Nobody bridges the tennis-to-padel switch with a tool.
+
 ## SEO PLAYBOOK — standing rules for every run (Awais 26 Nov 01:35: "do SEO like the best SEO guy in the world for all sites")
 
 ## RADAR 27 Nov evening (demand-first build run 11; web search)
