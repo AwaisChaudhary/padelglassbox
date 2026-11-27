@@ -157,3 +157,4 @@ page("padel-racket-weight.html", "Padel Racket Weight Calculator: What Weight Sh
      rw, rw_faq, "Racket weight")
 
 DEMAND_PAGES += ["padel-cool-down.html", "padel-racket-weight.html"]
+exec((ROOT / "demand12.py").read_text())

@@ -3772,4 +3772,67 @@
     bjrender("net");
   }
 
+  /* ---------- court surface checker ---------- */
+  var csb = $("#cs-out");
+  if (csb) {
+    var clk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var cv = store.get("pgb-cs", { where: "out", sand: "some", fib: "dk", cond: "dry" });
+    var csrender = function () {
+      var name, speed, bounce, sole, tip, why;
+      if (cv.fib === "flat") {
+        name = "Porous concrete or cement"; speed = "Fast"; bounce = "High and true";
+        sole = "Hard-court or hybrid sole, well cushioned"; tip = "The ball comes through quickly off the floor and glass: shorter backswings, and attack high balls.";
+        why = "A hard floor with no fibres. Allowed by the rules, now mostly found on older courts.";
+      } else {
+        var mono = cv.fib === "mono", fibr = cv.fib === "fibr";
+        var sc = (cv.sand === "lots" ? 2 : cv.sand === "some" ? 1 : 0) + (mono ? 1 : fibr ? -1 : 0) + (cv.cond === "damp" ? 1 : 0) + (cv.cond === "worn" ? 1 : 0) + (cv.where === "in" ? -0.5 : 0);
+        name = (mono ? "Monofilament" : fibr ? "Fibrillated" : "Sand-filled") + " artificial grass" + (cv.sand === "none" ? ", low sand" : cv.sand === "lots" ? ", heavy sand" : "");
+        if (sc >= 2.5) { speed = "Slow"; bounce = "Low, can skid"; tip = "Be patient: lob more, play deep and low, and finish at the net. Hard flat hits sit up less here."; }
+        else if (sc >= 1) { speed = "Medium"; bounce = "Medium, even"; tip = "A normal club court: mix lobs and low balls to the feet, and use the back glass."; }
+        else { speed = "Fast"; bounce = "Higher and livelier"; tip = "Shorter swings and earlier preparation. Smashes and fast balls off the glass come back quicker."; }
+        sole = cv.sand === "none" ? "Omni (small studs) or hybrid" : (cv.sand === "lots" ? "Herringbone (zig-zag)" : "Herringbone or hybrid");
+        why = mono ? "Straight, separate fibres usually mean a newer monofilament turf: even bounce and good grip." : fibr ? "Flat, split fibres are fibrillated turf: a bit faster and livelier, and it wears sooner." : "Most club courts are sand-filled grass. Look closer at the fibres to narrow it down.";
+        if (cv.sand === "lots") why += " Lots of loose sand slows the ball and your feet slide more until it settles.";
+        if (cv.sand === "none") why += " Very little sand can mean texturised low-sand turf, or a court that needs topping up.";
+      }
+      if (cv.cond === "damp") { why += " A damp or just-dried court plays heavy and slow; balls get heavy too."; }
+      if (cv.cond === "worn") { why += " Worn, flat fibres make the ball skid or die and bald spots are slippery. Tell the club."; }
+      if (cv.where === "out") why += " Outdoors, check rain, cold and wind before you play.";
+      $("#cs-h").textContent = name;
+      $("#cs-p").textContent = why;
+      var rows = [["Speed", speed], ["Bounce", bounce], ["Shoes", sole], ["Tactic", tip]];
+      $("#cs-spec").innerHTML = rows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("");
+      $("#cs-t").innerHTML = "Shoes: " + clk("padel-shoes", "shoe finder") + " · " + (cv.where === "out" ? "Weather: " + clk("padel-weather", "weather checker") : "Balls: " + clk("padel-balls", "dead ball checker")) + " · Slow court: " + clk("padel-lob", "the lob");
+      store.set("pgb-cs", cv);
+    };
+    $$("[data-cs]").forEach(function (g) {
+      $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === cv[g.dataset.cs] ? "true" : "false"); });
+      choose(g, function (v) { cv[g.dataset.cs] = v; csrender(); });
+    });
+    $("#cs-copy").addEventListener("click", function () {
+      var txt = "My padel court: " + $("#cs-h").textContent + "\n" + $$("#cs-spec dt").map(function (d) { return d.textContent + ": " + d.nextSibling.textContent; }).join("\n");
+      try { navigator.clipboard.writeText(txt).then(function () { toast("Result copied"); }, function () { toast("Copy failed"); }); } catch (e) { toast("Copy failed"); }
+    });
+    csrender();
+  }
+
+  /* ---------- rest timer (rules page) ---------- */
+  var rtb = $("#rt");
+  if (rtb) {
+    var rtT = null, rtLeft = 0, rac = null, seg = $(".opts", rtb);
+    var rbeep = function (f, d) { try { rac = rac || new (window.AudioContext || window.webkitAudioContext)(); var o = rac.createOscillator(), g = rac.createGain(); o.frequency.value = f; o.connect(g); g.connect(rac.destination); g.gain.setValueAtTime(0.2, rac.currentTime); g.gain.exponentialRampToValueAtTime(0.001, rac.currentTime + d); o.start(); o.stop(rac.currentTime + d); } catch (e) {} };
+    var fmt = function (n) { return Math.floor(n / 60) + ":" + ("0" + (n % 60)).slice(-2); };
+    var rstop = function (msg) { clearInterval(rtT); rtT = null; $("#rt-msg").textContent = msg; };
+    choose(seg, function (v) {
+      clearInterval(rtT); rtLeft = +v; $("#rt-clock").textContent = fmt(rtLeft); $("#rt-msg").textContent = "Running...";
+      rbeep(660, 0.1);
+      rtT = setInterval(function () {
+        rtLeft--; $("#rt-clock").textContent = fmt(Math.max(0, rtLeft));
+        if (rtLeft === 5) rbeep(660, 0.12);
+        if (rtLeft <= 0) { rbeep(990, 0.5); rstop("Time! Play the next point."); }
+      }, 1000);
+    });
+    $("#rt-stop").addEventListener("click", function () { $$("button", seg).forEach(function (x) { x.setAttribute("aria-pressed", "false"); }); rstop("Stopped. Pick a break to start."); });
+  }
+
 })();
