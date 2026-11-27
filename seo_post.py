@@ -14,6 +14,7 @@ root = Path(sys.argv[1]).resolve(); domain = sys.argv[2].rstrip("/")
 today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5))).date().isoformat()  # PKT
 state_f = root / ".lastmod.json"
 state = json.loads(state_f.read_text()) if state_f.exists() else {}
+had_state = bool(state)
 old = (root / "sitemap.xml").read_text() if (root / "sitemap.xml").exists() else ""
 old_locs = re.findall(r"<loc>([^<]+)</loc>", old)
 clean = not any(l.endswith(".html") for l in old_locs if not l.rstrip("/").endswith(domain.split("//")[1]))
@@ -45,7 +46,8 @@ for p in sorted(root.rglob("*.html")):
     prev = state.get(rel)
     if prev and prev[0] == h: date = prev[1]
     elif prev: date = today
-    else: date = old_dates.get(url, today) if old_dates.get(url, today) < today else today  # first run: keep what we had
+    elif not had_state: date = old_dates.get(url, today) if old_dates.get(url, today) < today else today  # first run: keep what we had
+    else: date = today  # brand-new page
     state[rel] = [h, date]
     imgs = list(dict.fromkeys(re.findall(r'<img src="(/assets/img/[^"?]+)', src)))[:5]
     pages.append((url, date, imgs))

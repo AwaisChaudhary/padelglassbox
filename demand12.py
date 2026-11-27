@@ -79,3 +79,4 @@ page("padel-court-surfaces.html", "Padel Court Surfaces: Grass, Sand, Colours + 
      cs, cs_faq, "Court surfaces")
 
 DEMAND_PAGES += ["padel-court-surfaces.html"]
+exec((ROOT / "demand13.py").read_text())

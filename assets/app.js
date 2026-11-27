@@ -3835,4 +3835,141 @@
     $("#rt-stop").addEventListener("click", function () { $$("button", seg).forEach(function (x) { x.setAttribute("aria-pressed", "false"); }); rstop("Stopped. Pick a break to start."); });
   }
 
+  /* ---------- generic step timer (solo practice, workout) ---------- */
+  function pgbStepTimer(px, getSteps, doneName, doneHow) {
+    var W = { snd: store.get("pgb-" + px + "-snd", "on"), i: 0, left: 0, run: false }, tick = null, ac = null, lock = null, S = getSteps();
+    var fmt = function (s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); };
+    var beep = function (f, d) {
+      if (W.snd !== "on") return;
+      try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); var o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = f; o.connect(g); g.connect(ac.destination); g.gain.setValueAtTime(0.18, ac.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + d); o.start(); o.stop(ac.currentTime + d); } catch (e) {}
+    };
+    var wake = function (on) {
+      try { if (on && navigator.wakeLock && !lock) navigator.wakeLock.request("screen").then(function (l) { lock = l; l.addEventListener("release", function () { lock = null; }); }, function () {}); else if (!on && lock) { lock.release(); lock = null; } } catch (e) {}
+    };
+    var list = $("#" + px + "-list"), el = function (k) { return $("#" + px + "-" + k); };
+    var total = function () { return S.reduce(function (a, s) { return a + s.t; }, 0); };
+    var buildList = function () {
+      list.innerHTML = S.map(function (s, n) { return '<li data-n="' + n + '"><b>' + (n + 1) + ". " + s.n + '</b><span class="pill">' + s.ph + '</span><span class="wu-t">' + fmt(s.t) + "</span><p>" + s.d + "</p></li>"; }).join("");
+      $$("li", list).forEach(function (li) { li.addEventListener("click", function () { go(+li.dataset.n); }); });
+      el("sum").textContent = S.length + " steps · " + Math.round(total() / 60) + " min";
+    };
+    var render = function () {
+      var s = S[W.i], done = 0;
+      for (var k = 0; k < W.i; k++) done += S[k].t;
+      done += s.t - W.left;
+      el("clock").textContent = fmt(W.left);
+      el("of").textContent = "Step " + (W.i + 1) + " of " + S.length;
+      el("ph").textContent = s.ph; el("name").textContent = s.n; el("how").textContent = s.d;
+      el("next").textContent = W.i + 1 < S.length ? "Next: " + S[W.i + 1].n : "Last step. Nearly done!";
+      el("arc").setAttribute("stroke-dashoffset", (326.7 * (1 - W.left / s.t)).toFixed(1));
+      el("prog").style.width = (done / total() * 100) + "%";
+      el("left").textContent = fmt(total() - done) + " left in total";
+      el("go").textContent = W.run ? "Pause" : (W.left < s.t || W.i ? "Resume" : "Start");
+      $$("li", list).forEach(function (li, n) { li.classList.toggle("on", n === W.i); li.classList.toggle("done", n < W.i); });
+      $$("#" + px + "-snd button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === W.snd ? "true" : "false"); });
+    };
+    var stop = function () { W.run = false; clearInterval(tick); tick = null; wake(false); };
+    var finish = function () {
+      stop(); beep(880, 0.6);
+      el("clock").textContent = "0:00"; el("name").textContent = doneName; el("how").textContent = doneHow;
+      el("next").textContent = ""; el("prog").style.width = "100%"; el("left").textContent = ""; el("go").textContent = "Start again";
+      $$("li", list).forEach(function (li) { li.classList.remove("on"); li.classList.add("done"); });
+      W.i = 0; W.left = S[0].t; W.end = true;
+    };
+    var go = function (n) { W.end = false; W.i = Math.max(0, Math.min(S.length - 1, n)); W.left = S[W.i].t; W.last = Date.now(); render(); };
+    var step = function () {
+      var now = Date.now(); W.left -= (now - W.last) / 1000; W.last = now;
+      var c = Math.ceil(W.left);
+      if (c !== W.shown && c <= 3 && c > 0) beep(660, 0.12);
+      W.shown = c;
+      if (W.left <= 0) { if (W.i + 1 >= S.length) return finish(); beep(990, 0.35); go(W.i + 1); return; }
+      render();
+    };
+    el("go").addEventListener("click", function () {
+      if (W.run) { stop(); render(); return; }
+      if (W.end) go(0);
+      W.run = true; W.last = Date.now(); beep(990, 0.2); wake(true); tick = setInterval(step, 250); render();
+    });
+    el("skip").addEventListener("click", function () { if (W.i + 1 >= S.length) finish(); else go(W.i + 1); });
+    el("back").addEventListener("click", function () { go(W.left < S[W.i].t - 2 ? W.i : W.i - 1); });
+    $$("#" + px + "-snd button").forEach(function (b) { b.addEventListener("click", function () { W.snd = b.dataset.v; store.set("pgb-" + px + "-snd", W.snd); render(); }); });
+    document.addEventListener("visibilitychange", function () { if (!document.hidden && W.run) wake(true); });
+    buildList(); go(0);
+    return { reload: function () { stop(); S = getSteps(); buildList(); go(0); } };
+  }
+  function pgbSegSet(px, keys, st, onChange) {
+    keys.forEach(function (k) {
+      var g = $("#" + px + "-" + k); if (!g) return;
+      var mark = function () { $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === st[k] ? "true" : "false"); }); };
+      $$("button", g).forEach(function (b) { b.addEventListener("click", function () { if (st[k] === b.dataset.v) return; st[k] = b.dataset.v; mark(); onChange(); }); });
+      mark();
+    });
+  }
+  function pgbRR(items, tagOf) {
+    var groups = {}, order = [], out = [];
+    items.forEach(function (x) { var t = tagOf(x); if (!groups[t]) { groups[t] = []; order.push(t); } groups[t].push(x); });
+    var more = true;
+    while (more) { more = false; order.forEach(function (t) { if (groups[t].length) { out.push(groups[t].shift()); more = true; } }); }
+    return out;
+  }
+
+  /* ---------- solo practice planner ---------- */
+  if ($("#sp") && window.SP) (function () {
+    var st = store.get("pgb-sp", { where: "c", focus: "all", len: "20" });
+    var build = function () {
+      var L = +st.len * 60, warm = Object.assign({}, window.SP.warm, { t: st.len === "10" ? 120 : 180 }), cool = Object.assign({}, window.SP.cool, { t: st.len === "10" ? 60 : 120 });
+      var budget = L - warm.t - cool.t;
+      var cand = window.SP.pool.filter(function (d) { return d.w.indexOf(st.where) >= 0; });
+      var has = function (d, t) { return (" " + d.f + " ").indexOf(" " + t + " ") >= 0; };
+      var ordered;
+      if (st.focus === "all") ordered = pgbRR(cand, function (d) { return d.ph; });
+      else ordered = cand.filter(function (d) { return has(d, st.focus); }).concat(pgbRR(cand.filter(function (d) { return !has(d, st.focus); }), function (d) { return d.ph; }));
+      var pick = [], used = 0, pass = 0;
+      while (used < budget - 45 && pass < 3) {
+        ordered.forEach(function (d) {
+          if (used + d.t <= budget) { pick.push(pass ? Object.assign({}, d, { n: d.n + " (again)" }) : d); used += d.t; }
+        });
+        pass++;
+      }
+      if (pick.length && budget - used > 0) pick[pick.length - 1] = Object.assign({}, pick[pick.length - 1], { t: pick[pick.length - 1].t + (budget - used) });
+      if (st.focus !== "all") {
+        var foc = pick.filter(function (d) { return has(d, st.focus); });
+        if (!foc.length) pick.unshift({ n: "Tip: this focus needs a court or wall", ph: "Note", t: 15, d: "There are no drills for this focus in a home space, so the session mixes ball control, shadow swings and footwork instead.", w: "cwh", f: "" });
+      }
+      store.set("pgb-sp", st);
+      return [warm].concat(pick, [cool]);
+    };
+    var T = pgbStepTimer("sp", build, "Session done. Nice work!", "Write down your best wall rally or serve score, and try to beat it next time.");
+    pgbSegSet("sp", ["where", "focus", "len"], st, function () { T.reload(); });
+  })();
+
+  /* ---------- padel workout builder ---------- */
+  if ($("#wo") && window.WO) (function () {
+    var st = store.get("pgb-wo", { kit: "h", focus: "all", len: "25", lvl: "new" });
+    var build = function () {
+      var work = st.lvl === "reg" ? 45 : 40, rest = 60 - work;
+      var plan = { "15": [5, 2], "25": [6, 3], "35": [7, 4] }[st.len] || [6, 3], N = plan[0], R = plan[1];
+      var cand = window.WO.pool.filter(function (x) { return x.k.indexOf(st.kit) >= 0; });
+      var has = function (x, t) { return (" " + x.f + " ").indexOf(" " + t + " ") >= 0; };
+      var ordered = st.focus === "all" ? pgbRR(cand, function (x) { return x.f.split(" ")[0]; }) :
+        cand.filter(function (x) { return has(x, st.focus); }).concat(pgbRR(cand.filter(function (x) { return !has(x, st.focus); }), function (x) { return x.f.split(" ")[0]; }));
+      if (st.focus !== "all") { var f = ordered.filter(function (x) { return has(x, st.focus); }).slice(0, N - 1), o = ordered.filter(function (x) { return !has(x, st.focus); }); ordered = f.concat(o); }
+      var ex = ordered.slice(0, N);
+      var S = [{ n: "Warm up: march, arm circles, easy squats", ph: "Warm up", t: 180, d: "March or jog on the spot, big arm circles both ways, trunk turns, then 10 slow half squats and 5 lunges each leg." }];
+      for (var r = 0; r < R; r++) {
+        ex.forEach(function (x, i) {
+          S.push({ n: x.n + (R > 1 ? " · round " + (r + 1) + " of " + R : ""), ph: x.ph, t: work, d: x.d });
+          var last = i === ex.length - 1;
+          if (!last) S.push({ n: "Rest", ph: "Rest", t: rest, d: "Breathe. Next: " + ex[i + 1].n + "." });
+          else if (r < R - 1) S.push({ n: "Round rest", ph: "Rest", t: 60, d: "Drink some water. Next round starts with " + ex[0].n + "." });
+        });
+      }
+      S.push({ n: "Stretch: calves, thighs, hips, forearm", ph: "Cool down", t: 120, d: "Slow, held stretches of 20 to 30 seconds. The full routine is on the cool-down timer page." });
+      store.set("pgb-wo", st);
+      return S;
+    };
+    var T = pgbStepTimer("wo", build, "Workout done. Great job!", "Two sessions a week is the target. Next time add a few reps, or a little weight when 12 clean reps feel easy.");
+    pgbSegSet("wo", ["kit", "focus", "len", "lvl"], st, function () { T.reload(); });
+  })();
+
 })();
