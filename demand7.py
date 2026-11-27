@@ -116,3 +116,4 @@ page("padel-chiquita.html", "Chiquita in Padel: How and When to Play It + Picker
      cq, cq_faq, "Chiquita")
 
 DEMAND_PAGES += ["padel-smash.html", "padel-chiquita.html"]
+exec((ROOT / "demand8.py").read_text())

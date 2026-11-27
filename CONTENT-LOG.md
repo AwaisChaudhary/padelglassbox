@@ -268,3 +268,9 @@
 - IndexNow pending https://padelglassbox.com/padel-smash https://padelglassbox.com/padel-chiquita https://padelglassbox.com/best-padel-racket-for-beginners https://padelglassbox.com/shots https://padelglassbox.com/bandeja-vs-vibora https://padelglassbox.com/padel-lob
 
 - 2026-11-27 09:50 PKT IndexNow FLUSHED 33 URLs (200) incl. all pages added in the last 30 h.
+
+## 27 Nov 2026 (evening) — demand run 11
+- NEW /padel-weather: "Can we play right now?" checker (court type x rain x temperature x wind x thunder -> play / play with care / wait / don't play + what to bring), can you play in the rain (5 conditions), how long after rain (15-30 min, towel test), winter/cold, wind, heat, what balls do (table), kit box (affiliate bar auto), 6 FAQs. Targets: can you play padel in the rain, padel in winter, padel in the wind, how long after rain can you play padel. Sources: LTA Padel winter tips, Padel Browser rain (22 Sep 2026), The Padel School weather, Tienda Padel Point wet-balls FAQ (Mar 2026), Justpadel rain.
+- NEW /padel-elbow: arm-load check (weight, balance, feel, grip tension, late contact, backhand, load change, pain -> score + ranked changes), causes, best racket for tennis elbow (table, caveat: not proven in studies), prevention, NHS self-care, arm-friendly gear box, 6 FAQs. Targets: padel elbow, best padel racket for tennis elbow, can I play padel with tennis elbow. Sources: NHS tennis elbow (as /padel-injuries), The Padel Paper (28 Aug 2023), Justpadel (19 Jan 2022), Esprit Padel (2 Sep 2026).
+- Links in: /padel-injuries, /racket-balance, /racket-finder table (elbow); /warm-up, /padel-balls (weather); weather <-> elbow; footer both.
+- IndexNow pending https://padelglassbox.com/padel-weather https://padelglassbox.com/padel-elbow https://padelglassbox.com/padel-injuries https://padelglassbox.com/racket-balance https://padelglassbox.com/racket-finder https://padelglassbox.com/warm-up https://padelglassbox.com/padel-balls

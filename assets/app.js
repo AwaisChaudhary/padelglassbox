@@ -3329,4 +3329,72 @@
     crender();
   }
 
+  /* ---------- padel weather checker ---------- */
+  var wxb = $("#wxc");
+  if (wxb) {
+    var wv = { court: "out", rain: "dry", temp: "mild", wind: "calm", storm: "no" };
+    var wrender = function () {
+      var lvl = 0, h, p, kit = [], t = "Always follow your club's decision on court closures.";
+      var open = wv.court !== "in";
+      var reasons = [];
+      if (wv.storm === "yes" && wv.court !== "in") { lvl = 3; reasons.push("Thunder or lightning: stop now and go inside a building or a closed car. Wait 30 minutes after the last thunder. An open-sided roof is not shelter."); }
+      if (wv.court === "out") {
+        if (wv.rain === "snow" || wv.rain === "pool") { lvl = Math.max(lvl, 3); reasons.push(wv.rain === "snow" ? "Snow or ice: the ball won't bounce properly and the turf is dangerous." : "Standing water: slips happen and the bounce is random."); }
+        else if (wv.rain === "rain") { lvl = Math.max(lvl, 2); reasons.push("Steady rain: wet glass and turf are slippery and the ball skids low. Wait, or move indoors."); }
+        else if (wv.rain === "drizzle") { lvl = Math.max(lvl, 1); reasons.push("Light drizzle: often playable on a well-drained court if the venue allows it. Stop if anyone slips."); kit.push("A towel for the glass, your grip and the ball"); }
+        else if (wv.rain === "after") { lvl = Math.max(lvl, 1); reasons.push("Just after rain: do the towel test near the service line. Wet towel = wait 15 to 30 minutes more."); kit.push("A towel to test the turf and wipe the glass"); }
+      } else if (wv.court === "cov" && (wv.rain === "rain" || wv.rain === "pool" || wv.rain === "snow")) { lvl = Math.max(lvl, 1); reasons.push("Covered court: rain can still blow in at the sides. Check the corners and back glass are dry."); kit.push("A towel for any wet glass"); }
+      if (open && wv.temp === "freeze") { lvl = Math.max(lvl, 1); reasons.push("Below 5°C: balls go dead and cold muscles strain easily. Watch for frost on the turf."); }
+      if (open && (wv.temp === "freeze" || wv.temp === "cold")) { kit.push("Layers you can take off, plus a spare dry top"); kit.push("A fresh tube of balls, kept warm in your bag"); kit.push("A 15-minute warm-up, including wrist and elbow"); }
+      if (open && wv.temp === "hot") { lvl = Math.max(lvl, 1); reasons.push("Above 32°C: glass courts get very hot. Book early or late, drink often and rest in the shade at change of ends."); }
+      if (open && (wv.temp === "warm" || wv.temp === "hot")) { kit.push("More water than you think"); kit.push("Lower lobs: balls fly further in the heat"); }
+      if (open && wv.wind === "strong") { lvl = Math.max(lvl, 1); reasons.push("Strong gusts: lobs and smashes drift above the glass. Keep the ball low and let more balls come off the glass."); }
+      else if (open && wv.wind === "breeze") { kit.push("Keep lobs a little lower than usual"); }
+      if (wv.rain !== "dry" && open) kit.push("Shoes with good tread; dry them at room temperature after");
+      if (!kit.length) kit.push("Your usual kit: balls, water, overgrip");
+      var pills = ["Play", "Play with care", "Wait", "Don't play"];
+      h = ["Good to play", "Playable, with care", "Wait or move indoors", "Don't play now"][lvl];
+      p = reasons.length ? reasons.join(" ") : (wv.court === "in" ? "Indoors the weather doesn't affect the court. Enjoy it." : "No weather problems. Normal game, normal bounce.");
+      $("#wxc-pill").textContent = pills[lvl];
+      $("#wxc-pill").className = "pill " + ["b", "i", "a", "a"][lvl];
+      $("#wxc-h").textContent = h; $("#wxc-p").textContent = p;
+      $("#wxc-kit").innerHTML = kit.filter(function (x, i, a) { return a.indexOf(x) === i; }).map(function (x) { return "<li>" + x + "</li>"; }).join("");
+      $("#wxc-t").innerHTML = t + " Next: " + lbl("padel-balls", "when to change balls") + " · " + lbl("warm-up", "warm-up timer");
+    };
+    $$("[data-wxc]", wxb).forEach(function (g) { choose(g, function (v) { wv[g.dataset.wxc] = v; wrender(); }); });
+    wrender();
+  }
+
+  /* ---------- padel elbow arm-load check ---------- */
+  var peb = $("#pec");
+  if (peb) {
+    var pv = { wt: "x", bal: "x", core: "med", grip: "relax", late: "some", bh: "turn", load: "same", pain: "no" };
+    var prender = function () {
+      var f = [];
+      if (pv.load === "more") f.push([3, "Build up more slowly: add one session a week at a time and keep rest days. A sudden jump is a classic trigger."]);
+      if (pv.late === "often") f.push([3, "Meet the ball in front of you. Off the back glass, step back and let it come to you, so your legs and shoulders do the work."]);
+      else if (pv.late === "some") f.push([1, "Work on meeting the ball in front of your body, especially after the back glass."]);
+      if (pv.bh === "wrist") f.push([3, "Turn your shoulders on the backhand and keep the wrist firm. A wrist flick loads the outside of the elbow."]);
+      if (pv.grip === "tight") f.push([2, "Relax your grip between shots (about 3 or 4 out of 10). Fit a fresh overgrip so you don't need to squeeze."]);
+      if (pv.wt === "heavy") f.push([2, "Your racket is heavy. Try about 340 to 360 g, as long as you can still swing smoothly."]);
+      if (pv.bal === "high") f.push([2, "A head-heavy racket loads the arm on every swing. Look for low balance, under about 260 mm, often a round shape."]);
+      if (pv.core === "hard") f.push([2, "A stiff racket passes on more shock. A soft foam core absorbs more."]);
+      if (pv.wt === "x" || pv.bal === "x") f.push([0, "Check your racket's weight and balance on the maker's page, or weigh it on a kitchen scale."]);
+      f.sort(function (a, b) { return b[0] - a[0]; });
+      var score = f.reduce(function (s, x) { return s + x[0]; }, 0);
+      var lvl = score >= 7 ? 2 : score >= 3 ? 1 : 0;
+      var h = ["Low arm load", "Some arm load", "High arm load"][lvl];
+      var p = ["Your racket and habits look arm-friendly. Keep warming up the forearm and use fresh balls.", "A few habits add load to your elbow. Start with the first change below.", "Several things add up. Change the top two first; gear alone won't fix technique."][lvl];
+      if (pv.pain === "yes") p = "You have pain during play or daily life: rest from what hurts. The NHS advises seeing a GP if it is no better after 2 weeks of self-care. Then work on the changes below. " + p;
+      else if (pv.pain === "some") p = "Pain after playing is an early warning. Cut back for a while and make the changes below. " + p;
+      $("#pec-pill").textContent = "Load score " + score;
+      $("#pec-pill").className = "pill " + ["b", "i", "a"][lvl];
+      $("#pec-h").textContent = h; $("#pec-p").textContent = p;
+      $("#pec-list").innerHTML = (f.length ? f : [[0, "Nothing to change. Keep rest days and warm up properly."]]).map(function (x) { return "<li>" + x[1] + "</li>"; }).join("");
+      $("#pec-t").innerHTML = "Next: " + lbl("racket-finder", "racket finder") + " · " + lbl("padel-injuries", "padel injuries guide") + " · " + lbl("warm-up", "warm-up timer");
+    };
+    $$("[data-pec]", peb).forEach(function (g) { choose(g, function (v) { pv[g.dataset.pec] = v; prender(); }); });
+    prender();
+  }
+
 })();
