@@ -138,3 +138,4 @@ page("junior-padel.html", "Junior Padel: Parents' Guide, Ages, Kit and Competiti
      jp, jp_faq, "Junior padel")
 
 DEMAND_PAGES += ["padel-rules-quiz.html", "junior-padel.html"]
+exec((ROOT / "demand11.py").read_text())

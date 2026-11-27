@@ -827,6 +827,126 @@
     buildList(); go(0);
   }
 
+  /* ---------- cool-down timer (copy of warm-up) ---------- */
+  var cdx = $("#cd");
+  if (cdx && window.CD) (function () {
+    var W = { len: store.get("pp-cd-len", "q"), snd: store.get("pp-cd-snd", "on"), i: 0, left: 0, run: false }, tick = null, ac = null, lock = null;
+    var steps = function () { return window.CD[W.len] || window.CD.q; };
+    var fmt = function (s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); };
+    var beep = function (f, d) {
+      if (W.snd !== "on") return;
+      try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); var o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = f; o.connect(g); g.connect(ac.destination); g.gain.setValueAtTime(0.18, ac.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + d); o.start(); o.stop(ac.currentTime + d); } catch (e) {}
+    };
+    var wake = function (on) {
+      try { if (on && navigator.wakeLock && !lock) navigator.wakeLock.request("screen").then(function (l) { lock = l; l.addEventListener("release", function () { lock = null; }); }, function () {}); else if (!on && lock) { lock.release(); lock = null; } } catch (e) {}
+    };
+    var list = $("#cd-list");
+    var buildList = function () {
+      list.innerHTML = steps().map(function (s, n) { return '<li data-n="' + n + '"><b>' + (n + 1) + ". " + s.n + '</b><span class="pill">' + s.ph + '</span><span class="wu-t">' + fmt(s.t) + "</span><p>" + s.d + "</p></li>"; }).join("");
+      $$("li", list).forEach(function (li) { li.addEventListener("click", function () { go(+li.dataset.n); }); });
+    };
+    var total = function () { return steps().reduce(function (a, s) { return a + s.t; }, 0); };
+    var wrender = function () {
+      var S = steps(), s = S[W.i], done = 0;
+      for (var k = 0; k < W.i; k++) done += S[k].t;
+      done += s.t - W.left;
+      $("#cd-clock").textContent = fmt(W.left);
+      $("#cd-of").textContent = "Step " + (W.i + 1) + " of " + S.length;
+      $("#cd-ph").textContent = s.ph; $("#cd-name").textContent = s.n; $("#cd-how").textContent = s.d;
+      $("#cd-next").textContent = W.i + 1 < S.length ? "Next: " + S[W.i + 1].n : "Last stretch. Well done!";
+      $("#cd-arc").setAttribute("stroke-dashoffset", (326.7 * (1 - W.left / s.t)).toFixed(1));
+      $("#cd-prog").style.width = (done / total() * 100) + "%";
+      $("#cd-left").textContent = fmt(total() - done) + " left in total";
+      $("#cd-go").textContent = W.run ? "Pause" : (W.left < s.t || W.i ? "Resume" : "Start");
+      $$("li", list).forEach(function (li, n) { li.classList.toggle("on", n === W.i); li.classList.toggle("done", n < W.i); });
+      $$("#cd-len button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === W.len ? "true" : "false"); });
+      $$("#cd-snd button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === W.snd ? "true" : "false"); });
+    };
+    var stop = function () { W.run = false; clearInterval(tick); tick = null; wake(false); };
+    var finish = function () {
+      stop(); beep(880, 0.6);
+      $("#cd-clock").textContent = "0:00"; $("#cd-name").textContent = "Cool-down done. Drink some water!"; $("#cd-how").textContent = "Next time: warm up first with the warm-up timer, and keep moving gently tomorrow if you feel sore.";
+      $("#cd-next").textContent = ""; $("#cd-prog").style.width = "100%"; $("#cd-left").textContent = ""; $("#cd-go").textContent = "Start again";
+      $$("li", list).forEach(function (li) { li.classList.remove("on"); li.classList.add("done"); });
+      W.i = 0; W.left = steps()[0].t; W.end = true;
+    };
+    var go = function (n) { var S = steps(); W.end = false; W.i = Math.max(0, Math.min(S.length - 1, n)); W.left = S[W.i].t; W.last = Date.now(); wrender(); };
+    var step = function () {
+      var now = Date.now(); W.left -= (now - W.last) / 1000; W.last = now;
+      var c = Math.ceil(W.left);
+      if (c !== W.shown && c <= 3 && c > 0) beep(660, 0.12);
+      W.shown = c;
+      if (W.left <= 0) { if (W.i + 1 >= steps().length) return finish(); beep(990, 0.35); go(W.i + 1); return; }
+      wrender();
+    };
+    $("#cd-go").addEventListener("click", function () {
+      if (W.run) { stop(); wrender(); return; }
+      if (W.end) go(0);
+      W.run = true; W.last = Date.now(); beep(990, 0.2); wake(true); tick = setInterval(step, 250); wrender();
+    });
+    $("#cd-skip").addEventListener("click", function () { if (W.i + 1 >= steps().length) finish(); else go(W.i + 1); });
+    $("#cd-back").addEventListener("click", function () { go(W.left < steps()[W.i].t - 2 ? W.i : W.i - 1); });
+    $$("#cd-len button").forEach(function (b) { b.addEventListener("click", function () { if (b.dataset.v === W.len) return; stop(); W.len = b.dataset.v; store.set("pp-cd-len", W.len); buildList(); go(0); }); });
+    $$("#cd-snd button").forEach(function (b) { b.addEventListener("click", function () { W.snd = b.dataset.v; store.set("pp-cd-snd", W.snd); wrender(); }); });
+    document.addEventListener("visibilitychange", function () { if (!document.hidden && W.run) wake(true); });
+    buildList(); go(0);
+  })();
+
+  /* ---------- padel pronunciation (glossary) ---------- */
+  var prn = $("#pron");
+  if (prn) {
+    $$("[data-say]", prn).forEach(function (b) {
+      b.addEventListener("click", function () {
+        try { var u = new SpeechSynthesisUtterance(b.dataset.say); u.lang = b.dataset.lang; u.rate = 0.8; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); }
+        catch (e) { $("#pron-note").textContent = "Your browser can't play speech. Say it: " + b.textContent; }
+      });
+    });
+  }
+
+  /* ---------- racket weight calculator ---------- */
+  var rwb = $("#rw-out");
+  if (rwb) {
+    var rlk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+    var rv = store.get("pgb-rw", { lvl: "new", str: "avg", arm: "no", sty: "all", age: "ad", freq: "1" });
+    var rwrender = function () {
+      var lo = { "new": 345, mid: 355, adv: 360 }[rv.lvl], hi = lo + 15;
+      if (rv.str === "light") { lo -= 10; hi -= 10; } else if (rv.str === "strong") { lo += 5; hi += 5; }
+      if (rv.sty === "ctrl") { lo -= 5; hi -= 5; } else if (rv.sty === "pow") { lo += 5; hi += 5; }
+      if (rv.age === "55") { lo -= 5; hi -= 5; }
+      if (rv.freq === "4" && rv.lvl === "new") { lo -= 0; hi -= 5; }
+      if (rv.arm === "some") { hi = Math.min(hi, 365); lo = Math.min(lo, hi - 10); }
+      if (rv.arm === "yes") { hi = Math.min(hi, 360); lo = Math.min(lo, 345); }
+      lo = Math.max(335, lo); hi = Math.min(385, Math.max(hi, lo + 10));
+      var bal = (rv.arm !== "no" || rv.lvl === "new" || rv.sty === "ctrl") ? "Low or even balance (head-light, about 255 to 265 mm)" : (rv.sty === "pow" && rv.lvl !== "new" ? "Higher balance (head-heavy, about 265 mm or more)" : "Even balance (about 260 to 270 mm)");
+      var shape = (rv.lvl === "new" || rv.arm === "yes" || rv.sty === "ctrl") ? "Round" : (rv.sty === "pow" && rv.lvl === "adv" ? "Diamond or teardrop" : "Teardrop");
+      var feel = (rv.arm !== "no" || rv.lvl === "new") ? "Soft core (soft EVA or foam)" : (rv.lvl === "adv" && rv.sty === "pow" ? "Medium to hard" : "Medium");
+      if (rv.age === "jr") {
+        $("#rw-h").textContent = "Junior racket";
+        $("#rw-p").innerHTML = "Under 14s need a lighter junior racket picked by height and age, not an adult weight. Use the " + rlk("padel-racket-for-kids", "junior racket finder") + ".";
+        $("#rw-spec").innerHTML = ""; $("#rw-t").innerHTML = "";
+        store.set("pgb-rw", rv); return;
+      }
+      $("#rw-h").textContent = lo + " to " + hi + " g";
+      var why = rv.arm === "yes" ? "With arm pain, stay light and head-light, and get the pain checked. " : (rv.arm === "some" ? "Because your arm sometimes hurts, we cap the range on the light side. " : "");
+      why += { "new": "New players learn faster with a racket that is easy to swing.", mid: "You can handle a little more weight for depth and stability.", adv: "Experienced players can use extra weight for power, if their arm is happy." }[rv.lvl];
+      if (rv.freq === "4") why += " Playing 4+ times a week adds up: lean to the lighter end if you feel tired.";
+      $("#rw-p").textContent = why;
+      var rows = [["Weight", lo + " to " + hi + " g on the label"], ["Balance", bal], ["Shape", shape], ["Feel", feel], ["Too heavy if", "you're late at the net or your arm is tired by set two"]];
+      $("#rw-spec").innerHTML = rows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("");
+      $("#rw-t").innerHTML = "Pick a shape: " + rlk("racket-finder", "racket finder") + " · Check balance: " + rlk("racket-balance", "balance explained") + " · Sore arm: " + rlk("padel-elbow", "padel elbow check");
+      store.set("pgb-rw", rv);
+    };
+    $$("[data-rw]").forEach(function (g) {
+      $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === rv[g.dataset.rw] ? "true" : "false"); });
+      choose(g, function (v) { rv[g.dataset.rw] = v; rwrender(); });
+    });
+    $("#rw-copy").addEventListener("click", function () {
+      var txt = "My padel racket weight: " + $("#rw-h").textContent + "\n" + $$("#rw-spec dt").map(function (d) { return d.textContent + ": " + d.nextSibling.textContent; }).join("\n");
+      try { navigator.clipboard.writeText(txt).then(function () { toast("Result copied"); }, function () { toast("Copy failed"); }); } catch (e) { toast("Copy failed"); }
+    });
+    rwrender();
+  }
+
   /* ---------- dead ball checker ---------- */
   var bchk = $("#bchk");
   if (bchk) {
