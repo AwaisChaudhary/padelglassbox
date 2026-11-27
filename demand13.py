@@ -196,3 +196,4 @@ page("padel-workout.html", "Padel Workout: Gym + Home Exercises With Free Timer"
      wo, wo_faq, "Padel workout")
 
 DEMAND_PAGES += ["padel-solo-practice.html", "padel-workout.html"]
+exec((ROOT / "demand14.py").read_text())

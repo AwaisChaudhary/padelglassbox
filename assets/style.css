@@ -741,3 +741,14 @@ button.ko-t:hover:not(:disabled) { background: rgba(23,71,201,.07); }
   .rc-tbl thead th:last-child { display: none; }
   .rc-tbl td:last-child { grid-column: 1 / -1; padding-top: 0; color: #44506e; font-size: .9rem; }
 }
+/* control vs power scale (demand run 17) */
+.cp-scale { position: relative; height: 12px; border-radius: 99px; margin: 14px 0 6px; background: linear-gradient(90deg, #4f7cff, #e8f84a); }
+.cp-scale i { position: absolute; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: #fff; border: 3px solid #0b1530; transition: left .3s; left: 0; }
+.cp-lab { display: flex; justify-content: space-between; font-size: .85rem; color: #9fb0e0; }
+/* data tables used on guide pages (.tbl had no styles before 28 Nov run 17) */
+.tbl { background: #fff; border-radius: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; box-shadow: inset 0 0 0 1px var(--line); max-width: 100%; }
+.tbl table { width: 100%; border-collapse: collapse; color: #0b1530; font-size: .95rem; }
+.tbl th, .tbl td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e3e9f7; vertical-align: top; }
+.tbl th { background: #eef3ff; font-weight: 700; }
+.tbl tr:last-child td { border-bottom: 0; }
+@media (max-width: 600px) { .tbl table { font-size: .88rem; } .tbl th, .tbl td { padding: 8px 9px; } }

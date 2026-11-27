@@ -34,7 +34,7 @@ rc = f'''<header class="hero"><div class="wrap"><h1>Compare two padel rackets si
     ("Weight", "Matters, but least of the five. Rackets from the same model can differ by a few grams, so don't choose on a 5 g gap. A 15 to 20 g gap you will feel."),
     ("Thickness and surface", "Almost all adult rackets are 38 mm thick. A rough or sandy surface adds a little grip for spin. Neither changes much compared with the five above."),
 ], pill="Spec")}</div>
-<p class="muted" style="margin-top:14px">Only comparing weight and balance? The <a href="{href("racket-balance.html")}">weight and balance decoder</a> draws both rackets to scale. Not sure what specs you need at all? Start with the <a href="{href("racket-finder.html")}">racket finder</a>. Carbon numbers explained: <a href="{href("padel-racket-materials.html")}">racket materials</a>.</p></div></section>
+<p class="muted" style="margin-top:14px">Only comparing weight and balance? The <a href="{href("racket-balance.html")}">weight and balance decoder</a> draws both rackets to scale. Not sure what specs you need at all? Start with the <a href="{href("racket-finder.html")}">racket finder</a>. Carbon numbers explained: <a href="{href("padel-racket-materials.html")}">racket materials</a>. Torn between control and power? Take the <a href="{href("control-vs-power-padel-racket.html")}">control vs power test</a>.</p></div></section>
 {AD.format("rc-mid")}
 <section><div class="wrap"><div class="sh"><h2>Common padel racket comparisons</h2></div>
 <div class="tbl"><table><thead><tr><th>Choice</th><th>Pick the first if</th><th>Pick the second if</th></tr></thead><tbody>

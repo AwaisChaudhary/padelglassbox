@@ -947,6 +947,96 @@
     rwrender();
   }
 
+  /* ---------- run 17: shared picker helper ---------- */
+  var pgbPicker = function (px, key, def, render) {
+    var st = store.get(key, def);
+    $$("[data-" + px + "]").forEach(function (g) {
+      var k = g.getAttribute("data-" + px);
+      $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === st[k] ? "true" : "false"); });
+      choose(g, function (v) { st[k] = v; render(st); store.set(key, st); });
+    });
+    var cpy = $("#" + px + "-copy");
+    if (cpy) cpy.addEventListener("click", function () {
+      var txt = $("#" + px + "-h").textContent + "\n" + $$("#" + px + "-spec dt").map(function (d) { return d.textContent + ": " + d.nextSibling.textContent; }).join("\n");
+      try { navigator.clipboard.writeText(txt).then(function () { toast("Result copied"); }, function () { toast("Copy failed"); }); } catch (e) { toast("Copy failed"); }
+    });
+    render(st);
+  };
+  var pgbLk = function (f, t) { return '<a href="' + (location.protocol === "file:" ? f + ".html" : "/" + f) + '" style="color:#e8f84a">' + t + "</a>"; };
+  var pgbSpec = function (id, rows) { $(id).innerHTML = rows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join(""); };
+
+  /* ---------- padel bag picker ---------- */
+  if ($("#bg-out")) pgbPicker("bg", "pgb-bg", { rk: "1", go: "walk", kit: "shoe", lvl: "1" }, function (v) {
+    var type, size, why;
+    if (v.rk === "4" || v.lvl === "4") {
+      type = v.go === "fly" || v.rk === "4" && v.kit === "full" ? "Large racket bag or wheeled bag" : "Large racket bag";
+      size = "Up to about 6 rackets, about 45 to 55+ litres"; why = "You carry several rackets and play a lot, so you need the big racket section and room for full kit.";
+    } else if (v.rk === "2" || v.kit === "full") {
+      type = "Medium racket bag"; size = "2 to 3 rackets, about 35 to 45 litres";
+      why = v.rk === "2" ? "Two or three rackets plus shoes is too tight for a backpack." : "A full change of clothes, shoes and a towel need more room than a backpack.";
+      if (v.go === "walk" && v.rk === "1") { type = "Large padel backpack or medium racket bag"; size = "About 30 to 40 litres"; why = "One racket but full kit: a bigger backpack works if you walk or cycle; a racket bag if you drive."; }
+    } else if (v.kit === "min" && v.go !== "car") {
+      type = "Padel backpack (small)"; size = "1 racket, about 20 litres"; why = "One racket and a few small things: a light backpack keeps your hands free.";
+    } else {
+      type = "Padel backpack"; size = "1 racket (2 is tight), about 25 to 30 litres"; why = "One racket, balls and shoes fit well, and a backpack is easy to carry to the court.";
+    }
+    var th = v.go === "car" ? "Yes: your bag stays in the car, where heat and cold can harm the racket's core" : (v.go === "fly" ? "Recommended: car boots, hotel rooms and outdoor courts on trips swing in temperature" : (v.lvl !== "1" ? "Useful: worth it for regular players and outdoor play" : "Nice to have, not essential if you go straight to the court"));
+    var shoe = v.kit === "min" ? "Not needed if you wear your court shoes there" : "Yes, a separate, ideally vented shoe pocket";
+    var more = [];
+    if (v.go === "walk") more.push("padded straps, bottle holder");
+    if (v.go === "fly") more.push("check the airline cabin-bag size, sturdy padded racket pocket");
+    if (v.go === "car") more.push("take the bag inside after you play");
+    if (v.kit === "full") more.push("separate pocket for damp clothes");
+    $("#bg-h").textContent = type; $("#bg-p").textContent = why;
+    pgbSpec("#bg-spec", [["Size", size], ["Thermal pocket", th], ["Shoe pocket", shoe], ["Also look for", more.length ? more.join("; ") : "padded racket pocket, valuables pocket"]]);
+    $("#bg-t").innerHTML = "Pack list: " + pgbLk("padel-equipment", "equipment checklist") + " · Shoes: " + pgbLk("padel-shoes", "shoe finder") + " · Racket care: " + pgbLk("racket-care", "keep it in shape");
+  });
+
+  /* ---------- control vs power test ---------- */
+  if ($("#cp-out")) pgbPicker("cp", "pgb-cp", { lvl: "0", win: "1", side: "1", ovh: "0", miss: "1", arm: "2", freq: "0" }, function (v) {
+    var ks = ["lvl", "win", "side", "ovh", "miss", "arm", "freq"], sc = 0, painYes = v.arm === "x";
+    ks.forEach(function (k) { sc += v[k] === "x" ? 0 : +v[k]; });
+    var pct = Math.round(sc / 14 * 100);
+    if (v.lvl === "0") pct = Math.min(pct, 45);
+    if (painYes) pct = Math.min(pct, 20);
+    var t, rows, why;
+    if (pct < 40) {
+      t = "Control"; why = "A forgiving racket will win you more points right now.";
+      rows = [["Shape", "Round"], ["Balance", "Low, head-light"], ["Weight", "About 340 to 360 g"], ["Core", "Soft EVA or foam"], ["Face", "Fibreglass or soft carbon mix"], ["Sweet spot", "Large and central"]];
+    } else if (pct < 70) {
+      t = "Hybrid (all-round)"; why = "You have some attack in your game but still need forgiveness: a teardrop gives a bit of both.";
+      rows = [["Shape", "Teardrop or hybrid"], ["Balance", "Medium, even"], ["Weight", "About 355 to 370 g"], ["Core", "Medium"], ["Face", "Carbon or carbon mix"], ["Sweet spot", "Medium"]];
+    } else {
+      t = "Power"; why = "Your overheads are reliable and you finish points: a power racket rewards that.";
+      rows = [["Shape", "Diamond (or a head-heavy teardrop)"], ["Balance", "High, head-heavy"], ["Weight", "About 360 to 375 g"], ["Core", "Firmer, high-density EVA"], ["Face", "Carbon, rough face for spin"], ["Sweet spot", "Smaller and higher"]];
+    }
+    if (painYes) why = "With arm pain, stay with a light, head-light, soft racket and get the pain checked. " + why;
+    else if (v.lvl === "0" && sc >= 7) why = "You lean towards attack, but in your first year a control racket helps you build technique. Re-take the test in a few months.";
+    $("#cp-h").textContent = t; $("#cp-p").textContent = why;
+    $("#cp-dot").style.left = Math.max(3, Math.min(97, pct)) + "%";
+    pgbSpec("#cp-spec", rows);
+    $("#cp-t").innerHTML = "Weight: " + pgbLk("padel-racket-weight", "weight calculator") + " · Full match: " + pgbLk("racket-finder", "racket finder") + (painYes || v.arm === "0" ? " · Sore arm: " + pgbLk("padel-elbow", "padel elbow check") : " · Side: " + pgbLk("which-side-padel", "which side quiz"));
+  });
+
+  /* ---------- women's racket spec picker ---------- */
+  if ($("#wr-out")) pgbPicker("wr", "pgb-wr", { lvl: "new", str: "avg", arm: "no", sty: "all", hand: "m" }, function (v) {
+    var lo = { "new": 340, mid: 345, adv: 355 }[v.lvl], hi = lo + 15;
+    if (v.str === "light") { lo -= 5; hi -= 5; } else if (v.str === "strong") { lo += 5; hi += 5; }
+    if (v.sty === "pow" && v.lvl !== "new") { lo += 5; hi += 5; } else if (v.sty === "ctrl") { hi -= 5; }
+    if (v.arm === "yes") { lo = Math.min(lo, 340); hi = Math.min(hi, 355); } else if (v.arm === "some") { hi = Math.min(hi, 360); }
+    lo = Math.max(335, lo); hi = Math.min(370, Math.max(hi, lo + 10));
+    var shape = (v.lvl === "new" || v.arm === "yes" || v.sty === "ctrl" && v.lvl !== "adv") ? "Round" : (v.lvl === "adv" && v.sty === "pow" && v.arm === "no" ? "Diamond or head-heavy teardrop" : "Teardrop or hybrid");
+    var bal = (v.arm !== "no" || v.lvl === "new" || v.sty === "ctrl") ? "Low (head-light)" : (v.sty === "pow" && v.lvl === "adv" ? "Medium to high" : "Medium");
+    var core = (v.arm !== "no" || v.lvl === "new") ? "Soft EVA or foam" : (v.lvl === "adv" && v.sty === "pow" ? "Medium to firm" : "Soft to medium");
+    var face = (v.arm !== "no" || v.lvl === "new") ? "Fibreglass or soft mix" : "Carbon or carbon mix";
+    var grip = { s: "Standard handle + 1 thin overgrip", m: "Standard handle + 1 overgrip", l: "Standard handle + 2 overgrips" }[v.hand];
+    var label = (hi <= 360) ? "A women's (lighter) version often fits this range" : "Regular versions usually fit this range";
+    $("#wr-h").textContent = lo + " to " + hi + " g, " + shape.split(" ")[0].toLowerCase();
+    $("#wr-p").textContent = (v.arm === "yes" ? "With arm pain, stay light and soft, and get it checked by a doctor or physio. " : "") + { "new": "Easy to swing and forgiving while you learn.", mid: "A little more weight and a teardrop add depth without losing control.", adv: "You can handle more weight and balance for power, if your arm is happy." }[v.lvl];
+    pgbSpec("#wr-spec", [["Weight", lo + " to " + hi + " g"], ["Balance", bal], ["Shape", shape], ["Core", core], ["Face", face], ["Grip", grip], ["Label", label]]);
+    $("#wr-t").innerHTML = "Control or power: " + pgbLk("control-vs-power-padel-racket", "7-question test") + " · Exact weight: " + pgbLk("padel-racket-weight", "weight calculator") + " · Grips: " + pgbLk("padel-overgrip", "overgrip guide");
+  });
+
   /* ---------- dead ball checker ---------- */
   var bchk = $("#bchk");
   if (bchk) {
