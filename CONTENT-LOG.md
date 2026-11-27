@@ -281,3 +281,4 @@
 - NEW /padel-communication — middle-ball decider (hands, ball, positions), 8 partner calls, pre-match agreements, do/avoid table. Targets 'who takes the middle ball padel', 'padel partner communication', 'cambio padel'. Sources: The Padel School doubles communication, HEAD, Padel Browser left vs right (14 Sep 2026), Red Bull etiquette, DUPR middle ball.
 - Links: footer (3), racket-balance What next -> compare; positioning + padel-tactics What next -> communication; drills What next -> footwork.
 - IndexNow pending https://padelglassbox.com/compare-padel-rackets https://padelglassbox.com/padel-footwork https://padelglassbox.com/padel-communication
+- 2026-11-27 16:05 PKT afternoon push: NEW /premier-padel-mexico-major (Trends rising 'Mexico Major Premier Padel'; Red Bull + padelspeak + FIP + Outlook), linked from /padel-rankings. IndexNow FLUSHED 23 URLs (200): all pages added since 27 Nov 00:00 PKT plus every earlier 'IndexNow pending' line.
