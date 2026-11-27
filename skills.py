@@ -219,6 +219,7 @@ tc = f'''<header class="hero"><div class="wrap"><h1>Padel tactics: what shot sho
 <div class="card"><h3>Keep it simple</h3><p>Agree one or two plans before the match, such as "lob the left player" or "serve to the body".</p></div>
 </div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
+<div class="card"><h3>Talk as a pair</h3><p>Mine, yours, switch, glass: <a href="{href("padel-communication.html")}">partner calls and the middle-ball decider</a>.</p></div>
 <div class="card"><h3>Where to stand</h3><p>Distances from the net and the glass in every situation: <a href="{href("positioning.html")}">padel positioning</a>.</p></div>
 <div class="card"><h3>Practise the shots</h3><p>Lobs, chiquitas and bandejas in the <a href="{href("drills.html")}">drills planner</a> and <a href="{href("shots.html")}">shot library</a>.</p></div>
 <div class="card"><h3>Start with the serve</h3><p>Take the net from the first ball: <a href="{href("how-to-serve-padel.html")}">how to serve in padel</a>.</p></div>

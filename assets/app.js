@@ -3397,4 +3397,150 @@
     prender();
   }
 
+  /* ---------- compare two padel rackets ---------- */
+  var rcb = $("#rc-out");
+  if (rcb) {
+    var rv = { lvl: "int", style: "both", arm: "ok", ashape: "round", acore: "soft", aface: "glass", bshape: "diamond", bcore: "hard", bface: "carbon" };
+    var SH = { round: "Round", tear: "Teardrop", diamond: "Diamond" }, CO = { soft: "Soft", med: "Medium", hard: "Hard" }, FA = { glass: "Fibreglass", mix: "Carbon + glass", carbon: "Carbon" };
+    var num = function (id) { var v = parseFloat(($("#" + id) || {}).value); return isNaN(v) ? null : v; };
+    var ideal = function () {
+      var L = rv.lvl, S = rv.style, sore = rv.arm === "sore";
+      var shape = sore || L === "beg" ? "round" : (S === "pow" && L === "adv" ? "diamond" : (S === "ctrl" ? "round" : "tear"));
+      if (L === "int" && S === "pow" && !sore) shape = "tear";
+      var core = sore || L === "beg" ? "soft" : (L === "adv" && S === "pow" ? "hard" : "med");
+      var face = sore || L === "beg" ? "glass" : (L === "adv" ? "carbon" : "mix");
+      var w = sore ? [340, 360] : (L === "beg" ? [345, 360] : (L === "int" ? [350, 370] : [355, 375]));
+      var b = sore || S === "ctrl" || L === "beg" ? [245, 260] : (S === "pow" ? [265, 280] : [255, 268]);
+      return { shape: shape, core: core, face: face, w: w, b: b };
+    };
+    var ORD = { shape: ["round", "tear", "diamond"], core: ["soft", "med", "hard"], face: ["glass", "mix", "carbon"] };
+    var dist = function (k, v, t) { return Math.abs(ORD[k].indexOf(v) - ORD[k].indexOf(t)); };
+    var rdist = function (v, r) { return v === null ? null : (v < r[0] ? (r[0] - v) : (v > r[1] ? (v - r[1]) : 0)); };
+    var rcrender = function () {
+      var I = ideal(), sa = 0, sb = 0, rows = [], na = (($("#rc-a-name") || {}).value || "").trim() || "A", nb = (($("#rc-b-name") || {}).value || "").trim() || "B";
+      var esc = function (s) { return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+      na = esc(na); nb = esc(nb);
+      var add = function (lab, va, vb, mean, wgt, da, db) {
+        if (da !== null && db !== null) { sa += wgt * da; sb += wgt * db; }
+        var fit = function (d, o) { return d === null || o === null || d === o ? "" : (d < o ? " ✓" : ""); };
+        rows.push("<tr><td>" + lab + "</td><td>" + va + fit(da, db) + "</td><td>" + vb + fit(db, da) + "</td><td>" + mean + "</td></tr>");
+      };
+      var sA = rv.ashape, sB = rv.bshape, msh;
+      if (sA === sB) msh = "Same shape: the sweet spot sits in a similar place.";
+      else msh = (ORD.shape.indexOf(sB) > ORD.shape.indexOf(sA) ? nb : na) + " has the higher, smaller sweet spot: more power on overheads when you hit it right, less forgiving on mishits.";
+      add("Shape", SH[sA], SH[sB], msh, 5, dist("shape", sA, I.shape), dist("shape", sB, I.shape));
+      var bA = num("rc-a-b"), bB = num("rc-b-b"), mb;
+      if (bA === null || bB === null) mb = "Add both balance numbers (from the same shop) to compare. Above about 265 mm is head-heavy, below about 255 mm feels quick.";
+      else if (Math.abs(bA - bB) < 5) mb = "Under 5 mm apart: they will feel similar in balance.";
+      else mb = (bA > bB ? na : nb) + " is " + Math.abs(bA - bB) + " mm more head-heavy: more weight behind smashes, slower at the net and more load on the arm.";
+      var dbA = rdist(bA, I.b), dbB = rdist(bB, I.b);
+      add("Balance", bA === null ? "–" : bA + " mm", bB === null ? "–" : bB + " mm", mb, 4, dbA === null ? null : dbA / 5, dbB === null ? null : dbB / 5);
+      var cA = rv.acore, cB = rv.bcore;
+      add("Core", CO[cA], CO[cB], cA === cB ? "Same core feel." : (ORD.core.indexOf(cA) < ORD.core.indexOf(cB) ? na : nb) + " is softer: easier power at slow speeds and kinder on the arm. The harder one needs fast swings to come alive.", 3, dist("core", cA, I.core), dist("core", cB, I.core));
+      var fA = rv.aface, fB = rv.bface;
+      add("Face", FA[fA], FA[fB], fA === fB ? "Same face material." : (ORD.face.indexOf(fA) < ORD.face.indexOf(fB) ? na : nb) + " is more forgiving and comfortable; the other is stiffer and more precise, with more vibration.", 2, dist("face", fA, I.face), dist("face", fB, I.face));
+      var wA = num("rc-a-w"), wB = num("rc-b-w"), mw;
+      if (wA === null || wB === null) mw = "Add both weights to compare. Under 5 g apart doesn't matter; 15 to 20 g you will feel.";
+      else if (Math.abs(wA - wB) < 6) mw = "Only " + Math.abs(wA - wB) + " g apart: rackets of one model vary this much. Ignore it.";
+      else mw = (wA > wB ? na : nb) + " is " + Math.abs(wA - wB) + " g heavier: more stable and solid, but slower to swing and more tiring for the arm.";
+      var dwA = rdist(wA, I.w), dwB = rdist(wB, I.w);
+      add("Weight", wA === null ? "–" : wA + " g", wB === null ? "–" : wB + " g", mw, 1, dwA === null ? null : dwA / 8, dwB === null ? null : dwB / 8);
+      $("#rc-rows").innerHTML = rows.join("");
+      $("#rc-ha").innerHTML = na; $("#rc-hb").innerHTML = nb;
+      var gap = Math.abs(sa - sb), win = sa < sb ? na : nb, pill, h, p;
+      var who = { beg: "a beginner", int: "an improving player", adv: "an advanced player" }[rv.lvl] + { ctrl: " who likes control", both: " with an all-round game", pow: " who likes power" }[rv.style] + (rv.arm === "sore" ? " with a sore arm" : "");
+      if (gap < 1.5) { pill = "Close call"; h = "Both could suit you"; p = "For " + who + ", these two are close on paper. Try both if you can, or pick the one that feels better after a few games."; }
+      else { pill = gap > 5 ? "Clear winner" : "Leans one way"; h = win + " suits you better"; p = "For " + who + ", " + win + " is closer to the shape, balance, core and face we would suggest (" + SH[I.shape].toLowerCase() + ", " + I.b[0] + " to " + I.b[1] + " mm balance, " + CO[I.core].toLowerCase() + " core, " + I.w[0] + " to " + I.w[1] + " g). A ✓ marks the better fit on each spec."; }
+      $("#rc-pill").textContent = pill; $("#rc-pill").className = "pill " + (gap < 1.5 ? "i" : "b");
+      $("#rc-h").innerHTML = h; $("#rc-p").innerHTML = p;
+      $("#rc-t").innerHTML = "Shape and balance count most, weight least. Next: " + lbl("racket-balance", "draw both to scale") + " · " + lbl("racket-finder", "racket finder");
+      store.set("pgb-rc", { v: rv, aw: wA, bw: wB, ab: bA, bb: bB });
+    };
+    var saved = store.get("pgb-rc", null);
+    if (saved && saved.v) {
+      Object.keys(saved.v).forEach(function (k) { rv[k] = saved.v[k]; });
+      [["rc-a-w", saved.aw], ["rc-b-w", saved.bw], ["rc-a-b", saved.ab], ["rc-b-b", saved.bb]].forEach(function (x) { if (x[1] !== null && x[1] !== undefined && $("#" + x[0])) $("#" + x[0]).value = x[1]; });
+      $$("[data-rc]").forEach(function (g) { var val = rv[g.dataset.rc]; $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === val ? "true" : "false"); }); });
+    }
+    $$("[data-rc]").forEach(function (g) { choose(g, function (v) { rv[g.dataset.rc] = v; rcrender(); }); });
+    ["rc-a-w", "rc-b-w", "rc-a-b", "rc-b-b", "rc-a-name", "rc-b-name"].forEach(function (id) { var el = $("#" + id); if (el) el.addEventListener("input", rcrender); });
+    var rcc = $("#rc-copy");
+    if (rcc) rcc.addEventListener("click", function () {
+      var txt = $("#rc-h").textContent + "\n" + $$("#rc-rows tr").map(function (tr) { return $$("td", tr).map(function (td) { return td.textContent; }).join(" | "); }).join("\n") + "\n" + location.href;
+      try { navigator.clipboard.writeText(txt).then(function () { toast("Comparison copied"); }); } catch (e) { toast("Copy not available"); }
+    });
+    rcrender();
+  }
+
+  /* ---------- split-step reaction trainer ---------- */
+  var fwb = $("#fwt");
+  if (fwb) {
+    var fv = { pace: "med", len: String(store.get("pgb-fw-len", "60")), mode: "net", beep: "on" };
+    $$("[data-fwt]", fwb).forEach(function (g) { if (g.dataset.fwt === "len") $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === fv.len ? "true" : "false"); }); });
+    var DIRS = { net: ["← Left volley", "Right volley →", "↑ Lob! Turn and go back"], back: ["← Left", "Right →", "↓ Short ball: move in", "Glass: step back and wait"] };
+    DIRS.all = DIRS.net.concat(DIRS.back.slice(2));
+    var PACE = { slow: [5000, 7000], med: [3500, 5000], fast: [2500, 3500] };
+    var ftimer = null, fend = 0, freps = 0, fnext = null, actx = null;
+    var fmt = function (s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); };
+    var beep = function () {
+      if (fv.beep !== "on") return;
+      try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); var o = actx.createOscillator(), g = actx.createGain(); o.frequency.value = 880; g.gain.value = 0.15; o.connect(g); g.connect(actx.destination); o.start(); o.stop(actx.currentTime + 0.12); } catch (e) {}
+    };
+    var cue = $("#fwt-cue"), dir = $("#fwt-dir"), stage = $("#fwt-stage");
+    var fstop = function (done) {
+      clearInterval(ftimer); clearTimeout(fnext); ftimer = null;
+      $("#fwt-go").disabled = false; $("#fwt-stop").disabled = true; stage.classList.remove("on", "hit");
+      cue.textContent = done ? "Done" : "Stopped"; dir.textContent = freps + " split steps. " + (done ? "Rest 1 minute, then go again." : "");
+    };
+    var frep = function () {
+      if (!ftimer) return;
+      var list = DIRS[fv.mode], p = PACE[fv.pace];
+      stage.classList.add("hit"); cue.textContent = "Split"; dir.textContent = ""; beep();
+      setTimeout(function () { if (!ftimer) return; stage.classList.remove("hit"); cue.textContent = "Go"; dir.textContent = list[Math.floor(Math.random() * list.length)]; }, 380);
+      freps++; $("#fwt-reps").textContent = freps + " reps";
+      fnext = setTimeout(frep, p[0] + Math.random() * (p[1] - p[0]));
+    };
+    $$("[data-fwt]", fwb).forEach(function (g) { choose(g, function (v) { fv[g.dataset.fwt] = v; if (g.dataset.fwt === "len") { store.set("pgb-fw-len", v); if (!ftimer) $("#fwt-time").textContent = fmt(+v); } }); });
+    $("#fwt-time").textContent = fmt(+fv.len);
+    $("#fwt-go").addEventListener("click", function () {
+      freps = 0; $("#fwt-reps").textContent = "0 reps"; fend = Date.now() + (+fv.len) * 1000 + 3000;
+      $("#fwt-go").disabled = true; $("#fwt-stop").disabled = false; stage.classList.add("on");
+      cue.textContent = "Get ready"; dir.textContent = "Ready position, racket up";
+      ftimer = setInterval(function () { var left = (fend - Date.now()) / 1000; $("#fwt-time").textContent = fmt(Math.min(left, +fv.len)); if (left <= 0) fstop(true); }, 250);
+      fnext = setTimeout(frep, 3000);
+    });
+    $("#fwt-stop").addEventListener("click", function () { fstop(false); });
+  }
+
+  /* ---------- middle ball decider ---------- */
+  var pcb = $("#pcd");
+  if (pcb) {
+    var cv2 = { hands: "rr", ball: "low", pos: "net" };
+    var pcrender = function () {
+      var H = cv2.hands, B = cv2.ball, P = cv2.pos, who, why, call = "Mine", pill = "Rule of thumb";
+      var fhMid = { rr: "left", ll: "right", lr: "both", ll2: "none" }[H];
+      if (P === "split" && B !== "glass") {
+        if (B === "lob") { who = "The player at the back"; why = "The net player can't reach it, so the back player takes it and the net player moves back too, or across if needed."; call = "Switch / yours"; }
+        else { who = "The net player, if they can reach it"; why = "Anything the net player can volley comfortably is theirs. Whatever passes them belongs to the player at the back. Then get level again: both up or both back."; }
+      } else if (B === "serve") {
+        who = "The net player, if it is within reach"; why = "On a return down the middle, the server's partner at the net is closer and should volley it. The server is still moving in and takes what passes."; call = "Mine (net player)";
+      } else if (fhMid === "left" || fhMid === "right") {
+        var side = fhMid === "left" ? "left-side" : "right-side";
+        who = "The " + side + " player";
+        why = "The middle is their forehand side" + (B === "lob" ? ", so they can take a middle lob with a bandeja or smash. Exception: if their partner is clearly better placed, the partner calls it early." : (B === "glass" ? ". Off the back glass the forehand has more room to turn and hit." : ". Forehand volleys are usually stronger and easier to aim down the middle."));
+      } else if (fhMid === "both") {
+        pill = "Agree first"; who = B === "lob" ? "The player with the better overhead" : "The player further forward, or whoever calls first";
+        why = "With a lefty on the right, both forehands meet in the middle. That is a strength, but both of you will want it. Agree before the match who takes it, call very early, and the other player covers behind.";
+      } else {
+        pill = "Agree first"; who = B === "lob" ? "The player with the better backhand overhead" : "The player who is closer, or whoever calls first";
+        why = "With a lefty on the left, both backhands meet in the middle, which is the weak spot opponents aim for. Agree a rule before the match and call every middle ball early. Many pairs like this switch sides so both forehands face the middle.";
+      }
+      $("#pcd-pill").textContent = pill; $("#pcd-pill").className = "pill " + (pill === "Agree first" ? "i" : "b");
+      $("#pcd-h").textContent = who; $("#pcd-p").textContent = why + " Call: \"" + call + "\", before the ball crosses the net.";
+      $("#pcd-t").innerHTML = "Your pair's own agreed rule always wins. Next: " + lbl("which-side-padel", "left or right side quiz") + " · " + lbl("positioning", "where to stand");
+    };
+    $$("[data-pcd]", pcb).forEach(function (g) { choose(g, function (v) { cv2[g.dataset.pcd] = v; pcrender(); }); });
+    pcrender();
+  }
+
 })();

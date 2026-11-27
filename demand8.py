@@ -144,3 +144,4 @@ page("padel-elbow.html", "Padel Elbow: Causes, Best Racket + Arm-Load Check",
      pe, pe_faq, "Padel elbow")
 
 DEMAND_PAGES += ["padel-weather.html", "padel-elbow.html"]
+exec((ROOT / "demand9.py").read_text())

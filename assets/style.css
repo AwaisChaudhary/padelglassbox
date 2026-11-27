@@ -723,3 +723,21 @@ button.ko-t:hover:not(:disabled) { background: rgba(23,71,201,.07); }
 .crumbs ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .crumbs li + li::before { content: "›"; margin-right: 6px; color: var(--steel); }
 .crumbs a { color: var(--muted); }
+/* compare rackets + footwork trainer */
+.rc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+@media (max-width: 760px) { .rc-grid { grid-template-columns: 1fr; } }
+.rc-tbl { margin-top: 12px; background: #fff; border-radius: 14px; overflow-x: auto; }
+.rc-tbl table { width: 100%; border-collapse: collapse; color: #0b1530; font-size: .95rem; }
+.rc-tbl th, .rc-tbl td { padding: 9px 12px; text-align: left; border-bottom: 1px solid #e3e9f7; vertical-align: top; }
+.rc-tbl th { background: #eef3ff; font-weight: 700; }
+.fw-stage { margin: 16px 0 6px; border-radius: 20px; background: linear-gradient(165deg, var(--deep-2), #081a55); color: #fff; min-height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: background .15s; }
+.fw-stage.hit { background: var(--ball); color: #0b1530; }
+.fw-cue { font-family: Unbounded, sans-serif; font-size: clamp(2rem, 8vw, 3.4rem); font-weight: 700; }
+.fw-dir { font-size: 1.25rem; font-weight: 600; margin-top: 8px; min-height: 1.6em; }
+.fw-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+@media (max-width: 600px) {
+  .rc-tbl tr { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid #e3e9f7; }
+  .rc-tbl th, .rc-tbl td { border-bottom: 0; }
+  .rc-tbl thead th:last-child { display: none; }
+  .rc-tbl td:last-child { grid-column: 1 / -1; padding-top: 0; color: #44506e; font-size: .9rem; }
+}
