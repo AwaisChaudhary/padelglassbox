@@ -299,3 +299,8 @@ Yesterday built from queues: NC 31, DOD 19, Pitchside 22, Padel 18, Purl 22, ZAW
 - [DONE 28 Nov https://padelglassbox.com/padel-racket-for-spin] P8 BUYING: /padel-racket-for-spin (autocomplete "padel racket for spin").
 - [DONE 28 Nov https://padelglassbox.com/padel-racket-for-tennis-players] P9 BUYING: /padel-racket-for-tennis-players (autocomplete).
 - [NOTE] Trends 7d rising: Premier Padel +850%; German "padel WM" celeb show (ProSieben) - off-brand, skip.
+
+## EVENING RADAR 2026-11-28 (18:40 PKT)
+- [DONE 28 Nov 18:45] /how-to-watch-premier-padel (Trends 1-d 'redbull tv padel' +250%, 'redbull padel' +190%).
+- [OPEN] E-R1 "pickleball how to serve" (autocomplete 'pickleball how to' #2): /pickleball-serve-rules (we have rules, court, score).
+- [OPEN] E-R2 "padel how to pronounce / say" (autocomplete #2-#3): add FAQ to /glossary and /history-of-padel.
