@@ -249,3 +249,10 @@ Biggest padel search cluster = LOCAL: 'padel <city>' (where to play). Build genu
 2. OPEN US cities in order: Miami, Los Angeles (Culver City/Century City), New York (Williamsburg/Brooklyn), Austin, Atlanta, Orlando, Denver, Kansas City, Nashville, Jersey City, Chandler/Phoenix, Katy/Houston, Jacksonville, El Paso.
 3. OPEN UK: London (Wandsworth, Wimbledon); Spain/Zaragoza later.
 4. PARTLY DONE 24 Nov (/padel-racket-for-kids) 'padel racket for intermediate players' (buying guides with AFF links), 'padel lessons: what to expect / cost', 'padel outfits: what to wear', 'best padel player in the world (FIP ranking)', 'what is padel' (also 'padel en ingles', 'padel y pickleball es lo mismo' -> short ES/EN explainer).
+
+## DAILY RADAR 2026-11-28 (06:40 PKT)
+Yesterday built from queues: NC 31, DOD 19, Pitchside 22, Padel 18, Purl 22, ZAWN 10 new pages. Revenue rule: at least half of new pages buying-intent.
+- [OPEN] P7 BUYING: /black-friday-padel-racket-deals refresh now (GSC pos 18, time-sensitive through Cyber Monday 30 Nov).
+- [OPEN] P8 BUYING: /padel-racket-for-spin (autocomplete "padel racket for spin").
+- [OPEN] P9 BUYING: /padel-racket-for-tennis-players (autocomplete).
+- [NOTE] Trends 7d rising: Premier Padel +850%; German "padel WM" celeb show (ProSieben) - off-brand, skip.
