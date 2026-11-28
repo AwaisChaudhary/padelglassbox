@@ -38,3 +38,4 @@ page("premier-padel-2027.html", "Premier Padel 2027 Calendar: Dates Confirmed So
      "Premier Padel 2027 calendar: not published yet (expected December). Confirmed so far: Hexagon Cup Madrid 21-24 Jan, Miami P1 in March, Abu Dhabi in October.",
      pp, pp_faq, "Premier Padel 2027")
 DEMAND_PAGES += ["premier-padel-2027.html"]
+exec((ROOT / "demand18.py").read_text())

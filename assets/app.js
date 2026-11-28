@@ -4154,4 +4154,123 @@
     pgbSegSet("wo", ["kit", "focus", "len", "lvl"], st, function () { T.reload(); });
   })();
 
+
+  /* ---------- backhand fault fixer ---------- */
+  if ($("#pbh-out")) pgbPicker("pbh", "pgb-pbh", { prob: "float", where: "back", hands: "one", bg: "new" }, function (v) {
+    var P = {
+      float: ["It floats up", "A floating backhand gives the net pair an easy volley or smash. It nearly always comes from an open face or hitting late, under the ball.", ["Close the racket face a little, so it points slightly down at contact.", "Meet the ball in front of your front foot, not next to your body.", "Aim low over the net and cross-court, away from the net player."], "Slightly closed face"],
+      net: ["Into the net", "Backhands in the net come from letting the ball drop too low, a face that is too closed or stopping the swing at contact.", ["Bend your knees and get down to the ball instead of dropping the racket head.", "Keep a smooth swing through contact; do not slow down.", "Give yourself a safety margin over the net, then let the ball drop."], "Get low, swing through"],
+      late: ["Late or cramped", "If you turn only when the ball arrives, it gets too close to your body and you hit it late.", ["Turn your shoulders as soon as you know it is a backhand, free hand on the throat.", "Keep the backswing short, no higher than your shoulder.", "Split step as they hit, then small steps to keep the ball at your side."], "Early turn, short backswing"],
+      glass: ["Missed off the back glass", "Glass backhands go wrong when you stay too close to the wall or hit the ball on the way up.", ["Follow the ball to the glass and turn sideways as soon as it passes you.", "Move towards the net with it so it comes back to the side of your body.", "Wait until it drops to about waist height, then play a short, deep, safe ball."], "Move with it, let it drop"],
+      weak: ["No depth or pace", "A short, slow backhand usually means an arm-only hit with no step and a slowing racket.", ["Step across with the front foot so your weight moves into the ball.", "Keep the wrist firm and the swing smooth all the way to the target.", "Against a pair at the net, lob over them instead of forcing pace."], "Step in, firm wrist"],
+      arm: ["Sore elbow or wrist", "Backhand pain often comes from reaching with the arm, a floppy wrist or a racket that is too heavy or head-heavy.", ["Move your feet so you never stretch for the ball with a straight arm.", "Keep the wrist firm and let the shoulder turn drive the swing.", "Check your racket weight and balance, and see a doctor or physio if pain lasts."], "Feet first, firm wrist"]
+    };
+    var W = { back: "Off the bounce at the back: only if it bounced before the service line. After the line, let the glass play it.", glass: "After the glass: be patient. You are trying to get back into the point, so deep and safe beats hard.", net: "At the net: keep the backhand volley short, a punch or block with the face slightly open, and no backswing at all." };
+    var H;
+    if (v.where === "net") H = "One hand: volleys are faster one-handed.";
+    else if (v.prob === "glass") H = v.hands === "two" ? "Try one hand off the glass: it reaches further when the ball comes back close to the wall." : "One hand: it reaches further off the glass.";
+    else if (v.hands === "two" || v.bg === "t2") H = "Two hands is fine on balls close to you when you have time. Switch to one hand when you must reach or play off the wall.";
+    else H = "One hand, the usual padel backhand.";
+    var B = { new: "New to racket sports: rally slowly on the backhand diagonal before you add pace.", t2: "From tennis (two hands): keep it for slow balls close to the body, but learn a one-handed slice for the glass and the net.", t1: "From tennis (one hand): drop the big backswing and the topspin. Shorter, flatter and a little slice wins more padel points." };
+    var p = P[v.prob] || P.float;
+    $("#pbh-h").textContent = p[0];
+    $("#pbh-p").textContent = p[1];
+    $("#pbh-fix").innerHTML = p[2].concat([W[v.where] || W.back]).map(function (f) { return "<li>" + f + "</li>"; }).join("");
+    pgbSpec("#pbh-spec", [["Key idea", p[3]], ["Grip", "Continental"], ["Hands", H], ["For you", B[v.bg] || B.new]]);
+    $("#pbh-t").innerHTML = (v.prob === "arm" ? "Arm: " + pgbLk("padel-elbow", "padel elbow check") + " · Weight: " + pgbLk("padel-racket-weight", "weight calculator") : "Glass: " + pgbLk("padel-back-glass", "back glass guide") + " · Forehand: " + pgbLk("padel-forehand", "forehand fixer")) + " · More: " + pgbLk("fix-my-padel", "fix my padel");
+  });
+
+  /* ---------- padel team generator ---------- */
+  (function () {
+    var out = $("#tg-out"), ta = $("#tg-names");
+    if (!out || !ta) return;
+    var courtsEl = $("#tg-courts"), err = $("#tg-err"), cnt = $("#tg-count"), last = null;
+    var st = store.get("pgb-tg", { mode: "bal", names: "", courts: 2 });
+    ta.value = st.names || ""; courtsEl.value = st.courts || 2;
+    $$("[data-tg] button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === st.mode ? "true" : "false"); });
+    choose($("[data-tg=mode]"), function (v) { st.mode = v; save(); if (last) run(); });
+    function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+    function save() { st.names = ta.value; st.courts = +courtsEl.value || 1; store.set("pgb-tg", st); }
+    function parse() {
+      var ps = [];
+      ta.value.split(/\n/).forEach(function (l) {
+        l = l.trim(); if (!l) return;
+        var m = l.match(/^(.*?)[,;\t ]+(\d+(?:[.,]\d+)?)$/), lv = null, nm = l;
+        if (m && m[1].trim()) { nm = m[1].trim(); lv = parseFloat(m[2].replace(",", ".")); if (!(lv >= 0 && lv <= 10)) lv = null; }
+        ps.push({ n: nm, l: lv });
+      });
+      var has = ps.filter(function (p) { return p.l !== null; });
+      var avg = has.length ? has.reduce(function (a, p) { return a + p.l; }, 0) / has.length : 3;
+      ps.forEach(function (p) { p.g = p.l === null; if (p.g) p.l = Math.round(avg * 2) / 2; });
+      return ps;
+    }
+    function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+    function count() { var n = parse().length; cnt.textContent = n ? n + " player" + (n === 1 ? "" : "s") + (n >= 4 ? " · " + Math.floor(n / 4) + " full court" + (Math.floor(n / 4) === 1 ? "" : "s") + (n % 4 ? ", " + (n % 4) + " extra" : "") : "") : ""; }
+    function run() {
+      save(); var ps = parse(), courts = Math.max(1, Math.min(12, +courtsEl.value || 1));
+      if (ps.length < 4) { err.textContent = "Add at least 4 players."; return; }
+      err.textContent = "";
+      var slots = Math.min(Math.floor(ps.length / 4), courts) * 4, play, rest;
+      if (st.mode === "rnd") { shuffle(ps); play = ps.slice(0, slots); rest = ps.slice(slots); }
+      else {
+        // who sits out: random, but rest spread fairly by drawing from a shuffled list
+        shuffle(ps); rest = ps.slice(slots); play = ps.slice(0, slots);
+        play.forEach(function (p) { p.k = p.l + (Math.random() - 0.5) * 0.6; });
+        play.sort(function (a, b) { return b.k - a.k; });
+      }
+      var pairs = [];
+      if (st.mode === "rnd") for (var i = 0; i < play.length; i += 2) pairs.push([play[i], play[i + 1]]);
+      else for (var j = 0; j < play.length / 2; j++) pairs.push([play[j], play[play.length - 1 - j]]);
+      pairs.forEach(function (p) { p.t = p[0].l + p[1].l; });
+      if (st.mode !== "rnd") pairs.sort(function (a, b) { return b.t - a.t; }); else shuffle(pairs);
+      var matches = [];
+      for (var k = 0; k < pairs.length; k += 2) matches.push([pairs[k], pairs[k + 1]]);
+      last = { matches: matches, rest: rest };
+      var anyLv = ps.some(function (p) { return !p.g; });
+      var h = "<h2>Teams</h2>";
+      matches.forEach(function (m, c) {
+        var gap = Math.abs(m[0].t - m[1].t);
+        h += '<div style="margin:10px 0;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22)"><span class="pill b">Court ' + (c + 1) + "</span>" +
+          '<p style="margin:8px 0 2px"><strong>' + esc(m[0][0].n) + " &amp; " + esc(m[0][1].n) + "</strong></p><p class=\"muted\" style=\"margin:0\">v</p>" +
+          '<p style="margin:2px 0 6px"><strong>' + esc(m[1][0].n) + " &amp; " + esc(m[1][1].n) + "</strong></p>" +
+          (anyLv && st.mode !== "rnd" ? '<p style="margin:0;font-size:.85rem;opacity:.8">Pair levels ' + m[0].t.toFixed(1) + " v " + m[1].t.toFixed(1) + (gap <= 1 ? " · close match" : " · gap " + gap.toFixed(1)) + "</p>" : "") + "</div>";
+      });
+      if (rest.length) h += "<p><strong>Sit out first:</strong> " + rest.map(function (p) { return esc(p.n); }).join(", ") + ". Swap in after a set; press Draw again for the next round.</p>";
+      if (ps.length > courts * 4 && ps.length >= 4 && Math.floor(ps.length / 4) > courts) h += '<p class="muted" style="font-size:.85rem">More players than court places: add a court or rotate.</p>';
+      h += '<p class="muted" style="font-size:.85rem">Next: ' + pgbLk("americano", "Americano") + " · " + pgbLk("round-robin", "round robin") + " · " + pgbLk("king-of-the-court", "King of the Court") + "</p>";
+      out.innerHTML = h;
+    }
+    function text() {
+      if (!last) return "";
+      var t = "Padel teams\n";
+      last.matches.forEach(function (m, c) { t += "Court " + (c + 1) + ": " + m[0][0].n + " & " + m[0][1].n + " v " + m[1][0].n + " & " + m[1][1].n + "\n"; });
+      if (last.rest.length) t += "Sit out first: " + last.rest.map(function (p) { return p.n; }).join(", ") + "\n";
+      return t + "Made with padelglassbox.com/padel-team-generator";
+    }
+    ta.addEventListener("input", function () { count(); save(); });
+    courtsEl.addEventListener("change", save);
+    $("#tg-go").addEventListener("click", run);
+    $("#tg-again").addEventListener("click", run);
+    $("#tg-demo").addEventListener("click", function () { ta.value = "Sam, 4\nPriya, 3.5\nOmar, 2\nLucia, 5\nBen, 3\nAisha, 4.5\nTom, 2.5\nNoor, 3"; count(); run(); });
+    $("#tg-copy").addEventListener("click", function () {
+      var t = text(); if (!t) { toast("Make the teams first"); return; }
+      try { navigator.clipboard.writeText(t).then(function () { toast("Teams copied"); }, function () { toast("Copy failed"); }); } catch (e) { toast("Copy failed"); }
+    });
+    count(); if (parse().length >= 4) run();
+  })();
+
+  /* ---------- benefits: weekly activity check ---------- */
+  if ($("#bn-out")) pgbPicker("bn", "pgb-bn", { n: "2", len: "90", int: "mod", str: "0" }, function (v) {
+    var share = { easy: 0.6, mod: 0.75, hard: 0.85 }[v.int] || 0.75;
+    var court = (+v.n) * (+v.len), act = Math.round(court * share), eq = v.int === "hard" ? act * 2 : act;
+    var pct = Math.min(97, eq / 300 * 100);
+    var met = eq >= 150, str = +v.str >= 2;
+    $("#bn-h").textContent = met && str ? "Guideline met, both parts" : (met ? "Activity met, add strength" : "Not there yet");
+    $("#bn-dot").style.left = Math.max(3, pct) + "%";
+    var need = Math.max(0, 150 - eq);
+    $("#bn-p").textContent = met ? ("Your padel gives about " + eq + " moderate-equivalent minutes a week" + (eq >= 300 ? ", at the top of the range the WHO links with extra benefit." : ". Going towards 300 minutes adds more benefit.")) + (str ? "" : " The WHO also asks for muscle-strengthening on 2 days a week.") : "You are about " + need + " minutes short. One more session, a longer booking or a brisk walk on other days would close the gap.";
+    pgbSpec("#bn-spec", [["Court time", court + " min a week"], ["Active time (estimate)", act + " min"], ["Counts as", eq + " moderate min" + (v.int === "hard" ? " (vigorous x2)" : "")], ["Strength days", v.str === "2" ? "2+ (met)" : v.str + " of 2"]]);
+    $("#bn-t").innerHTML = "Calories: " + pgbLk("padel-calories", "calories calculator") + " · Strength: " + pgbLk("padel-workout", "workout builder") + " · Safety: " + pgbLk("padel-injuries", "injury prevention");
+  });
+
 })();
