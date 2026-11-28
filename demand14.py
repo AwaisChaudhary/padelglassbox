@@ -114,7 +114,7 @@ cp = f'''<header class="hero"><div class="wrap"><h1>Control vs power padel racke
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
 <div class="card"><h3>Pick a weight</h3><p>Get a gram range for your level and arm: the <a href="{href("padel-racket-weight.html")}">racket weight calculator</a>.</p></div>
 <div class="card"><h3>Full racket match</h3><p>Shape, weight, balance, core and face in one go: the <a href="{href("racket-finder.html")}">padel racket finder</a>.</p></div>
-<div class="card"><h3>Two rackets in mind?</h3><p>Put them side by side: <a href="{href("compare-padel-rackets.html")}">compare two padel rackets</a>. Balance numbers explained: <a href="{href("racket-balance.html")}">racket balance</a>.</p></div>
+<div class="card"><h3>Two rackets in mind?</h3><p>Put them side by side: <a href="{href("compare-padel-rackets.html")}">compare two padel rackets</a>. Balance numbers explained: <a href="{href("racket-balance.html")}">racket balance</a>. Spin: <a href="{href("padel-racket-for-spin.html")}">does a rough face help?</a></p></div>
 </div></div></section>
 <section><div class="wrap"><div class="aff-box"><h3>Shop by racket type</h3><p>Round for control, teardrop for all-round, diamond for power. Check balance and core on each product page.</p><ul class="aff-links"><li><a href="{go("padel-round-rackets")}" {AFF_ATTR}>Round (control) rackets</a></li><li><a href="{go("padel-teardrop-rackets")}" {AFF_ATTR}>Teardrop (hybrid) rackets</a></li><li><a href="{go("padel-diamond-rackets")}" {AFF_ATTR}>Diamond (power) rackets</a></li><li><a href="{go("padel-black-friday-rackets")}" {AFF_ATTR}>Black Friday rackets</a></li></ul>{AFF_NOTE}</div>
 <p class="muted" style="margin-top:14px;font-size:.9rem">Sources, checked 28 Nov 2026: HEAD "How to choose a padel racquet" (shapes, balance, sweet spot, weight bands, carbon vs fibreglass), Padel Market "Padel racket: control vs power" (29 May 2026: comparison of shape, balance, core and sweet spot; side of the court; soft core for arm pain), Padel USA "Control vs power in padel: which racket fits your game the best?" (Nov 2026: start with control, core and swing speed, side of the court). Written in our own words.</p></div></section>'''
@@ -167,7 +167,7 @@ wr = f'''<header class="hero"><div class="wrap"><h1>Best padel racket for women:
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What is the best padel racket for women with tennis elbow?</h2></div>
 <p>Go lighter (about 340 to 355 g), low balance, round shape, soft core and a fibreglass or soft face, and avoid jumping to a stiff, heavy racket. Pain usually comes from the racket, technique and how much you play together, so get lasting pain checked by a doctor or physio. Check your own arm load with the <a href="{href("padel-elbow.html")}">padel elbow check</a>.</p></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>What next?</h2></div><div class="grid">
-<div class="card"><h3>Control or power?</h3><p>Seven questions on your game: the <a href="{href("control-vs-power-padel-racket.html")}">control vs power racket test</a>.</p></div>
+<div class="card"><h3>Control or power?</h3><p>Seven questions on your game: the <a href="{href("control-vs-power-padel-racket.html")}">control vs power racket test</a>. Want more bite? <a href="{href("padel-racket-for-spin.html")}">Padel racket for spin</a>.</p></div>
 <div class="card"><h3>Your exact weight</h3><p>Gram range by level, strength and arm: the <a href="{href("padel-racket-weight.html")}">racket weight calculator</a>.</p></div>
 <div class="card"><h3>First racket?</h3><p>Start here: <a href="{href("best-padel-racket-for-beginners.html")}">best padel racket for beginners</a>, or the full <a href="{href("racket-finder.html")}">racket finder</a>.</p></div>
 </div></div></section>
@@ -186,3 +186,4 @@ page("padel-racket-for-women.html", "Best Padel Racket for Women: Weight, Balanc
      wr, wr_faq, "Racket for women")
 
 DEMAND_PAGES += ["padel-bags.html", "control-vs-power-padel-racket.html", "padel-racket-for-women.html"]
+exec((ROOT / "demand15.py").read_text())

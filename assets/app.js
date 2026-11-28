@@ -1037,6 +1037,56 @@
     $("#wr-t").innerHTML = "Control or power: " + pgbLk("control-vs-power-padel-racket", "7-question test") + " · Exact weight: " + pgbLk("padel-racket-weight", "weight calculator") + " · Grips: " + pgbLk("padel-overgrip", "overgrip guide");
   });
 
+  /* ---------- tennis players racket picker ---------- */
+  if ($("#tp-out")) pgbPicker("tp", "pgb-tp", { tl: "rec", st: "base", arm: "no", pd: "0" }, function (v) {
+    var lo = { rec: 350, comp: 355, ex: 360 }[v.tl], hi = lo + 10;
+    if (v.tl === "rec") hi = 360;
+    if (v.arm === "yes") { lo = 345; hi = 355; } else if (v.arm === "some") { hi = Math.min(hi, 360); lo = Math.min(lo, 350); }
+    var adv = v.pd === "season" && v.tl !== "rec" && v.arm === "no";
+    var shape = v.arm === "yes" || (v.tl === "rec" && v.pd === "0") ? "Round (or a soft teardrop)" : (adv ? "Teardrop, or a diamond if your bandeja lands deep" : "Teardrop");
+    var bal = v.arm !== "no" ? "Low (head-light)" : (v.tl === "rec" ? "Low to medium" : (adv ? "Medium, medium-high if you attack" : "Medium"));
+    var core = v.arm !== "no" ? "Soft EVA or foam" : (adv ? "Medium" : "Soft to medium");
+    var face = v.arm !== "no" ? "Fibreglass (flexes more, kinder to the arm)" : (adv ? "Carbon or carbon mix" : "Fibreglass or soft carbon mix");
+    var avoid = adv ? "Anything over about 375 g" : "Diamonds and anything 370 g or over, for now";
+    var H = {
+      base: ["Big topspin swings: shorten the backswing and hit flatter or with slice", "Staying back: follow your partner to the net", "Taking the ball early: let it come off the back glass first"],
+      srv: ["The overhead serve: in padel you serve underarm, after a bounce, below the waist", "Smashing every high ball: use the bandeja to keep the net", "Going for power: placement and lobs win the point"],
+      net: ["Punching volleys hard: block and place them, low at the feet", "Covering the court alone: share the middle with your partner and call it", "Poaching everything: hold your side, the walls give second chances"]
+    }[v.st];
+    $("#tp-h").textContent = lo + " to " + hi + " g, " + shape.split(" ")[0].toLowerCase();
+    $("#tp-p").textContent = (v.arm === "yes" ? "Comfort first: light, head-light and soft. Get lasting elbow pain checked by a doctor or physio. " : "") +
+      (adv ? "You have a season behind you, so you can add a little weight and attack." : "Your tennis arm is fast, but padel is short and close: a forgiving racket helps you build the padel swing.");
+    pgbSpec("#tp-spec", [["Weight", lo + " to " + hi + " g"], ["Balance", bal], ["Shape", shape], ["Core", core], ["Face", face], ["Avoid", avoid], ["Grip", "Continental, with 1 overgrip"]]);
+    $("#tp-hab").innerHTML = H.map(function (h) { return "<li>" + h + "</li>"; }).join("");
+    $("#tp-t").innerHTML = "Exact weight: " + pgbLk("padel-racket-weight", "weight calculator") + " · Serve: " + pgbLk("serve-rules", "serve rules") + " · Walls: " + pgbLk("padel-back-glass", "back glass guide");
+  });
+
+  /* ---------- spin checker ---------- */
+  if ($("#sn-out")) pgbPicker("sn", "pgb-sn", { tech: "1", face: "0", wear: "2", ball: "1", clean: "0", shape: "1" }, function (v) {
+    var W = { tech: 4, face: 1.5, wear: 1, ball: 1.5, clean: 0.5, shape: 1 }, sc = 0, mx = 0;
+    Object.keys(W).forEach(function (k) { sc += (+v[k]) * W[k]; mx += 2 * W[k]; });
+    var pct = Math.round(sc / mx * 100);
+    if (v.tech === "0") pct = Math.min(pct, 45);
+    var h = pct < 40 ? "Little spin" : (pct < 70 ? "Some spin" : "Lots of spin");
+    var F = [];
+    if (v.tech !== "2") F.push([0, "Brush across the ball: swing high to low with an open face on bandejas and slices. This matters more than any racket."]);
+    if (v.ball === "0") F.push([1, "Open a new can: old, soft balls grip the face less."]); else if (v.ball === "1") F.push([3, "Use fresher balls for matches."]);
+    if (v.wear === "0") F.push([2, "Your face is worn smooth: a new textured face will feel different, but only on brushing shots."]);
+    if (v.clean !== "2") F.push([4, "Wipe sand and dust off the face every few games."]);
+    if (v.face === "0" && v.tech !== "0") F.push([5, "Next racket: a sand or 3D textured face will help your slices a little."]);
+    if (v.face === "1" && v.wear !== "2") F.push([5, "Painted grit wears quickly: a sand or moulded 3D finish lasts longer."]);
+    if (v.shape === "0" && v.tech === "2") F.push([6, "Head speed: a teardrop moves faster than a round racket, without the diamond's small sweet spot."]);
+    F.sort(function (a, b) { return a[0] - b[0]; });
+    if (!F.length) F.push([0, "You have it covered. Keep the face clean and the balls fresh."]);
+    var buy = v.tech === "0" ? "Not yet: technique first" : (v.face === "0" || v.wear === "0" ? "Maybe, when you next change racket" : "No need: your racket is not the limit");
+    $("#sn-h").textContent = h;
+    $("#sn-dot").style.left = Math.max(3, Math.min(97, pct)) + "%";
+    $("#sn-p").textContent = v.tech === "0" ? "With a flat swing, no face texture adds much spin. Start with the swing." : (pct >= 70 ? "Your swing, face and balls are all working for you." : "Your swing is there; small kit changes will add a bit more bite.");
+    $("#sn-fix").innerHTML = F.slice(0, 3).map(function (f) { return "<li>" + f[1] + "</li>"; }).join("");
+    pgbSpec("#sn-spec", [["Spin racket worth it?", buy], ["Best face for spin", "Sand or 3D texture on carbon"], ["Shape", "Teardrop for most; diamond for strong attackers"]]);
+    $("#sn-t").innerHTML = "Shots: " + pgbLk("bandeja-vs-vibora", "bandeja vs víbora") + " · Balls: " + pgbLk("padel-balls", "dead ball checker") + " · Type: " + pgbLk("control-vs-power-padel-racket", "control vs power test");
+  });
+
   /* ---------- dead ball checker ---------- */
   var bchk = $("#bchk");
   if (bchk) {
@@ -3609,7 +3659,7 @@
 
   /* ---------- compare two padel rackets ---------- */
   var rcb = $("#rc-out");
-  if (rcb) {
+  if (rcb && $("#rc-rows")) {
     var rv = { lvl: "int", style: "both", arm: "ok", ashape: "round", acore: "soft", aface: "glass", bshape: "diamond", bcore: "hard", bface: "carbon" };
     var SH = { round: "Round", tear: "Teardrop", diamond: "Diamond" }, CO = { soft: "Soft", med: "Medium", hard: "Hard" }, FA = { glass: "Fibreglass", mix: "Carbon + glass", carbon: "Carbon" };
     var num = function (id) { var v = parseFloat(($("#" + id) || {}).value); return isNaN(v) ? null : v; };

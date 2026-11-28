@@ -327,3 +327,11 @@
 - CSS: .tbl tables were unstyled on 19 pages; now styled (no overflow at 390px on any of them).
 - Links in: footer (3), /padel-racket-weight What next -> women + control/power, /compare-padel-rackets -> control/power, /padel-equipment What next -> bags; new pages cross-link and link to weight calculator, finder, balance, materials, which side, elbow, overgrip, grip, racket care, shoes, gifts.
 - IndexNow pending https://padelglassbox.com/padel-bags https://padelglassbox.com/control-vs-power-padel-racket https://padelglassbox.com/padel-racket-for-women https://padelglassbox.com/padel-racket-weight https://padelglassbox.com/compare-padel-rackets https://padelglassbox.com/padel-equipment
+
+## 2026-11-28 demand run 18
+- NEW /padel-racket-for-tennis-players: tennis-to-padel racket picker (level, style, elbow, padel experience) -> weight/balance/shape/core/face + 3 tennis habits to drop; padel vs tennis racket table; diamond warning; tennis elbow H2; 6 FAQs; AFF box (teardrop, round, BF rackets, overgrips, shoes). Targets 'padel racket for tennis players', 'best padel racket for tennis players', 'tennis to padel', 'tennis habits padel'. Sources: Padel Browser (27 May 2026), Padel USA (26 Apr 2025), The Padel School.
+- NEW /padel-racket-for-spin: spin checker (technique weighted most) + TWU lab friction/angle table + face textures table + how-to-spin tips + 'is a spin racket worth it'; 6 FAQs; AFF box. Targets 'padel racket for spin', 'best padel racket for spin', 'does rough padel racket give more spin'. Sources: Tennis Warehouse University 'Physics of padel spin production' (20 Nov 2022) + spin comparison tool; Padel Browser spin 2026 (5 Jun 2026).
+- CHANGED /racket-care: H2 'Does protector tape add weight? Is it worth it?' (table) + 2 FAQs. Sources: Decathlon Kuikma strong tape page, Padel Browser protectors 2026 (8 Sep 2026).
+- FIX app.js: compare-rackets block threw on /racket-care (shared #rc-out id); guarded.
+- Links: footer (both), /best-padel-racket-for-beginners tennis H2 -> tennis page, /control-vs-power-padel-racket -> spin page.
+- IndexNow pending https://padelglassbox.com/padel-racket-for-tennis-players https://padelglassbox.com/padel-racket-for-spin https://padelglassbox.com/racket-care

@@ -752,3 +752,5 @@ button.ko-t:hover:not(:disabled) { background: rgba(23,71,201,.07); }
 .tbl th { background: #eef3ff; font-weight: 700; }
 .tbl tr:last-child td { border-bottom: 0; }
 @media (max-width: 600px) { .tbl table { font-size: .88rem; } .tbl th, .tbl td { padding: 8px 9px; } }
+.tp-hab { margin: 6px 0 0 18px; padding: 0; }
+.tp-hab li { margin: 4px 0; line-height: 1.45; }
