@@ -1087,6 +1087,48 @@
     $("#sn-t").innerHTML = "Shots: " + pgbLk("bandeja-vs-vibora", "bandeja vs víbora") + " · Balls: " + pgbLk("padel-balls", "dead ball checker") + " · Type: " + pgbLk("control-vs-power-padel-racket", "control vs power test");
   });
 
+  /* ---------- forehand fault fixer ---------- */
+  if ($("#pf-out")) pgbPicker("pf", "pgb-pf", { prob: "net", where: "bounce", bg: "new" }, function (v) {
+    var P = {
+      net: ["Into the net", "Most forehands in the net come from chopping down with too much slice or letting the ball drop too low.", ["Meet the ball in front of you at about hip height, not by your feet.", "Push through the back of the ball on a flat path; slice only a little.", "Aim over the net with a small safety margin, then let the ball drop at their feet."], "Contact at hip height, in front"],
+      long: ["Too long or into the glass", "Long forehands are almost always pace errors: the forehand feels like your strongest shot, so you swing too hard.", ["Take some pace off and aim for the feet of the net player.", "Keep the finish short, towards the target, not over your shoulder.", "Close the face a little so the ball goes forward, not up."], "Control before pace"],
+      late: ["Late or rushed", "If the racket only goes back when the ball arrives, the whole shot is rushed.", ["Take the racket back as soon as you know it is a forehand.", "Keep the backswing short, so you are ready sooner.", "Do a split step as they hit, then move with small steps."], "Early, short backswing"],
+      ctrl: ["No control", "Spraying the ball wide usually means an arm-only hit from an open stance, or a contact too close or too far from the body.", ["Turn your shoulders and stand side-on before you hit.", "Take small adjusting steps until the ball is at the side of your body.", "Keep the face pointing at your target through contact."], "Sideways, face to target"],
+      weak: ["No depth, ball sits up", "A ball that sits up in the middle gives the net pair an easy volley.", ["Move your weight from the back foot to the front foot through the shot.", "Hit through the ball, not under it, so it stays low.", "When they are at the net, use a lob instead of trying to hit past them."], "Weight back to front"],
+      arm: ["Sore arm or wrist", "Pain often comes from a tight grip, a whippy wrist or a racket that is too heavy or head-heavy.", ["Hold the racket more loosely and let your body turn make the swing.", "Keep the wrist firm and quiet; no tennis-style brushing up.", "Check your racket weight and balance, and see a doctor or physio if pain lasts."], "Relaxed grip, quiet wrist"]
+    };
+    var W = { bounce: "Off the bounce: only if it bounced before the service line. If it bounced after it, let the glass play it.", glass: "Off the glass: wait for the ball to come back towards you, turn early and hit it at the side of your body as it drops.", mid: "Low ball in mid-court: bend your knees, get low and play a soft, low ball or a chiquita instead of a hard drive." };
+    var B = { new: "New to racket sports: drop-feed balls to yourself and rally slowly before you add pace.", ten: "From tennis: drop the big loop and the topspin brush. Shorter, flatter and calmer wins more padel points.", pad: "Experienced: vary the pace and height on purpose, and practise the yellow card, red card drill." };
+    var p = P[v.prob] || P.net;
+    $("#pf-h").textContent = p[0];
+    $("#pf-p").textContent = p[1];
+    $("#pf-fix").innerHTML = p[2].concat([W[v.where] || W.bounce]).map(function (f) { return "<li>" + f + "</li>"; }).join("");
+    pgbSpec("#pf-spec", [["Key idea", p[3]], ["Grip", "Continental"], ["For you", B[v.bg] || B.new]]);
+    $("#pf-t").innerHTML = (v.prob === "arm" ? "Arm: " + pgbLk("padel-elbow", "padel elbow check") + " · Weight: " + pgbLk("padel-racket-weight", "weight calculator") : "Glass: " + pgbLk("padel-back-glass", "back glass guide") + " · Grip: " + pgbLk("padel-grip", "grip guide")) + " · More: " + pgbLk("fix-my-padel", "fix my padel");
+  });
+
+  /* ---------- racket shape picker ---------- */
+  if ($("#rsh-out")) pgbPicker("rsh", "pgb-rsh", { lvl: "0", sty: "1", fq: "0", side: "1", arm: "0" }, function (v) {
+    var sc = (+v.lvl) * 2 + (+v.sty) * 2 + (+v.fq) + (+v.side) * 0.5;
+    var pct = Math.round(sc / 11 * 100);
+    if (v.lvl === "0") pct = Math.min(pct, 38);
+    if (v.arm === "2") pct = Math.min(pct, 45); else if (v.arm === "1") pct = Math.min(pct, 60);
+    var k = pct < 34 ? 0 : (pct < 68 ? 1 : 2);
+    var S = [
+      ["Round", "A round racket gives you the biggest sweet spot and the most control while you build your game.", "Low, about 250 to 260 mm", "About 340 to 360 g"],
+      ["Teardrop", "A teardrop gives you a little more power on overheads without losing much control.", "Medium, about 265 to 270 mm", v.lvl === "2" ? "About 355 to 375 g" : "About 345 to 365 g"],
+      ["Diamond", "A diamond puts the weight and sweet spot high for maximum power on smashes. It punishes mis-hits, so only go diamond if you hit cleanly.", "High, about 270 to 280 mm", "About 360 to 375 g"]
+    ][k];
+    var note = v.arm === "2" ? " With frequent pain, choose the lowest balance you can find and a soft core, and see a doctor or physio." : (v.arm === "1" ? " Because of some arm pain, look for the lower end of the balance range." : "");
+    if (k === 1 && pct >= 58 && v.arm === "0") note += " You are close to diamond: a teardrop with a slightly higher balance is a good bridge.";
+    if (k === 1 && pct < 42) note += " You are close to round: a low-balance teardrop is a safe step up.";
+    $("#rsh-h").textContent = S[0];
+    $("#rsh-dot").style.left = Math.max(3, Math.min(97, pct)) + "%";
+    $("#rsh-p").textContent = S[1] + note;
+    pgbSpec("#rsh-spec", [["Shape", S[0]], ["Balance", S[2]], ["Weight", v.arm === "2" ? "Lighter end of " + S[3].replace("About ", "") : S[3]], ["Core", v.arm !== "0" || v.lvl === "0" ? "Soft EVA or foam" : "Medium to hard EVA"]]);
+    $("#rsh-t").innerHTML = "Exact weight: " + pgbLk("padel-racket-weight", "weight calculator") + " · Full spec: " + pgbLk("racket-finder", "racket finder") + " · Compare: " + pgbLk("compare-padel-rackets", "two rackets");
+  });
+
   /* ---------- dead ball checker ---------- */
   var bchk = $("#bchk");
   if (bchk) {

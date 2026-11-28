@@ -103,7 +103,7 @@ sn = f'''<header class="hero"><div class="wrap"><h1>Padel racket for spin: what 
     ("Head speed", "Spin needs racket speed at contact. A relaxed grip and turning your shoulders give more speed than a tight wrist."),
     ("Fresh balls", "Balls lose pressure and felt as they age, and old balls grip less. Check yours with the dead ball checker."),
 ], pill="Tip")}</div>
-<p style="margin-top:12px">Shot guides: <a href="{href("bandeja-vs-vibora.html")}">bandeja vs víbora</a>, <a href="{href("padel-smash.html")}">the smash</a> and <a href="{href("padel-lob.html")}">the lob</a>. Ball check: <a href="{href("padel-balls.html")}">dead ball checker</a>.</p></div></section>
+<p style="margin-top:12px">Shot guides: <a href="{href("bandeja-vs-vibora.html")}">bandeja vs víbora</a>, <a href="{href("padel-smash.html")}">the smash</a> , <a href="{href("padel-lob.html")}">the lob</a> and <a href="{href("padel-forehand.html")}">the forehand</a>. Ball check: <a href="{href("padel-balls.html")}">dead ball checker</a>.</p></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>Is a spin racket worth it?</h2></div>
 <p>Buy for shape, weight and balance first; spin is a bonus. A beginner with a flat swing gains almost nothing from a rough face. An improving player who already slices the bandeja and plays the víbora will notice a textured carbon face more, especially when it is new. Diamond rackets give more head speed for attacking players, but have a smaller, higher sweet spot. Find your type with the <a href="{href("control-vs-power-padel-racket.html")}">control vs power test</a> and the <a href="{href("racket-finder.html")}">racket finder</a>.</p></div></section>
 <section><div class="wrap"><div class="aff-box"><h3>Shop rackets with spin in mind</h3><p>Look for "rough", "sand" or "3D" face finishes in the product details, after you have checked shape, weight and balance.</p><ul class="aff-links"><li><a href="{go("padel-teardrop-rackets")}" {AFF_ATTR}>Teardrop rackets</a></li><li><a href="{go("padel-diamond-rackets")}" {AFF_ATTR}>Diamond rackets</a></li><li><a href="{go("padel-black-friday-rackets")}" {AFF_ATTR}>Black Friday racket deals</a></li><li><a href="{go("padel-balls")}" {AFF_ATTR}>Fresh balls</a></li></ul>{AFF_NOTE}</div>
@@ -121,3 +121,4 @@ page("padel-racket-for-spin.html", "Padel Racket for Spin: Does a Rough Face Hel
      sn, sn_faq, "Racket for spin")
 
 DEMAND_PAGES += ["padel-racket-for-tennis-players.html", "padel-racket-for-spin.html"]
+exec((ROOT / "demand16.py").read_text())

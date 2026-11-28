@@ -45,6 +45,13 @@ lb = f'''<header class="hero"><div class="wrap"><h1>How to hit a lob in padel, a
 {_bq2("lbd", "side", "Which side is it on? (right-hander)", [("fh", "Forehand side"), ("bh", "Backhand side")], "fh")}</div>
 <aside class="result" id="lbd-out" aria-live="polite"><h2 id="lbd-h"></h2><p id="lbd-p"></p><p id="lbd-t" class="wr-src"></p></aside>
 </div></section>
+<section style="padding-top:0"><div class="wrap"><div class="sh"><h2>How to beat a pair that lobs a lot</h2></div><div class="grid">
+<div class="card"><h3>Read it early</h3><p>When an opponent gets low with an open face, a lob is coming. Turn sideways and take your first step back before they hit, not after.</p></div>
+<div class="card"><h3>Do not crowd the net</h3><p>Standing too close makes every lob a winner. Stay about 2 to 2.5 metres from the net, as in <a href="{href("positioning.html")}">where to stand</a>.</p></div>
+<div class="card"><h3>Keep the net with a bandeja</h3><p>On middle lobs, play a controlled <a href="{href("bandeja-vs-vibora.html")}">bandeja</a> deep to the corner and move forward again, instead of a risky smash.</p></div>
+<div class="card"><h3>Swap and cover</h3><p>If a lob goes over your partner, cross behind them and take it, and they move across. Call "switch" early: see <a href="{href("padel-communication.html")}">partner calls</a>.</p></div>
+<div class="card"><h3>Let the deep ones go</h3><p>A deep lob that will hit the back glass is often easier after the glass. Run back, let it come off the wall and lob back yourself to win the net again.</p></div>
+</div></div></section>
 <section style="padding-top:0"><div class="wrap"><div class="sh"><h2>When should you lob in padel?</h2></div><div class="grid">
 <div class="card"><h3>When both opponents are at the net</h3><p>The lob is the main way to move them back so your pair can take the net. Learn the rest of the plan in <a href="{href("padel-tactics.html")}">padel tactics</a>.</p></div>
 <div class="card"><h3>When you need time</h3><p>A high defensive lob buys time to get back into position after a hard ball. See <a href="{href("positioning.html")}">where to stand</a>.</p></div>
@@ -58,6 +65,7 @@ lb_faq = [
     ("Is the lob an attacking or defensive shot?", "Both. A high, safe lob defends and buys time. A lower, faster lob over a net player who is too close can win the point or the net."),
     ("Should I lob cross-court or down the line?", "Mostly cross-court, because the diagonal is longer and gives more margin. Down the line works as a surprise."),
     ("What do you do against a lob in padel?", "Turn sideways early and move back. Short lobs can be smashed or hit with a víbora; middle lobs suit a bandeja or víbora; deep lobs are often best let past onto the back glass and played from there."),
+    ("How do you play against a team that lobs a lot?", "Turn and step back early, do not stand too close to the net, keep the net with controlled bandejas, swap sides with your partner when a lob goes over them, and let very deep lobs come off the back glass."),
     ("Why do my lobs go out?", "Usually you lift your whole body, swing too hard, or hit while off balance. Stay low, use your legs, slow the swing and aim higher rather than longer."),
 ]
 page("padel-lob.html", "How to Hit a Lob in Padel + Lob Picker and Lob Answer Tool | Padel Glass Box",

@@ -336,3 +336,9 @@
 - Links: footer (both), /best-padel-racket-for-beginners tennis H2 -> tennis page, /control-vs-power-padel-racket -> spin page.
 - IndexNow pending https://padelglassbox.com/padel-racket-for-tennis-players https://padelglassbox.com/padel-racket-for-spin https://padelglassbox.com/racket-care
 - IndexNow FLUSHED 2026-11-28 09:30 PKT (all 200)
+
+## 2026-11-28 (demand run 19)
+- NEW /padel-forehand: 4-step how-to, bounce-or-glass decision table (service line), yellow card/red card drill, padel vs tennis forehand table, common mistakes, backhand H2, forehand fault fixer (problem x court position x background). Targets 'padel forehand', 'how to hit a padel forehand', 'padel forehand mistakes'. Sources: LTA Padel forehands & backhands; The Padel School 'The Padel Forehand' + 'Biggest Mistakes'.
+- NEW /padel-racket-shapes: own SVG drawings of round/teardrop/diamond with sweet spots, comparison table (balance mm, control, power, forgiveness, arm), shape vs weight, when to change shape, 5-question shape picker, AFF shape links + disclosure. Targets 'padel racket shapes', 'round vs teardrop vs diamond padel'. Sources: Playtomic, HEAD, Tennis Warehouse, Wilson (all agree on pattern; mm ranges from Tennis Warehouse).
+- CHANGED /padel-lob: H2 'How to beat a pair that lobs a lot' + FAQ. Links to new pages from /racket-balance, /padel-racket-for-spin and the footer.
+- IndexNow pending https://padelglassbox.com/padel-forehand https://padelglassbox.com/padel-racket-shapes https://padelglassbox.com/padel-lob
