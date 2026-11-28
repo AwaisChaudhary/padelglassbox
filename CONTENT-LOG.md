@@ -350,3 +350,4 @@
 - CHECKED V4 grip vs overgrip: already an H2 on /padel-overgrip; no change.
 - Links: footer (3), /padel-forehand backhand H2 -> /padel-backhand, /americano -> team generator card, /padel-calories -> benefits card.
 - IndexNow pending https://padelglassbox.com/padel-backhand https://padelglassbox.com/padel-team-generator https://padelglassbox.com/padel-benefits https://padelglassbox.com/padel-forehand https://padelglassbox.com/americano https://padelglassbox.com/padel-calories
+- IndexNow FLUSHED 2026-11-28 16:15 PKT (afternoon push, all 200)
