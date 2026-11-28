@@ -31,3 +31,4 @@ page("how-to-watch-premier-padel.html", "How to Watch Premier Padel: Red Bull TV
      "How to watch Premier Padel free: early rounds on YouTube, quarter-finals to final live on Red Bull TV (web, app, smart TV), replays, and countries where it is blocked.",
      hw, hw_faq, "How to watch Premier Padel")
 DEMAND_PAGES += ["how-to-watch-premier-padel.html"]
+exec((ROOT / "demand21.py").read_text())

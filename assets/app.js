@@ -4402,4 +4402,100 @@
     sync(); count(); draw();
   })();
 
+  /* ---------- padel match length calculator ---------- */
+  (function () {
+    var root = $("#ml"), out = $("#ml-out"); if (!root || !out) return;
+    var cfg = store.get("pgb-ml", { fmt: "3", deuce: "gp", lvl: "club", even: "even", warm: "5" });
+    $$("[data-ml]", root).forEach(function (g) {
+      var k = g.dataset.ml;
+      $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === cfg[k] ? "true" : "false"); });
+      choose(g, function (v) { cfg[k] = v; store.set("pgb-ml", cfg); calc(); });
+    });
+    var seed = 7;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    function game(p, deuce) {
+      var a = 0, b = 0, d = 0;
+      for (;;) {
+        if (rnd() < p) a++; else b++;
+        if (a >= 3 && b >= 3 && a === b) {
+          d++;
+          if (deuce === "gp" || (deuce === "star" && d >= 3)) return [rnd() < p ? 1 : 0, a + b + 1];
+        }
+        if (a >= 4 && a - b >= 2) return [1, a + b];
+        if (b >= 4 && b - a >= 2) return [0, a + b];
+      }
+    }
+    function tb(pA, pB, to) {
+      var a = 0, b = 0, n = 0;
+      for (;;) {
+        var p = (Math.floor((n + 1) / 2) % 2 === 0) ? pA : 1 - pB;
+        if (rnd() < p) a++; else b++;
+        n++;
+        if ((a >= to || b >= to) && Math.abs(a - b) >= 2) return [a > b ? 1 : 0, n];
+      }
+    }
+    function match(fmt, deuce, pA, pB, pt) {
+      var sets = [0, 0], pts = 0, games = 0, rest = 0, setsn = 0, srv = 0, need = fmt === "1" ? 1 : 2;
+      while (Math.max(sets[0], sets[1]) < need) {
+        if (setsn > 0) rest += 120;
+        if (fmt === "stb" && sets[0] === 1 && sets[1] === 1) { var t = tb(pA, pB, 10); pts += t[1]; sets[t[0] ? 0 : 1]++; setsn++; continue; }
+        var g = [0, 0], gi = 0;
+        for (;;) {
+          if (g[0] === 6 && g[1] === 6) { var r = tb(pA, pB, 7); pts += r[1]; g[r[0] ? 0 : 1]++; games++; break; }
+          var w = game(srv === 0 ? pA : pB, deuce); pts += w[1]; games++; gi++;
+          var win = srv === 0 ? (w[0] ? 0 : 1) : (w[0] ? 1 : 0);
+          g[win]++; srv = 1 - srv;
+          if ((Math.max(g[0], g[1]) >= 6 && Math.abs(g[0] - g[1]) >= 2) || Math.max(g[0], g[1]) === 7) break;
+          if (gi % 2 === 1 && gi > 1) rest += 90;
+        }
+        sets[g[0] > g[1] ? 0 : 1]++; setsn++;
+      }
+      return [(pts * pt + rest) / 60, pts, games];
+    }
+    function calc() {
+      var L = { "new": [0.52, 20], club: [0.55, 22], adv: [0.6, 26] }[cfg.lvl];
+      var edge = { even: 0, mid: 0.06, one: 0.12 }[cfg.even], warm = +cfg.warm;
+      seed = 7; var N = 2000, m = [], pts = 0, games = 0;
+      for (var i = 0; i < N; i++) { var r = match(cfg.fmt, cfg.deuce, L[0] + edge, L[0] - edge, L[1]); m.push(r[0] + warm); pts += r[1]; games += r[2]; }
+      m.sort(function (a, b) { return a - b; });
+      var avg = m.reduce(function (a, b) { return a + b; }, 0) / N, lo = m[Math.floor(N * 0.1)], hi = m[Math.floor(N * 0.9)];
+      function fit(x) { var c = 0; for (var j = 0; j < N; j++) if (m[j] <= x) c++; return Math.round(c / N * 100); }
+      var f60 = fit(60), f90 = fit(90), f120 = fit(120);
+      var tip = f90 >= 85 ? "A 90-minute booking is plenty." : f120 >= 85 ? "Book 2 hours, or play a super tie-break instead of a third set to fit 90 minutes." : "Long match: book 2 hours or more, or switch to golden point and a super tie-break.";
+      out.innerHTML = "<h2>About " + Math.round(avg) + " minutes</h2><p>Most matches like this take <strong>" + Math.round(lo) + " to " + Math.round(hi) + " minutes</strong>" + (warm ? " including the " + warm + "-minute warm-up" : "") + ".</p>" +
+        '<dl class="spec"><dt>Points played</dt><dd>About ' + Math.round(pts / N) + '</dd><dt>Games played</dt><dd>About ' + Math.round(games / N) + '</dd><dt>Fits 60 min</dt><dd>' + f60 + '% of matches</dd><dt>Fits 90 min</dt><dd>' + f90 + '% of matches</dd><dt>Fits 120 min</dt><dd>' + f120 + '% of matches</dd></dl><p>' + tip + "</p>";
+    }
+    calc();
+  })();
+
+  /* ---------- pickleball serve checker ---------- */
+  (function () {
+    var root = $("#ps"), out = $("#ps-out"); if (!root || !out) return;
+    var A = { type: "v", feet: "ok", arc: "y", wrist: "n", waist: "low", drop: "drop", spin: "n", land: "in" };
+    $$("[data-ps]", root).forEach(function (g) { choose(g, function (v) { A[g.dataset.ps] = v; calc(); }); });
+    function calc() {
+      $("#ps-v").hidden = A.type !== "v"; $("#ps-d").hidden = A.type !== "d";
+      var f = [];
+      if (A.feet === "line") f.push("Foot fault: both feet must stay behind the baseline until the ball is hit.");
+      if (A.feet === "wide") f.push("Foot fault: the server must stand between the centreline and the sideline, imagined back behind the baseline.");
+      if (A.type === "v") {
+        if (A.arc === "n") f.push("The paddle must clearly be moving in an upward arc at contact (rule 7.C.1).");
+        if (A.wrist === "y") f.push("The top of the paddle head must clearly not be above the wrist at contact (rule 7.C.2).");
+        if (A.waist === "high") f.push("The ball must clearly be no higher than the waist at contact (rule 7.C.3).");
+      } else if (A.drop === "toss") f.push("On a drop serve the ball must simply be dropped: no tossing it up, throwing it down or bouncing it.");
+      if (A.spin === "y") f.push("No spin may be added with the hand when releasing the ball (rule 7.B.2). Spin from the paddle is fine.");
+      if (A.land === "kline") f.push("The kitchen line is part of the kitchen, so the serve did not clear it.");
+      if (A.land === "k") f.push("The serve must clear the kitchen (non-volley zone).");
+      if (A.land === "out") f.push("The serve must land in the service court diagonally opposite.");
+      if (f.length) {
+        out.className = "result fault";
+        out.innerHTML = "<h2>Fault</h2><ul><li>" + f.join("</li><li>") + "</li></ul><p>There is no second serve: the serve passes to the partner, or to the other side.</p>";
+      } else {
+        out.className = "result good";
+        out.innerHTML = "<h2>Legal serve</h2><p>" + (A.land === "net" ? "Touching the net is fine: there are no service lets, so the ball is in play. " : A.land === "line" ? "Sidelines, the centreline and the baseline are in on the serve. " : "") + "Play on. Remember the two-bounce rule: the return must bounce, and so must the serving side's next shot.</p>";
+      }
+    }
+    calc();
+  })();
+
 })();

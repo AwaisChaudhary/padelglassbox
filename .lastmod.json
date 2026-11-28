@@ -196,8 +196,8 @@
 "2026-11-27"
 ],
 "padel-grip.html": [
-"bb728af4b1ea83a1",
-"2026-11-27"
+"a8700570c6f04b10",
+"2026-11-28"
 ],
 "padel-group-stage-generator.html": [
 "1e21b153d1dd230c",
@@ -221,6 +221,10 @@
 ],
 "padel-lob.html": [
 "1a50579f583ee1c9",
+"2026-11-28"
+],
+"padel-match-length.html": [
+"883477890134fec3",
 "2026-11-28"
 ],
 "padel-match-tracker.html": [
@@ -328,12 +332,16 @@
 "2026-11-27"
 ],
 "pickleball-rules.html": [
-"9ff07c9fb926cd2c",
-"2026-11-27"
+"327d2835366b0517",
+"2026-11-28"
 ],
 "pickleball-score.html": [
 "422a3494ae363b56",
 "2026-11-27"
+],
+"pickleball-serve-rules.html": [
+"fb16f211e84dfe51",
+"2026-11-28"
 ],
 "positioning.html": [
 "3917497515a6ac1a",
@@ -368,8 +376,8 @@
 "2026-11-28"
 ],
 "rules.html": [
-"adfb0cc99cec19e6",
-"2026-11-27"
+"34ce4369870d5c31",
+"2026-11-28"
 ],
 "score.html": [
 "918dfe26b03970a3",
