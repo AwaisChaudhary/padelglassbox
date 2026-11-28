@@ -141,3 +141,4 @@ page("padel-racket-shapes.html", "Padel Racket Shapes: Round vs Teardrop vs Diam
      rs, rs_faq, "Racket shapes")
 
 DEMAND_PAGES += ["padel-forehand.html", "padel-racket-shapes.html"]
+exec((ROOT / "demand17.py").read_text())
