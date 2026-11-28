@@ -335,3 +335,4 @@
 - FIX app.js: compare-rackets block threw on /racket-care (shared #rc-out id); guarded.
 - Links: footer (both), /best-padel-racket-for-beginners tennis H2 -> tennis page, /control-vs-power-padel-racket -> spin page.
 - IndexNow pending https://padelglassbox.com/padel-racket-for-tennis-players https://padelglassbox.com/padel-racket-for-spin https://padelglassbox.com/racket-care
+- IndexNow FLUSHED 2026-11-28 09:30 PKT (all 200)
