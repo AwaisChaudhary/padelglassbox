@@ -174,3 +174,5 @@ page("padel-benefits.html", "Benefits of Padel: Health, Fitness and Mood (What S
      bn, bn_faq, "Benefits of padel")
 
 DEMAND_PAGES += ["padel-backhand.html", "padel-team-generator.html", "padel-benefits.html"]
+
+exec((ROOT / "demand19.py").read_text())

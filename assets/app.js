@@ -4273,4 +4273,133 @@
     $("#bn-t").innerHTML = "Calories: " + pgbLk("padel-calories", "calories calculator") + " · Strength: " + pgbLk("padel-workout", "workout builder") + " · Safety: " + pgbLk("padel-injuries", "injury prevention");
   });
 
+  /* ---------- padel league: divisions, fixtures, table, promotion ---------- */
+  (function () {
+    var root = $("#lg-setup"); if (!root || !$("#lg-divs")) return;
+    var ta = $("#lg-names"), err = $("#lg-err"), live = $("#lg-live"), box = $("#lg-divs");
+    var cfg = store.get("pgb-lg-cfg", { size: "5", legs: "1", pts: "4321", move: "1" });
+    var L = store.get("pgb-lg", null);
+    function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+    function names() { return ta.value.split("\n").map(function (s) { return s.trim(); }).filter(Boolean); }
+    function count() { var n = names().length; $("#lg-count").textContent = n ? n + " pairs" : ""; }
+    function sync() { $$("[data-lg] button", root).forEach(function (b) { b.setAttribute("aria-pressed", String(cfg[b.parentNode.dataset.lg] === b.dataset.v)); }); }
+    $$("[data-lg]", root).forEach(function (g) { choose(g, function (v) { cfg[g.dataset.lg] = v; store.set("pgb-lg-cfg", cfg); }); });
+    function split(list, size) {
+      var d = Math.max(1, Math.round(list.length / size)); while (d > 1 && Math.floor(list.length / d) < 3) d--;
+      var out = [], base = Math.floor(list.length / d), extra = list.length % d, i = 0;
+      for (var k = 0; k < d; k++) { var s = base + (k < extra ? 1 : 0); out.push(list.slice(i, i + s)); i += s; }
+      return out;
+    }
+    function rounds(n, legs) {
+      var ids = []; for (var i = 0; i < n; i++) ids.push(i); if (n % 2) ids.push(-1);
+      var m = ids.length, R = [];
+      for (var r = 0; r < m - 1; r++) {
+        var wk = [];
+        for (var j = 0; j < m / 2; j++) { var a = ids[j], b = ids[m - 1 - j]; if (a >= 0 && b >= 0) wk.push(r % 2 ? [b, a] : [a, b]); }
+        R.push(wk); ids.splice(1, 0, ids.pop());
+      }
+      if (legs === "2") R = R.concat(R.map(function (wk) { return wk.map(function (p) { return [p[1], p[0]]; }); }));
+      return R;
+    }
+    function build(list, season) {
+      var divs = split(list, +cfg.size).map(function (ps) { return { p: ps, w: rounds(ps.length, cfg.legs), s: {} }; });
+      return { cfg: JSON.parse(JSON.stringify(cfg)), season: season || 1, divs: divs };
+    }
+    function parse(t) {
+      var sets = (t || "").match(/\d+\s*[-:]\s*\d+/g); if (!sets) return null;
+      var r = { a: 0, b: 0, ga: 0, gb: 0 };
+      sets.forEach(function (s) { var x = s.split(/[-:]/).map(function (n) { return +n.trim(); }); if (x[0] === x[1]) return; if (x[0] > x[1]) r.a++; else r.b++; r.ga += x[0]; r.gb += x[1]; });
+      return r.a + r.b ? r : null;
+    }
+    function pts(w, l, sys) {
+      if (w === l) return sys === "3" ? [1, 1] : [2, 2];
+      if (sys === "3") return [3, 0];
+      return [l === 0 ? 4 : 3, l === 0 ? 1 : 2];
+    }
+    function table(d) {
+      var T = d.p.map(function (n, i) { return { i: i, n: n, P: 0, W: 0, L: 0, sf: 0, sa: 0, gf: 0, ga: 0, pt: 0 }; });
+      d.w.forEach(function (wk, wi) { wk.forEach(function (m, mi) {
+        var r = parse(d.s[wi + "-" + mi]); if (!r) return;
+        var A = T[m[0]], B = T[m[1]], hi = Math.max(r.a, r.b), lo = Math.min(r.a, r.b), p = pts(hi, lo, L.cfg.pts);
+        A.P++; B.P++; A.sf += r.a; A.sa += r.b; B.sf += r.b; B.sa += r.a; A.gf += r.ga; A.ga += r.gb; B.gf += r.gb; B.ga += r.ga;
+        if (r.a > r.b) { A.W++; B.L++; A.pt += p[0]; B.pt += p[1]; } else if (r.b > r.a) { B.W++; A.L++; B.pt += p[0]; A.pt += p[1]; } else { A.pt += p[0]; B.pt += p[1]; }
+      }); });
+      return T.sort(function (x, y) { return y.pt - x.pt || (y.sf - y.sa) - (x.sf - x.sa) || (y.gf - y.ga) - (x.gf - x.ga) || y.gf - x.gf || x.i - y.i; });
+    }
+    function moveN(d) { return Math.min(+L.cfg.move, Math.floor(d.p.length / 2) - 1 || 1); }
+    function tblHtml(d, k) {
+      var T = table(d), n = moveN(d), last = L.divs.length - 1, any = T.some(function (r) { return r.P > 0; });
+      var h = '<div style="overflow-x:auto"><table class="mt mt-plain"><thead><tr><th scope="col">#</th><th scope="col">Pair</th><th scope="col">P</th><th scope="col">W</th><th scope="col">L</th><th scope="col">Sets +/-</th><th scope="col">Games +/-</th><th scope="col">Pts</th></tr></thead><tbody>';
+      T.forEach(function (r, i) {
+        var tag = "";
+        if (any && k > 0 && i < n) tag = ' <span class="pill b" style="font-size:.7rem">up</span>';
+        if (any && k < last && i >= T.length - n) tag = ' <span class="pill" style="font-size:.7rem">down</span>';
+        if (any && k === 0 && i === 0) tag = ' <span class="pill b" style="font-size:.7rem">top</span>';
+        var sd = r.sf - r.sa, gd = r.gf - r.ga;
+        h += "<tr><td>" + (i + 1) + "</td><td>" + esc(r.n) + tag + "</td><td>" + r.P + "</td><td>" + r.W + "</td><td>" + r.L + "</td><td>" + (sd > 0 ? "+" : "") + sd + "</td><td>" + (gd > 0 ? "+" : "") + gd + "</td><td><strong>" + r.pt + "</strong></td></tr>";
+      });
+      return h + "</tbody></table></div>";
+    }
+    function draw() {
+      if (!L) { live.hidden = true; root.hidden = false; return; }
+      root.hidden = true; live.hidden = false;
+      var played = 0, total = 0;
+      var h = "";
+      L.divs.forEach(function (d, k) {
+        h += '<div class="card" style="margin-top:14px" data-div="' + k + '"><h2 style="font-size:1.3rem">Division ' + (k + 1) + '</h2><div class="lg-tbl">' + tblHtml(d, k) + "</div>";
+        d.w.forEach(function (wk, wi) {
+          h += '<h3 style="margin:16px 0 6px;font-size:1rem">Week ' + (wi + 1) + "</h3>";
+          if (!wk.length) h += '<p class="muted">No match.</p>';
+          wk.forEach(function (m, mi) {
+            var key = wi + "-" + mi, v = d.s[key] || ""; total++; if (parse(v)) played++;
+            h += '<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0"><span style="flex:1 1 220px">' + esc(d.p[m[0]]) + " <span class=\"muted\">v</span> " + esc(d.p[m[1]]) + '</span><input class="search" style="flex:0 1 160px;min-width:0;margin:0;padding:8px 10px" data-k="' + key + '" value="' + esc(v) + '" placeholder="6-4 3-6 10-7" aria-label="Score: ' + esc(d.p[m[0]]) + " v " + esc(d.p[m[1]]) + '" inputmode="text"></div>';
+          });
+          var rest = d.p.length % 2 ? d.p.filter(function (_, i) { return !wk.some(function (m) { return m[0] === i || m[1] === i; }); }) : [];
+          if (rest.length) h += '<p class="muted" style="margin:2px 0;font-size:.85rem">Rest week: ' + esc(rest.join(", ")) + "</p>";
+        });
+        h += "</div>";
+      });
+      box.innerHTML = h;
+      var weeks = Math.max.apply(null, L.divs.map(function (d) { return d.w.length; }));
+      $("#lg-sum").textContent = "Season " + L.season + " · " + L.divs.length + " division" + (L.divs.length > 1 ? "s" : "") + " · " + weeks + " weeks · " + played + "/" + total + " played";
+      $$("input[data-k]", box).forEach(function (inp) {
+        inp.addEventListener("input", function () {
+          var k = +inp.closest("[data-div]").dataset.div, d = L.divs[k];
+          d.s[inp.dataset.k] = inp.value; store.set("pgb-lg", L);
+          inp.closest("[data-div]").querySelector(".lg-tbl").innerHTML = tblHtml(d, k);
+          var pl = 0, tt = 0; L.divs.forEach(function (dd) { dd.w.forEach(function (wk, wi) { wk.forEach(function (m, mi) { tt++; if (parse(dd.s[wi + "-" + mi])) pl++; }); }); });
+          $("#lg-sum").textContent = "Season " + L.season + " · " + L.divs.length + " division" + (L.divs.length > 1 ? "s" : "") + " · " + weeks + " weeks · " + pl + "/" + tt + " played";
+        });
+      });
+    }
+    $("#lg-start").addEventListener("click", function () {
+      var n = names();
+      if (n.length < 4) { err.textContent = "Add at least 4 pairs, one per line."; return; }
+      if (n.length > 36) { err.textContent = "Up to 36 pairs, please."; return; }
+      err.textContent = ""; L = build(n, 1); store.set("pgb-lg", L); draw(); window.scrollTo(0, live.offsetTop - 80);
+    });
+    $("#lg-demo").addEventListener("click", function () {
+      ta.value = "Sam & Priya\nOmar & Lucia\nBen & Aisha\nTom & Noor\nLeo & Mia\nRaj & Ella\nKai & Zoe\nDan & Fatima\nJon & Ines\nAli & Grace"; count();
+    });
+    $("#lg-new").addEventListener("click", function () { if (!confirm("Start a new league? This clears the current one on this device.")) return; L = null; store.set("pgb-lg", null); draw(); });
+    $("#lg-next").addEventListener("click", function () {
+      var tabs = L.divs.map(function (d) { return table(d).map(function (r) { return r.n; }); });
+      for (var k = 0; k < tabs.length - 1; k++) {
+        var n = Math.min(moveN(L.divs[k]), moveN(L.divs[k + 1])), up = tabs[k + 1].splice(0, n), down = tabs[k].splice(tabs[k].length - n, n);
+        tabs[k] = tabs[k].concat(up); tabs[k + 1] = down.concat(tabs[k + 1]);
+      }
+      var season = L.season + 1, old = cfg; cfg = L.cfg;
+      var nl = { cfg: L.cfg, season: season, divs: tabs.map(function (ps) { return { p: ps, w: rounds(ps.length, L.cfg.legs), s: {} }; }) };
+      cfg = old; L = nl; store.set("pgb-lg", L); draw(); toast("Season " + season + " ready");
+    });
+    $("#lg-copy").addEventListener("click", function () {
+      var t = "Padel league, season " + L.season + "\n";
+      L.divs.forEach(function (d, k) { t += "\nDivision " + (k + 1) + "\n"; table(d).forEach(function (r, i) { t += (i + 1) + ". " + r.n + " " + r.pt + " pts (P" + r.P + " W" + r.W + ")\n"; }); });
+      t += "\nMade with padelglassbox.com/padel-league";
+      try { navigator.clipboard.writeText(t).then(function () { toast("Tables copied"); }, function () { toast("Copy failed"); }); } catch (e) { toast("Copy failed"); }
+    });
+    ta.addEventListener("input", count);
+    sync(); count(); draw();
+  })();
+
 })();

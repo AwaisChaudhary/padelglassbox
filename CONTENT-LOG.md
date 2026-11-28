@@ -351,3 +351,10 @@
 - Links: footer (3), /padel-forehand backhand H2 -> /padel-backhand, /americano -> team generator card, /padel-calories -> benefits card.
 - IndexNow pending https://padelglassbox.com/padel-backhand https://padelglassbox.com/padel-team-generator https://padelglassbox.com/padel-benefits https://padelglassbox.com/padel-forehand https://padelglassbox.com/americano https://padelglassbox.com/padel-calories
 - IndexNow FLUSHED 2026-11-28 16:15 PKT (afternoon push, all 200)
+
+## 28 Nov 2026 (demand-first run 21)
+- NEW /padel-league (tool): padel league generator: pairs -> divisions of 4/5/6/8, week-by-week fixtures (circle method, once or twice), live table (4-3-2-1 by sets or 3 for a win; points, set diff, game diff, games won), up/down tags, one-tap next season with promotion/relegation (1 or 2), copy tables. Guide H2s: how to run a league, points systems, promotion/relegation, tie-breaks, league vs ladder vs round robin, league rules. Targets 'padel league', 'how to run a padel league', 'padel league format', 'padel league points'. Sources: The Padel School, Roehampton Club league rules, Playtomic Manager leagues help, LTA Padel National League.
+- CHANGED /padel-injuries: H2 'Can a padel ball hurt your eye? Should you wear glasses?' + evidence table + 4 tips + 2 FAQs. Targets 'padel eye injury', 'padel glasses', 'should you wear goggles for padel'. Sources: University of Gothenburg (2021), News-Medical (2021), NL Times 1 Oct 2026 (Dutch Ophthalmological Society, Swedish regional study).
+- CHANGED /padel-booking-apps: H2 'How do open matches work, and how do you find a regular padel partner?' + table + 2 FAQs. Targets 'find a padel partner', 'padel open match'. Sources: Playtomic Player Help, Padel Browser (12 Aug 2026), Padel Speed (1 May 2026), LTA Padel.
+- Links: footer + /round-robin what-next + /padel-booking-apps -> /padel-league.
+- IndexNow pending https://padelglassbox.com/padel-league https://padelglassbox.com/padel-injuries https://padelglassbox.com/padel-booking-apps https://padelglassbox.com/round-robin
