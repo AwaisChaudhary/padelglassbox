@@ -83,3 +83,4 @@ page("padel-league.html", "Padel League Generator: Divisions, Fixtures, Table, P
      lg, lg_faq, "Padel league generator")
 
 DEMAND_PAGES += ["padel-league.html"]
+exec((ROOT / "demand20.py").read_text())
